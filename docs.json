@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Verdent",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -11,58 +11,92 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Verdent for VSCode",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "getting-started/overview",
+              "getting-started/core-concepts",
+              "getting-started/system-requirements",
+              "getting-started/installation",
+              "getting-started/quick-start",
+              "getting-started/interface"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Task-Based Guides",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "user-guide/task-based-guides/writing-code",
+              "user-guide/task-based-guides/understanding-code",
+              "user-guide/task-based-guides/refactoring",
+              "user-guide/task-based-guides/testing-debugging"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Common Workflows",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "user-guide/common-workflows/multi-step-tasks",
+              "user-guide/common-workflows/large-codebases",
+              "user-guide/common-workflows/version-control",
+              "user-guide/common-workflows/images"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Execution & Resources",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+              "user-guide/execution-modes/overview",
+              "user-guide/resource-management/monitoring"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Best Practices",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "user-guide/best-practices/prompts",
+              "user-guide/best-practices/context",
+              "user-guide/error-handling/errors"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "advanced/configuration/settings",
+              "advanced/plan-workflows/overview",
+              "advanced/optimization/tuning"
+            ]
+          },
+          {
+            "group": "Agents & Rules",
+            "pages": [
+              "advanced/subagent-management/overview",
+              "advanced/rule-systems/overview"
+            ]
+          },
+          {
+            "group": "Advanced Features",
+            "pages": [
+              "advanced/features/overview",
+              "advanced/tool-system/reference",
+              "advanced/integration/mcp",
+              "advanced/toolchain/extensibility"
+            ]
+          },
+          {
+            "group": "Help & Support",
+            "pages": [
+              "reference/troubleshooting/common-issues",
+              "reference/faqs/general",
+              "reference/limitations/overview"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/command-reference/commands",
+              "reference/version-history/changelog",
+              "reference/security/overview",
+              "reference/support/resources"
             ]
           }
         ]
@@ -71,14 +105,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Website",
+          "href": "https://verdent.ai",
+          "icon": "globe"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Discord",
+          "href": "https://discord.gg/NGjXEZcbJq",
+          "icon": "discord"
         }
       ]
     }
@@ -91,13 +125,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@verdent.ai"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://verdent.ai/dashboard"
     }
   },
   "contextual": {
@@ -114,9 +148,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/verdent",
+      "github": "https://github.com/verdent",
+      "linkedin": "https://linkedin.com/company/verdent"
     }
   }
 }
