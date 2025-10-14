@@ -17,86 +17,86 @@
             "group": "Getting Started",
             "pages": [
               "index",
-              "getting-started/overview",
-              "getting-started/core-concepts",
-              "getting-started/system-requirements",
-              "getting-started/installation",
-              "getting-started/quick-start",
-              "getting-started/interface"
+              "verdent-for-vscode/getting-started/overview",
+              "verdent-for-vscode/getting-started/core-concepts",
+              "verdent-for-vscode/getting-started/system-requirements",
+              "verdent-for-vscode/getting-started/installation",
+              "verdent-for-vscode/getting-started/quick-start",
+              "verdent-for-vscode/getting-started/interface"
             ]
           },
           {
             "group": "Task-Based Guides",
             "pages": [
-              "user-guide/task-based-guides/writing-code",
-              "user-guide/task-based-guides/understanding-code",
-              "user-guide/task-based-guides/refactoring",
-              "user-guide/task-based-guides/testing-debugging"
+              "verdent-for-vscode/task-based-guides/writing-code",
+              "verdent-for-vscode/task-based-guides/understanding-code",
+              "verdent-for-vscode/task-based-guides/refactoring",
+              "verdent-for-vscode/task-based-guides/testing-debugging"
             ]
           },
           {
             "group": "Common Workflows",
             "pages": [
-              "user-guide/common-workflows/multi-step-tasks",
-              "user-guide/common-workflows/large-codebases",
-              "user-guide/common-workflows/version-control",
-              "user-guide/common-workflows/images"
+              "verdent-for-vscode/common-workflows/multi-step-tasks",
+              "verdent-for-vscode/common-workflows/large-codebases",
+              "verdent-for-vscode/common-workflows/version-control",
+              "verdent-for-vscode/common-workflows/images"
             ]
           },
           {
             "group": "Execution & Resources",
             "pages": [
-              "user-guide/execution-modes/overview",
-              "user-guide/resource-management/monitoring"
+              "verdent-for-vscode/execution-resources/overview",
+              "verdent-for-vscode/execution-resources/monitoring"
             ]
           },
           {
             "group": "Best Practices",
             "pages": [
-              "user-guide/best-practices/prompts",
-              "user-guide/best-practices/context",
-              "user-guide/error-handling/errors"
+              "verdent-for-vscode/best-practices/prompts",
+              "verdent-for-vscode/best-practices/context",
+              "verdent-for-vscode/best-practices/errors"
             ]
           },
           {
             "group": "Configuration",
             "pages": [
-              "advanced/configuration/settings",
-              "advanced/plan-workflows/overview",
-              "advanced/optimization/tuning"
+              "verdent-for-vscode/configuration/settings",
+              "verdent-for-vscode/configuration/plan-workflows",
+              "verdent-for-vscode/configuration/tuning"
             ]
           },
           {
             "group": "Agents & Rules",
             "pages": [
-              "advanced/subagent-management/overview",
-              "advanced/rule-systems/overview"
+              "verdent-for-vscode/agents-rules/subagent-management",
+              "verdent-for-vscode/agents-rules/rule-systems"
             ]
           },
           {
             "group": "Advanced Features",
             "pages": [
-              "advanced/features/overview",
-              "advanced/tool-system/reference",
-              "advanced/integration/mcp",
-              "advanced/toolchain/extensibility"
+              "verdent-for-vscode/advanced-features/overview",
+              "verdent-for-vscode/advanced-features/tool-reference",
+              "verdent-for-vscode/advanced-features/mcp",
+              "verdent-for-vscode/advanced-features/extensibility"
             ]
           },
           {
             "group": "Help & Support",
             "pages": [
-              "reference/troubleshooting/common-issues",
-              "reference/faqs/general",
-              "reference/limitations/overview"
+              "verdent-for-vscode/help-support/common-issues",
+              "verdent-for-vscode/help-support/faqs",
+              "verdent-for-vscode/help-support/limitations"
             ]
           },
           {
             "group": "Reference",
             "pages": [
-              "reference/command-reference/commands",
-              "reference/version-history/changelog",
-              "reference/security/overview",
-              "reference/support/resources"
+              "verdent-for-vscode/reference/commands",
+              "verdent-for-vscode/reference/changelog",
+              "verdent-for-vscode/reference/security",
+              "verdent-for-vscode/reference/resources"
             ]
           }
         ]
