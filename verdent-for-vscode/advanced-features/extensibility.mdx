@@ -1,22 +1,512 @@
 ---
-title: Toolchain Extensibility
-description: Extending Verdent's toolchain capabilities
+title: Extensibility & Customization
+description: Extend Verdent's capabilities through custom subagents, rules, and MCP integration
 ---
 
 
 
-## Extending Tool Capabilities
+### What You'll Learn
 
-[Content to be added]
+How to customize and extend Verdent for VS Code using three powerful extensibility methods: custom subagents, rule systems, and MCP integration.
 
-## Custom Tool Integration
+---
 
-[Content to be added]
+## Extensibility Overview
 
-## MCP Integration Patterns
+Verdent for VS Code provides three primary methods to extend its capabilities and customize behavior:
 
-[Content to be added]
+1. **Custom Subagents** - Create specialized AI agents for domain-specific tasks
+2. **Rules System** - Guide behavior through user_rules.md, AGENTS.md, and plan_rules.md
+3. **MCP Integration** - Connect external tools and services via Model Context Protocol
 
-## Tool Configuration Reference
+Each method serves different customization needs and can be combined for comprehensive workflow optimization.
 
-[Content to be added]
+---
+
+## Method 1: Custom Subagents
+
+### Overview
+
+Custom subagents are specialized AI agents with dedicated system prompts, invocation policies, and task-specific expertise. They extend Verdent's built-in subagents (`@Verifier`, `@Explorer`, `@Code-reviewer`) with project-specific capabilities.
+
+**Storage Location:** `~/.verdent/subagents/`
+
+### Creating Custom Subagents
+
+**File Structure:**
+```markdown
+---
+name: subagent-name
+description: One-line purpose description
+---
+# System Prompt
+
+[Behavior definition, personality, task interpretation approach]
+
+Invocation policy (strict|flexible): Policy description
+
+When to use:
+- Scenario 1
+- Scenario 2
+
+When NOT to use:
+- Avoid scenario 1
+- Avoid scenario 2
+```
+
+**Creation Methods:**
+
+**Method 1: Settings Menu**
+1. Settings → Subagents
+2. "Create new subagent"
+3. Define name, description, system prompt
+4. Configure invocation policy
+5. Save to `~/.verdent/subagents/`
+
+**Method 2: Direct File Creation**
+1. Navigate to `~/.verdent/subagents/`
+2. Create markdown file (e.g., `security-reviewer.md`)
+3. Add YAML frontmatter
+4. Write system prompt and usage guidelines
+
+### Use Cases for Custom Subagents
+
+**Domain-Specific Expertise:**
+- **Financial calculations:** Tax compliance, financial regulations
+- **Healthcare HIPAA compliance:** Patient data handling standards
+- **Cryptography:** Security implementation best practices
+
+**Team-Specific Workflows:**
+- **Code style enforcers:** Team coding standards beyond linter rules
+- **Documentation consistency:** Ensure docs follow team templates
+- **Dependency auditors:** Monitor third-party packages against approved lists
+
+**Technology Stack Specialists:**
+- **React performance optimizers:** Identify unnecessary re-renders
+- **SQL query optimizers:** Analyze and improve database performance
+- **Docker configuration reviewers:** Validate containerization practices
+
+**Quality Assurance:**
+- **Test coverage analyzers:** Identify untested code paths
+- **Error handling reviewers:** Ensure comprehensive exception handling
+- **Logging standards enforcers:** Verify logging practices
+
+### Example: API Documentation Generator
+
+```markdown
+---
+name: api-documenter
+description: Generates comprehensive API documentation from code
+---
+# System Prompt
+
+You are an API documentation specialist.
+
+Documentation approach:
+- Extract endpoints, parameters, and responses from code
+- Generate OpenAPI/Swagger specifications
+- Include usage examples and error codes
+- Document authentication requirements
+
+Output format:
+- Markdown tables for endpoints
+- Code examples in multiple languages
+- Authentication flow diagrams
+
+Invocation policy (strict): Only run when explicitly requested.
+
+When to use:
+- User requests API documentation generation
+- Need to document REST/GraphQL endpoints
+- Creating developer guides
+
+When NOT to use:
+- Inline code comments
+- User-facing documentation
+```
+
+**Usage:**
+```
+@api-documenter document the /api/users endpoints
+```
+
+### Example: Database Migration Reviewer
+
+```markdown
+---
+name: migration-reviewer
+description: Reviews database migrations for safety and correctness
+---
+# System Prompt
+
+You are a database migration safety specialist.
+
+Review checklist:
+- Check for destructive operations (DROP, DELETE without WHERE)
+- Verify reversible migrations (up/down compatibility)
+- Identify potential data loss scenarios
+- Validate index creation strategies
+- Check for blocking operations on large tables
+
+Risk assessment:
+- Categorize migrations: low/medium/high risk
+- Recommend staging environment testing for high-risk changes
+- Suggest rollback procedures
+
+Invocation policy (strict): Only run when explicitly requested.
+
+When to use:
+- User creates or modifies migration files
+- Pre-deployment migration review
+- Investigating migration failures
+
+When NOT to use:
+- Schema design from scratch
+- Query optimization
+```
+
+### Invocation Policies
+
+**Strict Policy:**
+- Subagent only runs when explicitly requested via @-mention
+- User maintains full control over invocation
+- Best for specialized, occasional-use subagents
+
+**Flexible Policy:**
+- Allows automatic invocation based on task pattern detection
+- Main agent routes matching tasks automatically
+- Best for frequently-used, well-defined subagents
+
+---
+
+## Method 2: Rules System
+
+### Overview
+
+Rule files are Markdown documents that guide Verdent's behavior, output formatting, and decision-making without code changes. Three rule types provide comprehensive customization:
+
+| Rule Type | Scope | Priority | Storage |
+|-----------|-------|----------|---------|
+| **user_rules.md** | Global across all projects | Medium | `~/.verdent/user_rules.md` |
+| **AGENTS.md** | Project-specific (team) | Highest | Project root directory |
+| **plan_rules.md** | Plan Mode formatting | Independent | `~/.verdent/plan_rules.md` |
+
+### Rule Precedence
+
+When conflicts occur:
+1. **AGENTS.md** (highest) - Project rules override user preferences
+2. **user_rules.md** (medium) - Applied when no project conflict
+3. **Default behavior** (lowest) - Verdent's built-in defaults
+
+**Example Conflict:**
+```
+user_rules.md: "Use 2-space indentation"
+AGENTS.md: "Use 4-space indentation for this project"
+→ Result: 4-space indentation (project rules win)
+```
+
+### user_rules.md (Global Preferences)
+
+**Purpose:** Personal coding style and preferences across all projects
+
+**Example:**
+```markdown
+# User Rules
+
+## TypeScript Preferences
+- Use strict mode in tsconfig.json
+- Prefer interfaces over type aliases
+- Include return types on all functions
+
+## Code Organization
+- One component per file
+- Named exports instead of default exports
+- Organize imports: external, internal, types
+
+## Documentation
+- TSDoc comments for public APIs
+- Include @param and @returns tags
+
+## Communication
+- Provide explanations before showing code
+- Highlight breaking changes explicitly
+```
+
+**Access:** Settings → Rules → User Rules
+
+### AGENTS.md (Project Rules)
+
+**Purpose:** Team-wide coding standards and project-specific conventions
+
+**Example:**
+```markdown
+# AGENTS.md
+
+## Dev environment tips
+- Use `pnpm dlx turbo run where <project_name>` to navigate
+- Run `pnpm install --filter <project_name>` for dependencies
+- Check package.json name field for correct package name
+
+## Testing instructions
+- Run `pnpm turbo run test --filter <project_name>`
+- From package root: `pnpm test`
+- Focus on one test: `pnpm vitest run -t "<test name>"`
+- Fix all errors before merge
+
+## PR instructions
+- Title format: [<project_name>] <Title>
+- Always run `pnpm lint` and `pnpm test` before committing
+```
+
+**Access:** Project root directory (version controlled)
+
+### plan_rules.md (Plan Customization)
+
+**Purpose:** Control Plan Mode output format and detail level
+
+**Example:**
+```markdown
+# Plan Rules
+
+## Plan Structure
+- Start with brief summary (2-3 sentences)
+- Include estimated time for each major step
+- List prerequisites before implementation steps
+- Identify potential risks
+
+## Level of Detail
+- Break tasks into subtasks of 15-30 minutes
+- Include specific file paths for modifications
+- List functions/components to create/modify
+
+## Format
+- Use numbered lists for sequential steps
+- Use bullet points for options
+- Include code snippets for complex changes
+```
+
+**Access:** Settings → Rules → Plan Rules
+
+### Rule Writing Best Practices
+
+**Be Specific and Directive:**
+```
+✓ Good: "Always use async/await for asynchronous operations"
+✗ Vague: "Try to use modern JavaScript"
+```
+
+**Organize Logically:**
+- Group related rules under section headers
+- Separate concerns (style, testing, documentation, security)
+- Use consistent structure across files
+
+**Prioritize Critical Rules:**
+- Place important rules first in each section
+- Use emphasis for non-negotiable standards: `**NEVER** commit credentials`
+- Focus on bug prevention and security
+
+**Test Effectiveness:**
+- Start new conversation to verify rule application
+- Refine rules based on actual agent behavior
+- Update as project evolves
+
+---
+
+## Method 3: MCP Integration
+
+### Overview
+
+Model Context Protocol (MCP) extends Verdent by connecting external tools, data sources, and services. MCP servers act as bridges between Verdent and external systems.
+
+**Configuration:** `~/.verdent/mcp.json` via Settings → MCP Servers
+
+### MCP Capabilities
+
+**External System Access:**
+- Database query tools (PostgreSQL, MySQL, MongoDB)
+- Cloud service APIs (AWS, Azure, GCP)
+- Project management (Jira, Linear, Asana)
+- CI/CD pipelines (Jenkins, GitHub Actions)
+- Monitoring services (Datadog, New Relic)
+
+**Custom Tool Development:**
+Create MCP servers for proprietary systems:
+- Internal API integrations
+- Legacy system bridges
+- Specialized data sources
+- Workflow automation tools
+
+### MCP vs. Custom Subagents vs. Rules
+
+| Need | Best Method | Why |
+|------|-------------|-----|
+| Specialized AI analysis | Custom Subagent | Requires AI reasoning with custom context |
+| Coding standards enforcement | Rules (AGENTS.md) | Simple behavior guidance |
+| External database access | MCP Integration | Requires connection to external system |
+| Personal coding preferences | Rules (user_rules.md) | Global behavior customization |
+| Team conventions | Rules (AGENTS.md) | Shared project standards |
+| API integration | MCP Integration | External service interaction |
+| Plan format customization | Rules (plan_rules.md) | Plan Mode output control |
+| Domain expertise (finance, healthcare) | Custom Subagent | Specialized knowledge application |
+
+### Example: Combining All Three Methods
+
+**Scenario:** Full-stack development team with strict compliance requirements
+
+**Custom Subagent:**
+```markdown
+---
+name: compliance-auditor
+description: Audits code for regulatory compliance (SOC2, HIPAA)
+---
+[System prompt for compliance checking]
+```
+
+**AGENTS.md (Project Rules):**
+```markdown
+## Security Standards
+- All API endpoints must validate inputs
+- Never log PII or credentials
+- Encrypt sensitive data at rest and in transit
+
+## Compliance
+- Run @compliance-auditor before all PRs
+- Document data retention policies in code comments
+- Include audit trails for data access
+```
+
+**MCP Integration:**
+- **Compliance database MCP server:** Check operations against compliance rules
+- **Audit log MCP server:** Record all sensitive data access
+
+**Workflow:**
+```
+User: "Create endpoint for user profile updates"
+Verdent: [Applies AGENTS.md rules]
+         [Generates secure endpoint with validation]
+         [Automatically invokes @compliance-auditor]
+         [Uses MCP to log operation in audit system]
+         Result: Compliant, secure, audited endpoint
+```
+
+---
+
+## Extensibility Best Practices
+
+### Start Simple, Scale Up
+
+**Progressive Adoption:**
+1. **Phase 1:** Start with basic rules (user_rules.md or AGENTS.md)
+2. **Phase 2:** Add custom subagents for repeated specialized tasks
+3. **Phase 3:** Integrate MCP for external system connections
+
+### Combine Methods Strategically
+
+**Synergy Examples:**
+
+**Rules + Subagents:**
+- AGENTS.md specifies when to invoke custom subagents
+- Rules enforce that subagent recommendations are followed
+
+**Rules + MCP:**
+- AGENTS.md defines which MCP servers are approved for use
+- Rules specify when external data access is required
+
+**Subagents + MCP:**
+- Custom subagent uses MCP tools to access external systems
+- Subagent interprets MCP results with specialized expertise
+
+### Document Customizations
+
+**Team Documentation:**
+For custom subagents and project rules (AGENTS.md):
+- Document rationale for non-obvious rules or subagents
+- Provide examples of correct usage
+- Include troubleshooting guides
+- Version control alongside code
+
+**Personal Documentation:**
+For user_rules.md and personal subagents:
+- Comment complex rules with reasoning
+- Keep rules organized and updated
+- Remove obsolete rules promptly
+
+### Test Thoroughly
+
+**Validation Process:**
+1. Create customization (subagent/rule/MCP config)
+2. Start fresh conversation to test
+3. Verify behavior matches expectations
+4. Refine based on results
+5. Document successful patterns
+
+**Common Testing Scenarios:**
+- Does subagent invoke automatically when expected?
+- Do project rules override user rules correctly?
+- Does MCP server connect and execute operations?
+- Do combined methods interact without conflicts?
+
+---
+
+## Troubleshooting Extensibility
+
+### Custom Subagent Issues
+
+**Subagent Not Invoking:**
+- Check invocation policy (strict requires explicit @-mention)
+- Verify "When to use" guidelines match your request
+- Ensure file is in `~/.verdent/subagents/` directory
+- Check YAML frontmatter syntax
+
+**Unexpected Subagent Behavior:**
+- Review system prompt for clarity
+- Refine "When to use" and "When NOT to use" guidelines
+- Test with explicit @-mention to isolate behavior
+- Iterate on system prompt based on results
+
+### Rule Conflicts
+
+**Rule Not Being Applied:**
+- Check rule precedence (AGENTS.md > user_rules.md)
+- Verify file is in correct location
+- Start new conversation to test fresh application
+- Make rules more specific and directive
+
+**Unexpected Behavior:**
+- Look for contradictory rules in same file
+- Check if rules are too vague
+- Verify correct rule file is being edited
+- Use explicit language ("Always", "Never", "Prefer")
+
+### MCP Integration Issues
+
+**Connection Failures:**
+- Verify `mcp.json` syntax
+- Check authentication credentials
+- Ensure MCP server is running and accessible
+- Validate network connectivity
+
+**Tool Invocation Problems:**
+- Confirm MCP server exposes expected tools
+- Check tool parameter formats
+- Review MCP server logs for errors
+- Test MCP server independently
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Subagent Management" icon="users" href="/verdent-for-vscode/agents-rules/subagent-management">
+    Detailed subagent creation guide
+  </Card>
+  <Card title="Rule Systems" icon="book" href="/verdent-for-vscode/agents-rules/rule-systems">
+    Complete rules documentation
+  </Card>
+  <Card title="MCP Integration" icon="plug" href="/verdent-for-vscode/advanced-features/mcp">
+    MCP setup and configuration
+  </Card>
+  <Card title="Tool Reference" icon="wrench" href="/verdent-for-vscode/advanced-features/tool-reference">
+    Built-in tool capabilities
+  </Card>
+</CardGroup>

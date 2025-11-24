@@ -3,12 +3,289 @@ title: Working with Images
 description: Uploading and working with images in Verdent
 ---
 
+Verdent for VS Code includes powerful multimodal capabilities, allowing you to upload images and receive visual analysis, code generation from mockups, debugging with screenshots, and more. This guide demonstrates practical workflows for leveraging image understanding in your development process.
 
+---
 
-## Image Upload
+## Uploading Images to Verdent
 
-[Content to be added]
+Suppose you want to share an image with Verdent for analysis or reference.
 
-## Image Processing
+<Tabs>
+  <Tab title="Copy and Paste">
+    Quick clipboard method:
 
-[Content to be added]
+    1. Copy an image to your clipboard (screenshot, copied from browser, etc.)
+    2. Click in the Verdent input field
+    3. **Ctrl+V** (Windows/Linux) to paste
+
+    **Important:** On macOS, use **Ctrl+V** (not Cmd+V) to paste images.
+
+    The image appears in the conversation.
+  </Tab>
+
+  <Tab title="File Path Reference">
+    Reference images by path:
+
+    ```
+    Analyze this screenshot: /path/to/screenshot.png
+    ```
+
+    Verdent reads the image from the specified path.
+
+    <CodeGroup>
+    ```bash "Absolute Path"
+    /home/user/screenshots/error.png
+    /Users/john/Desktop/mockups/design.png
+    ```
+
+    ```bash "Relative Path (Project Root)"
+    ./screenshots/error.png
+    ./mockups/design.png
+    ```
+
+    ```bash "Relative Path (Current Directory)"
+    ../images/diagram.png
+    ../../assets/logo.png
+    ```
+    </CodeGroup>
+
+    Common formats: PNG, JPG, JPEG, WebP, GIF
+  </Tab>
+
+  <Tab title="Multiple Images">
+    Work with multiple images:
+
+    1. Paste multiple images from clipboard in sequence
+    2. Or reference multiple paths:
+
+    ```
+    Compare these three mockups: design-v1.png, design-v2.png, design-v3.png
+    ```
+
+    All images appear in the conversation and can be referenced collectively.
+  </Tab>
+</Tabs>
+
+<Tip>
+  **Tips:**
+  - Supported formats: PNG, JPG, JPEG, WebP, GIF, BMP
+  - Images remain in conversation context for multi-turn discussions
+  - You can reference uploaded images in follow-up questions
+  - Clear image quality produces better analysis results
+</Tip>
+
+***
+
+## Generating Code from Design Mockups
+
+Suppose you have a design mockup and want Verdent to generate the implementation code.
+
+<Steps>
+  <Step title="Upload the design mockup">
+    Copy the mockup image (from Figma export, design tool, or hand-drawn sketch) or reference it by file path.
+  </Step>
+
+  <Step title="Request code generation">
+    ```
+    Generate React components to implement this dashboard design
+    ```
+
+    Verdent analyzes the visual structure.
+  </Step>
+
+  <Step title="Verdent creates component structure">
+    Verdent identifies visual elements and generates:
+
+    ```tsx
+    // DashboardLayout.tsx
+    import React from 'react';
+    import { StatCard } from './StatCard';
+    import { RecentActivity } from './RecentActivity';
+    import { UserChart } from './UserChart';
+
+    export function DashboardLayout() {
+      return (
+        <div className="dashboard-container">
+          <div className="stats-grid">
+            <StatCard title="Total Users" value="1,234" trend="+12%" />
+            <StatCard title="Revenue" value="$45.6K" trend="+8%" />
+            <StatCard title="Active Sessions" value="89" trend="-3%" />
+          </div>
+          <div className="charts-section">
+            <UserChart />
+          </div>
+          <div className="activity-section">
+            <RecentActivity />
+          </div>
+        </div>
+      );
+    }
+    ```
+
+    Components match the mockup structure.
+  </Step>
+
+  <Step title="Generate corresponding CSS">
+    ```
+    Generate Tailwind CSS classes to match the mockup styling
+    ```
+
+    Verdent adds styling based on the visual design:
+
+    ```tsx
+    <div className="grid grid-cols-3 gap-6 p-6">
+      <StatCard className="bg-white rounded-lg shadow-md p-4" ... />
+    </div>
+    ```
+  </Step>
+
+  <Step title="Refine details">
+    ```
+    The spacing between stat cards should be larger, and add the blue accent color from the mockup
+    ```
+
+    Verdent adjusts to match the design more precisely.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Higher resolution mockups produce more accurate code
+  - Specify your framework: React, Vue, Angular, vanilla HTML/CSS
+  - Mention styling approach: Tailwind, CSS Modules, Styled Components
+  - Provide color codes or design system details for precision
+  - Hand-drawn sketches work too for quick prototypes
+</Tip>
+
+***
+
+## Debugging Errors with Screenshots
+
+Suppose you encounter an error message and want help understanding it.
+
+<Tabs>
+  <Tab title="Browser Console Error">
+    Paste a screenshot of the browser console showing the error:
+
+    ```
+    Here's the error I'm getting in the console. What's causing it?
+    ```
+
+    Verdent reads:
+    - Error message text
+    - Stack trace information
+    - File names and line numbers
+    - Related console warnings
+
+    Verdent provides diagnosis:
+    ```
+    This is a "Cannot read property 'map' of undefined" error. The 'users' array is undefined when the component first renders. Add a conditional check or default empty array.
+    ```
+
+    Verdent suggests the fix.
+  </Tab>
+
+  <Tab title="Terminal Error">
+    Paste a screenshot of terminal compilation errors:
+
+    ```
+    My TypeScript build is failing with these errors
+    ```
+
+    Verdent analyzes:
+    - Type errors
+    - File paths
+    - Error codes
+    - Compilation context
+
+    Verdent explains:
+    ```
+    You have a type mismatch in UserProfile.tsx line 42. The 'age' property expects a number but you're passing a string. Cast it with Number(age).
+    ```
+  </Tab>
+
+  <Tab title="Runtime Exception">
+    Paste a screenshot of the stack trace from application logs:
+
+    ```
+    The application crashed with this exception
+    ```
+
+    Verdent examines:
+    - Exception type
+    - Stack trace
+    - Method names and line numbers
+    - Contextual log messages
+
+    Identifies the root cause and suggests fixes.
+  </Tab>
+
+  <Tab title="Network Error">
+    Paste a screenshot of the Browser DevTools Network tab:
+
+    ```
+    This API request is failing, here's the network tab
+    ```
+
+    Verdent analyzes:
+    - HTTP status code
+    - Request/response headers
+    - Request payload
+    - Response body
+
+    Diagnoses the API issue.
+  </Tab>
+</Tabs>
+
+<Tip>
+  **Tips:**
+  - Include full error messages (don't crop important details)
+  - Show stack traces completely when possible
+  - Include surrounding context (other console messages, network requests)
+  - Screenshot the actual error, not just describe it in text
+</Tip>
+
+***
+
+## Frequently Asked Questions
+
+<Accordion title="What image file size limits apply?">
+**Maximum file size:** 5MB (automatically compressed if exceeded; error if still >5MB after compression)
+
+**Maximum resolution:** 2000×2000 pixels
+
+**Supported formats:** PNG, JPG, JPEG, GIF, BMP, WebP
+
+**Best practice:** Use images under 3MB with resolutions up to 2000×2000 for optimal performance and accurate analysis.
+</Accordion>
+
+<Accordion title="Can Verdent analyze multiple images in a single conversation?">
+Yes. You can paste multiple images sequentially or reference multiple file paths in one prompt. Verdent maintains context across all images for comparison and analysis. Example: "Compare these three mockups and identify the differences."
+</Accordion>
+
+<Accordion title="Does Verdent upload my images to external servers?">
+Images pasted via clipboard or referenced by file path are processed within your conversation session. Images are not permanently stored and are cleared when you start a new conversation. File path references read the image locally without uploading.
+</Accordion>
+
+<Accordion title="Can Verdent generate production-ready code from mockups?">
+Verdent generates functional starter code that implements the visual structure, layout, and styling from your mockup. You'll typically need to refine by adding business logic, data integration, accessibility features, error handling, and production optimizations.
+</Accordion>
+
+<Accordion title="What if Verdent misinterprets my design mockup?">
+Provide corrective feedback iteratively. Say "The header should be blue, not gray" or "Those cards should be in a 3-column grid, not 4-column." Verdent will adjust the implementation based on your corrections. Multiple refinement rounds are normal.
+</Accordion>
+
+***
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Writing New Code" icon="code" href="/verdent-for-vscode/task-based-guides/writing-code">
+    Creating new features and components with Verdent
+  </Card>
+
+  <Card title="Understanding Code" icon="book-open" href="/verdent-for-vscode/task-based-guides/understanding-code">
+    Code comprehension and exploration workflows
+  </Card>
+</CardGroup>

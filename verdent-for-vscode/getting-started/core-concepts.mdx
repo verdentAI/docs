@@ -3,12 +3,161 @@ title: Core Concepts
 description: Understanding Verdent's architecture and key terminology
 ---
 
+Verdent for VS Code uses a sophisticated subagent architecture that intelligently dispatches tasks to specialized subagents. Understanding these core concepts will help you work more effectively with the extension.
 
+---
 
 ## Architecture Overview
 
-[Content to be added]
+Complex tasks are broken down and delegated to specialized AI agents optimized for specific purposes. Each subagent operates with its own custom system prompt and separate context window, isolated from the main agent that invoked it.
 
-## Key Terminology Definitions
+This separation maintains peak performance and prevents context pollution, allowing each subagent to focus on its specialized task without burdening the main agent with every implementation detail.
 
-[Content to be added]
+**Built-in Default Subagents:**
+
+Verdent includes three default subagents immediately available:
+
+| Subagent | Purpose | When It's Used |
+|----------|---------|----------------|
+| **@Verifier** | Quick code checks and validation | During coding tasks to ensure code quality and correctness |
+| **@Explorer** | Fast codebase exploration | Finding files and answering questions about your codebase structure |
+| **@Code-reviewer** | Instant code quality assessment | Proactive scanning for security, maintainability, and performance issues |
+
+**Custom Subagents:**
+
+You can create custom subagents tailored to your specific needs. Each custom subagent operates with its own system prompt, allowing you to define specialized behavior for particular tasks or workflows.
+
+Custom subagents can be invoked automatically based on task patterns or manually using @-mentions. Common use cases include:
+
+* **Technology Stack Specialists** - React performance optimizer, SQL query optimizer, Docker configuration reviewer
+* **Quality Assurance** - Test coverage analyzer, error handling reviewer, logging standards enforcer
+* **Team-Specific Workflows** - Code style enforcer, documentation consistency checker, dependency auditor
+* **Project-Specific Needs** - Legacy code modernizer, migration assistant, performance budget enforcer
+
+**Learn more:** [Subagent Management](/verdent-for-vscode/agents-rules/subagent-management)
+
+---
+
+## Execution Modes
+
+Verdent supports multiple execution modes that control how the AI handles permissions and interactions:
+
+**Permission Modes:**
+
+* **Manual Accept Mode** (default) - Requests permission on first use of each tool. Best for learning and general development with maximum control.
+* **Auto-Run Mode** - Automatically accepts permissions for safe operations (file reads, web searches). File edits and command execution still require approval. Ideal for trusted projects and rapid prototyping.
+* **Plan Mode** - Read-only mode for analysis and planning without file modifications. Can ask clarifying questions before execution. Excellent for complex tasks and code review.
+* **Skip Permissions Mode** - Fully autonomous operation bypassing all prompts. Only for isolated, safe environments like automated testing or sandboxes.
+
+<Tip>
+To switch between Permission Modes, click the **Switch Permission** button in the Input Box (shows current mode like "Manual" or "Auto") and select your desired mode from the dropdown.
+</Tip>
+
+**Switch Mode** (controls interaction style):
+
+* **Agent Mode** - Full agentic behavior with autonomous task execution and file operations
+* **Plan Mode** - Planning-focused interaction for reviewing approaches before execution
+* **Chat Mode** - Conversational interaction without autonomous file operations
+
+<Tip>
+To switch between interaction styles, click the **Switch Mode** button in the Input Box (shows current mode like "Agent" or "Plan") and select your desired mode from the dropdown.
+</Tip>
+
+**Additional Modes:**
+
+* **Think Hard Mode** - Allocates maximum computational resources to analyze problems deeply, explore multiple approaches, and provide more thorough solutions. Ideal for architectural decisions, complex debugging, and tasks requiring sophisticated reasoning.
+
+<Tip>
+To activate Think Hard Mode, click the **Think Hard** button in the Input Box before submitting your request.
+</Tip>
+
+**Learn more:** [Execution Modes Overview](/verdent-for-vscode/execution-modes/overview)
+
+---
+
+## Context Management
+
+Context management controls what information Verdent has access to during your session. The **context window** is the agent's memory limit, measured in tokens and shared across several components: system instructions, file contents, conversation messages, and agent responses.
+
+**How Context Works:**
+
+* **@-Mentions** - Explicitly add files to context using `@filename.js` for precise control
+* **Automatic Loading** - Verdent automatically includes relevant files based on the task
+* **Separate Subagent Context** - Each subagent operates with isolated context windows, preventing pollution of the main agent's memory
+* **Context Window Limits** - Finite context measured in tokens. As conversations grow, available space decreases and model performance degrades
+
+**Best Practices:**
+
+* Break large tasks into smaller chunks with natural breakpoints
+* Use Plan Mode for complex tasks to review approaches before execution
+* Complete individual components before integration to avoid context depletion
+* Start a new conversation when beginning a new task to clear context and maintain optimal performance
+
+**Learn more:** [Context Management Best Practices](/verdent-for-vscode/best-practices/context)
+
+---
+
+## Model Selection
+
+Verdent orchestrates models from multiple AI providers (Claude, GPT-5, Gemini, MiniMax) within a single workflow. Each specialized agent can leverage the optimal model for its specific task.
+
+**Preset Models:**
+
+* **Performance** - Maximum context, frontier models (1-2x credit usage)
+* **Balance** - Optimal blend of performance and cost (1x credit usage)
+* **Efficiency** - Fast, responsive, cost-efficient tasks (~0.3x credit usage)
+
+**Individual Models Available:**
+
+| Provider | Model | Best For | Cost |
+|----------|-------|----------|------|
+| Anthropic | Claude 4.5 Sonnet | Balanced complex tasks | ~140 requests/100 credits |
+| Anthropic | Claude 4.5 Sonnet 1M | Long or complex tasks (>200k input) | ~70 requests/100 credits |
+| Anthropic | Claude 4.5 Haiku | Fast, simple tasks | ~450 requests/100 credits |
+| OpenAI | GPT-5 (Beta) | Reasoning and creativity | ~186 requests/100 credits |
+| OpenAI | GPT-5 Codex (Beta) | Coding and debugging | ~186 requests/100 credits |
+| Google | Gemini 3 Pro | Advanced reasoning and multimodal | Variable |
+| MiniMax | MiniMax M2 (Beta) | Fast and cost-effective | Free until Nov 10th |
+
+**Learn more:** [Configuration Settings](/verdent-for-vscode/configuration/settings)
+
+---
+
+## FAQs
+
+<Accordion title="What is context pollution?">
+When previous actions and information in the context create unintended behavioral patterns that affect future tasks. For example, if you repeatedly update code and then deploy it, the agent may begin associating all code updates with immediate deployment, even when you're just experimenting. Subagents prevent context pollution by operating with isolated context windows, allowing each specialized task to start with clean context and avoiding cross-contamination between different types of work.
+</Accordion>
+
+<Accordion title="What are safe operations?">
+Operations that only read data without making changes: file reads and web searches. These are automatically approved in Auto-Run Mode, while file edits and command execution still require approval for safety.
+</Accordion>
+
+<Accordion title="What is command execution?">
+Running terminal commands or shell scripts through Verdent, including operations like running tests, installing packages, or executing build commands. Command execution requires approval in most Permission Modes to prevent unintended system changes.
+</Accordion>
+
+<Accordion title="What is a token?">
+The unit of measurement for context windows. Tokens represent pieces of text (words, parts of words, or characters) that the AI model processes. Context limits are measured in tokens rather than characters or words, with typical conversations consuming thousands of tokens.
+</Accordion>
+
+<Accordion title="What are credits?">
+The usage currency for Verdent. Different models consume different amounts of credits per request. Your subscription includes a monthly credit allotment (e.g., 640 credits for Starter, 2,000 for Pro, 6,000 for Max).
+</Accordion>
+
+<Accordion title="What is the Multipass Generate-Test-Repair Cycle?">
+An iterative verification process where code is generated, tested, and repaired until it passes comprehensive testing. Verdent automatically runs tests, analyzes failures, fixes issues, and retests in multiple passes until the code works correctly. This delivers production-ready code, not just suggestions. Each result includes detailed summaries and code diffs showing exactly what changed.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Execution Modes" icon="sliders" href="/verdent-for-vscode/execution-modes/overview">
+    Deep dive into Manual Accept, Auto-Run, Plan Mode, and permissions
+  </Card>
+  <Card title="Subagent Management" icon="robot" href="/verdent-for-vscode/agents-rules/subagent-management">
+    Create and customize subagents for specialized tasks
+  </Card>
+</CardGroup>

@@ -3,16 +3,155 @@ title: System Requirements & Compatibility
 description: Supported platforms, IDE versions, and network requirements
 ---
 
+Verdent for VS Code is a native Visual Studio Code extension that inherits Visual Studio Code's cross-platform compatibility without requiring separate installations or configurations for different operating systems.
 
+---
 
 ## Supported Operating Systems
 
-[Content to be added]
+Verdent for VS Code supports all operating systems where Visual Studio Code is available:
+
+| Operating System | Supported Versions | Architecture |
+|-----------------|-------------------|--------------|
+| **macOS** | macOS 11 (Big Sur) and later | Intel and Apple Silicon |
+| **Windows** | Windows 10 (version 1607+), Windows 11, Windows Server 2016+ | 64-bit only |
+| **Linux** | Ubuntu 20.04+, Debian 10+, Red Hat Enterprise Linux 8+, Fedora, CentOS 8+, openSUSE Leap 15.2+ | x64 and ARM64 |
+
+<Note>
+  **Deprecated platforms**: macOS 10.15 (Catalina) support ended with Visual Studio Code 1.98 (February 2025). Windows 7 and 8/8.1 are no longer supported as of Visual Studio Code 1.70 (July 2022). Windows 32-bit systems are no longer supported as of Visual Studio Code 1.83 (September 2023).
+</Note>
+
+### Linux Requirements
+
+For Linux systems, ensure your distribution meets these requirements:
+
+* **glibc 2.28 or later** (as of Visual Studio Code 1.86.1, January 2024)
+* **GLIBCXX version 3.4.25 or later**
+
+---
 
 ## IDE/Editor Versions Required
 
-[Content to be added]
+**Visual Studio Code:**
+* Version **1.90.0 or higher** required
+* Latest stable version recommended for best compatibility
+
+Verdent for VS Code works with Visual Studio Code and Visual Studio Code-based editors (Cursor, VSCodium). It does not support editors such as JetBrains IDEs, Sublime Text, or Vim.
+
+---
+
+## Hardware Requirements
+
+### Minimum Requirements
+
+| Component | Specification |
+|-----------|---------------|
+| **RAM** | 1 GB (4 GB+ recommended for larger projects) |
+| **Disk Space** | < 500 MB for Visual Studio Code + Verdent extension |
+| **CPU** | Any processor capable of running Visual Studio Code |
+
+### Recommended Specifications
+
+For optimal performance, especially when working with large codebases or multi-agent workflows:
+
+* **RAM**: 8 GB or more
+* **CPU**: Multi-core processor for concurrent subagent execution
+* **Disk Space**: 1 GB+ for caching and indexing (if enabled)
+
+<Tip>
+  Performance scales with hardware capabilities. Multi-agent workflows and large-scale refactoring benefit from additional RAM and processing power.
+</Tip>
+
+<Warning>
+  Recommended specifications are general guidelines. Official hardware recommendations for Verdent-specific features (multi-agent workflows, caching, indexing) are pending from the Verdent team.
+</Warning>
+
+---
 
 ## Network Requirements
 
-[Content to be added]
+Verdent for VS Code requires an **active internet connection at all times** to function.
+
+### Connectivity Requirements
+
+* **Connection Type**: Stable broadband internet connection
+* **Protocol**: Outbound HTTPS connections to Verdent's API endpoints
+* **Bandwidth**: Sufficient for code context transmission and AI response streaming
+
+### Firewall & Proxy Considerations
+
+For corporate environments or users behind firewalls:
+
+**Required Access:**
+* Outbound HTTPS traffic to Verdent's API domains
+* Verdent handles routing to multiple model providers (Claude, GPT-5, Gemini, MiniMax, etc.)
+* No inbound firewall rules or port forwarding needed
+
+**Enterprise Setup:**
+* Corporate firewalls must allow outbound HTTPS to Verdent service endpoints
+* Proxy servers should pass through API requests
+* SSL/TLS inspection may require exceptions for Verdent endpoints
+
+<Warning>
+  Without internet connectivity, Verdent for VS Code cannot process requests or provide any AI-assisted functionality. The extension will not work offline.
+</Warning>
+
+---
+
+## FAQs
+
+<Accordion title="How do I check my Visual Studio Code version?">
+Open Visual Studio Code and go to **Help** → **About** (or **Code** → **About Visual Studio Code** on macOS). The version number is displayed in the dialog. Verdent requires Visual Studio Code version 1.90.0 or higher.
+
+You can also check via command line:
+```bash
+code --version
+```
+</Accordion>
+
+<Accordion title="How do I verify my Linux system meets the requirements?">
+Check your glibc and GLIBCXX versions using these commands:
+
+```bash
+# Check glibc version (need 2.28 or later)
+ldd --version
+
+# Check GLIBCXX version (need 3.4.25 or later)
+strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
+```
+
+If your distribution doesn't meet these requirements, you may need to upgrade to a newer version of your Linux distribution.
+</Accordion>
+
+<Accordion title="How do I troubleshoot firewall or connection issues?">
+If Verdent cannot connect to AI services, check these common issues:
+
+**Test basic connectivity:**
+- Verify you have active internet access
+- Try accessing other HTTPS services to confirm outbound connections work
+
+**Corporate/Enterprise environments:**
+- Contact your network administrator to whitelist Verdent's API endpoints
+- Ensure outbound HTTPS traffic is allowed through your firewall
+- Check if proxy servers are properly configured to pass through API requests
+- SSL/TLS inspection may need exceptions for Verdent endpoints
+
+**Common symptoms:**
+- Extension appears to hang or timeout
+- Authentication failures despite correct credentials
+
+If issues persist after firewall configuration, contact Verdent support for specific endpoint details to whitelist.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/verdent-for-vscode/getting-started/installation">
+    Install Verdent after verifying system requirements
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/verdent-for-vscode/help-support/common-issues">
+    Resolve common installation and connection issues
+  </Card>
+</CardGroup>

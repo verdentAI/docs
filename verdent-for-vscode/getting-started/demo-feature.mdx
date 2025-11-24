@@ -1,0 +1,598 @@
+---
+title: "Demo: Feature Documentation (Tutorial Style)"
+description: Example of a tutorial-style feature documentation following the 300-350 line template with hands-on guidance
+---
+
+---
+
+# Interactive Code Completion Feature
+
+This demo page showcases the **Feature Documentation (Tutorial Style)** template pattern. This template variant is designed for features best learned through guided hands-on experience, with special attention to security considerations.
+
+
+### What You'll Learn
+
+By following this tutorial, you'll understand how to implement and use interactive code completion in your development environment, including:
+
+- Basic completion triggers
+- Context-aware suggestions
+- Custom completion providers
+- Security best practices for AI-powered completions
+
+<Tip>
+This is a **demo page** showing template structure, not actual Verdent documentation. Notice the progressive complexity and code-heavy approach characteristic of tutorial-style feature docs.
+</Tip>
+
+### Prerequisites
+
+Before starting this tutorial, ensure you have:
+
+- Development environment installed (VS Code, IntelliJ, or similar)
+- Basic understanding of your editor's extension system
+- API access configured (if using cloud-based completions)
+- Node.js 18+ for running examples
+
+---
+
+## Basic Completion Triggers
+
+Let's start with the fundamental concept: triggering code completions.
+
+<Tabs>
+  <Tab title="Manual Trigger">
+    The simplest way to invoke completions is manually:
+
+    ```typescript
+    // Press Ctrl+Space (or Cmd+Space on macOS) to trigger completions
+    function calculateSum(a: number, b: number): number {
+      return a + b;
+    }
+
+    // Type 'calc' and trigger completion to see the function suggestion
+    calc
+    ```
+
+    When you trigger completion, you'll see a list of suggestions based on your current context. The completion engine analyzes:
+
+    - Current scope and available variables
+    - Imported modules and functions
+    - Type information from your codebase
+    - Recently used symbols
+  </Tab>
+
+  <Tab title="Automatic Triggers">
+    Completions can trigger automatically when you type certain characters:
+
+    ```javascript
+    // Typing '.' after an object triggers member completions
+    const user = {
+      name: "Alice",
+      email: "alice@example.com"
+    };
+
+    user. // Completion list shows: name, email
+
+    // Typing '(' after a function shows parameter hints
+    calculateSum( // Shows: (a: number, b: number)
+    ```
+
+    **Common trigger characters:**
+    - `.` for object members
+    - `(` for function parameters
+    - `<` for generic types
+    - `/` for file paths in imports
+  </Tab>
+</Tabs>
+
+---
+
+## Context-Aware Suggestions
+
+Modern completion systems provide context-aware suggestions that understand your code's intent.
+
+#### Type-Based Completions
+
+The completion engine uses type information to filter suggestions:
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: Date;
+}
+
+function formatUser(user: User): string {
+  // Typing 'user.' here shows only User interface members
+  return `${user.name} (${user.email})`;
+  //          ^--- Completion suggests: id, name, email, createdAt
+}
+```
+
+#### Scope-Aware Completions
+
+Completions respect variable scope and visibility:
+
+```typescript
+function processData() {
+  const localVar = "only visible here";
+
+  function innerFunction() {
+    // Completions include both local and outer scope variables
+    console.log(localVar); // ✓ Available
+  }
+}
+
+// localVar is NOT in completion list here
+console.log(/* localVar not suggested */);
+```
+
+<Tip>
+**Best Practice**: Enable strict type checking in your project. This significantly improves completion accuracy by providing the engine with more type information.
+</Tip>
+
+---
+
+## Custom Completion Providers
+
+You can extend the completion system with custom providers for domain-specific suggestions.
+
+#### Registering a Custom Provider
+
+<Steps>
+  <Step title="Import Required Modules">
+    Import the VS Code API types needed for completion providers:
+
+    ```typescript
+    import * as vscode from 'vscode';
+    ```
+  </Step>
+
+  <Step title="Create Completion Items">
+    Define the completion items you want to provide:
+
+    ```typescript
+    const apiCompletion = new vscode.CompletionItem(
+      'api.fetchUser',
+      vscode.CompletionItemKind.Function
+    );
+    apiCompletion.detail = 'Fetch user from API';
+    apiCompletion.documentation = new vscode.MarkdownString(
+      'Fetches user data from the backend API'
+    );
+    apiCompletion.insertText = new vscode.SnippetString(
+      'api.fetchUser(${1:userId})'
+    );
+    ```
+  </Step>
+
+  <Step title="Register the Provider">
+    Register the completion provider with trigger characters:
+
+    ```typescript
+    export function registerCustomCompletions(context: vscode.ExtensionContext) {
+      const provider = vscode.languages.registerCompletionItemProvider(
+        'typescript',
+        {
+          provideCompletionItems(
+            document: vscode.TextDocument,
+            position: vscode.Position
+          ) {
+            const completions: vscode.CompletionItem[] = [];
+            completions.push(apiCompletion);
+            return completions;
+          }
+        },
+        '.' // Trigger on dot character
+      );
+
+      context.subscriptions.push(provider);
+    }
+    ```
+  </Step>
+
+  <Step title="Test Your Provider">
+    Type the trigger character in a TypeScript file to see your custom completions appear in the suggestion list.
+  </Step>
+</Steps>
+
+---
+
+## Custom Provider with Snippets
+
+Create rich completions with multi-cursor snippets:
+
+```typescript
+const testCompletion = new vscode.CompletionItem(
+  'test-component',
+  vscode.CompletionItemKind.Snippet
+);
+
+testCompletion.insertText = new vscode.SnippetString([
+  'describe(\'${1:ComponentName}\', () => {',
+  '\tit(\'${2:should render correctly}\', () => {',
+  '\t\t${3:// Test code here}',
+  '\t});',
+  '});'
+].join('\n'));
+
+testCompletion.documentation = 'Create a component test suite';
+```
+
+This snippet creates a complete test structure with three tab stops for customization.
+
+---
+
+## AI-Powered Completions
+
+When integrating AI-powered completion features, security and privacy are critical concerns.
+
+<Warning>
+**Security Considerations for AI Completions:**
+
+- Never send sensitive data (API keys, passwords, tokens) to completion providers
+- Review your editor's data sharing settings
+- Be aware that code context may be sent to cloud services
+- Consider using local-only AI models for sensitive codebases
+- Implement content filtering before sending to external APIs
+</Warning>
+
+### Implementing Safe AI Completions
+
+Here's a secure pattern for AI-powered completions:
+
+```typescript {11,14-17,44-46,51-53}
+interface CompletionRequest {
+  context: string;
+  cursor: number;
+  language: string;
+}
+
+async function getAICompletion(
+  request: CompletionRequest
+): Promise<string[]> {
+  // Filter sensitive content before sending
+  const safeContext = filterSensitiveData(request.context);
+
+  // Check if context contains secrets
+  if (containsSecrets(safeContext)) {
+    console.warn('Skipping AI completion: sensitive data detected');
+    return [];
+  }
+
+  try {
+    const response = await fetch('https://api.example.com/complete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getAPIKey()}` // From secure store
+      },
+      body: JSON.stringify({
+        context: safeContext,
+        language: request.language,
+        maxSuggestions: 5
+      })
+    });
+
+    const data = await response.json();
+    return data.suggestions;
+  } catch (error) {
+    console.error('AI completion failed:', error);
+    return []; // Fail gracefully
+  }
+}
+
+function filterSensitiveData(code: string): string {
+  // Remove common sensitive patterns
+  return code
+    .replace(/api[_-]?key\s*=\s*['"][^'"]+['"]/gi, 'api_key=[REDACTED]')
+    .replace(/password\s*=\s*['"][^'"]+['"]/gi, 'password=[REDACTED]')
+    .replace(/token\s*=\s*['"][^'"]+['"]/gi, 'token=[REDACTED]');
+}
+
+function containsSecrets(code: string): boolean {
+  const secretPatterns = [
+    /-----BEGIN (RSA |)PRIVATE KEY-----/,
+    /[a-zA-Z0-9_-]{32,}/, // Long random strings (potential tokens)
+    /sk-[a-zA-Z0-9]{20,}/ // API key patterns
+  ];
+
+  return secretPatterns.some(pattern => pattern.test(code));
+}
+```
+
+<Tip>
+**Privacy Best Practice**: Always inform users when their code is being sent to external services. Provide clear opt-in/opt-out settings in your extension configuration.
+</Tip>
+
+---
+
+## Advanced Patterns
+
+Lorem ipsum reign
+
+#### Completion Ranking Strategies
+
+Choose a ranking strategy that fits your use case:
+
+<Tabs>
+  <Tab title="Recency-Based">
+    Prioritize recently used completions:
+
+    ```typescript
+    function rankByRecency(
+      completions: vscode.CompletionItem[],
+      recentlyUsed: string[]
+    ): vscode.CompletionItem[] {
+      return completions.sort((a, b) => {
+        const aRecent = recentlyUsed.indexOf(a.label);
+        const bRecent = recentlyUsed.indexOf(b.label);
+
+        // Items not in history go to end
+        if (aRecent === -1) return 1;
+        if (bRecent === -1) return -1;
+
+        // Sort by recency (lower index = more recent)
+        return aRecent - bRecent;
+      });
+    }
+    ```
+
+    **Best for**: Users with repetitive patterns who frequently reuse the same completions.
+  </Tab>
+
+  <Tab title="Context-Aware">
+    Prioritize based on current typing and scope:
+
+    ```typescript
+    function rankByContext(
+      completions: vscode.CompletionItem[],
+      context: CompletionContext
+    ): vscode.CompletionItem[] {
+      return completions
+        .map(item => ({
+          item,
+          score: calculateRelevanceScore(item, context)
+        }))
+        .sort((a, b) => b.score - a.score)
+        .map(({ item }) => item);
+    }
+
+    function calculateRelevanceScore(
+      item: vscode.CompletionItem,
+      context: CompletionContext
+    ): number {
+      let score = 0;
+
+      // Boost items matching current typing
+      if (item.label.startsWith(context.currentWord)) score += 5;
+
+      // Boost items in current scope
+      if (context.visibleSymbols.has(item.label)) score += 3;
+
+      return score;
+    }
+    ```
+
+    **Best for**: Users who want intelligent suggestions based on current code context.
+  </Tab>
+
+  <Tab title="Hybrid Approach">
+    Combine multiple ranking factors:
+
+    ```typescript
+    function rankCompletions(
+      completions: vscode.CompletionItem[],
+      context: CompletionContext
+    ): vscode.CompletionItem[] {
+      return completions
+        .map(item => ({
+          item,
+          score: calculateHybridScore(item, context)
+        }))
+        .sort((a, b) => b.score - a.score)
+        .map(({ item }) => item);
+    }
+
+    function calculateHybridScore(
+      item: vscode.CompletionItem,
+      context: CompletionContext
+    ): number {
+      let score = 0;
+
+      // Boost recently used items (highest weight)
+      if (context.recentlyUsed.includes(item.label)) {
+        score += 10;
+      }
+
+      // Boost items matching current typing
+      if (item.label.startsWith(context.currentWord)) {
+        score += 5;
+      }
+
+      // Boost items in current scope
+      if (context.visibleSymbols.has(item.label)) {
+        score += 3;
+      }
+
+      return score;
+    }
+    ```
+
+    **Best for**: Most users - balances recency, context, and scope for optimal suggestions.
+  </Tab>
+</Tabs>
+
+#### Debouncing Completion Requests
+
+Prevent excessive API calls with debouncing:
+
+```typescript
+class DebouncedCompletionProvider {
+  private debounceTimer: NodeJS.Timeout | null = null;
+  private readonly debounceDelay = 300; // ms
+
+  async provideCompletions(
+    document: vscode.TextDocument,
+    position: vscode.Position
+  ): Promise<vscode.CompletionItem[]> {
+    return new Promise((resolve) => {
+      if (this.debounceTimer) {
+        clearTimeout(this.debounceTimer);
+      }
+
+      this.debounceTimer = setTimeout(async () => {
+        const completions = await this.fetchCompletions(document, position);
+        resolve(completions);
+      }, this.debounceDelay);
+    });
+  }
+
+  private async fetchCompletions(
+    document: vscode.TextDocument,
+    position: vscode.Position
+  ): Promise<vscode.CompletionItem[]> {
+    // Actual completion logic here
+    return [];
+  }
+}
+```
+
+---
+
+## Troubleshooting
+
+#### Completions Not Appearing
+
+If completions aren't showing up:
+
+1. **Check trigger settings**: Verify `editor.quickSuggestions` is enabled in your settings
+2. **Verify language support**: Ensure your file type has completion providers registered
+3. **Check extension conflicts**: Disable other completion extensions to test for conflicts
+4. **Review console errors**: Open developer tools to check for JavaScript errors
+
+#### Slow Completion Performance
+
+If completions are sluggish:
+
+1. **Reduce debounce delay**: Lower the debounce timer for faster response (trade-off: more API calls)
+2. **Limit context size**: Send only relevant code context, not entire files
+3. **Cache frequent completions**: Store common completions locally to avoid repeated API calls
+4. **Profile provider performance**: Use `console.time()` to identify slow operations
+
+```typescript {5,9}
+async function provideCompletionItems(
+  document: vscode.TextDocument,
+  position: vscode.Position
+): Promise<vscode.CompletionItem[]> {
+  console.time('completion-provider');
+
+  const completions = await generateCompletions(document, position);
+
+  console.timeEnd('completion-provider');
+  return completions;
+}
+```
+
+#### Inaccurate Suggestions
+
+If completions are irrelevant:
+
+1. **Improve type annotations**: Add explicit types to improve context understanding
+2. **Update language server**: Ensure you're using the latest language server version
+3. **Review project configuration**: Check `tsconfig.json` or equivalent for proper settings
+4. **Clear completion cache**: Restart your editor to clear stale completion data
+
+---
+
+## Best Practices Summary
+
+<Check>
+**Key Takeaways:**
+
+- Always filter sensitive data before sending to external completion services
+- Use type annotations to improve completion accuracy
+- Implement debouncing to prevent excessive API calls
+- Rank completions based on relevance and recency
+- Provide clear user controls for privacy and data sharing
+- Test completion performance with realistic codebases
+- Handle errors gracefully without disrupting the editing experience
+</Check>
+
+---
+
+## Next Steps
+
+Now that you understand interactive code completion, explore these related features:
+
+- **Parameter Hints**: Learn how to provide inline parameter documentation
+- **Hover Information**: Implement rich hover tooltips for symbols
+- **Code Actions**: Add quick fixes and refactoring suggestions
+- **Semantic Highlighting**: Enhance syntax highlighting with semantic information
+
+---
+
+
+## FAQs (Frequently Asked Questions)
+
+<Accordion title="What is a completion provider?">
+A completion provider is a VS Code extension component that supplies suggestions when users type code. It implements the `CompletionItemProvider` interface and returns an array of `CompletionItem` objects that appear in the suggestion list.
+</Accordion>
+
+<Accordion title="What is the difference between CompletionItemKind?">
+`CompletionItemKind` indicates what type of item is being completed. Common types include:
+- `Function` - For function/method completions
+- `Variable` - For variable names
+- `Keyword` - For language keywords
+- `Snippet` - For multi-line code snippets
+- `Property` - For object properties
+
+The kind affects both the icon displayed and how the completion is sorted in the list.
+</Accordion>
+
+<Accordion title="What is a SnippetString?">
+A `SnippetString` is a special text format that supports placeholder variables like `${1:placeholder}`. When inserted, users can tab through numbered placeholders to fill in multiple values. For example, `${1:name}` creates a tab stop where "name" is pre-selected.
+</Accordion>
+
+<Accordion title="What does 'debouncing' mean in this context?">
+Debouncing delays execution of a function until after a certain time period has passed without new events. For completions, this prevents making API calls on every keystroke. Instead, it waits for a pause in typing (e.g., 300ms) before fetching suggestions.
+</Accordion>
+
+<Accordion title="What is the CompletionContext?">
+`CompletionContext` contains metadata about when and why completions were triggered. It includes:
+- `triggerKind` - Whether triggered manually or automatically
+- `triggerCharacter` - The character that triggered completion (e.g., `.` or `(`)
+- Additional context like cursor position and current document state
+
+This allows providers to customize suggestions based on how they were invoked.
+</Accordion>
+
+<Accordion title="What is a completion trigger character?">
+A trigger character is a specific character that automatically activates the completion list when typed. Common examples include `.` (for object members), `(` (for function parameters), and `<` (for generic types). You register these when creating the completion provider.
+</Accordion>
+
+<Accordion title="What does 'ranking completions' mean?">
+Ranking completions refers to sorting the suggestion list to show the most relevant items first. This typically considers factors like:
+- How closely the item matches what the user is typing
+- How recently the item was used
+- Whether the item is in the current scope
+- User preferences and settings
+
+Better ranking improves the user experience by reducing the number of keystrokes needed to select the right completion.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={3}>
+  <Card title="Custom Language Support" icon="puzzle-piece">
+    Extend Verdent with custom language support
+  </Card>
+  <Card title="Security Best Practices" icon="shield">
+    Learn about security considerations for AI completions
+  </Card>
+  <Card title="Extension API Reference" icon="code">
+    Complete API reference for Verdent extensions
+  </Card>
+</CardGroup>

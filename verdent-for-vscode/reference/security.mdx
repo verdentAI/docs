@@ -5,24 +5,273 @@ description: Security practices, data handling, and compliance information
 
 
 
-## Data Handling Policy
+Understanding how Verdent handles your code, data privacy practices, and security best practices.
 
-[Content to be added]
+<Info>
+Specific compliance certifications and detailed security policies are maintained by the Verdent team. Contact support@verdent.ai for compliance documentation, security questionnaires, or enterprise security requirements.
+</Info>
+
+---
 
 ## Your Code's Privacy
 
-[Content to be added]
+### Code Processing
+
+**How Verdent processes your code:**
+- Code is transmitted to AI model servers for processing
+- Processing occurs in real-time during active sessions
+- No permanent storage of your code beyond session context
+
+**What Verdent can access:**
+- Files you explicitly work with during conversations
+- Project files read through file tools (file_read, glob, grep_content, grep_file)
+- Command outputs from bash tool executions
+- Chat conversation history within the session
+
+**What Verdent cannot access:**
+- Files not opened or referenced during conversations
+- Other VS Code windows or workspaces
+- System files outside VS Code workspace
+- Personal data unrelated to coding tasks
+
+---
+
+### Data Transmission
+
+**Secure Communication:**
+- All data transmitted over encrypted connections (HTTPS/TLS)
+- Communication between VS Code extension and AI servers is encrypted
+- No third-party access to transmission channels
+
+**Internet Requirement:**
+Verdent requires an active internet connection to function. Code is sent to remote AI model servers for processing and cannot operate offline.
+
+---
+
+## Data Handling Policy
+
+### Data Collection
+
+**What data Verdent collects:**
+- Code snippets processed during active sessions
+- Chat conversation history
+- File operations performed (read, edit, write)
+- Tool usage patterns and commands executed
+- Error logs and diagnostic information
+
+**Purpose of collection:**
+- Provide AI-powered coding assistance
+- Improve model responses and accuracy
+- Debug technical issues
+- Enhance user experience
+
+---
+
+### Data Retention
+
+<Info>
+Specific data retention policies, including how long conversation history and code snippets are retained, are managed by Verdent. Contact support@verdent.ai for detailed retention policy documentation.
+</Info>
+
+**Session data:**
+- Active conversation context maintained during session
+- Context cleared when starting new conversation
+- Subagent contexts isolated and cleared after task completion
+
+**Your rights:**
+For information about accessing, modifying, or deleting your data, contact support@verdent.ai.
+
+---
+
+### Data Sharing
+
+**Third-party sharing:**
+Verdent processes code using AI model providers (Anthropic, OpenAI, Google). Your code is transmitted to these providers' servers for processing.
+
+**What is not shared:**
+- Code is not sold to third parties
+- No advertising or marketing use of your code
+- No public disclosure of proprietary code
+
+<Warning>
+Be cautious when working with sensitive or proprietary code. Use Manual Accept Mode to review all operations before execution. Never include credentials, API keys, or secrets in code processed by Verdent.
+</Warning>
+
+---
 
 ## Security Best Practices
 
-[Content to be added]
+<Tabs>
+  <Tab title="Safe Usage">
+    ### Safe Usage Practices
+
+    **1. Use Manual Accept Mode for sensitive projects:**
+    Click "Switch Permission" button in Input Box → Select "Manual Accept Mode"
+
+    Review all file operations and commands before approval.
+
+    **2. Never include secrets in code:**
+    - Avoid hard-coded API keys, passwords, or credentials
+    - Use environment variables for sensitive configuration
+    - Review bash commands for credential exposure
+
+    **3. Workspace isolation:**
+    - Verdent operates within current VS Code workspace only
+    - Sensitive projects should be in separate workspaces
+    - Use project-specific AGENTS.md for security rules
+
+    **4. Code review:**
+    Use @Code-reviewer subagent for security analysis:
+    ```
+    @Code-reviewer review this code for security vulnerabilities
+    ```
+  </Tab>
+
+  <Tab title="MCP Security">
+    ### MCP Security
+
+    **External integrations:**
+    When using MCP servers for database or API access:
+    - Configure read-only access when possible
+    - Use minimal necessary permissions
+    - Store credentials in MCP config (`~/.verdent/mcp.json`), not in code
+    - Validate MCP server sources before installation
+
+    **Production databases:**
+    Configure production database MCP servers as read-only to prevent accidental modifications.
+
+    <Warning>
+    Always configure production database MCP servers with read-only access to prevent accidental data modifications.
+    </Warning>
+  </Tab>
+
+  <Tab title="Bash Safety">
+    ### Bash Command Safety
+
+    **Command execution risks:**
+    - Bash commands execute with your user permissions
+    - Destructive commands (rm, drop, truncate) can cause data loss
+    - Commands may access files outside VS Code workspace
+
+    **Mitigation:**
+    - Always use Manual Accept Mode for production environments
+    - Review all bash commands before execution
+    - Avoid sudo commands unless absolutely necessary
+    - Use AGENTS.md rules to enforce safe practices
+
+    **Example safe rule:**
+    ```markdown
+    # AGENTS.md
+    ## Security Rules
+    - NEVER run bash commands with sudo
+    - All destructive operations require explicit confirmation
+    - No direct database modifications in production
+    ```
+  </Tab>
+</Tabs>
+
+---
 
 ## Compliance & Certifications
 
-(e.g., SOC 2, GDPR, HIPAA)
+### Industry Standards
 
-[Content to be added]
+<Info>
+Verdent's compliance status, certifications, and audit reports are maintained by the security team. For specific compliance documentation (SOC 2, GDPR, HIPAA), security questionnaires, or enterprise requirements, contact support@verdent.ai.
+</Info>
+
+**Common compliance frameworks:**
+- **SOC 2:** Security controls and practices
+- **GDPR:** European data protection regulations
+- **HIPAA:** Healthcare data requirements (if applicable)
+- **ISO 27001:** Information security management
+
+**For compliance inquiries:**
+Enterprise customers requiring compliance documentation should contact support@verdent.ai with specific requirements.
+
+---
+
+### Regional Considerations
+
+**Data Processing Locations:**
+AI model servers may process data in various regions. For region-specific data residency requirements, contact support@verdent.ai.
+
+**GDPR Rights:**
+European users have rights under GDPR including:
+- Right to access personal data
+- Right to rectification
+- Right to erasure
+- Right to data portability
+
+Contact support@verdent.ai to exercise GDPR rights.
+
+---
 
 ## Submitting a Security Vulnerability Report
 
-[Content to be added]
+### Responsible Disclosure
+
+**If you discover a security vulnerability:**
+
+<Steps>
+  <Step title="Do not disclose publicly">
+    - Contact security team privately first
+    - Allow time for patches before public disclosure
+    - Responsible disclosure protects all users
+  </Step>
+
+  <Step title="Report to security team">
+    - **Email:** support@verdent.ai
+    - **Subject:** "Security Vulnerability Report"
+    - Mark as urgent/confidential
+  </Step>
+
+  <Step title="Include in your report">
+    - Vulnerability description and reproduction steps
+    - Potential impact and severity assessment
+    - Your contact information and suggested fixes (optional)
+  </Step>
+
+  <Step title="Expected response timeline">
+    - Initial acknowledgment: Within 48 hours
+    - Status updates: As investigation progresses
+    - Resolution timeline: Based on severity
+  </Step>
+</Steps>
+
+---
+
+## Security Resources
+
+### Staying Informed
+
+**Security Updates:**
+- Check VS Code marketplace for security-related release notes
+- Enable auto-update for VS Code extensions
+- Monitor Verdent communications for security announcements
+
+**Best Practice Guides:**
+- [Tool Reference](/verdent-for-vscode/advanced-features/tool-reference) - Bash command execution
+- [Best Practices](/verdent-for-vscode/best-practices/prompts) - Safe prompting techniques
+- [Execution Modes](/verdent-for-vscode/execution-modes/overview) - Manual Accept Mode
+
+---
+
+### Additional Security Questions
+
+For questions about enterprise security requirements, penetration testing results, security architecture, data encryption, audit logs, or incident response procedures:
+
+Contact: support@verdent.ai
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Best Practices" icon="lightbulb" href="/verdent-for-vscode/best-practices/prompts">
+    Safe usage and optimization
+  </Card>
+  <Card title="Execution Modes" icon="sliders" href="/verdent-for-vscode/execution-modes/overview">
+    Manual Accept Mode for safety
+  </Card>
+</CardGroup>

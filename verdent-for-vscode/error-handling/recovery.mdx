@@ -1,0 +1,486 @@
+---
+title: Error Handling & Recovery
+description: Interpreting and recovering from errors
+---
+
+---
+
+Understanding how to interpret, respond to, and report errors helps you maintain productive development sessions with Verdent for VS Code.
+
+### What You'll Learn
+
+- Common error types and their causes
+- How to interpret error messages effectively
+- Systematic troubleshooting steps
+- When to wait vs when to take action
+- How to report issues to the Verdent team
+
+---
+
+## Common Error Types
+
+<Warning>
+Comprehensive error documentation is currently being developed. The information below covers the most frequently encountered error categories. For specific error scenarios, contact support@verdent.ai or visit the Discord community.
+</Warning>
+
+<Tabs>
+  <Tab title="Server-Side">
+    **Overloaded Server Errors**
+    - Occurs during high traffic periods
+    - Temporary capacity constraints
+    - **Action**: Wait 5-10 minutes and retry
+
+    **Internal Server Errors**
+    - Backend processing issues
+    - Temporary service disruptions
+    - **Action**: Wait and retry, usually resolves automatically
+
+    **503 Service Unavailable**
+    - No healthy upstream servers
+    - Temporary infrastructure issues
+    - **Action**: Wait for service recovery
+
+    **Rate Limiting Errors**
+    - Exceeded request quotas
+    - API throttling protections
+    - **Action**: Wait for rate limit reset, reduce request frequency
+  </Tab>
+
+  <Tab title="Authentication">
+    - Invalid or expired credentials
+    - Session timeout issues
+    - **Action**: Re-authenticate through User Center, verify subscription active
+  </Tab>
+
+  <Tab title="API Connection">
+    - Network connectivity issues
+    - Firewall or VPN blocking connections
+    - Corporate network restrictions
+    - **Action**: Check network connection, try different network
+  </Tab>
+
+  <Tab title="Configuration">
+    - Invalid settings or preferences
+    - Corrupted configuration files
+    - **Action**: Review recent setting changes, verify configuration
+  </Tab>
+
+  <Tab title="Permission">
+    - Insufficient file system permissions
+    - Workspace access restrictions
+    - **Action**: Check file/folder permissions, verify workspace access
+  </Tab>
+</Tabs>
+
+---
+
+## Interpreting Error Messages
+
+<Warning>
+Detailed error message interpretation guide is under development. For specific error messages you encounter, use the Feedback button or Discord community for assistance.
+</Warning>
+
+<Tabs>
+  <Tab title="Server-Side Errors">
+    Server-side errors are temporary and usually resolve by waiting. No action required beyond retrying after a few minutes.
+
+    **Look for these keywords:**
+    - "Overloaded" or "at capacity"
+    - "Internal server error" or "backend processing"
+    - "503 Service Unavailable" or "no healthy upstream"
+    - "Rate limit" or "quota"
+
+    **What to do:**
+    - Wait 5-10 minutes before retrying
+    - Continue local development work
+    - Review code changes made so far
+    - Commit current work to Git
+
+    **General Rule:** If the error message mentions server status, capacity, or rate limits, it's temporary. These are infrastructure issues that resolve automatically.
+
+    <Note>
+    Temporary server errors (502, 503, 504) usually resolve within minutes—wait 2-3 minutes before retrying.
+    </Note>
+
+    **When to escalate:**
+    - Error persists beyond 15 minutes
+    - Check Discord for outage reports
+    - Look for status page updates
+  </Tab>
+
+  <Tab title="Client-Side Errors">
+    Client-side errors require action on your part. These won't resolve by waiting.
+
+    **Look for these indicators:**
+    - Authentication or credential-related messages
+    - Configuration or settings errors
+    - File permission errors
+    - Network connection failures
+
+    **What to do:**
+    - **Authentication errors**: Re-authenticate through User Center, verify subscription active
+    - **Configuration errors**: Review recent setting changes, verify configuration files
+    - **Permission errors**: Check file/folder permissions, verify workspace access
+    - **Network errors**: Test internet connection, try different network, check VPN/firewall
+
+    **General Rule:** If the error mentions authentication, configuration, permissions, or local settings, you need to take corrective action.
+
+    **Troubleshooting steps:**
+    1. Read full error message for specific guidance
+    2. Identify which component reported error (auth, config, permissions, network)
+    3. Take targeted action based on error type
+    4. Verify fix by retrying original operation
+  </Tab>
+</Tabs>
+
+### Reading Error Context
+
+When errors occur:
+1. **Read the full error message** - Don't skip details
+2. **Note error codes** - Specific codes help diagnose issues
+3. **Identify the component** - What system reported the error (server, API, local)
+4. **Check timing** - Did it happen immediately or after delay?
+
+---
+
+## Systematic Troubleshooting
+
+Follow these progressive steps when Verdent behaves unexpectedly, starting with least disruptive actions.
+
+### Initial Response
+
+<Steps>
+  <Step title="Wait and Observe">
+    Check if behavior is consistent or intermittent. Note what action triggered the unexpected behavior. Don't immediately assume something is broken - many issues are temporary.
+  </Step>
+  <Step title="Basic Restart">
+    Restart Verdent for VS Code (close and reopen VS Code). Often resolves stuck states or performance issues. This is the simplest first troubleshooting step.
+  </Step>
+</Steps>
+
+### Progressive Troubleshooting
+
+If basic restart doesn't resolve the issue:
+
+<Tip>
+Follow the systematic troubleshooting steps in order, skipping steps often means missing the root cause.
+</Tip>
+
+<Steps>
+  <Step title="Check Network Connection">
+    Test internet connection with other websites. Try on different network (mobile hotspot) to rule out firewall/VPN issues. Check if corporate network is blocking connections.
+  </Step>
+  <Step title="Verify Configuration">
+    Check that you're still authenticated. Verify subscription is active in User Center. Review recent setting changes that might affect behavior.
+  </Step>
+  <Step title="Seek Help">
+    Check Discord community for similar reports: https://discord.com/invite/NGjXEZcbJq. Use Feedback button to report the issue. Include description of unexpected behavior and steps to reproduce.
+  </Step>
+</Steps>
+
+### What NOT to Do
+
+Avoid these actions for temporary issues:
+
+- Don't immediately reinstall Verdent
+- Don't clear VS Code cache or application data
+- Don't modify system settings for temporary issues
+- Don't restart computer unless other applications are also affected
+
+<Warning>
+In Manual Accept Mode, never approve destructive operations (rm, DROP, DELETE) without carefully reviewing the exact command.
+</Warning>
+
+**Why?** These actions are time-consuming and rarely fix issues. Most problems resolve with simple restart or waiting for temporary server issues to clear.
+
+---
+
+## When to Wait vs When to Act
+
+Understanding whether to wait or take action prevents wasted troubleshooting effort.
+
+<Tabs>
+  <Tab title="Wait It Out (5-10 min)">
+    These errors resolve automatically - no action needed beyond waiting and retrying.
+
+    **Server overload or capacity errors:**
+    - "Overloaded" or "at capacity" messages
+    - High traffic periods
+    - Temporary service disruptions
+
+    **Rate limiting:**
+    - "Rate limit" or "quota exceeded" messages
+    - Too many requests in short time
+    - API throttling protection
+
+    **Intermittent connection issues:**
+    - Occasional failed requests that succeed on retry
+    - Network hiccups
+    - Brief connectivity drops
+
+    **What to do while waiting:**
+    - Continue local development work
+    - Review code changes made so far
+    - Plan next steps or todos
+    - Commit current work to Git
+
+    **How long to wait:**
+    - Standard wait: 5-10 minutes
+    - If still failing after 10 minutes, switch to troubleshooting
+    - Check Discord for reports of widespread issues
+  </Tab>
+
+  <Tab title="Take Action Immediately">
+    These errors won't resolve by waiting - you must take corrective action.
+
+    **Authentication failures:**
+    - Session expired → Re-authenticate through User Center
+    - Invalid credentials → Verify subscription active
+    - Need to re-authenticate → Check User Center
+
+    **Persistent errors (10+ minutes):**
+    - Same error repeatedly after multiple retries → Start troubleshooting
+    - Consistent failure pattern → Check configuration
+    - Error persists across restarts → Verify environment
+
+    **Configuration issues:**
+    - Settings changed recently → Review and revert changes
+    - New setup or installation → Verify configuration files
+    - Changed network environment → Test connectivity
+
+    **Permission errors:**
+    - File system access denied → Check file/folder permissions
+    - Workspace restrictions → Verify workspace access
+    - Folder permissions → Grant necessary permissions
+
+    **Network problems:**
+    - Complete inability to connect → Test internet connection
+    - VPN or firewall blocking → Try different network
+    - Corporate network restrictions → Contact IT support
+
+    **Decision rule:**
+    - Server/rate errors → Wait
+    - Auth/config/permission/network → Act immediately
+    - Not sure? → Wait 5-10 minutes first, then act if persists
+  </Tab>
+</Tabs>
+
+---
+
+## Providing Error Context
+
+When seeking help or reporting issues, include comprehensive context for faster diagnosis.
+
+### Essential Information
+
+**Error Details:**
+- Exact error message text (copy-paste, don't paraphrase)
+- Error code if provided
+- Timestamp when error occurred
+- Frequency (one-time, intermittent, consistent)
+
+**Environment:**
+- Verdent for VS Code version
+- VS Code version
+- Operating system and version
+- Network environment (home, corporate, VPN)
+
+**Reproduction Steps:**
+1. What you were trying to do
+2. Exact prompts or commands used
+3. Files or context involved
+4. Actions taken before error
+
+**Context:**
+- Which execution mode you were using
+- Size and complexity of workspace
+- Recent configuration changes
+- Previous successful similar operations
+
+### Example Error Report
+
+Good error report format:
+
+```
+Issue: Getting "Internal server error" when requesting code analysis
+
+Error Message (exact):
+"Error: Internal server error occurred during processing. Please try again later."
+
+Environment:
+- Verdent for VS Code v1.2.3
+- VS Code 1.85.0
+- macOS 14.2
+- Home network (no VPN)
+
+Steps to Reproduce:
+1. Opened large TypeScript project (500+ files)
+2. Used Auto-Run Mode
+3. Requested: "Analyze authentication flow in auth.ts and suggest improvements"
+4. Error occurred immediately after request
+
+Additional Context:
+- First time working with this project
+- Same request worked fine yesterday in different project
+- Other requests (small file edits) work normally
+```
+
+### What Makes This Effective
+
+- Exact error message text
+- Complete environment details
+- Clear reproduction steps
+- Comparison with working scenarios
+- Additional context about patterns
+
+---
+
+## Reporting Issues
+
+<Tabs>
+  <Tab title="Feedback Button">
+    **Location:** Top bar of Verdent panel
+
+    **What it does:**
+    - Opens popup overlay for submitting issues and suggestions
+    - Direct channel to Verdent team
+    - Best for bug reports and feature requests
+
+    **When to use:**
+    - Confirmed bugs with clear reproduction steps
+    - Feature requests with specific use cases
+    - Direct team communication needed
+    - Non-urgent issues requiring investigation
+
+    **What to include:**
+    - Clear description of issue
+    - Error messages (exact text)
+    - Steps to reproduce
+    - Expected vs actual behavior
+    - Verdent version and platform
+    - When issue started
+  </Tab>
+
+  <Tab title="Discord Community">
+    **Link:** https://discord.com/invite/NGjXEZcbJq
+
+    **What it provides:**
+    - Active community of Verdent users and team members
+    - Real-time troubleshooting assistance
+    - Share issues with screenshots
+    - Get help from experienced users
+    - Community discussion and workarounds
+
+    **When to use:**
+    - Urgent issues requiring immediate discussion
+    - Complex troubleshooting needing back-and-forth
+    - Community input on best practices
+    - Quick questions before filing formal reports
+    - Sharing workarounds with community
+  </Tab>
+
+  <Tab title="Choosing Channel">
+    | Issue Type | Use Feedback Button | Use Discord |
+    |------------|:------------------:|:-----------:|
+    | Confirmed bug with reproduction steps | ✓ | |
+    | Feature request | ✓ | |
+    | Urgent troubleshooting needed | | ✓ |
+    | Complex issue needing discussion | | ✓ |
+    | Quick question | | ✓ |
+    | Want community input | | ✓ |
+    | Formal bug report | ✓ | |
+    | General help | | ✓ |
+
+    **What NOT to Report:**
+    - Temporary server errors (< 10 minutes)
+    - High traffic periods
+    - Already documented issues
+    - Expected behavior
+
+    **Instead:** Wait for temporary issues, check Discord for recent reports, review documentation.
+  </Tab>
+</Tabs>
+
+---
+
+## Prevention Best Practices
+
+Proactive practices reduce error frequency and improve recovery when errors occur.
+
+<Tip>
+Use specific language in prompts and include relevant file context to prevent many common errors before they occur.
+</Tip>
+
+### Before Starting Work
+
+**1. Verify Setup**
+- Check authentication status in User Center
+- Confirm subscription is active
+- Ensure stable network connection
+- Review recent configuration changes
+
+**2. Initialize Git**
+- Always have version control before using permissive modes
+- Commit current work for clean starting point
+- Provides rollback option if issues occur
+
+**3. Check Credit Balance**
+- Verify sufficient credits for planned work
+- Top up if needed before starting complex tasks
+- Avoid mid-task interruptions due to credit depletion
+
+### During Development
+
+**1. Use Appropriate Execution Modes**
+- Manual Accept for unfamiliar code
+- Plan Mode for complex changes
+- Auto-Run only with Git safety net
+- Match mode to risk level
+
+**2. Monitor Performance**
+- Watch for response quality degradation
+- Note slower response times
+- Start fresh sessions when performance declines
+- Track context usage manually
+
+**3. Clear, Specific Prompts**
+- Reduce errors from misunderstood requests
+- Include relevant context and constraints
+- Reference existing patterns
+- Specify scope clearly
+
+### After Errors
+
+**1. Learn from Patterns**
+- Note what triggered errors
+- Identify reproducible conditions
+- Adjust workflow to avoid triggers
+- Share findings with community
+
+**2. Document Workarounds**
+- Keep notes on effective solutions
+- Share with team members
+- Contribute to community knowledge
+- Report to Verdent team for fixes
+
+**3. Update Configuration**
+- Adjust settings based on experience
+- Optimize for your workflow
+- Configure rules to prevent issues
+- Maintain AGENTS.md documentation
+
+---
+
+## See Also
+
+<CardGroup cols={3}>
+  <Card title="Prompt Engineering" href="/verdent-for-vscode/best-practices/prompts" icon="message">
+    Write effective prompts to reduce errors
+  </Card>
+  <Card title="Context Management" href="/verdent-for-vscode/best-practices/context" icon="layer-group">
+    Optimize context to prevent performance issues
+  </Card>
+  <Card title="Execution Modes" href="/verdent-for-vscode/execution-modes/overview" icon="toggle-on">
+    Choose appropriate modes to minimize risks
+  </Card>
+</CardGroup>

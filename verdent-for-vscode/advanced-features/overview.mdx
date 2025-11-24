@@ -5,18 +5,135 @@ description: Complex features and multi-agent coordination
 
 
 
+### What You'll Learn
+
+This section covers Verdent's power-user capabilities including subagent management, rule systems, custom tool integration, and advanced extensibility options.
+
+---
+
 ## Complex Feature Explanations
 
-[Content to be added]
+Verdent for VS Code provides sophisticated features that enable advanced development workflows beyond basic code generation.
+
+### Subagent System
+
+**Specialized AI Agents:**
+Verdent includes built-in subagents (`@Verifier`, `@Explorer`, `@Code-reviewer`) that operate with isolated context windows and custom system prompts. Each subagent specializes in specific tasks like code exploration, validation, or quality review.
+
+**Automatic & Manual Delegation:**
+The main agent automatically routes tasks to appropriate subagents based on request patterns, or users can manually specify subagents using @-mentions. This delegation preserves main context while handling specialized operations efficiently.
+
+**Custom Subagents:**
+Create project-specific subagents by defining markdown files with YAML frontmatter in `~/.verdent/subagents/`. Custom subagents can specialize in domain expertise, team workflows, or technology-specific optimizations.
+
+[Learn more about subagent management](/verdent-for-vscode/agents-rules/subagent-management)
+
+### Rule Systems
+
+**Behavior Customization:**
+Rule files guide Verdent's behavior, output formatting, and decision-making through plain Markdown documents. Three rule types control different scopes:
+
+- **user_rules.md** - Global personal preferences across all projects
+- **AGENTS.md** - Project-specific team standards (version controlled)
+- **plan_rules.md** - Plan Mode output format customization
+
+**Rule Precedence:**
+When conflicts occur, project rules (`AGENTS.md`) override user rules, ensuring team consistency while preserving personal preferences for solo projects.
+
+[Learn more about rule systems](/verdent-for-vscode/agents-rules/rule-systems)
+
+### Tool System & MCP
+
+**Built-in Tools:**
+Verdent provides comprehensive tools for file operations, search (`glob`/`grep`), command execution (`bash`), web access, and agent delegation. Tools enable all code manipulation, navigation, and external interaction.
+
+**Model Context Protocol (MCP):**
+MCP extends Verdent's capabilities by connecting to external tools, data sources, and services. Configure MCP servers through Settings → MCP Servers to integrate project-specific APIs and custom functionality.
+
+[View tool reference](/verdent-for-vscode/advanced-features/tool-reference)
+[Learn about MCP integration](/verdent-for-vscode/advanced-features/mcp)
+
+---
 
 ## Multi-Agent Coordination
 
-[Content to be added]
+Verdent's multi-subagent architecture enables parallel task execution with automatic routing and coordination.
+
+**Main Agent (Orchestrator):**
+The primary agent analyzes requests, breaks down complex tasks, and delegates specialized work to subagents while maintaining conversation context and consolidating results.
+
+**Parallel Execution:**
+Multiple subagents run concurrently for complex operations. Example: Explorer subagent searches the codebase while Code-reviewer analyzes security simultaneously, delivering faster results.
+
+**Context Isolation:**
+Each subagent operates with its own context window. Only final results consume space in the main agent's context, preventing exhaustion during multi-step operations.
+
+**Task Routing:**
+Automatic detection routes tasks based on patterns:
+- Codebase questions → `@Explorer` subagent
+- Security reviews → `@Code-reviewer` subagent
+- Validation checks → `@Verifier` subagent
+
+---
 
 ## Custom Workflow Creation
 
-[Content to be added]
+Advanced users can customize Verdent's behavior to match team processes and project requirements.
+
+**Custom Subagent Workflows:**
+Create specialized subagents for domain-specific needs:
+- **API documentation generators** - Extract endpoints and parameters from code
+- **Database migration reviewers** - Validate schema changes for safety
+- **Accessibility auditors** - Check frontend code for WCAG compliance
+
+**Rule-Based Customization:**
+Define coding standards, testing requirements, and output preferences through rule files:
+- Enforce team conventions (indentation, naming, patterns)
+- Specify documentation styles and comment detail levels
+- Control Plan Mode output structure and granularity
+
+**Extensibility Through MCP:**
+Integrate external tools and services:
+- Database query tools
+- Cloud service APIs (AWS, Azure, GCP)
+- Project management integrations (Jira, Linear)
+- CI/CD pipeline connections
+
+[Learn about custom subagents](/verdent-for-vscode/agents-rules/subagent-management)
+[Explore extensibility options](/verdent-for-vscode/advanced-features/extensibility)
+
+---
 
 ## Advanced Context Management Techniques
 
-[Content to be added]
+Efficient context management is critical for complex projects and long coding sessions.
+
+**Strategic File Reading:**
+Use `file_read` with line ranges for large files to avoid context overload. Read only sections needed for the task rather than entire files.
+
+**Subagent Delegation for Research:**
+Delegate exploratory tasks to `@Explorer` subagent to keep main conversation context clean. Subagent research results consume minimal main context space.
+
+**Search Before Reading:**
+Use `grep_file` to identify relevant files before reading full contents. Combine `glob` patterns with `grep_content` for precise searches that minimize unnecessary file operations.
+
+**Context-Aware Tool Selection:**
+- **Large codebases:** `@Explorer` subagent for architecture understanding
+- **Isolated validation:** `@Verifier` subagent for quick checks
+- **Security reviews:** `@Code-reviewer` subagent for quality assessment
+
+**Monitoring Context Usage:**
+Track which subagents are executing through Chat View indicators. Subagent operations appear in conversation history with progress indicators and result attribution.
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Tool Reference" icon="wrench" href="/verdent-for-vscode/advanced-features/tool-reference">
+    Complete tool capabilities guide
+  </Card>
+  <Card title="Extensibility" icon="puzzle-piece" href="/verdent-for-vscode/advanced-features/extensibility">
+    Custom subagents, rules, and MCP integration
+  </Card>
+</CardGroup>

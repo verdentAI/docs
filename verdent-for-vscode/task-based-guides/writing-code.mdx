@@ -1,8 +1,390 @@
 ---
 title: Writing New Code
-description: Guide for using Verdent to write new code
+description: Guide for using Verdent to write new features, components, and functionality
 ---
 
+Verdent for VS Code helps you write new code through natural language requests, no special syntax required. Describe what you want to build, and Verdent creates production-ready implementations across multiple files while maintaining your project's patterns and conventions.
 
+### What You'll Learn
 
-[Content to be added]
+- Request new features using natural language prompts
+- Generate code across multiple files with proper dependencies
+- Work with various programming languages and frameworks
+- Scaffold entire project structures
+- Iterate on generated code through conversational refinement
+
+### Prerequisites
+
+Before writing code with Verdent:
+
+- Visual Studio Code with Verdent extension installed
+- Active Verdent subscription with available credits
+- A project workspace open in VS Code (or empty directory for scaffolding)
+
+---
+
+## Requesting New Features
+
+Verdent understands natural language feature requests without requiring special commands or syntax. Simply describe what you want in the Input Box.
+
+**Basic Feature Requests:**
+
+Start with straightforward descriptions of what you need:
+
+```
+Create a UserProfile component that shows the user's avatar image, name as a heading, and email below it. Make the avatar circular.
+```
+
+```
+Add a login form with email and password fields to the authentication page
+```
+
+```
+Build a notification system that displays toast messages for success and error events
+```
+
+Verdent analyzes your request, examines your project structure, and generates code that matches your existing patterns, including file organization, naming conventions, import styles, and coding practices.
+
+**Detailed Implementation Requests:**
+
+For more control, specify technical requirements explicitly:
+
+```
+Add a dark mode toggle to the settings page using React Context API. Store the theme preference in localStorage and apply CSS variables for light and dark themes across all components.
+```
+
+```
+Create a POST /api/users/register endpoint that validates email format, password strength (min 8 chars, uppercase, number, special char), and checks for duplicate emails before creating the user in the database.
+```
+
+```
+Implement pagination for the blog posts list with 10 posts per page. Add Previous/Next buttons and page number indicators. Update the URL query params (?page=2) and fetch data from /api/posts?page=X&limit=10.
+```
+
+The more context you provide, the more aligned the implementation will be with your expectations.
+
+<Tabs>
+  <Tab title="Simple Requests">
+    Use concise descriptions for straightforward features:
+
+    ```
+    Add a search bar to the navigation
+    ```
+
+    ```
+    Create a footer component with copyright and links
+    ```
+
+    Verdent makes reasonable implementation choices based on your project's existing code patterns.
+  </Tab>
+
+  <Tab title="Complex Requests with Plan Mode">
+    For multi-file features or architectural decisions, use **Plan Mode** to review the approach before execution:
+
+    **Step 1:** Switch to Plan Mode using the "Switch Mode" button
+
+    **Step 2:** Submit your feature request:
+
+    ```
+    Add a search feature to the product catalog with filtering by category and price range
+    ```
+
+    **Step 3:** Verdent creates a detailed plan showing:
+    - New files to create (search components, filter UI, API endpoints)
+    - Existing files to modify (product catalog page, routing, state management)
+    - Dependencies to add (if any)
+    - Implementation steps in logical order
+
+    **Step 4:** Verdent may ask clarifying questions:
+    - Should search be real-time or button-triggered?
+    - How to handle empty results?
+    - Which sorting options to include?
+
+    **Step 5:** Review the plan and choose your next action:
+    - Choose **Edit** to refine the plan further
+    - Choose **Start Building** to begin execution
+
+    This approach ensures alignment between your expectations and Verdent's implementation before making changes.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Use Plan Mode when features affect multiple files or require architectural decisions. You can perform multiple rounds of plan review to refine the approach before execution.
+</Tip>
+
+---
+
+## Adding Context with @-Mentions
+
+Reference specific files or components when you want targeted feature additions:
+
+```
+@auth.js Add password reset functionality to this authentication module
+```
+
+```
+@components/Dashboard.js Add a statistics widget showing user activity for the past 30 days
+```
+
+The `@` symbol followed by a file path tells Verdent to focus on specific code when implementing your request. This ensures new features integrate seamlessly with existing implementations.
+
+---
+
+## Language and Framework Support
+
+Verdent works with virtually any programming language and understands code semantics, syntax patterns, and common frameworks across all major ecosystems without requiring language-specific plugins.
+
+<Tabs>
+  <Tab title="Exceptional Support">
+    Languages with outstanding results and deep framework understanding:
+
+    - **JavaScript & TypeScript** - React, Vue, Angular, Node.js, Next.js, modern async/await patterns, component analysis
+    - **Python** - Django, Flask, FastAPI, Pandas, NumPy, Jupyter notebooks, backend services, data analysis
+    - **Java/Kotlin** - Spring Boot, Hibernate, Maven/Gradle ecosystem, enterprise development
+
+    <CodeGroup>
+    ```jsx "React Component"
+    function UserProfile({ user }) {
+      return (
+        <div className="profile">
+          <h1>{user.name}</h1>
+          <p>{user.email}</p>
+        </div>
+      );
+    }
+    ```
+
+    ```vue "Vue Component"
+    <template>
+      <div class="profile">
+        <h1>{{ user.name }}</h1>
+        <p>{{ user.email }}</p>
+      </div>
+    </template>
+
+    <script setup>
+    defineProps(['user']);
+    </script>
+    ```
+
+    ```tsx "Angular Component"
+    @Component({
+      selector: 'user-profile',
+      template: `
+        <div class="profile">
+          <h1>{{ user.name }}</h1>
+          <p>{{ user.email }}</p>
+        </div>
+      `
+    })
+    export class UserProfileComponent {
+      @Input() user!: User;
+    }
+    ```
+    </CodeGroup>
+  </Tab>
+
+  <Tab title="Strong Support">
+    Additional languages with comprehensive framework knowledge:
+
+    - **C++** - Memory management, performance optimization, system programming
+    - **Rust** - Memory safety patterns, ownership concepts, cargo ecosystem
+    - **Go** - Concurrency patterns, microservices, CLI tools
+    - **C#** - .NET ecosystem, LINQ patterns, async programming
+    - **Ruby** - Rails applications, scripting
+    - **PHP** - Laravel, WordPress, web applications
+    - **Swift/Objective-C** - iOS/macOS development
+  </Tab>
+</Tabs>
+
+Verdent also supports Shell scripting (Bash, Zsh), SQL, HTML/CSS, Markdown, YAML, JSON, and configuration languages.
+
+#### Framework Understanding
+
+Beyond languages, Verdent recognizes framework-specific patterns:
+
+| Category | Frameworks & Patterns |
+|----------|----------------------|
+| **Frontend** | React hooks, Redux, Context API, Vue Composition API, Angular dependency injection, Next.js server components |
+| **Backend** | Express middleware, Django ORM, Spring Boot microservices, FastAPI async endpoints, Rails Active Record |
+| **Testing** | Jest, Pytest, JUnit, Mocha/Chai, Cypress, React Testing Library |
+| **Database** | Prisma, TypeORM, Sequelize, SQLAlchemy, Hibernate, Mongoose |
+
+<Note>
+  Verdent adapts to your technology stack rather than requiring specific languages or frameworks. Well-organized codebases with clear separation of concerns produce better results regardless of programming language.
+</Note>
+
+**Optimizing for Less Common Languages:**
+
+For specialized frameworks or less common languages, improve results by:
+- Providing code examples showing patterns you want to follow
+- Including snippets from existing codebase using @-mentions
+- Using MCP (Model Context Protocol) servers to inject language-specific context
+
+---
+
+## Multi-File Code Generation
+
+Verdent creates multiple coordinated files in a single request, handling imports, dependencies, and cross-file references automatically.
+
+**Example:**
+
+```
+Create a UserDashboard component with a separate hooks file for data fetching, a styles file, a types file for TypeScript interfaces, and a test file
+```
+
+Verdent generates:
+
+- `components/UserDashboard/UserDashboard.tsx` - Main component
+- `components/UserDashboard/useUserData.ts` - Custom hook
+- `components/UserDashboard/UserDashboard.module.css` - Styles
+- `components/UserDashboard/types.ts` - TypeScript interfaces
+- `components/UserDashboard/UserDashboard.test.tsx` - Tests
+
+All files include correct imports and connections between them.
+
+**Parallel vs. Sequential Generation:**
+
+For **loosely coupled files** (independent components, separate modules, parallel test files), Verdent can use subagents to write multiple files in parallel, improving speed and efficiency.
+
+For **tightly coupled files** with interdependencies (files that import from each other, shared types, dependent components), Verdent writes sequentially to ensure proper dependency management and correct imports.
+
+<Tip>
+For multi-file features, Verdent generates files in parallel and maintains consistency across all related changes automatically.
+</Tip>
+
+---
+
+## Generating Boilerplate and Scaffolding
+
+#### Boilerplate Code Generation
+
+Verdent generates boilerplate by understanding your project's existing patterns and creating new code that follows the same style and structure:
+
+```
+Create a new ProductCard component with props for title, price, and image
+```
+
+```
+Write an Express route handler for user registration with validation
+```
+
+```
+Generate unit tests for the authentication service using Jest
+```
+
+Verdent analyzes your codebase to match conventions (naming styles, import patterns, folder structure) and generates boilerplate that integrates seamlessly rather than using generic templates.
+
+<Tip>
+  Use Plan Mode to review candidate boilerplate before generation. Verdent can ask clarifying questions about styling approach, validation rules, or error handling strategy to ensure generated code matches your exact requirements.
+</Tip>
+
+#### Project Scaffolding
+
+Verdent scaffolds entire project structures with complete folder hierarchies, configuration files, dependencies, and initial code:
+
+```
+Create a new React application with TypeScript, React Router, Context API for state management, and Jest testing setup
+```
+
+Verdent generates the complete project structure including `package.json`, `tsconfig.json`, component directories, routing configuration, context providers, test files, and version control setup (`.gitignore`, initial commit).
+
+**Best Practice for Scaffolding:**
+
+Use Plan Mode when scaffolding projects. Verdent will:
+1. Ask clarifying questions about preferences (styling solution, component structure, testing approach)
+2. Present a detailed plan with the complete file structure and directory layout
+3. Allow you to review and refine the scaffold before creation
+4. Generate the project with verification to ensure all files are created correctly
+
+For complex scaffolding, Verdent may use subagents to parallelize independent setup tasks (installing dependencies, creating configuration files, setting up database schemas). It maintains sequential writes for interdependent files to preserve dependencies.
+
+After scaffolding, Verdent can verify the setup by running initial tests and build commands to ensure the project structure works correctly.
+
+---
+
+## Iterating on Generated Code
+
+Verdent uses a conversational workflow where you refine generated code through natural language follow-up requests in the same chat session.
+
+**Basic Iteration Flow:**
+
+1. Verdent generates initial code
+2. You review the output
+3. You provide feedback or request changes
+4. Verdent updates the code based on your feedback
+5. Repeat until satisfied
+
+**Example Iteration:**
+
+```
+Initial: Create a login form component
+```
+
+Verdent generates a basic form.
+
+```
+Follow-up: Add email validation and show error messages below each field
+```
+
+Verdent updates the component with validation.
+
+```
+Follow-up: Style it with Tailwind CSS and add a loading state for the submit button
+```
+
+Verdent refines styling and adds loading behavior.
+
+**Tight Feedback Loops:**
+
+Verdent maintains context throughout the conversation, allowing you to:
+- Request incremental changes without repeating context
+- Test the code and report issues for Verdent to fix
+- Ask "why" questions about implementation choices
+- Try different approaches by asking for alternatives
+
+<Tip>
+  For significant changes, describe what's wrong or what you want differently rather than how to fix it. Verdent can analyze the issue and propose the best solution based on your project patterns.
+</Tip>
+
+---
+
+## Best Practices
+
+<Accordion title="Be as specific or general as needed">
+  Verdent understands various levels of detail. Provide technical specifics when you have requirements, or use general descriptions and let Verdent make informed choices based on your project patterns.
+</Accordion>
+
+<Accordion title="Start exploratory before making changes">
+  Before requesting new features, let Verdent understand your codebase with questions like "Analyze the database schema" or "Explain the authentication flow." This builds context and helps Verdent make better suggestions.
+</Accordion>
+
+<Accordion title="Use Plan Mode for complex or multi-file features">
+  Review detailed implementation plans before execution. Verdent asks clarifying questions and creates structured approaches. After generating the plan, choose **Edit** to refine or **Start Building** to execute, ensuring alignment before making changes.
+</Accordion>
+
+<Accordion title="Leverage @-mentions for targeted integration">
+  Reference specific files when you want changes integrated with existing code. This ensures new features align with current implementations.
+</Accordion>
+
+<Accordion title="Break complex tasks into incremental steps">
+  For multi-step features, work incrementally: create database table, then API endpoint, then UI component. This maintains clarity and allows verification at each step.
+</Accordion>
+
+<Accordion title="The more context you provide, the more aligned results will be">
+  Include details about technology choices, design preferences, validation rules, error handling strategies, or any other requirements that matter to your implementation.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Understanding Code" icon="book" href="/verdent-for-vscode/task-based-guides/understanding-code">
+    Learn how to explore and analyze existing codebases with Verdent
+  </Card>
+
+  <Card title="Testing & Debugging" icon="bug" href="/verdent-for-vscode/task-based-guides/testing-debugging">
+    Generate comprehensive tests and debug issues with AI assistance
+  </Card>
+</CardGroup>

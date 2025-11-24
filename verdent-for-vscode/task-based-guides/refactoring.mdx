@@ -3,6 +3,426 @@ title: Improving & Refactoring Code
 description: Best practices for code improvement and refactoring with Verdent
 ---
 
+Verdent for VS Code helps you refactor and improve code safely across multiple files while preserving functionality. Using Plan Mode with the Explorer subagent, you can identify all affected files before making changes, ensuring comprehensive refactoring without missing instances.
 
+### What You'll Learn
 
-[Content to be added]
+- Request effective refactorings focused on outcomes, not implementation
+- Refactor safely across multiple files with dependency management
+- Request code quality improvements and optimization suggestions
+- Handle large-scale refactoring projects with multi-phase approaches
+- Optimize performance through algorithmic and architectural improvements
+- Preserve code functionality during refactoring operations
+
+### Prerequisites
+
+Before refactoring with Verdent:
+
+- Visual Studio Code with Verdent extension installed
+- A codebase or project workspace open in VS Code
+- Active Verdent subscription with available credits
+- Version control (Git) recommended for safe rollback if needed
+
+---
+
+## Requesting Effective Refactorings
+
+Describe **what you want to improve and why**, rather than **how to fix it**. Let Verdent analyze the code and propose the best approach based on your project patterns.
+
+**Effective Refactoring Requests:**
+
+Focus on the outcome you want, not the implementation:
+
+```
+Refactor the UserController to improve readability and reduce duplication
+```
+
+```
+This authentication logic is scattered across multiple files. Consolidate it into a single module
+```
+
+```
+Improve error handling in the API layer to be more consistent and informative
+```
+
+Verdent analyzes the code, identifies all affected files, examines patterns, and proposes specific refactoring strategies aligned with your codebase conventions.
+
+**Best Practice: Use Plan Mode**
+
+Start refactoring requests in Plan Mode. Verdent will:
+
+1. Analyze the code and identify all affected files
+2. Present a detailed refactoring plan before making changes
+3. Ask clarifying questions about implementation preferences
+4. Show exactly what will change and in what order
+5. Allow you to review and refine the approach
+
+**Example with Plan Mode:**
+
+```
+In Plan Mode: Refactor authentication logic to use a centralized authentication utility
+```
+
+Verdent will:
+- Use Explorer to find all authentication code locations
+- Identify patterns and inconsistencies
+- Propose a unified authentication interface
+- Show which files will be modified
+- Explain the refactoring sequence
+
+You can request Verdent to save the plan to a `plan.md` file for additional review and team discussion before execution.
+
+**Using Explorer for Comprehensive Searches:**
+
+For complex refactorings, explicitly ask Verdent to use the Explorer agent to search thoroughly:
+
+```
+Use the Explorer agent to find all places where we manually validate email addresses, then refactor them to use a centralized validation utility
+```
+
+This ensures Verdent discovers every location that needs updating, preventing inconsistent refactoring across the codebase.
+
+<Tip>
+  Plan Mode is essential for refactoring. It prevents surprises by showing exactly what will change before execution, and allows you to refine the approach based on architectural considerations.
+</Tip>
+
+---
+
+## Multi-File Refactoring
+
+Verdent refactors across multiple files while maintaining imports, dependencies, and cross-file references. It identifies all affected files, updates them in the correct order, and ensures consistency throughout the codebase.
+
+**How Multi-File Refactoring Works:**
+
+1. **Discovery Phase**: Verdent (using Explorer) finds all files that need changes
+2. **Dependency Analysis**: Identifies dependencies between files to determine update order
+3. **Plan Creation**: Shows all files to be modified and the sequence of changes
+4. **Sequential Updates**: Modifies files in dependency order (e.g., types before components that use them)
+5. **Import Management**: Automatically updates imports, exports, and cross-file references
+6. **Verification**: Checks that changes are consistent across all files
+
+<Note>
+Multi-file refactoring preserves functionality through automated dependency tracking, Verdent updates all affected files atomically.
+</Note>
+
+**Example:**
+
+```
+Rename the User interface to UserProfile across the entire project
+```
+
+Verdent will:
+- Find all files importing or using `User`
+- Identify type definitions, implementations, and usages
+- Update type definitions first, then implementations, then usages
+- Adjust all import statements
+- Ensure consistency across the codebase
+
+**Use Plan Mode to Review Scope:**
+
+Before executing multi-file refactoring, review the complete scope in Plan Mode:
+
+```
+In Plan Mode: Extract the authentication logic from UserController into a separate AuthService
+```
+
+Verdent will show:
+- Which files will be created (new AuthService)
+- Which files will be modified (UserController and all importers)
+- What code will move from UserController to AuthService
+- How imports and dependencies will be updated
+
+This prevents accidental scope creep and ensures you understand the full impact before proceeding.
+
+---
+
+## Requesting Code Quality Improvements
+
+Verdent does not proactively suggest improvements without being asked. However, you can request code quality reviews and improvement suggestions at any time.
+
+<Tabs>
+  <Tab title="General Reviews">
+    Request broad code quality reviews:
+
+    ```
+    Review this code for potential improvements
+    ```
+
+    ```
+    Suggest ways to improve code quality in the UserService module
+    ```
+
+    ```
+    Are there any performance optimizations we could make here?
+    ```
+
+    ```
+    Analyze the PaymentController for maintainability issues
+    ```
+
+    Verdent analyzes the code and provides specific suggestions for:
+
+    - **Readability**: Variable naming, function decomposition, comment clarity
+    - **Performance**: Algorithm complexity, redundant operations, caching opportunities
+    - **Maintainability**: Code duplication, coupling, separation of concerns
+    - **Best Practices**: Design patterns, error handling, testing coverage
+    - **Security**: Input validation, authentication checks, data exposure
+  </Tab>
+
+  <Tab title="Focused Reviews">
+    For targeted feedback, reference specific files:
+
+    ```
+    @services/UserService.js Review this module for dependency injection improvements
+    ```
+
+    ```
+    @controllers/PaymentController.js Identify opportunities to reduce complexity
+    ```
+
+    Verdent examines the specified code in context of your project patterns and provides actionable recommendations.
+  </Tab>
+</Tabs>
+
+---
+
+## Large-Scale Refactoring Projects
+
+For large-scale refactoring, use Plan Mode with a **multi-phase approach** to get the most reliable results. Verdent breaks down the refactoring into manageable stages, allowing you to review and approve each phase before proceeding.
+
+**Multi-Phase Refactoring Workflow:**
+
+#### Phase 1: Initial Analysis
+
+Use Plan Mode with the Explorer agent to identify all affected files and dependencies:
+
+```
+In Plan Mode: Use Explorer to analyze our codebase and create a plan to replace our custom authentication with OAuth 2.0
+```
+
+Verdent performs comprehensive analysis:
+- Identifies all authentication-related code
+- Maps dependencies and integration points
+- Assesses complexity and risk areas
+- Proposes phase breakdown
+
+#### Phase 2: Phase Planning
+
+Verdent creates a multi-phase plan for review:
+
+**Example Plan:**
+- **Phase 1**: Add OAuth library and configure endpoints
+- **Phase 2**: Update user model and database schema
+- **Phase 3**: Migrate existing authentication logic
+- **Phase 4**: Remove deprecated authentication code
+- **Phase 5**: Update tests and documentation
+
+Each phase includes:
+- Files to be modified
+- Estimated complexity
+- Dependencies on previous phases
+- Risk assessment
+
+#### Phase 3: Phase-by-Phase Execution
+
+Execute one phase at a time, testing between phases:
+
+1. Approve Phase 1 in Plan Mode
+2. Switch to Agent Mode and execute
+3. Test thoroughly to verify Phase 1 works
+4. Return to Plan Mode for Phase 2
+5. Repeat until all phases complete
+
+#### Phase 4: Iterative Refinement
+
+Review results after each phase. If issues arise:
+- Adjust the plan for remaining phases
+- Add corrective phases if needed
+- Refine approach based on discoveries
+
+This phased approach ensures safety and allows course correction if issues arise during large refactoring projects.
+
+<Note>
+  Large-scale refactoring should always be done with version control. Commit after each phase so you can roll back if problems emerge without losing all progress.
+</Note>
+
+---
+
+## Performance Optimization
+
+Verdent analyzes code for performance bottlenecks and suggests optimizations including algorithm complexity improvements, efficient data structures, and resource usage reduction.
+
+<Tabs>
+  <Tab title="Algorithm Optimization">
+    Improve algorithmic complexity:
+
+    ```
+    Analyze the performance of this data processing function and suggest improvements
+    ```
+
+    ```
+    Can we improve the time complexity of this search algorithm?
+    ```
+
+    **What Verdent Identifies:**
+
+    - **Algorithm Complexity**: O(n²) loops, nested iterations, inefficient searches
+    - **Redundant Computations**: Repeated calculations, unnecessary operations
+    - **Memory Issues**: Memory leaks, excessive allocations, large object retention
+
+    **Example:**
+
+    ```
+    Optimize the searchProducts function that's currently O(n²)
+    ```
+
+    Verdent analyzes the function, identifies the inefficiency (nested loops or repeated linear searches), and proposes specific improvements:
+
+    - Replace nested loop with hash map for O(n) lookup
+    - Use binary search after sorting for O(log n) complexity
+    - Cache computed results to avoid redundant calculations
+    - Implement memoization for expensive operations
+
+    The response includes:
+    - **Current complexity**: Explanation of why current code is slow
+    - **Proposed solution**: Specific algorithm or data structure change
+    - **Performance gain**: Estimated improvement (e.g., O(n²) → O(n log n))
+    - **Trade-offs**: Memory usage, code complexity, maintainability considerations
+  </Tab>
+
+  <Tab title="Component Optimization">
+    Optimize UI components and rendering:
+
+    ```
+    Optimize this component to reduce unnecessary re-renders
+    ```
+
+    **What Verdent Identifies:**
+
+    - **Frontend Performance**: Unnecessary re-renders, large bundle sizes, blocking operations
+    - **Component Lifecycle**: Inefficient useEffect dependencies, missing memoization
+    - **State Management**: Redundant state updates, prop drilling
+
+    Verdent analyzes your component and suggests optimizations like React.memo, useMemo, useCallback, or component splitting.
+  </Tab>
+
+  <Tab title="API & Database Optimization">
+    Identify and fix API and database bottlenecks:
+
+    ```
+    Identify performance bottlenecks in the API request handler
+    ```
+
+    **What Verdent Identifies:**
+
+    - **Database Performance**: N+1 queries, missing indexes, inefficient joins
+    - **API Performance**: Slow endpoints, inefficient data fetching, missing caching
+
+    Verdent examines query patterns, suggests database indexes, caching strategies, and API optimization techniques.
+  </Tab>
+</Tabs>
+
+<Tip>
+  For performance optimization, provide context about typical data sizes and performance constraints. This helps Verdent propose solutions appropriate for your scale (e.g., 100 items vs 1 million items).
+</Tip>
+
+<Tip>
+Profile before optimizing, measure performance impact to ensure optimizations provide meaningful improvements.
+</Tip>
+
+---
+
+## Preserving Functionality During Refactoring
+
+Verdent aims to preserve code functionality during refactoring by maintaining the same inputs, outputs, and behavior while improving the internal implementation.
+
+**How Verdent Preserves Functionality:**
+
+- **Input/Output Analysis**: Identifies function signatures, API contracts, and expected behaviors
+- **Test Awareness**: Considers existing tests as behavioral specifications
+- **Conservative Changes**: Makes minimal changes to achieve the refactoring goal
+- **Verification**: Can generate or run tests to verify functionality is preserved
+
+**Best Practices for Safe Refactoring:**
+
+1. **Always test refactored code** - Even with Verdent's analysis, manual or automated testing verifies functionality is preserved, especially for complex refactorings
+
+2. **Use version control** - Commit before refactoring so you can roll back if issues emerge
+
+3. **Refactor incrementally** - Break large refactorings into smaller steps, testing after each change
+
+4. **Review changes carefully** - Examine the diff to understand what changed and why
+
+5. **Use Plan Mode for complex refactorings** - Review the approach before execution to catch potential issues
+
+**Example: Safe Refactoring Request**
+
+```
+Refactor the calculateOrderTotal function to use a more maintainable structure, but ensure it produces identical results for all input cases
+```
+
+Verdent will:
+- Analyze current implementation and edge cases
+- Propose refactored structure
+- Explain why the refactored version is equivalent
+- Suggest test cases to verify equivalence
+
+**When Functionality Might Change:**
+
+In some cases, refactoring intentionally changes behavior (fixing bugs, improving validation). Make this explicit:
+
+```
+Refactor the email validation function to correctly handle international domains, which the current implementation doesn't support
+```
+
+This signals that behavioral change is expected and intentional.
+
+---
+
+## Best Practices
+
+<Accordion title="Describe the problem, not the solution">
+  Let Verdent analyze the code and propose the best refactoring approach rather than prescribing specific changes.
+</Accordion>
+
+<Accordion title="Always use Plan Mode for refactoring">
+  Review the complete plan before execution. This prevents surprises and allows you to refine the approach based on architectural considerations.
+</Accordion>
+
+<Accordion title="Explicitly use Explorer for comprehensive searches">
+  For thorough refactoring, ask Verdent to use Explorer to find all instances: "Use Explorer to find all manual error handling, then refactor to use our error utility."
+</Accordion>
+
+<Accordion title="Break large refactorings into phases">
+  Multi-phase approaches with testing between phases are safer and more manageable than attempting everything at once.
+</Accordion>
+
+<Accordion title="Test between phases">
+  Verify each phase works before proceeding to the next. This isolates issues and prevents compounding problems.
+</Accordion>
+
+<Accordion title="Commit frequently">
+  Use version control to create checkpoints after each phase or major change. This allows safe rollback without losing all progress.
+</Accordion>
+
+<Accordion title="Save plans for team review">
+  For significant refactorings, request Verdent to save the plan to `plan.md` for team discussion before execution.
+</Accordion>
+
+<Accordion title="Provide context for optimization">
+  When requesting performance improvements, include information about data sizes, performance constraints, and acceptable trade-offs.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Testing & Debugging" icon="bug" href="/verdent-for-vscode/task-based-guides/testing-debugging">
+    Generate tests to verify refactored code works correctly
+  </Card>
+
+  <Card title="Understanding Code" icon="book" href="/verdent-for-vscode/task-based-guides/understanding-code">
+    Analyze code structure before refactoring to understand impact
+  </Card>
+</CardGroup>

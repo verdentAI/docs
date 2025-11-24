@@ -26,6 +26,12 @@
             ]
           },
           {
+            "group": "Core Features",
+            "pages": [
+              "verdent-for-vscode/core-features/introduction"
+            ]
+          },
+          {
             "group": "Task-Based Guides",
             "pages": [
               "verdent-for-vscode/task-based-guides/writing-code",
@@ -44,18 +50,35 @@
             ]
           },
           {
-            "group": "Execution & Resources",
+            "group": "Pricing",
             "pages": [
-              "verdent-for-vscode/execution-resources/overview",
-              "verdent-for-vscode/execution-resources/monitoring"
+              "verdent-for-vscode/pricing/overview",
+              "verdent-for-vscode/pricing/plans"
+            ]
+          },
+          {
+            "group": "Execution Modes & Permissions",
+            "pages": [
+              "verdent-for-vscode/execution-modes/overview"
+            ]
+          },
+          {
+            "group": "Resource Management",
+            "pages": [
+              "verdent-for-vscode/resource-management/monitoring"
+            ]
+          },
+          {
+            "group": "Error Handling & Recovery",
+            "pages": [
+              "verdent-for-vscode/error-handling/recovery"
             ]
           },
           {
             "group": "Best Practices",
             "pages": [
               "verdent-for-vscode/best-practices/prompts",
-              "verdent-for-vscode/best-practices/context",
-              "verdent-for-vscode/best-practices/errors"
+              "verdent-for-vscode/best-practices/context"
             ]
           },
           {
@@ -78,12 +101,12 @@
             "pages": [
               "verdent-for-vscode/advanced-features/overview",
               "verdent-for-vscode/advanced-features/tool-reference",
-              "verdent-for-vscode/advanced-features/mcp",
+              "verdent-for-vscode/advanced-features/integrations",
               "verdent-for-vscode/advanced-features/extensibility"
             ]
           },
           {
-            "group": "Help & Support",
+            "group": "Troubleshooting",
             "pages": [
               "verdent-for-vscode/help-support/common-issues",
               "verdent-for-vscode/help-support/faqs",
@@ -94,6 +117,8 @@
             "group": "Reference",
             "pages": [
               "verdent-for-vscode/reference/commands",
+              "verdent-for-vscode/reference/shortcuts",
+              "verdent-for-vscode/reference/glossary",
               "verdent-for-vscode/reference/changelog",
               "verdent-for-vscode/reference/security",
               "verdent-for-vscode/reference/resources"

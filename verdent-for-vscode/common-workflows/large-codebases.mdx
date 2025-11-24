@@ -3,6 +3,234 @@ title: Working with Large Codebases
 description: Strategies for navigating and working with large codebases
 ---
 
+Working with large codebases requires specific strategies to manage context limitations and maintain productivity. This guide provides practical workflows for navigating, understanding, and modifying large projects efficiently using Verdent for VS Code.
 
+---
 
-[Content to be added]
+## Using the Explorer Agent for Codebase Discovery
+
+Suppose you're new to a large codebase and need to find where specific functionality is implemented.
+
+<Steps>
+  <Step title="Ask broad discovery questions">
+    ```
+    Where is user authentication handled in this codebase?
+    ```
+
+    Verdent automatically delegates to the Explorer agent, a token-efficient specialist for codebase searches.
+  </Step>
+
+  <Step title="Explorer searches efficiently">
+    The Explorer agent:
+    - Searches file names and paths
+    - Greps code content for keywords
+    - Analyzes architectural patterns
+    - Returns results with file paths and code snippets
+  </Step>
+
+  <Step title="Refine your search">
+    ```
+    Show me all files that import the authentication module
+    ```
+
+    Explorer can perform follow-up searches to narrow results.
+  </Step>
+
+  <Step title="Parallelize complex searches">
+    For comprehensive discovery, Verdent can run multiple Explorer agents in parallel:
+    - Explorer 1: Find authentication logic
+    - Explorer 2: Find authorization logic
+    - Explorer 3: Find session management
+
+    Results arrive faster through parallel search.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Explorer agent works efficiently in large codebases without filling main context
+  - Multiple Explorer agents can search different aspects simultaneously
+  - Use Explorer for pattern matching and architectural discovery
+  - Results include file paths and relevant code snippets for context
+</Tip>
+
+***
+
+## Breaking Tasks Into Manageable Chunks
+
+Suppose you're working on a large codebase and need to add a feature that touches many files.
+
+<Steps>
+  <Step title="Identify natural task boundaries">
+    Instead of requesting everything at once:
+
+    ```
+    Phase 1: Add the data models for the notification system
+    ```
+
+    Focus on one self-contained component first.
+  </Step>
+
+  <Step title="Complete the phase fully">
+    Work through Phase 1 completely including testing before moving to Phase 2. This creates a clean checkpoint.
+  </Step>
+
+  <Step title="Commit your progress">
+    ```bash
+    git add .
+    git commit -m "feat: add notification data models"
+    ```
+
+    Committing creates a safe rollback point.
+  </Step>
+
+  <Step title="Clear context for next phase">
+    For complex tasks, clear the context before moving to the next phase. This ensures Verdent has sufficient context capacity to maintain peak performance.
+
+    ```
+    Phase 2: Build the notification API endpoints using the data models
+    ```
+
+    Start a new session with fresh context focused only on Phase 2.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Natural breakpoints prevent context exhaustion
+  - Each phase should be independently testable
+  - Committing between phases enables safe experimentation
+  - Fresh sessions keep context clean and focused
+</Tip>
+
+***
+
+## Leveraging Plan Mode for Large-Scale Changes
+
+Suppose you need to refactor a feature scattered across dozens of files in a large codebase.
+
+<Steps>
+  <Step title="Start in Plan Mode">
+    ```
+    Switch to Plan Mode: Refactor the payment processing logic to use a new payment provider across all files
+    ```
+
+    Plan Mode allows read-only analysis without consuming context on file modifications.
+  </Step>
+
+  <Step title="Use Explorer to find all affected files">
+    ```
+    Use the Explorer agent to find all files that reference payment processing
+    ```
+
+    Ensures you discover every location needing updates.
+  </Step>
+
+  <Step title="Review the comprehensive plan">
+    Verdent presents a plan showing:
+    - All files requiring changes (25 files identified)
+    - Minimal set of files to include in main context
+    - Order of operations
+    - Dependencies between changes
+
+    Review before committing to the approach.
+  </Step>
+
+  <Step title="Approve execution">
+    Once satisfied with the plan, approve execution. Verdent works through the changes methodically.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Plan Mode helps identify minimal file sets before execution
+  - Explorer ensures no files are missed in large-scale refactoring
+  - Plans show scope clearly before context is consumed
+  - Save plans to files for documentation and team review
+</Tip>
+
+***
+
+## Making Coordinated Changes Across Many Files
+
+Suppose you need to rename a function that's used in 50+ files across a large codebase.
+
+<Steps>
+  <Step title="Use Explorer to find all usages">
+    ```
+    Use the Explorer agent to find all files that use the calculateTotal function
+    ```
+
+    Identifies every file requiring updates.
+  </Step>
+
+  <Step title="Review the scope in Plan Mode">
+    ```
+    In Plan Mode: Rename calculateTotal to computeFinalTotal across all files
+    ```
+
+    See the complete scope before making changes.
+  </Step>
+
+  <Step title="Verify no files are missed">
+    Verdent shows all 52 files requiring updates. Review the list to ensure completeness.
+  </Step>
+
+  <Step title="Execute coordinated changes">
+    Approve the plan. Verdent updates all files systematically, ensuring consistent renaming everywhere.
+  </Step>
+
+  <Step title="Run tests to verify">
+    ```
+    Run the full test suite to verify all references were updated correctly
+    ```
+
+    Tests catch any missed references.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Explorer ensures no files are missed in large-scale changes
+  - Plan Mode shows complete scope before execution
+  - Systematic updates maintain consistency across all files
+  - Test comprehensively after large-scale refactoring
+</Tip>
+
+<Tip>
+Coordinated changes across many files are safer in phases, update one layer, verify, then proceed to dependent layers.
+</Tip>
+
+***
+
+## Frequently Asked Questions
+
+<Accordion title="How do I know when I'm approaching context limits?">
+Signs include slower response times, sessions running for several hours, or many large files loaded. Monitor your session length and file count. When you notice performance degradation, complete your current task, commit your progress, and start a fresh session with clean context.
+</Accordion>
+
+<Accordion title="Is it safe to let Verdent modify dozens of files at once?">
+Yes, when used properly. Always use Plan Mode to review the complete scope first, ensure you have comprehensive test coverage, and commit frequently between phases. This allows you to verify changes incrementally and rollback easily if needed.
+</Accordion>
+
+<Accordion title="When should I use the Explorer agent versus loading files directly?">
+Use the Explorer agent for discovery and search tasks without consuming main context. Load files directly with @-mentions only when you need to modify them. Explorer is ideal for "find all files that..." questions, while @-mentions are for "update this specific file" tasks.
+</Accordion>
+
+<Accordion title="Which model preset is best for large codebase work?">
+Use the Performance preset for complex multi-file operations and refactoring. Use the Efficiency preset for simple searches and discovery tasks. Performance provides more reasoning capability for coordinated changes, while Efficiency is faster and more cost-effective for exploration.
+</Accordion>
+
+***
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Multi-Step Task Examples" icon="list-check" href="/verdent-for-vscode/common-workflows/multi-step-tasks">
+    Complex multi-step workflows and task management
+  </Card>
+
+  <Card title="Best Practices" icon="star" href="/verdent-for-vscode/best-practices/context">
+    Context management and optimization strategies
+  </Card>
+</CardGroup>

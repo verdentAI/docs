@@ -1,14 +1,103 @@
 ---
-title: Version History & Migration
-description: Changelog, technical changes, and migration guides
+title: Version History
+description: Verdent for VS Code release history and changelog
 ---
 
 
 
-## Changelog
+Track Verdent for VS Code releases and changes.
 
-[Content to be added]
+<Info>
+Complete version history and release notes are maintained on the [VS Code marketplace](https://marketplace.visualstudio.com/items?itemName=verdentai.verdent).
+</Info>
 
-## Deprecation Notices
+---
 
-[Content to be added]
+## Finding Your Version
+
+**Check your installed version:**
+1. Open VS Code Extensions panel (`Ctrl/Cmd + Shift + X`)
+2. Search for "Verdent"
+3. View installed version number
+
+**View release history:**
+Visit the [Verdent Extension Page](https://marketplace.visualstudio.com/items?itemName=verdentai.verdent) for complete changelog with release dates, features, bug fixes, and breaking changes.
+
+**Updates:**
+VS Code automatically notifies when updates are available. Enable auto-update in extension settings.
+
+---
+
+## Recent Releases
+
+### v1.0.6
+*Released: November 2025*
+
+**New Features:**
+- **Model Switching** - Seamlessly switch between Claude, GPT, and MiniMax-m2 models without restarting your workspace
+- **Chat Support** - Engage directly with Verdent through an integrated chat interface
+- **Explore & Code Reviewer Subagents** - Discover new contexts and get automated reviews with specialized subagents
+
+**Experience Improvements:**
+- Redesigned Home and Chat interfaces for more intuitive workflow
+- Performance optimization with faster response, reduced latency, and smoother interactions
+- Smaller package size for quicker installation and updates
+- Multiple bug fixes for improved stability
+
+### v1.0.3
+*Released: October 29, 2025*
+
+**Fixes:**
+- Terminal scrollbar overlay fixed
+- Clear History now workspace-scoped
+- Empty metadata handled safely
+- Add to Verdent path now correct and openable
+- git diff excludes `.verdent` and `.git` directories
+- Persisted files can be opened immediately
+
+**Manual Mode & Telemetry:**
+- Rollback triggers on user-rejected actions
+- Support for reviewing changes in Manual Mode
+- More precise checkpoint-failure instrumentation
+- git push confirmation dialog
+
+**UX Polish:**
+- Virtualized scrolling for History and Messages
+- Support for custom themes in VS Code
+- Dynamic `@` indexes new files; `@folder` jump navigation
+- Auto-retry on transient network failures
+
+---
+
+## Staying Informed
+
+**Official channels for updates:**
+- [VS Code marketplace](https://marketplace.visualstudio.com/items?itemName=verdentai.verdent) - Primary source for release notes
+- VS Code extension auto-update notifications
+- [Discord Community](https://discord.com/invite/NGjXEZcbJq) - Real-time updates and discussions
+- Support team (support@verdent.ai)
+
+---
+
+## Getting Help
+
+**When reporting version-specific issues, include:**
+- Verdent version number (Extensions panel → Verdent)
+- VS Code version
+- Operating system and version
+- Steps to reproduce issue
+
+Contact support@verdent.ai or visit the troubleshooting page.
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Support & Resources" icon="life-ring" href="/verdent-for-vscode/reference/resources">
+    Getting help and documentation
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/verdent-for-vscode/help-support/common-issues">
+    Common issues and solutions
+  </Card>
+</CardGroup>

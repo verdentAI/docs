@@ -1,0 +1,435 @@
+---
+title: Execution Modes & Permissions
+description: Understanding different execution modes and when to use them
+---
+
+---
+
+Verdent for VS Code provides multiple execution modes that control how the AI interacts with your files and executes commands. Each mode offers different trade-offs between control, speed, and safety.
+
+### What You'll Learn
+
+- How each execution mode works and when to use it
+- Permission models and safety considerations
+- Mode comparison and switching strategies
+- Think Hard Mode for complex reasoning tasks
+
+### Key Modes Available
+
+<CardGroup cols={2}>
+  <Card title="Manual Accept Mode" icon="hand">
+    Default mode with permission requests for every protected operation. Maximum control and oversight.
+  </Card>
+  <Card title="Auto-Run Mode" icon="play">
+    Automatic file operations, permission required for commands. Balances speed and safety.
+  </Card>
+  <Card title="Skip Permission Mode" icon="forward">
+    Full autonomy for isolated environments. No permission prompts for anything.
+  </Card>
+  <Card title="Plan Mode" icon="clipboard-list">
+    Read-only planning mode. Review complete plan before execution begins.
+  </Card>
+</CardGroup>
+
+---
+
+## Execution Modes
+
+<Tabs>
+  <Tab title="Manual Accept Mode">
+    Manual Accept Mode is the default execution mode that provides control over file modifications and command execution.
+
+    **Automatic Operations:**
+    - File reading and code analysis
+    - Directory browsing
+
+    **Requires Permission:**
+    - File editing (create, modify, delete)
+    - Command execution (terminal commands, tests, builds)
+
+    When Verdent needs to perform a protected operation, it shows what action it wants to take and which file/command is involved. You can **Accept** or **Reject** each operation.
+
+    **Important:** Each permission is for that specific operation only. Manual Accept Mode requires approval for every protected operation throughout the session.
+
+    #### When to Use
+
+    - Learning Verdent's capabilities and workflow patterns
+    - Working in unfamiliar codebases requiring careful oversight
+    - Critical changes to production code or security-sensitive areas
+    - Compliance requirements needing explicit approval trails
+
+    #### Activation
+
+    Manual Accept Mode is active by default. To switch back:
+
+    <Steps>
+      <Step title="Open Permission Menu">
+        Click "Switch Permission" button in Input Box
+      </Step>
+      <Step title="Select Manual Accept Mode">
+        Choose "Manual Accept Mode" from the dropdown
+      </Step>
+      <Step title="Verify Activation">
+        Button displays "Manual" to confirm mode is active
+      </Step>
+    </Steps>
+
+    #### Safety Considerations
+
+    **Advantages:**
+    - First-use approval per tool type (file edits, commands, tools)
+    - Complete visibility before granting access
+    - Maximum control and transparency
+
+    **Limitations:**
+    - After first approval of a tool type, subsequent uses proceed without prompts
+    - Approval is per tool type, not per operation
+    - Start new sessions when working on critical code to reset tool approvals
+  </Tab>
+
+  <Tab title="Auto-Run Mode">
+    Auto-Run Mode automatically approves file operations while requiring permission for commands. This reduces permission prompts for routine file work while maintaining safety for risky operations.
+
+    **Automatic:**
+    - File reading, editing, creating, deleting within workspace
+    - Moving, renaming, organizing files within workspace
+    - File search and navigation operations
+
+    **Requires Permission:**
+    - **Any command involving paths outside the current workspace**
+    - **Dangerous bash commands:** `rm -rf`, `git commit`, `git push`, etc.
+    - Command execution (terminal, scripts, builds)
+    - Package installation and system modifications
+
+    #### When to Use
+
+    | Use Auto-Run For | Don't Use For |
+    |------------------|---------------|
+    | Trusted codebases with version control | Unfamiliar codebase |
+    | Rapid prototyping and experimentation | Critical production code |
+    | Multi-file refactoring (15+ files = 15 prompts saved) | No version control safety net |
+    | Focused development minimizing interruptions | Compliance requirements |
+
+    #### Activation
+
+    <Steps>
+      <Step title="Open Permission Menu">
+        Click "Switch Permission" button showing current mode
+      </Step>
+      <Step title="Select Auto-Run Mode">
+        Choose "Auto-Run Mode" from the dropdown
+      </Step>
+      <Step title="Verify Activation">
+        Button displays "Auto" to confirm mode is active
+      </Step>
+    </Steps>
+
+    Persists across sessions and VS Code restarts. Applies globally to all workspaces.
+
+    #### Example Workflow
+
+    **Building a POST /api/tasks endpoint:**
+
+    1. Activate Auto-Run Mode
+    2. Submit: "Create POST /api/tasks endpoint that validates category exists, saves to database"
+    3. Verdent reads 5+ files, modifies 3 files automatically (no prompts)
+    4. Review changes in Source Control panel
+    5. Request tests: "Run the tests for the tasks API"
+    6. Permission prompt for `npm test` command - Accept
+    7. Add validation: "Add validation for empty titles"
+    8. Verdent edits automatically (no prompt)
+    9. Request tests again - Permission prompt - Accept
+    10. Review diffs, commit changes
+
+    **Result:** 3 command prompts, 0 file prompts. Manual Accept would require 4 additional file prompts.
+
+    #### Safety Considerations
+
+    **Advantages:**
+    - Changes immediately visible in VS Code
+    - Workspace-scoped (cannot affect system files)
+    - Git provides rollback safety
+
+    **Risks:**
+    - No file operation oversight
+    - Unexpected scope ("Rename User to Account" might modify dozens of files)
+    - File deletion possible during cleanup
+    - Could modify sensitive files if prompted
+
+    **Mitigation:**
+    - Use clear, specific prompts
+    - Review Source Control panel after completions
+    - Commit frequently for clean checkpoints
+    - Use Plan Mode for complex operations first
+    - Configure .gitignore to protect sensitive files
+  </Tab>
+
+  <Tab title="Skip Permission Mode">
+    Skip Permission Mode bypasses all permission prompts, allowing complete autonomy. **Only use in isolated, disposable environments.**
+
+    **All Operations Automatic:**
+    - File operations
+    - Command execution
+    - Package installation
+    - System-level operations
+
+    <Warning>
+    This mode removes all safety guardrails. Only use in completely isolated, disposable environments where mistakes have no consequences. Never use in production or any codebase you care about.
+    </Warning>
+
+    #### When to Use
+
+    | Use Skip Permission For | NEVER Use For |
+    |------------------------|---------------|
+    | Automated CI/CD pipelines in isolated containers | Production environments |
+    | Disposable development containers (deleted after experimentation) | Development environments with important code |
+    | Sandbox environments with no production connections | Any codebase you care about |
+    | Scripted workflows where human approval defeats purpose | Shared repositories |
+    | | Environments with sensitive data |
+
+    #### Activation
+
+    <Steps>
+      <Step title="Open Permission Menu">
+        Click "Switch Permission" button
+      </Step>
+      <Step title="Select Skip Permission Mode">
+        Choose "Skip Permission Mode" from the dropdown
+      </Step>
+      <Step title="Verify Activation">
+        Button displays "Skip" to confirm mode is active
+      </Step>
+    </Steps>
+
+    **Safety Check Before Activating:**
+    - Is this a disposable container or VM?
+    - Can this environment be deleted without consequences?
+    - Is there any production or important code here?
+
+    If "no" to first two or "yes" to third, do NOT activate.
+
+    #### Safety Warnings
+
+    **ALL safety guardrails removed:**
+    - Commands execute immediately with system permissions
+    - Files can be modified or deleted without warning
+    - Database operations, Git operations (including force push) proceed without approval
+    - Could install malicious packages or expose credentials
+
+    **Only Safe When:**
+    - Environment is completely disposable
+    - No important code or data exists
+    - No connection to production systems
+    - You accept anything can be destroyed
+  </Tab>
+</Tabs>
+
+---
+
+## Plan Mode
+
+Plan Mode is a read-only interaction mode where Verdent analyzes code, creates detailed plans, and asks clarifying questions, but cannot modify files or execute commands until you approve.
+
+#### How It Works
+
+1. **Analysis** - Reads files automatically
+2. **Planning** - Creates structured plan with todo list
+3. **Clarification** - Asks questions to remove uncertainty
+4. **Approval** - You review and decide to proceed
+5. **Execution** - Switches to your permission mode to execute
+
+Plan shows files to modify, implementation steps, dependencies, and verification strategy.
+
+#### When to Use
+
+- Complex multi-file changes (understand scope before committing)
+- Unfamiliar codebases (safe exploration without risk)
+- Architectural decisions (review approach before implementation)
+- Avoiding Manual Accept fatigue (review once vs 50 individual prompts)
+- High-stakes production changes (full visibility before execution)
+
+#### Activation
+
+<Steps>
+  <Step title="Open Mode Menu">
+    Click "Switch Mode" button in Input Box
+  </Step>
+  <Step title="Select Plan Mode">
+    Choose "Plan Mode" from the dropdown
+  </Step>
+  <Step title="Verify Activation">
+    Mode indicator changes to "Plan" to confirm mode is active
+  </Step>
+</Steps>
+
+When active, Verdent analyzes and creates plans but won't modify files or execute commands until you approve. After approval, switches to your default permission mode (Manual Accept or Auto-Run).
+
+#### Safety Considerations
+
+**Advantages:**
+- Zero execution risk during planning
+- Full visibility before committing
+- Interactive clarification removes uncertainty
+- Safe for production analysis
+
+**Limitations:**
+- Approval doesn't guarantee correctness (plans can have logical errors)
+- Execution safety depends on chosen permission mode after approval
+- Plan quality depends on prompt clarity
+
+**Best Practices:**
+- Review plans for logical errors or misunderstandings
+- Ask follow-up questions if unclear
+- Refine prompts before approving execution
+- Consider which permission mode will execute (Manual Accept for oversight, Auto-Run for speed)
+
+---
+
+## Think Hard Mode
+
+Think Hard Mode allocates maximum computational resources for complex reasoning tasks. The model explores multiple approaches and provides more thorough solutions.
+
+**Characteristics:**
+- Extended reasoning time
+- Deeper analysis of multiple solution approaches
+- Better handling of complex logic, edge cases, architectural decisions
+- Higher credit cost per request
+
+#### When to Use
+
+| Use Think Hard Mode For | Don't Use For |
+|-------------------------|---------------|
+| Complex architectural decisions with multiple trade-offs | Simple, straightforward tasks |
+| Sophisticated debugging with multiple potential causes | Time-sensitive requests |
+| Algorithm design requiring optimization analysis | Limited credit budget |
+| Critical business logic where correctness is paramount | When standard mode is adequate |
+| Performance optimization of complex bottlenecks | |
+
+#### Activation
+
+<Tabs>
+  <Tab title="Think Hard Button">
+    Use the UI button for per-request activation:
+
+    <Steps>
+      <Step title="Enable Think Hard">
+        Click "Think Hard" button/toggle in Input Box
+      </Step>
+      <Step title="Submit Your Prompt">
+        Type and submit your request
+      </Step>
+      <Step title="Single Request Only">
+        Applies to that specific request only - not persistent
+      </Step>
+    </Steps>
+
+    Works with all AI providers. Not persistent - must activate each time for requests requiring deep reasoning.
+  </Tab>
+
+  <Tab title="Natural Language (Claude)">
+    Include thinking keywords in your prompt:
+
+    ```
+    Think: Design the optimal database schema for this multi-tenant SaaS application
+    ```
+
+    Or for maximum reasoning:
+
+    ```
+    Ultrathink: Analyze the trade-offs between different authentication approaches
+    ```
+
+    <Note>
+    "Think" and "ultrathink" are Claude model-specific capabilities. These keywords activate deeper reasoning in Claude models (Sonnet, Opus) but may not work with other AI providers (GPT-5, MiniMax).
+    </Note>
+
+    Per-request activation only - not persistent like Manual Accept or Auto-Run.
+  </Tab>
+</Tabs>
+
+---
+
+## Mode Comparison
+
+| Mode | Control | Speed | Best For | Avoid When |
+|------|---------|-------|----------|------------|
+| **Manual Accept** | Maximum | Slowest | Learning, unfamiliar code, critical changes | Trusted projects, rapid iteration |
+| **Auto-Run** | Moderate | Fast | Trusted codebases, prototyping, multi-file work | Unfamiliar code, no version control |
+| **Skip Permission** | None | Fastest | CI/CD, disposable containers, sandboxes | Production, important code |
+| **Plan Mode** | Review-First | N/A | Complex changes, architectural decisions | Simple tasks |
+| **Think Hard** | Per-Request | Slower | Complex reasoning, algorithms, critical logic | Simple tasks, time-sensitive |
+
+### When to Use Each Mode
+
+| Scenario | Manual Accept | Auto-Run | Skip Permission | Plan Mode |
+|----------|:-------------:|:--------:|:---------------:|:---------:|
+| Learning Verdent | ✓ | | | |
+| Unfamiliar codebase | ✓ | | | ✓ |
+| Trusted codebase with Git | | ✓ | | |
+| Critical/production code | ✓ | | | ✓ |
+| Rapid prototyping | | ✓ | | |
+| Multi-file refactoring | | ✓ | | |
+| Complex architectural planning | | | | ✓ |
+| CI/CD pipelines (isolated) | | | ✓ | |
+| Disposable containers | | | ✓ | |
+| Compliance requirements | ✓ | | | |
+
+---
+
+## Safety Best Practices
+
+<Accordion title="Safety Hierarchy (Most to Least Safe)">
+  Understanding the safety ranking of each mode helps you choose appropriately for different risk levels.
+
+  1. **Plan Mode** - Read-only until approved. Zero execution risk during planning.
+  2. **Manual Accept Mode** - Per-operation control with first-use approval per tool type.
+  3. **Auto-Run Mode** - File autonomy with command approval. Git safety net required.
+  4. **Skip Permission Mode** - Full autonomy. Isolated environments only.
+
+  Match your mode to the risk level: critical code uses safest modes (Plan, Manual Accept), trusted code uses faster modes (Auto-Run), disposable environments use fastest mode (Skip Permission).
+</Accordion>
+
+<Accordion title="General Best Practices">
+  Essential practices that apply regardless of which execution mode you're using.
+
+  **For All Modes:**
+
+  1. **Use Version Control** - Initialize Git before using permissive modes, commit frequently, review diffs before committing
+  2. **Write Clear Prompts** - Be specific about scope, specify file boundaries explicitly, use @-mentions for context
+  3. **Review Before Committing** - Check Source Control panel after completions, review all diffs carefully, test changes
+  4. **Start Fresh Sessions** - Clear context between major tasks, reset tool approvals for sensitive work, avoid context contamination
+  5. **Match Mode to Risk** - Critical code → Manual Accept or Plan Mode, trusted code → Auto-Run, experiments → Auto-Run with Git, disposable → Skip Permission only
+
+  **Security Reminders:**
+  - Never commit sensitive files (.env, credentials)
+  - Configure .gitignore before using Auto-Run
+  - Review command permissions carefully
+  - Use Plan Mode for changes affecting security
+  - Fresh sessions reset tool approvals in Manual Accept
+</Accordion>
+
+<Accordion title="Progressive Permission Model">
+  Understanding how Verdent's permission system works helps you use it effectively.
+
+  **How it works:**
+  1. **First use** - System requests permission when you first use each tool type (file edits, command executions, tool usage)
+  2. **Subsequent uses** - After initial approval, that tool type proceeds without prompts for the rest of the session
+  3. **New session** - Starting a new session resets all approvals, allowing you to start fresh
+
+  **Key principle:** This model balances security with productivity. You review and approve tool types once, then work efficiently within that approval context. For sensitive work, start a new session to reset approvals.
+
+  **To reset approvals:** Start a new session
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Resource Management" href="/verdent-for-vscode/resource-management/monitoring" icon="chart-line">
+    Monitor token usage, credits, and performance
+  </Card>
+  <Card title="Best Practices: Context" href="/verdent-for-vscode/best-practices/context" icon="layer-group">
+    Managing context windows across modes
+  </Card>
+</CardGroup>

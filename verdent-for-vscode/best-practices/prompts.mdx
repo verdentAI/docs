@@ -3,6 +3,767 @@ title: Prompt Engineering
 description: Best practices for writing effective prompts
 ---
 
+---
 
+Effective prompts are the foundation of successful AI-assisted development. Clear, specific requests with appropriate context enable Verdent to deliver accurate, relevant results.
 
-[Content to be added]
+### What You'll Learn
+
+- Best practices for writing effective prompts
+- How to provide context and avoid common mistakes
+- Advanced techniques like @-mentions and subagent delegation
+- Examples of well-structured prompts
+- Iterative refinement strategies
+
+---
+
+## What Makes an Effective Prompt
+
+Effective prompts are clear, specific, and provide necessary context for Verdent to understand your intent and deliver accurate results.
+
+**Key Principles:**
+- **Be Specific** - State exactly what you need, not vague requests
+- **Include Details** - Provide technical specs when you have preferences
+- **Specify Scope** - Clarify which files/components are involved
+- **Provide Context** - Help Verdent understand your architecture
+- **State Outcomes** - Describe what success looks like
+- **Use Natural Language** - No special syntax required
+
+**Example transformations:**
+
+**Bad:**
+```
+Fix the code
+```
+
+**Good:**
+```
+Add input validation to the email field in ContactForm.js to reject invalid email formats
+```
+
+**Bad:**
+```
+Add authentication
+```
+
+**Good:**
+```
+Add JWT authentication using the same middleware pattern as auth.js, store tokens in httpOnly cookies
+```
+
+---
+
+## Common Prompting Mistakes
+
+<Tabs>
+  <Tab title="Being Too Vague">
+    **Example Prompts:**
+    ```
+    Make the app better
+    ```
+    ```
+    Fix the bugs
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | Verdent doesn't know what improvements you want or which bugs to address | Specify exactly what needs improvement or which bug to fix |
+  </Tab>
+
+  <Tab title="Omitting Context">
+    **Example Prompts:**
+    ```
+    Add authentication
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | Verdent might implement JWT when you use OAuth, or vice versa | Specify implementation approach, existing patterns, and technical requirements |
+  </Tab>
+
+  <Tab title="Too Much at Once">
+    **Example Prompts:**
+    ```
+    Build the entire user management system with authentication, authorization, profiles, settings, and admin dashboard
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | Complex multi-system requests are harder to execute correctly in one go | Break into smaller tasks - start with authentication, then authorization, then profiles |
+  </Tab>
+
+  <Tab title="Missing Scope">
+    **Example Prompts:**
+    ```
+    Update the validation logic
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | Unclear which files or validation to modify | Specify scope: "Update validation in UserController.js to require strong passwords" |
+  </Tab>
+
+  <Tab title="Unstated Requirements">
+    **Example Prompts:**
+    ```
+    Expecting Verdent to know your specific business rules or constraints
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | Verdent implements generic solutions without your specific requirements | State all constraints, business rules, and requirements explicitly |
+  </Tab>
+
+  <Tab title="Missing @-Mentions">
+    **Example Prompts:**
+    ```
+    Referencing files without including them in context
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | Verdent may not have access to files you're discussing | Use @filename.js to explicitly include relevant files |
+  </Tab>
+
+  <Tab title="Ignoring Errors">
+    **Example Prompts:**
+    ```
+    Repeatedly asking for the same thing when Verdent encounters errors
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | Same approach yields same errors | Read error messages, adjust prompt based on what failed |
+  </Tab>
+
+  <Tab title="Skipping Plan Mode">
+    **Example Prompts:**
+    ```
+    Requesting large refactorings or multi-file changes without using Plan Mode first
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | You don't see the full scope until files are already modified | Switch to Plan Mode for complex tasks to review approach before execution |
+
+    <Tip>
+    Enable Plan Mode for complex changes to review the approach before execution, this catches misunderstandings early.
+    </Tip>
+  </Tab>
+
+  <Tab title="No Version Control">
+    **Example Prompts:**
+    ```
+    Using Auto-Run or Skip Permission Mode without Git initialized
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | No safety net if Verdent makes unwanted changes | Always have Git initialized and committed before using permissive modes |
+  </Tab>
+
+  <Tab title="No Interview Request">
+    **Example Prompts:**
+    ```
+    Providing incomplete requirements and expecting Verdent to guess correctly
+    ```
+
+    | Problem | Solution |
+    |---------|----------|
+    | Verdent implements based on assumptions that may not match your needs | Ask Verdent to interview you: "Ask me clarifying questions about the requirements before creating the plan" |
+  </Tab>
+</Tabs>
+
+---
+
+## Well-Structured Prompt Examples
+
+<Tabs>
+  <Tab title="Feature Implementation">
+    Creating new functionality with clear requirements and constraints:
+
+    ```
+    Create a POST /api/tasks endpoint that:
+    - Accepts task title (required), description (optional), and category_id (required)
+    - Validates that the category exists in the database
+    - Returns 400 if validation fails with descriptive error messages
+    - Saves the task to the database and returns the created task with 201 status
+    - Add this to the existing tasks router in routes/tasks.js
+    - Create the controller method in controllers/taskController.js
+    - Use the existing error handling pattern from other controllers
+    ```
+
+    **What makes this effective:**
+    - Clear requirements for inputs and validation
+    - Specific file locations for implementation
+    - Reference to existing patterns to maintain consistency
+    - Expected HTTP status codes and error handling
+  </Tab>
+
+  <Tab title="Bug Fix">
+    Describing issues with context and proposed solutions:
+
+    ```
+    Fix the race condition in payment processing at checkout. When multiple users submit payments simultaneously, some transactions fail with "duplicate order ID" errors. The issue appears to be in PaymentController.js around line 45 where we generate order IDs. Implement proper locking or use UUID generation to ensure unique IDs even under concurrent load.
+    ```
+
+    **What makes this effective:**
+    - Clear problem description with symptoms
+    - Specific location of issue (file and line number)
+    - Context about when it happens (concurrent users)
+    - Suggested solution approaches
+  </Tab>
+
+  <Tab title="Refactoring">
+    Changing implementation while preserving behavior:
+
+    ```
+    Refactor the authentication middleware in middleware/auth.js to use JWT tokens instead of session cookies. Keep the same authorization logic, but:
+    - Replace session validation with JWT verification
+    - Store tokens in httpOnly cookies
+    - Maintain the existing user object structure that routes expect
+    - Update only the authentication mechanism, don't change authorization rules
+    - Ensure all existing routes continue to work without modification
+    ```
+
+    **What makes this effective:**
+    - Clear goal (JWT instead of sessions)
+    - Specific file to refactor
+    - Explicit constraints (what should NOT change)
+    - Backward compatibility requirement
+  </Tab>
+
+  <Tab title="Testing">
+    Writing tests with comprehensive coverage:
+
+    ```
+    Write comprehensive unit tests for the UserService class in services/UserService.js. Cover:
+    - User creation with valid and invalid data
+    - Email validation edge cases (empty, malformed, duplicate)
+    - Password hashing verification
+    - User lookup by ID and email
+    - Error handling for database failures
+    Use Jest and follow the testing patterns in existing service tests
+    ```
+
+    **What makes this effective:**
+    - Specific class/file to test
+    - Complete list of scenarios to cover
+    - Testing framework specified
+    - Reference to existing test patterns
+  </Tab>
+
+  <Tab title="Component Creation">
+    Building UI components with detailed specifications:
+
+    ```
+    Create a reusable SearchBar component for the product catalog with:
+    - Text input with real-time debounced search (300ms delay)
+    - Category dropdown filter (fetch options from /api/categories)
+    - Price range slider (min $0, max $1000)
+    - Clear filters button
+    - Use Material-UI components to match existing design
+    - Emit search parameters via onChange callback to parent
+    - Include PropTypes for all props
+    ```
+
+    **What makes this effective:**
+    - Complete feature list with specific details
+    - Technical specs (300ms debounce, price range)
+    - UI library specified (Material-UI)
+    - Integration approach (callback to parent)
+  </Tab>
+</Tabs>
+
+---
+
+## Advanced Prompting Techniques
+
+<Tabs>
+  <Tab title="@-Mentions">
+    Reference specific files, components, or subagents:
+
+    ```
+    @auth.js @UserController.js Refactor authentication to use the same validation pattern
+    ```
+
+    **Benefits:**
+    - Ensures Verdent has exact context by explicitly including specific files
+    - Prevents ambiguity in large codebases with similar filenames
+    - Guarantees all relevant code is visible simultaneously for accurate refactoring and pattern matching
+    - Essential when referencing implementation patterns from one file to apply in another
+  </Tab>
+
+  <Tab title="Plan Mode">
+    Switch to Plan Mode before execution for large changes:
+
+    ```
+    Switch to Plan Mode
+    Refactor the entire API layer to use TypeScript with strict type checking
+    ```
+
+    **Benefits:**
+    - Review Verdent's complete approach before any files are modified
+    - Prevents costly mistakes in large refactorings or architectural changes
+    - Iterate on the plan, add constraints, or redirect entirely before execution begins
+    - Request that Verdent interview you with clarifying questions to gather all requirements upfront
+  </Tab>
+
+  <Tab title="Subagent Delegation">
+    Delegate specialized tasks to built-in or custom subagents:
+
+    ```
+    @Code-reviewer Review the security vulnerabilities in authentication flow
+    @Explorer Find all files that import the deprecated API client
+    @Verifier Validate the authentication logic in the middleware
+    ```
+
+    **Benefits:**
+    - Leverage specialized agents optimized for specific tasks (exploration, verification, code review)
+    - Focused expertise and faster results than general-purpose processing
+    - Execute multiple analyses in parallel to dramatically reduce total execution time
+    - Create custom subagents with domain-specific knowledge for your project's unique requirements
+
+    **Built-in Default Subagents:**
+    - `@Verifier` - Quick code checks and validation
+    - `@Explorer` - Fast codebase exploration and file finding
+    - `@Code-reviewer` - Code quality assessment
+
+    <Tip>
+    Use @Explorer for codebase questions and @Code-reviewer for security analysis, targeted delegation is faster than main agent routing.
+    </Tip>
+  </Tab>
+
+  <Tab title="Think Hard Mode">
+    Enable extended reasoning for sophisticated challenges:
+
+    ```
+    Think: Design the optimal database schema for a multi-tenant SaaS application
+    ```
+
+    **Benefits:**
+    - Activates extended reasoning for deeper analysis of complex problems from multiple angles
+    - Evaluates alternative approaches and edge cases more thoroughly
+    - Produces robust solutions where correctness is paramount
+    - Slower responses and higher credit usage, but prevents costly rework from hasty, suboptimal solutions
+
+    <Tip>
+    Think Hard Mode excels at architecture decisions, complex debugging, and algorithmic problems requiring deep analysis.
+    </Tip>
+  </Tab>
+
+  <Tab title="Iterative Refinement">
+    Build on previous responses with progressive refinement:
+
+    ```
+    Initial: "Create a dashboard component"
+    Follow-up: "Add real-time data updates using WebSockets"
+    Follow-up: "Now add filtering and sorting capabilities"
+    ```
+
+    **Benefits:**
+    - Enables incremental development with testing at each step before adding complexity
+    - Reduces risk by validating each layer works correctly before building on it
+    - Course-correct immediately if iterations produce unexpected results
+    - Makes it easier to identify which specific change introduced a bug since each iteration is small and contained
+
+    <Tip>
+    Iterative refinement reduces risk, start with small scope, verify results, then expand gradually.
+    </Tip>
+  </Tab>
+
+  <Tab title="Constraint-Based">
+    Specify what NOT to change alongside what to change:
+
+    ```
+    Add caching to the API endpoints, but:
+    - Don't modify the authentication middleware
+    - Keep the existing error handling unchanged
+    - Maintain backward compatibility with mobile clients
+    ```
+
+    **Benefits:**
+    - Explicitly defines boundaries to prevent modifying critical systems (authentication, payments)
+    - Protects stable systems that must remain unchanged due to compliance or risk requirements
+    - Avoids costly cycles of implementing changes, discovering broken functionality, and reworking solutions
+    - Maintains backward compatibility and protects battle-tested code from unnecessary refactoring
+  </Tab>
+
+  <Tab title="Reference Patterns">
+    Point to existing code as implementation examples:
+
+    ```
+    Implement the new ProductService following the same pattern as UserService.js, including error handling, validation, and database transaction management
+    ```
+
+    **Benefits:**
+    - Ensures new implementations maintain consistency with established conventions
+    - Makes the codebase more maintainable and predictable
+    - Dramatically reduces explanation needed - point to examples instead of describing approaches in detail
+    - Leverages proven, battle-tested patterns rather than reinventing solutions
+    - Reduces bugs and ensures seamless integration with existing systems
+  </Tab>
+
+  <Tab title="todos.md Planning">
+    Create a todos.md file to track complex, multi-step tasks:
+
+    ```
+    Create a todos.md file with these tasks:
+    1. Refactor authentication to use JWT tokens
+    2. Update all controllers to use new auth middleware
+    3. Add tests for authentication flow
+    4. Update API documentation
+    ```
+
+    **Benefits:**
+    - Creates a clear, written roadmap that can be reviewed, refined, and shared with teammates
+    - Adjusts easily as requirements evolve throughout the project
+    - Persists across sessions so you can pause work, resume later, and immediately understand where you left off
+    - Serves as a project artifact documenting what was planned, completed, and remains for future maintenance and onboarding
+  </Tab>
+
+  <Tab title="Clear Context">
+    Start new sessions between different todos for fresh context:
+
+    ```
+    After completing todo #1: "Start a new session"
+    Then: "Let's work on todo #2 from todos.md"
+    ```
+
+    **Benefits:**
+    - Prevents context contamination where previous task details inappropriately influence current work
+    - Ensures focus on the current todo only without baggage from previous tasks
+    - Reduces token usage by not loading unnecessary conversation history
+    - Makes responses faster and more credit-efficient
+    - Creates natural checkpoints for testing and committing changes, maintaining clean git history and easier issue isolation
+  </Tab>
+
+  <Tab title="MCP Servers">
+    Use MCP (Model Context Protocol) servers to inject specialized context:
+    - Project-specific documentation
+    - API specifications (OpenAPI, GraphQL schemas)
+    - Framework-specific knowledge
+
+    **Benefits:**
+    - Enhances Verdent's understanding of custom frameworks, internal tools, and specialized domains not in its training data
+    - Eliminates need to repeatedly explain custom systems by injecting organization-specific API specs and documentation directly
+    - Enables correct usage of internal APIs and proprietary systems that would be impossible to convey through prompts alone
+  </Tab>
+</Tabs>
+
+---
+
+## Including Context in Prompts
+
+<Tabs>
+  <Tab title="@-Mentions for Files">
+    Explicitly include relevant files in context:
+
+    ```
+    @models/User.js @controllers/UserController.js Add password reset functionality
+    ```
+
+    **When to use:**
+    - When working with tightly coupled files (model and controller, service and tests)
+    - Referencing implementation patterns from one file to apply in another
+    - Coordinating changes across multiple related files
+    - In large codebases with similar filenames where automatic detection might miss context
+    - Always use when asking Verdent to "follow the same pattern as..." to ensure it has the exact code
+  </Tab>
+
+  <Tab title="Project Architecture">
+    Include high-level context about your stack:
+
+    ```
+    This is a MERN stack application (MongoDB, Express, React, Node.js) with JWT authentication. Add role-based access control following our existing middleware pattern.
+    ```
+
+    **When to use:**
+    - When implementing features that need to integrate with your existing tech stack
+    - First-time work in a codebase or features spanning multiple layers (frontend to database)
+    - When your stack has strong opinions (GraphQL vs REST, Redux vs Context API) that affect implementation choices
+    - When you need Verdent to choose the approach that fits your system rather than a generic solution
+  </Tab>
+
+  <Tab title="Existing Patterns">
+    Point to code that demonstrates your conventions:
+
+    ```
+    Follow the same error handling pattern used in ProductController.js - return consistent error objects with status codes and descriptive messages
+    ```
+
+    **When to use:**
+    - When you want new code to maintain consistency with established conventions (error handling, validation, logging, testing)
+    - Implementing similar functionality in a new area of the codebase
+    - Onboarding to unfamiliar parts of the codebase where you want to learn and replicate existing patterns
+    - When you want to avoid describing patterns in detail and need Verdent to capture nuances that are hard to articulate
+  </Tab>
+
+  <Tab title="Technical Constraints">
+    State limitations or requirements:
+
+    ```
+    We're using TypeScript with strict mode enabled, React 18 with hooks only (no class components), and Material-UI v5 for styling
+    ```
+
+    **When to use:**
+    - When your project has specific technology requirements (TypeScript strict mode, React hooks only, no external dependencies)
+    - Working with legacy constraints (IE11 support, Node.js 14 compatibility)
+    - When compliance requirements dictate choices (WCAG accessibility, GDPR data handling)
+    - Using specific library versions with breaking changes between versions
+    - When you need to prevent Verdent from proposing solutions that violate your project's technical boundaries
+  </Tab>
+
+  <Tab title="Business Logic">
+    Explain domain-specific rules:
+
+    ```
+    Users can only view tasks assigned to them or their team. Managers can view all tasks in their department. Admins can view everything.
+    ```
+
+    **When to use:**
+    - When implementing features with domain-specific rules Verdent cannot infer from code alone
+    - Authorization logic (who can access what), business workflows (approval processes, state machines)
+    - Validation rules (password policies, data constraints), domain constraints (inventory limits, pricing rules)
+    - Building data models where entity relationships and cardinality need explanation
+    - Implementing calculations (discount rules, tax computation, commission structures)
+    - When you need Verdent to correctly enforce your organization's business rules, not just functional code
+  </Tab>
+
+  <Tab title="Error Context">
+    Share error messages or logs when debugging:
+
+    ```
+    Getting "TypeError: Cannot read property 'id' of undefined" at UserController.js:42 when trying to update user profiles. The req.user object exists but doesn't have an id property after the recent auth middleware changes.
+    ```
+
+    **When to use:**
+    - Always include complete error messages, stack traces, and logs when fixing bugs
+    - Runtime errors (exceptions, crashes), build failures (compilation errors, linting violations)
+    - Test failures (assertion errors, timeout issues), unexpected behavior (wrong output, missing data)
+    - When you have exact error messages with line numbers and full stack trace showing the call chain
+    - When you can provide context about when it occurs (always, intermittently, specific conditions)
+    - When you want to dramatically improve Verdent's ability to identify root causes rather than guessing
+  </Tab>
+
+  <Tab title="Automatic Loading">
+    Verdent automatically loads relevant files based on your request:
+    - Files mentioned by name in prompts
+    - Related files in the same directory
+    - Commonly accessed project files
+
+    **When to rely on this:**
+    - For standard file references where relationships are obvious
+    - Mentioning components by name and Verdent needs to load that specific file
+    - Working with files in the same directory that commonly work together
+    - Accessing frequently-used project files (package.json, config files)
+    - Works well for straightforward scenarios in well-organized codebases
+    - For complex multi-file refactoring, distant codebase parts, or ambiguous filenames, use explicit @-mentions instead
+  </Tab>
+
+  <Tab title="Project/User Rules">
+    Configure persistent context through rules files (Settings → Rules):
+
+    **User Rules (user_rules.md):**
+    Global preferences applied across all projects
+
+    **Project Rules (AGENTS.md):**
+    Project-specific standards - architectural patterns, coding standards
+
+    **Plan Rules (plan_rules.md):**
+    Customize plan format and content in Plan Mode
+
+    **When to use:**
+    - When repeatedly providing the same context across sessions
+    - User rules for personal preferences (coding style, preferred libraries, patterns you favor)
+    - Project rules for team standards (architectural decisions, naming conventions, testing requirements)
+    - Valuable for onboarding new team members (codifies tribal knowledge)
+    - Maintaining consistency across large teams and reducing prompt verbosity
+    - Invest in rules files when your project has matured enough to have established patterns worth documenting
+  </Tab>
+
+  <Tab title="Images">
+    Include screenshots, mockups, or diagrams:
+
+    ```
+    @screenshot.png Implement this UI design with React components
+    ```
+
+    **When to use:**
+    - When visual information communicates requirements more effectively than text
+    - UI/UX implementation (design mockups, wireframes, user flows)
+    - Debugging visual issues (screenshot of broken layout, rendering problems)
+    - Understanding complex architectures (system diagrams, database schemas, flowcharts)
+    - Essential for responsive design, accessibility analysis, and error reproduction
+    - Translating designs from tools like Figma or Sketch into code
+    - A single well-captured screenshot often conveys details that would take paragraphs to describe
+  </Tab>
+
+  <Tab title="Website Links">
+    Reference external documentation or examples:
+
+    ```
+    Ultrathink: Read this API documentation at https://api-docs.example.com/v1/endpoints and implement the authentication flow
+    ```
+
+    **When to use:**
+    - When implementing integrations with external APIs or libraries that have official documentation online
+    - Especially valuable when the library has complex configuration options or authentication flows
+    - Use "Ultrathink:" prefix to instruct Verdent to fetch and analyze web content before generating code
+    - Essential for rapidly-evolving APIs where documentation is more current than training data
+    - When following framework-specific patterns (Next.js App Router, Vue Composition API)
+    - Ensures implementations match current API versions and follow official recommendations
+  </Tab>
+</Tabs>
+
+---
+
+## Iterative Refinement Strategies
+
+<Tabs>
+  <Tab title="Broad to Specific">
+    **Initial prompt:**
+    ```
+    Add authentication to the API
+    ```
+
+    Verdent's response might be generic. Refine:
+
+    ```
+    Use JWT tokens stored in httpOnly cookies, implement refresh token rotation, and follow the authentication pattern from our existing UserController
+    ```
+
+    **When to use:** Starting with general request, then adding details based on initial response
+  </Tab>
+
+  <Tab title="Review & Correct">
+    If Verdent's implementation doesn't match expectations:
+
+    ```
+    The validation logic is good, but use Joi schema validation instead of manual checks. Match the validation pattern in ProductController.js
+    ```
+
+    **When to use:** After reviewing output and identifying specific improvements
+  </Tab>
+
+  <Tab title="Follow-Up Prompts">
+    Build incrementally:
+
+    ```
+    Initial: "Create a UserProfile component"
+    Follow-up: "Add an avatar upload feature with image preview"
+    Follow-up: "Add validation - max 5MB, only jpg/png formats"
+    Follow-up: "Show upload progress with a progress bar"
+    ```
+
+    **When to use:** Building features progressively in same session
+  </Tab>
+
+  <Tab title="Ask for Explanations">
+    If implementation seems unexpected:
+
+    ```
+    Why did you use Redux instead of Context API? Can you explain the trade-offs for this use case?
+    ```
+
+    Then refine based on understanding:
+
+    ```
+    Actually, use Context API for consistency with the rest of our application
+    ```
+
+    **When to use:** Understanding reasoning before requesting changes
+  </Tab>
+
+  <Tab title="Plan Mode Refinement">
+    For complex changes:
+
+    ```
+    Switch to Plan Mode
+    Show me how you would refactor the authentication system to support OAuth providers
+    ```
+
+    Review the plan, ask questions, iterate on the approach before execution.
+
+    **When to use:** Major architectural changes requiring review
+  </Tab>
+
+  <Tab title="Provide Examples">
+    If Verdent's style doesn't match yours:
+
+    ```
+    The component structure is close, but use this pattern instead:
+    [paste example of your preferred structure]
+    Apply this same pattern to the remaining components
+    ```
+
+    **When to use:** Establishing or reinforcing code style preferences
+  </Tab>
+
+  <Tab title="Clarify Constraints">
+    If output violates unstated constraints:
+
+    ```
+    Good approach, but don't modify the database schema - work within the existing User table structure
+    ```
+
+    **When to use:** Adding constraints discovered after seeing initial implementation
+  </Tab>
+
+  <Tab title="Progressive Enhancement">
+    Start with core functionality, add features iteratively:
+
+    ```
+    Step 1: "Create basic CRUD endpoints for tasks"
+    Step 2: "Add pagination to the GET endpoint"
+    Step 3: "Add filtering by status and priority"
+    Step 4: "Add full-text search across title and description"
+    ```
+
+    **When to use:** Building complex features incrementally with testing at each step
+  </Tab>
+</Tabs>
+
+---
+
+## FAQs
+
+<Accordion title="How specific should my prompts be?">
+Be specific enough to eliminate ambiguity, but don't over-explain obvious details. Include: exact file paths, implementation approach, expected outcomes, and constraints. Bad: "Fix the code" - too vague. Good: "Add input validation to the email field in `ContactForm.js` to reject invalid email formats" - clear scope and goal. When in doubt, err on the side of more specificity.
+</Accordion>
+
+<Accordion title="What's the difference between @-mentions and automatic file loading?">
+Verdent automatically loads files mentioned by name in prompts and related files in the same directory. `@-mentions` (`@filename.js`) explicitly guarantee a file is in context, which is critical when working with tightly coupled files, referencing patterns from one file to apply in another, or when automatic detection might miss context in large codebases. Always use `@-mentions` when asking Verdent to "follow the same pattern as..." to ensure exact code reference.
+</Accordion>
+
+<Accordion title="When should I use Plan Mode instead of normal mode?">
+Use Plan Mode for: large refactorings or architectural changes, multi-file modifications where you want to review scope before execution, complex tasks where you're uncertain about requirements, or when you want Verdent to interview you with clarifying questions before implementation. Skip Plan Mode for: simple, well-defined tasks, quick bug fixes, or routine operations. Plan Mode adds overhead but prevents costly mistakes on complex work.
+</Accordion>
+
+<Accordion title="What if Verdent doesn't understand or follow my prompt correctly?">
+Use iterative refinement: review the output, identify what's wrong, then provide corrections in a follow-up prompt. Example: "The validation logic is good, but use Joi schema validation instead of manual checks. Match the validation pattern in `ProductController.js`." You can also ask for explanations: "Why did you use Redux instead of Context API?" then refine based on understanding. Don't repeat the same prompt - adjust based on what failed.
+</Accordion>
+
+<Accordion title="Do I need to repeat project context in every prompt during a session?">
+No - Verdent maintains conversation context within a session, so you don't need to repeat architecture details or conventions already discussed. However, for critical constraints or when sessions get long (`100+` messages), restate important context. Better approach: use project rules (`AGENTS.md`) to document persistent context like tech stack, coding standards, and patterns - then you never need to repeat them.
+</Accordion>
+
+<Check>
+Well-structured prompts with clear intent, relevant context, and specific constraints consistently produce better results.
+</Check>
+
+---
+
+## See Also
+
+<CardGroup cols={3}>
+  <Card title="Context Management" href="/verdent-for-vscode/best-practices/context" icon="layer-group">
+    Managing context windows and optimization strategies
+  </Card>
+  <Card title="Execution Modes" href="/verdent-for-vscode/execution-modes/overview" icon="toggle-on">
+    Understanding execution modes for different scenarios
+  </Card>
+  <Card title="Error Handling" href="/verdent-for-vscode/error-handling/recovery" icon="triangle-exclamation">
+    Handling errors and troubleshooting issues
+  </Card>
+</CardGroup>

@@ -3,20 +3,238 @@ title: Configuration Optimization
 description: Optimizing Verdent for your workflow
 ---
 
+Optimize Verdent for VS Code to balance speed, cost, and thoroughness based on your workflow requirements. Configure model presets, execution modes, and context management strategies for optimal performance.
 
+### Optimization Areas
+
+- Model preset selection for cost and performance balance
+- Execution mode configuration for workflow efficiency
+- Context management for large codebases
+- Per-project and workspace-level customization
+
+---
 
 ## Tuning Settings for Your Workflow
 
-[Content to be added]
+### Model Preset Selection
+
+Choose the appropriate model preset based on task complexity and budget:
+
+| Preset | Cost | Requests per 100 Credits | Best For |
+|--------|------|--------------------------|----------|
+| **Efficiency** | ~0.3x Balance (70% reduction) | ~450 requests | Simple tasks, quick fixes, rapid prototyping |
+| **Balance** (Default) | 1x baseline | ~140 requests | General development tasks, everyday coding |
+| **Performance** | 1-2x Balance | ~70 requests (1M context) | Complex architectural decisions, intricate refactoring |
+
+**Additional Models:**
+
+- **Claude-4.5-haiku:** Fastest, most economical (~450 requests per 100 credits)
+- **Claude-4.5-sonnet:** Balanced general-purpose model (~140 requests per 100 credits)
+- **Claude-4.5-sonnet-1m:** Extended context for complex tasks (~70 requests per 100 credits when input exceeds 200k tokens)
+- **GPT-5 / GPT-5-codex:** Reasoning and creativity focus (Beta, ~186 requests per 100 credits)
+- **Minimax-m2:** Fast and cost-effective (Beta, free until November 10th)
+
+### Execution Mode Configuration
+
+<Tabs>
+  <Tab title="Skip Permissions (Speed)">
+    - Full autonomy without approval prompts
+    - No interruptions for permissions
+    - Highest risk - use only in automated environments
+  </Tab>
+  <Tab title="Auto-Run (Balanced)">
+    - Commands require approval, file operations automatic
+    - Reduced permission prompts
+    - Lower risk with maintained safety for dangerous operations
+  </Tab>
+  <Tab title="Manual Accept (Thoroughness)">
+    - Every operation requires approval
+    - Complete visibility and control
+    - Slowest but safest - best for learning and production code
+  </Tab>
+  <Tab title="Plan (Review)">
+    - Strategic planning before execution
+    - Read-only analysis phase
+    - Review and approve before any changes
+  </Tab>
+</Tabs>
+
+### Think Hard Mode
+
+Enable for complex reasoning tasks:
+- **Thoroughness:** Maximum reasoning depth for sophisticated problems
+- **Speed:** Slower due to extended thinking budget
+- **Best For:** Architectural decisions, complex debugging, intricate analysis
+
+---
 
 ## Speed vs Thoroughness Tradeoffs
 
-[Content to be added]
+Balance execution speed against analysis depth based on task requirements.
+
+<Tabs>
+  <Tab title="Speed-Critical">
+    **Configuration:**
+    - **Model:** Efficiency preset (Claude-4.5-haiku)
+    - **Permission Mode:** Auto-Run Mode
+    - **Execution Mode:** Agent Mode for direct execution
+    - **Use Cases:** Quick fixes, routine operations, simple tasks
+
+    **Benefits:**
+    - Fastest response times
+    - Minimal interruptions
+    - 70% cost reduction vs Balance preset
+  </Tab>
+  <Tab title="Thoroughness-Critical">
+    **Configuration:**
+    - **Model:** Performance preset (Claude-4.5-sonnet-1m)
+    - **Permission Mode:** Manual Accept Mode
+    - **Execution Mode:** Plan Mode for strategic review
+    - **Think Hard:** Enabled for sophisticated reasoning
+    - **Use Cases:** Complex features, production code, architectural decisions
+
+    **Benefits:**
+    - Maximum context window (1M tokens)
+    - Complete visibility and control
+    - Deep reasoning for complex problems
+    - Review before execution
+  </Tab>
+  <Tab title="Hybrid Approach">
+    Most users benefit from context-switching between configurations:
+
+    - **Quick fixes:** Efficiency + Agent Mode
+    - **Complex features:** Balance/Performance + Plan Mode
+    - **Exploration:** Plan Mode for strategy, then Agent Mode for execution
+
+    **Strategy:** Adapt configuration to task type instead of using one-size-fits-all approach.
+  </Tab>
+</Tabs>
+
+<Tip>
+Use Auto-Run Mode for trusted projects to reduce permission prompts while maintaining safety for dangerous operations. This streamlines workflow without sacrificing critical protections.
+</Tip>
+
+---
 
 ## Workspace-Level Configuration
 
-[Content to be added]
+Verdent supports per-project and per-workspace configuration for team-wide consistency.
+
+### Project-Specific Configuration
+
+**Project Rules (AGENTS.md):**
+
+- **Location:** Project root directory or workspace folder
+- **Scope:** Applied only to the current project
+- **Version Control:** Commit to git for team-wide standards
+- **Content:** Coding standards, testing requirements, architectural patterns
+
+**Example:**
+
+```markdown filename="AGENTS.md"
+# Project Rules
+
+## Code Standards
+- Use TypeScript strict mode
+- Generate unit tests for all new functions
+- Follow MVC pattern
+
+## Testing
+- All endpoints require input validation
+- Run tests before committing
+```
+
+### VS Code Workspace Settings
+
+Configure extension settings at workspace level:
+
+**Location:** `.vscode/settings.json` in workspace root
+
+**Example:**
+
+```json filename=".vscode/settings.json"
+{
+  "verdent.enableCheckpoints": true
+}
+```
+
+### Configuration Priority
+
+When configurations conflict, Verdent applies this priority order:
+
+1. **Project Rules (AGENTS.md)** - Highest priority (project-specific)
+2. **Workspace Settings** - VS Code workspace-level settings
+3. **User Rules (user_rules.md)** - Global user preferences
+4. **Default Settings** - Verdent's built-in defaults
+
+---
 
 ## Project-Specific Customization
 
-[Content to be added]
+### Context Management for Large Projects
+
+<Tabs>
+  <Tab title="Subagents">
+    - Delegate complex operations to subagents with separate context windows
+    - Only subagent results consume main context, not entire process
+    - Prevents main context from filling with implementation details
+  </Tab>
+  <Tab title="File Selection">
+    - Explicitly add only relevant files using `@filename`
+    - Avoid loading entire project into context unnecessarily
+    - Target specific components for focused analysis
+  </Tab>
+  <Tab title="Task Chunking">
+    - Break large tasks into smaller, completable chunks
+    - Start new sessions for distinct features or components
+    - Natural breakpoints prevent context depletion
+  </Tab>
+  <Tab title="Plan Mode">
+    - Review approach before consuming execution context
+    - Reduces wasted context on incorrect implementations
+    - Plan Mode has separate context management
+  </Tab>
+</Tabs>
+
+### Performance Optimization
+
+**Enable Checkpoints Selectively:**
+
+The `verdent.enableCheckpoints` setting uses git for version control:
+- May impact performance on very large repositories
+- Enable only when checkpoint functionality is needed
+- Disable for maximum performance on large codebases
+
+<Tip>
+Enable Checkpoints selectively for critical tasks only, excessive checkpointing slows workflows without adding value.
+</Tip>
+
+**Model Selection:**
+- Use Efficiency preset (Haiku) for simple, isolated tasks
+- Reserve Performance preset (Sonnet-1M) for context-heavy operations
+- Balance preset for general work
+
+**Execution Mode:**
+- Auto-Run Mode reduces context consumed by permission prompts
+- Skip Permissions Mode maximizes efficiency for automated environments
+
+<Note>
+Multi-workspace scenarios automatically apply appropriate project rules when switching workspaces. No manual configuration switching required.
+</Note>
+
+<Tip>
+Multi-workspace configurations let you optimize settings per project type, development vs production, monorepo vs microservices.
+</Tip>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Configuration Settings" icon="gear" href="/verdent-for-vscode/configuration/settings">
+    Complete configuration options and model selection
+  </Card>
+  <Card title="Resource Monitoring" icon="chart-line" href="/verdent-for-vscode/resource-management/monitoring">
+    Monitor performance and optimize token usage
+  </Card>
+</CardGroup>

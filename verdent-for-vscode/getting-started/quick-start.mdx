@@ -3,6 +3,369 @@ title: Quick Start Guide
 description: Get started with Verdent in minutes
 ---
 
+This quickstart guide will have you using AI-powered coding assistance in under 15 minutes. You'll install the extension, complete your first task, and understand the core code workflow when working with Verdent for VS Code.
 
+### What You'll Learn
 
-[Content to be added]
+- Install Verdent for VS Code from the marketplace
+- Authenticate and verify your setup
+- Complete your first AI-assisted task
+- Understand execution modes (Manual Accept, Auto-Run, Plan Mode)
+- Use essential features for daily coding
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- Visual Studio Code installed on your system
+- An active internet connection
+- A Verdent subscription account (or start with the 7-day free trial)
+
+---
+
+## Step 1: Install Verdent
+
+<Tabs>
+  <Tab title="Visual Studio Code Marketplace">
+    Visit the [Verdent extension page](https://marketplace.visualstudio.com/items?itemName=verdentai.verdent) and click **Install**.
+  </Tab>
+
+  <Tab title="Extensions Panel">
+    1. Open Visual Studio Code
+    2. Press `Ctrl+Shift+X` (or `Cmd+Shift+X` on macOS)
+    3. Search for "Verdent"
+    4. Click **Install**
+  </Tab>
+
+  <Tab title="Command Line">
+    ```bash
+    code --install-extension verdentai.verdent
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Step 2: Start Using Verdent
+
+<Steps>
+  <Step title="Open Visual Studio Code">
+    Open Visual Studio Code in your project folder.
+  </Step>
+
+  <Step title="Access Verdent">
+    Click the Verdent icon in the sidebar or press `Ctrl+L` (Windows/Linux) / `Cmd+L` (macOS).
+  </Step>
+
+  <Step title="Sign In">
+    Sign in when prompted to authenticate with your Verdent account.
+  </Step>
+</Steps>
+
+---
+
+## Step 3: Your First Task
+
+Let's start with a simple, non-destructive task that demonstrates Verdent's understanding of your workspace.
+
+**Open a project in VS Code**, then try one of these prompts in the Verdent input box:
+
+```
+What kind of project is this?
+```
+
+Verdent will analyze your workspace structure, read key files, and explain what type of application you're working on. This demonstrates context awareness without making any changes.
+
+**You should see:**
+- Verdent analyzing files in your workspace
+- A summary of your project type, technologies, and structure
+- No file modifications (read-only analysis)
+
+**Try these follow-up prompts:**
+
+```
+Explain what this project does
+```
+
+```
+What dependencies does this project have?
+```
+
+```
+Show me the main entry point of this application
+```
+
+Each prompt helps you verify that Verdent can access your workspace and understands your codebase.
+
+<Tip>
+  These exploratory prompts are perfect for understanding unfamiliar codebases. Verdent reads files as needed without requiring you to manually add context.
+</Tip>
+
+---
+
+## Step 4: Making Your First Code Change
+
+Now let's make Verdent create something. Try this simple task:
+
+```
+Create a hello_world.txt file with a greeting message
+```
+
+**What happens:**
+
+1. **Verdent proposes the change**
+   You'll see a preview showing the file to be created and its contents
+
+2. **Permission request**
+   In Manual Accept Mode (the default), Verdent asks for your approval before creating the file
+
+3. **You approve**
+   Click "Accept" or approve the change
+
+4. **File created**
+   Verdent creates the file and confirms completion
+
+**Understanding permissions:**
+
+Manual Accept Mode ensures no unwanted modifications occur without your approval. You'll see permission prompts for:
+- File edits and creations
+- Command executions
+- Tool usage (first use of each tool type)
+
+This gives you full control and helps you learn what operations Verdent performs for different tasks.
+
+<Note>
+  Manual Accept Mode is the recommended starting point for new users. Once comfortable, you can switch to Auto-Run Mode or Plan Mode for different workflows.
+</Note>
+
+---
+
+## Step 5: Using Plan Mode for Complex Tasks
+
+Plan Mode is Verdent's read-only planning mode where you can review approaches before execution. Let's try it:
+
+**Switch to Plan Mode:**
+
+Click the **Switch Mode** button in the input box and select **Plan Mode**
+
+**Try a planning task:**
+
+```
+Suggest ways to build a website for my project
+```
+
+**What happens:**
+
+1. **Verdent analyzes your project**
+   It reads files and understands your project structure and requirements
+
+2. **Creates a detailed plan**
+   Shows what technologies to use, what pages to create, and how to structure the website
+
+3. **No modifications**
+   Plan Mode is read-only. Verdent cannot modify files until you explicitly approve
+
+4. **Interactive clarification**
+   Verdent may ask questions about design preferences, target audience, or features before finalizing the plan
+
+**Why use Plan Mode:**
+
+- **Safe exploration** - Understand unfamiliar codebases without accidental changes
+- **Code review** - Analyze quality and architecture before making modifications
+- **Strategic planning** - Break down complex tasks into reviewable steps
+- **Uncertainty reduction** - Verdent asks clarifying questions to remove ambiguity
+
+<Tip>
+  Use Plan Mode for any task where you want to review the approach before committing to execution. It's particularly valuable when learning how Verdent thinks about your codebase.
+</Tip>
+
+**To execute the plan:**
+
+After reviewing the plan, Verdent presents two options:
+- Choose **Edit** to request modifications or ask clarifying questions
+- Choose **Start Building** to switch to Agent Mode and begin execution
+
+---
+
+## Step 6: Understanding Execution Modes
+
+Verdent offers multiple execution modes to match different workflows:
+
+**Permission Modes:**
+
+| Mode | Description | When to Use |
+|------|-------------|-------------|
+| **Manual Accept** (default) | Requests permission on first use of each tool | Learning and general development with maximum control |
+| **Auto-Run** | Automatically accepts safe operations (file reads, web searches); file edits and commands still require approval | Trusted projects and rapid prototyping |
+| **Plan Mode** | Read-only mode for analysis and planning without file modifications | Complex tasks and code review |
+| **Skip Permissions** | Fully autonomous operation bypassing all prompts | Isolated, safe environments like automated testing or sandboxes |
+
+**Additional Mode:**
+
+- **Think Hard Mode** - Maximum thinking budget for complex reasoning and architectural decisions
+
+<Warning>
+  Skip Permissions Mode removes all safety checks. Only use in isolated, disposable environments where mistakes have no consequences.
+</Warning>
+
+---
+
+## Essential Actions
+
+Here are the key actions you'll use daily in Verdent for VS Code:
+
+| Action | How to Access | Description |
+|--------|---------------|-------------|
+| Open Verdent | `Cmd+L` / `Ctrl+L` or click sidebar icon | Opens the Verdent panel |
+| New Session | Click "New Session" in top bar | Start a fresh conversation with clean context |
+| Add Context | Click "Add Context" button | Reference files with @-mentions |
+| Add Images | Click "Add Images or Files" button | Upload screenshots, mockups, or diagrams |
+| Switch Mode | Click "Switch Mode" button | Toggle Agent/Plan/Chat modes |
+| Change Model | Click model selector | Choose Performance/Balance/Efficiency presets |
+| Think Hard | Click "Think Hard Mode" button | Enable extended reasoning for complex tasks |
+| Switch Permissions | Click "Switch Permission" button | Change permission mode |
+| View History | Click "Project History" in top bar | Browse past sessions |
+| User Center | Click "User Center" in top bar | Check credit balance and account info |
+| Settings | Click "Settings" in top bar | Configure MCP servers, subagents, rules |
+
+---
+
+## Pro Tips for Beginners
+
+<Accordion title="Start with exploratory prompts">
+  Before making changes, let Verdent understand your codebase:
+
+  ```
+  Analyze the database schema
+  ```
+
+  ```
+  Explain the authentication flow
+  ```
+
+  This builds Verdent's context about your project and helps it make better suggestions.
+</Accordion>
+
+<Accordion title="Be specific with your requests">
+  Instead of: "fix the bug"
+
+  Try: "fix the login bug in `LoginForm.tsx` where users see a blank screen after entering wrong credentials"
+
+  Specific prompts lead to more accurate solutions and fewer iterations.
+</Accordion>
+
+<Accordion title="Use Plan Mode for unfamiliar code">
+  When working with code you don't fully understand, use Plan Mode first:
+
+  ```
+  Refactor the authentication module to use async/await instead of callbacks
+  ```
+
+  Review the plan, choose **Edit** to ask clarifying questions and refine, then choose **Start Building** once confident.
+</Accordion>
+
+<Accordion title="Break complex tasks into steps">
+  For multi-step features, work incrementally:
+
+  ```
+  1. Create a new database table for user profiles
+  ```
+
+  Then after completion:
+
+  ```
+  2. Create an API endpoint to get and update profiles
+  ```
+
+  This maintains clarity and allows you to verify each step.
+</Accordion>
+
+<Accordion title="Leverage @-mentions for context">
+  Explicitly reference files when needed:
+
+  ```
+  @components/UserProfile.tsx refactor this component to use hooks
+  ```
+
+  This ensures Verdent focuses on the right context for your task.
+</Accordion>
+
+<Accordion title="Use subagents for specialized tasks">
+  Verdent includes three built-in subagents:
+
+  - `@Explorer` - Fast codebase exploration and file discovery
+  - `@Verifier` - Quick code validation and checks
+  - `@Code-reviewer` - Comprehensive security and quality review
+
+  Example:
+
+  ```
+  @Explorer find all API endpoints in this project
+  ```
+</Accordion>
+
+---
+
+## Common Issues
+
+<Tabs>
+  <Tab title="Extension not visible in sidebar">
+    **Solution:** Restart VS Code. If still missing, verify installation in the Extensions panel (`Cmd+Shift+X` / `Ctrl+Shift+X`) and confirm "Verdent" appears in the list.
+  </Tab>
+
+  <Tab title="Prompts don't get responses">
+    **Solution:**
+    1. Verify internet connection is active
+    2. Check firewall/proxy settings allow HTTPS to Verdent services
+    3. Confirm you have remaining credits in User Center
+    4. Try a simpler prompt to test connectivity
+  </Tab>
+
+  <Tab title="Permission prompts are too frequent">
+    **Solution:** Switch to Auto-Run Mode using the "Switch Permission" button. This automatically approves safe read operations while still asking for approval on file edits and commands.
+  </Tab>
+</Tabs>
+
+---
+
+## Getting Help
+
+- **Discord Community**: [https://discord.com/invite/NGjXEZcbJq](https://discord.com/invite/NGjXEZcbJq) - Active community with real-time support
+- **Documentation**: Browse other guides in this documentation
+- **Feedback**: Use the Feedback button in Verdent's top bar to report issues or suggest improvements
+
+---
+
+## FAQs
+
+<Accordion title="How do I know which execution mode I'm currently in?">
+  Look at the input box at the bottom of the Verdent panel. The "Switch Permission" button displays your current mode (e.g., "Manual", "Auto", "Plan"). You can click it to switch modes.
+</Accordion>
+
+<Accordion title="What happens if I run out of credits?">
+  Verdent will stop processing new requests until your credits refresh at the start of your next billing cycle, or you can purchase a one-time top-up to continue immediately.
+</Accordion>
+
+<Accordion title="Can I use Verdent in multiple projects simultaneously?">
+  Yes, each VS Code window operates independently. You can have Verdent open in multiple projects, and each maintains its own separate conversation context.
+</Accordion>
+
+<Accordion title="How do I start a new conversation with clean context?">
+  Click the "New Session" button in the top bar. This clears the current conversation history and gives Verdent a fresh context window for your next task.
+</Accordion>
+
+---
+
+## Next Steps
+
+You've installed Verdent, completed your first task, and learned the core workflow. Here's where to go next:
+
+<CardGroup cols={2}>
+  <Card title="Core Concepts" icon="lightbulb" href="/verdent-for-vscode/getting-started/core-concepts">
+    Understand subagents, multi-agent architecture, and context management
+  </Card>
+
+  <Card title="Common Workflows" icon="code" href="/verdent-for-vscode/common-workflows/multi-step-tasks">
+    Step-by-step guides for multi-step tasks, large codebases, and version control
+  </Card>
+</CardGroup>

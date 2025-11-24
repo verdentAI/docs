@@ -1,8 +1,536 @@
 ---
 title: Frequently Asked Questions
-description: Common questions about Verdent
+description: Common questions about Verdent for VS Code
 ---
 
 
 
-[Content to be added - organized by topic]
+Answers to frequently asked questions about Verdent's features, capabilities, and usage.
+
+---
+
+## Getting Started
+
+<Tip>
+Complete the Quick Start guide before diving into advanced features, it covers essential concepts that appear throughout the documentation.
+</Tip>
+
+---
+
+## Common Issues (Top 4)
+
+<Accordion title="Why can't I log in to Verdent for VS Code?">
+**Most common cause:** Proxy configuration issue
+
+**Solution:**
+1. Open VS Code Settings (`Cmd+,` on macOS or `Ctrl+,` on Windows/Linux)
+2. Search for "useProxy" or "verdent.enableProxy"
+3. Toggle the proxy setting on/off (opposite of current state)
+4. Try logging in again
+
+**Explanation:** If you're behind a corporate firewall, you may need to enable the proxy setting. If you're on a home network, try disabling it.
+</Accordion>
+
+<Accordion title="Why didn't I receive my free trial credits?">
+**Error:** Free trial credits were not received or free trial access denied
+
+**Reason:** A terms of service violation was detected during registration
+
+**Solution:** Contact support@verdent.ai for assistance with your free trial access. The support team will review your account and help resolve the issue.
+</Accordion>
+
+<Accordion title="Why did my registration fail?">
+**Error:** Account registration was rejected or restricted
+
+**Reason:** The registration violated Verdent's terms of service, resulting in access restriction
+
+**Solution:** Contact support@verdent.ai for assistance. The support team can review your registration and provide guidance on resolving the issue.
+</Accordion>
+
+<Accordion title="Why can't I find Claude, GPT, or Gemini models?">
+**Issue:** Cannot find certain AI models in the model selection menu
+
+**Reason:** Location-based restrictions from model providers
+
+**Explanation:** Some AI model providers (Anthropic, OpenAI, Google) have regional restrictions that prevent certain models from being available in specific geographic locations. When this happens:
+- Restricted models will not appear in your model selection menu
+- You can still use all other available models without interruption
+- No impact on your subscription or credits
+
+**Check Available Models:** Visit https://www.verdent.ai/regions to see which models are available in your region
+
+**Note:** Regional restrictions are set by the AI model providers, not by Verdent. Verdent cannot override these restrictions.
+</Accordion>
+
+---
+
+<Accordion title="What is Visual Studio Code?">
+Visual Studio Code is a free, open-source code editor developed by Microsoft. It's a lightweight but powerful development environment that supports multiple programming languages and offers features like debugging, syntax highlighting, intelligent code completion, and integrated version control. Verdent integrates directly into Visual Studio Code as an extension, adding AI-powered coding capabilities to your existing workflow.
+</Accordion>
+
+<Accordion title="What is Verdent for VS Code?">
+Verdent is an AI coding assistant extension for Visual Studio Code that helps with code generation, refactoring, debugging, and project navigation through natural language conversations.
+
+**Key capabilities:**
+- Code generation and modification via file tools
+- Codebase exploration with specialized subagents
+- Command execution through bash integration
+- Custom extensibility via rules and MCP servers
+</Accordion>
+
+<Accordion title="What are the system requirements?">
+**Minimum requirements:**
+- Visual Studio Code 1.90.0 or higher
+- Active Verdent subscription
+- Internet connection
+
+**Platform support:** macOS, Windows, Linux, WSL
+</Accordion>
+
+<Accordion title="How do I start using Verdent after installation?">
+1. Install Verdent extension from VS Code marketplace
+2. Sign in with your Verdent account when prompted
+3. Open any code file or project
+4. Open Chat View and start conversing with Verdent
+
+**First task suggestion:** Ask Verdent to explain your project structure or review a specific file.
+</Accordion>
+
+<Accordion title="How do I check my Visual Studio Code version?">
+Open Visual Studio Code and go to **Help** → **About** (or **Code** → **About Visual Studio Code** on macOS). The version number is displayed in the dialog. Verdent requires Visual Studio Code version 1.90.0 or higher.
+
+You can also check via command line:
+```bash
+code --version
+```
+</Accordion>
+
+<Accordion title="What are credits?">
+The usage currency for Verdent. Different models consume different amounts of credits per request. Your subscription includes a monthly credit allotment (e.g., 640 credits for Starter, 2,000 for Pro, 6,000 for Max).
+</Accordion>
+
+<Accordion title="What happens if I run out of credits?">
+Verdent will stop processing new requests until your credits refresh at the start of your next billing cycle, or you can purchase a one-time top-up to continue immediately.
+</Accordion>
+
+<Accordion title="Does Verdent upload my images to external servers?">
+Images pasted via clipboard or referenced by file path are processed within your conversation session. Images are not permanently stored and are cleared when you start a new conversation. File path references read the image locally without uploading.
+</Accordion>
+
+<Accordion title="What is Plan Mode?">
+Plan Mode is a read-only execution mode where Verdent analyzes code, conducts research, and creates detailed implementation plans without modifying files or executing commands. After generating a plan, Verdent presents two options: **Edit** (to request modifications and refine the plan) or **Start Building** (to switch to Agent Mode and begin execution). The agent can ask clarifying questions to remove uncertainty before execution. This mode is ideal for complex tasks where you want to review the approach before committing to changes, ensuring alignment between your expectations and Verdent's proposed solution.
+</Accordion>
+
+<Accordion title="Does Plan Mode actually write any code to my files?">
+**No.** Plan Mode is strictly read-only:
+
+- Verdent can read files, search code, and analyze your codebase
+- **No file writes, edits, or deletions** occur during Plan Mode
+- Plans are displayed in the Chat View only
+- Code execution begins only after you explicitly approve and switch to Agent Mode
+
+**Safety guarantee:** Plan Mode cannot accidentally modify your code. It's designed for safe exploration and strategy development.
+</Accordion>
+
+<Accordion title="How do I switch between Plan Mode and Agent Mode?">
+**Switching is instant via the Input Box:**
+
+**To Enter Plan Mode:**
+- Click **Switch Mode** button in Input Box
+- Select **Plan Mode** from dropdown
+- OR say: "Switch to Plan Mode"
+
+**To Exit Plan Mode:**
+- Click **Switch Mode** button in Input Box
+- Select **Agent Mode** from dropdown
+- OR choose **Start Building** after reviewing a plan
+
+**Mode persistence:**
+- Mode choice persists within the current session
+- New sessions start in default Agent Mode
+- You can switch modes freely at any time
+
+**Typical workflow:** Plan Mode → review → Agent Mode → execute → back to Plan Mode for next complex feature.
+</Accordion>
+
+<Accordion title="How do I start a new conversation with clean context?">
+Click the "New Session" button in the top bar. This clears the current conversation history and gives Verdent a fresh context window for your next task.
+</Accordion>
+
+<Accordion title="Can I use Verdent in multiple projects simultaneously?">
+Yes, each VS Code window operates independently. You can have Verdent open in multiple projects, and each maintains its own separate conversation context.
+</Accordion>
+
+<Accordion title="Does Verdent work with GitHub, GitLab, Bitbucket, and other Git platforms?">
+Yes. Verdent uses standard Git commands, so it works with any Git repository regardless of hosting platform. For creating pull requests, Verdent uses the `gh` CLI which requires GitHub, but all other Git operations work universally.
+</Accordion>
+
+---
+
+## Tools & Capabilities
+
+<Accordion title="What file formats can Verdent work with?">
+**Supported:** All text-based file formats including:
+- Source code (JavaScript, Python, TypeScript, Java, Go, etc.)
+- Configuration files (JSON, YAML, TOML, XML, ENV)
+- Documentation (Markdown, HTML, LaTeX)
+- Build files (package.json, Makefile, requirements.txt)
+
+**Not supported:** Binary files (images, videos, PDFs, compiled binaries, Office documents)
+
+**Workaround:** Reference binary files in code but modifications require external tools.
+</Accordion>
+
+<Accordion title="What programming languages does Verdent support best?">
+**Excellent support:**
+- JavaScript, TypeScript, Python, React, Vue, Angular
+- Node.js, Go, Java/Spring, C#/.NET
+- Swift, Kotlin, Flutter
+
+**Very Good support:** Rust, C/C++, Ruby, R
+
+**Good support:** PHP, Assembly, Julia
+
+Common languages have stronger support due to extensive training data.
+</Accordion>
+
+<Accordion title="How does Verdent read and modify files?">
+Three file operation tools:
+- **file_read:** Read complete files or specific line ranges
+- **file_edit:** Replace specific text patterns (targeted modifications)
+- **file_write:** Create new files or complete file rewrites
+
+**Best practice:** Use `file_edit` for modifications, `file_write` for new files only.
+</Accordion>
+
+<Accordion title="What is command execution?">
+Running terminal commands or shell scripts through Verdent, including operations like running tests, installing packages, or executing build commands. Command execution requires approval in most Permission Modes to prevent unintended system changes.
+</Accordion>
+
+<Accordion title="Can Verdent execute commands in my terminal?">
+Yes, using the `bash` tool. Verdent can run terminal commands with:
+- Maximum timeout: 120 seconds (2 minutes)
+- Command chaining with `&&`
+- Cross-platform support (bash on Unix, PowerShell on Windows)
+
+**Safety:** Commands execute with your user permissions. Use Manual Accept Mode to review before execution.
+</Accordion>
+
+<Accordion title="How long can bash commands run?">
+**Maximum timeout:** 120 seconds (2 minutes)
+
+Commands exceeding 2 minutes will be automatically terminated. For longer operations, consider:
+
+**Alternatives:**
+- Break into smaller commands: `bash("task1") && bash("task2")`
+- Break into smaller operations
+- Run in background and check results separately
+</Accordion>
+
+<Accordion title="What is the Multipass Generate-Test-Repair Cycle?">
+An iterative verification process where code is generated, tested, and repaired until it passes comprehensive testing. Verdent automatically runs tests, analyzes failures, fixes issues, and retests in multiple passes until the code works correctly. This delivers production-ready code, not just suggestions. Each result includes detailed summaries and code diffs showing exactly what changed.
+</Accordion>
+
+<Check>
+Multipass testing cycles automatically fix and retest code until it passes, this is how Verdent ensures production readiness.
+</Check>
+
+---
+
+## Subagents & Execution
+
+<Accordion title="What are subagents and when should I use them?">
+Subagents are specialized AI agents with isolated context windows for specific tasks.
+
+**Built-in subagents:**
+- **@Explorer:** Codebase searches, architecture questions
+- **@Verifier:** Quick validation checks
+- **@Code-reviewer:** Security and quality reviews
+
+**When to use:** Delegate research, validation, or review tasks to save main conversation context.
+
+**How to create custom subagents:**
+
+Create a markdown file in `~/.verdent/subagents/`:
+
+```markdown
+---
+name: your-subagent
+description: Purpose description
+---
+# System Prompt
+[Behavior definition and expertise]
+```
+
+**Use cases:** Domain-specific expertise (finance, healthcare), team workflows, technology specialists.
+</Accordion>
+
+<Accordion title="What is context pollution?">
+When previous actions and information in the context create unintended behavioral patterns that affect future tasks. For example, if you repeatedly update code and then deploy it, the agent may begin associating all code updates with immediate deployment, even when you're just experimenting. Subagents prevent context pollution by operating with isolated context windows, allowing each specialized task to start with clean context and avoiding cross-contamination between different types of work.
+</Accordion>
+
+<Accordion title="How do I know which execution mode I'm currently in?">
+Look at the input box at the bottom of the Verdent panel. The "Switch Permission" button displays your current mode (e.g., "Manual", "Auto", "Plan"). You can click it to switch modes.
+</Accordion>
+
+<Accordion title="What's the difference between Auto-Run Mode and Manual Accept Mode?">
+**Auto-Run Mode:**
+- File operations execute automatically without approval
+- Commands still require permission
+- Faster workflow for trusted codebases
+- Best for solo projects with version control
+
+**Manual Accept Mode:**
+- Review and approve each protected operation
+- Safer for shared codebases or production
+- See exactly what will run before execution
+
+Switch modes via Settings or command palette.
+</Accordion>
+
+<Accordion title="What are safe operations?">
+Operations that only read data without making changes: file reads and web searches. These are automatically approved in Auto-Run Mode, while file edits and command execution still require approval for safety.
+</Accordion>
+
+<Accordion title="Can I use multiple permission modes at the same time?">
+No, permission modes are mutually exclusive - you can only use ONE at a time:
+
+- **Manual Accept** - Default, maximum control
+- **Auto-Run** - Streamlined for trusted projects
+- **Plan** - Read-only planning mode
+- **Skip Permissions** - Full autonomy
+
+You can switch modes instantly via the **Switch Permission** button in the Input Box. Most users switch between modes based on task context (e.g., Plan Mode for complex features, Auto-Run for quick fixes).
+</Accordion>
+
+<Accordion title="When should I use the Explorer agent versus loading files directly?">
+Use the Explorer agent for discovery and search tasks without consuming main context. Load files directly with @-mentions only when you need to modify them. Explorer is ideal for "find all files that..." questions, while @-mentions are for "update this specific file" tasks.
+</Accordion>
+
+<Accordion title="Can I create custom subagents for my project?">
+Yes! Create custom subagents in `~/.verdent/subagents/`:
+
+```markdown
+---
+name: your-subagent
+description: Purpose description
+---
+# System Prompt
+[Behavior definition and expertise]
+```
+
+**Use cases:** Domain-specific expertise (finance, healthcare), team workflows, technology specialists.
+</Accordion>
+
+<Accordion title="Can I stop Verdent in the middle of a multi-step task?">
+Yes. You can interrupt execution at any time. Verdent will complete the current step it's working on, then stop. Progress up to that point is preserved. You can review what's been done, make adjustments, and either continue or take a different approach.
+</Accordion>
+
+<Accordion title="How do I know what Verdent is doing right now in a long task?">
+Watch the todo list. It shows real-time status with one item marked "in progress" at any time. The active item shows exactly what Verdent is currently working on. Completed items are marked done, and pending items show what's remaining.
+</Accordion>
+
+<Accordion title="Does Verdent automatically commit my changes?">
+No. Verdent only creates commits when you explicitly request them. You maintain full control over when changes are committed. Simply ask "Stage all changes and create a commit" when you're ready.
+</Accordion>
+
+<Accordion title="Will Verdent push to remote repositories without asking?">
+No. Verdent only pushes to remote repositories when you explicitly request it. All Git operations (commit, push, merge, rebase) require your explicit instruction for safety.
+</Accordion>
+
+---
+
+## Customization & Integration
+
+<Accordion title="How do I customize Verdent's behavior for my team?">
+Three customization methods:
+
+1. **user_rules.md:** Personal global preferences (`~/.verdent/user_rules.md`)
+2. **AGENTS.md:** Project-specific team standards (project root, version controlled)
+3. **plan_rules.md:** Plan Mode output format (`~/.verdent/plan_rules.md`)
+
+AGENTS.md overrides user_rules.md for team consistency.
+</Accordion>
+
+<Accordion title="When do configuration changes take effect?">
+Most Verdent settings apply immediately without requiring a restart:
+
+- **Permission modes:** Switch instantly via Input Box
+- **Model presets:** Apply to next request
+- **Rules files:** Apply to new conversations (save triggers reload)
+- **Subagents:** Available immediately after creation
+- **Keyboard shortcuts:** Apply after saving in VS Code
+
+**Exception:** VS Code extension settings (like `verdent.enableCheckpoints`) take effect immediately but may require reopening files or sessions for full application.
+</Accordion>
+
+<Accordion title="What is MCP and how do I use it?">
+Model Context Protocol (MCP) extends Verdent with external tools and services:
+
+**Configuration:** `~/.verdent/mcp.json` via Settings → MCP Servers
+
+**Capabilities:**
+- Database connections (PostgreSQL, MySQL, MongoDB)
+- Cloud services (AWS, Azure, GCP)
+- Project management tools (Jira, Linear)
+- CI/CD pipelines (Jenkins, GitHub Actions)
+
+**Status:** MCP integration docs in development. Contact support@verdent.ai for setup help.
+</Accordion>
+
+---
+
+## Best Practices & Performance
+
+<Tip>
+Monitor credit usage in the User Center to track consumption patterns and optimize your workflow for efficiency.
+</Tip>
+
+<Accordion title="What is a token?">
+The unit of measurement for context windows. Tokens represent pieces of text (words, parts of words, or characters) that the AI model processes. Context limits are measured in tokens rather than characters or words, with typical conversations consuming thousands of tokens.
+</Accordion>
+
+<Accordion title="What counts toward my context window?">
+Everything in your session: all messages in the conversation, file contents loaded into context, tool outputs (grep/search results, file reads), system prompts and instructions, and MCP server definitions. Each of these consumes tokens from your total context capacity.
+</Accordion>
+
+<Accordion title="What's the difference between 200K and 1M context windows?">
+Standard models (Claude 4.5 Sonnet, Haiku, GPT-5, GPT-5-Codex, MiniMax-M2) have `200K` token context windows sufficient for most tasks. Claude Sonnet 4.5 offers extended `1M` token context (5x larger) for large codebases with `1000+` files, complex multi-file refactoring, or long development sessions. The `1M` context activates automatically when input exceeds `200K` tokens or can be explicitly selected.
+</Accordion>
+
+<Accordion title="How many files can I safely load into context?">
+There's no fixed file limit - it depends on file sizes and total token count. For `200K` contexts, avoid loading `20+` large files (`>1000` lines each). Focus on files directly relevant to your current task. Use `@-mentions` selectively and leverage `AGENTS.md` documentation instead of loading many example files. With `1M` context, file selection becomes much less critical.
+</Accordion>
+
+<Accordion title="How do I know when I'm approaching context limits?">
+Signs include slower response times, sessions running for several hours, or many large files loaded. Monitor your session length and file count. When you notice performance degradation, complete your current task, commit your progress, and start a fresh session with clean context.
+</Accordion>
+
+<Accordion title="How do I avoid context window exhaustion?">
+**Strategies:**
+1. **Strategic file reading:** Use line ranges for large files
+2. **Delegate to subagents:** Explorer/Verifier for background research
+3. **Search before reading:** Use `grep_file` to identify relevant files
+4. **Break operations:** Use `todo_update` to track multi-step tasks
+
+**Rule of thumb:** Files over 500 lines should use line ranges.
+</Accordion>
+
+<Accordion title="Should I manually reset context or will Verdent do it automatically?">
+You must manually start a new session to reset context - Verdent does not automatically clear context. Best practice: reset after completing an atomic unit of work, testing, and committing to version control. For `1M` token contexts, resets are needed much less frequently.
+</Accordion>
+
+<Accordion title="Will resetting context lose my work?">
+No - resetting context only clears the conversation history and loaded files from memory. Your actual code changes, commits, and file modifications are preserved. Always commit your work to version control before resetting context for safety. Reset → start fresh session → continue working on next task.
+</Accordion>
+
+<Accordion title="How specific should my prompts be?">
+Be specific enough to eliminate ambiguity, but don't over-explain obvious details. Include: exact file paths, implementation approach, expected outcomes, and constraints. Bad: "Fix the code" - too vague. Good: "Add input validation to the email field in `ContactForm.js` to reject invalid email formats" - clear scope and goal. When in doubt, err on the side of more specificity.
+</Accordion>
+
+<Accordion title="What's the difference between @-mentions and automatic file loading?">
+Verdent automatically loads files mentioned by name in prompts and related files in the same directory. `@-mentions` (`@filename.js`) explicitly guarantee a file is in context, which is critical when working with tightly coupled files, referencing patterns from one file to apply in another, or when automatic detection might miss context in large codebases. Always use `@-mentions` when asking Verdent to "follow the same pattern as..." to ensure exact code reference.
+</Accordion>
+
+<Accordion title="Do I need to repeat project context in every prompt during a session?">
+No - Verdent maintains conversation context within a session, so you don't need to repeat architecture details or conventions already discussed. However, for critical constraints or when sessions get long (`100+` messages), restate important context. Better approach: use project rules (`AGENTS.md`) to document persistent context like tech stack, coding standards, and patterns - then you never need to repeat them.
+</Accordion>
+
+<Accordion title="What if Verdent doesn't understand or follow my prompt correctly?">
+Use iterative refinement: review the output, identify what's wrong, then provide corrections in a follow-up prompt. Example: "The validation logic is good, but use Joi schema validation instead of manual checks. Match the validation pattern in `ProductController.js`." You can also ask for explanations: "Why did you use Redux instead of Context API?" then refine based on understanding. Don't repeat the same prompt - adjust based on what failed.
+</Accordion>
+
+<Accordion title="When should I use Plan Mode instead of normal mode?">
+Use Plan Mode for: large refactorings or architectural changes, multi-file modifications where you want to review scope before execution, complex tasks where you're uncertain about requirements, or when you want Verdent to interview you with clarifying questions before implementation. Skip Plan Mode for: simple, well-defined tasks, quick bug fixes, or routine operations. Plan Mode adds overhead but prevents costly mistakes on complex work.
+</Accordion>
+
+<Accordion title="How do I choose the right model preset for my task?">
+Match model preset to task complexity and budget:
+
+**Use Efficiency (~0.3x cost, 450 requests/100 credits):**
+- Quick bug fixes and simple code generation
+- Routine operations and high-frequency tasks
+- When speed matters more than depth
+
+**Use Balance (1x cost, 140 requests/100 credits) - Default:**
+- General development and everyday coding
+- Feature implementation and code reviews
+- Balanced performance for most scenarios
+
+**Use Performance (1-2x cost, 70 requests/100 credits):**
+- Complex architectural decisions
+- Large codebases requiring extensive context (200k+ tokens)
+- Sophisticated debugging and refactoring
+
+**Pro tip:** Most users keep Balance as default and switch to Performance only when hitting context limits or needing deep reasoning.
+</Accordion>
+
+---
+
+## Troubleshooting
+
+<Accordion title="How do I troubleshoot firewall or connection issues?">
+If Verdent cannot connect to AI services, check these common issues:
+
+**Test basic connectivity:**
+- Verify you have active internet access
+- Try accessing other HTTPS services to confirm outbound connections work
+
+**Corporate/Enterprise environments:**
+- Contact your network administrator to whitelist Verdent's API endpoints
+- Ensure outbound HTTPS traffic is allowed through your firewall
+- Check if proxy servers are properly configured to pass through API requests
+- SSL/TLS inspection may need exceptions for Verdent endpoints
+
+**Common symptoms:**
+- Extension appears to hang or timeout
+- Authentication failures despite correct credentials
+
+If issues persist after firewall configuration, contact Verdent support for specific endpoint details to whitelist.
+</Accordion>
+
+<Accordion title="My AGENTS.md rules aren't being applied. Why?">
+**Check:**
+- **Location:** File in project root directory
+- **Syntax:** Valid Markdown
+- **Specificity:** Rules are directive ("Always use..." not "Try to...")
+- **Fresh test:** Start new conversation to test application
+
+**Precedence:** AGENTS.md overrides user_rules.md for project-specific behavior.
+</Accordion>
+
+<Accordion title="How do I fix 'file_edit failed to find exact match' errors?">
+**Causes:**
+- Text changed since last read
+- Whitespace differences (spaces vs tabs)
+- String not unique in file
+
+**Solutions:**
+- Read file again to get current contents
+- Provide larger context string for uniqueness
+- Use `replace_all=true` for multiple identical strings
+- Verify file_path is correct
+</Accordion>
+
+<Accordion title="Why isn't my custom subagent invoking automatically?">
+**Check:**
+- **Location:** File in `~/.verdent/subagents/[name].md`
+- **Invocation policy:** Strict policy requires explicit @-mention
+- **YAML frontmatter:** Valid syntax
+- **"When to use" guidelines:** Match your request pattern
+
+**Test:** Use explicit @-mention to verify subagent works: `@your-subagent do task`
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Tool Reference" icon="wrench" href="/verdent-for-vscode/advanced-features/tool-reference">
+    Complete tool capabilities
+  </Card>
+  <Card title="Troubleshooting" icon="triangle-exclamation" href="/verdent-for-vscode/help-support/common-issues">
+    Common issues and solutions
+  </Card>
+</CardGroup>

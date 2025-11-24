@@ -3,16 +3,373 @@ title: Plan-First Workflows
 description: Using AI-assisted planning for complex tasks
 ---
 
+Plan-first workflows leverage **Plan Mode**, a read-only execution mode where Verdent analyzes code, conducts research, and creates detailed plans before executing any changes. This workflow separates strategic planning from implementation, enabling review and refinement before committing to code modifications.
 
+### When to Use Plan Mode
+
+- Complex multi-file changes requiring coordination
+- Uncertainty about the best implementation approach
+- High-stakes changes to production-critical code
+- Tasks in unfamiliar codebases where exploration is needed
+- Strategic planning needs requiring approval before execution
+
+---
 
 ## AI-Assisted Task Breakdown
 
-[Content to be added]
+Verdent automatically decomposes complex requests into manageable, sequential steps through AI-assisted task breakdown.
+
+### Breakdown Process
+
+<Steps>
+  <Step title="Request Analysis">
+    Verdent analyzes your natural language request to identify:
+    - Primary objective and desired outcome
+    - Affected files, components, or systems
+    - Required technical operations and dependencies
+    - Potential complexity factors
+  </Step>
+  <Step title="Codebase Context">
+    Verdent examines your project structure to understand:
+    - Existing architecture and established patterns
+    - File organization and technology stack
+    - Current implementations requiring modification
+  </Step>
+  <Step title="Task Decomposition">
+    Verdent breaks the request into logical subtasks:
+    - Identifies natural breakpoints and implementation phases
+    - Orders tasks by dependency (prerequisite tasks first)
+    - Groups related operations together
+    - Estimates scope and complexity of each subtask
+  </Step>
+  <Step title="Interactive Clarification">
+    Verdent may ask questions to refine the breakdown:
+    - "Should I modify the existing validation or create a new validator?"
+    - "Do you want to update tests for all affected components?"
+    - "Should this change apply to both web and mobile components?"
+  </Step>
+</Steps>
+
+### Breakdown Characteristics
+
+<Tabs>
+  <Tab title="Granularity">
+    - Tasks sized for 15-45 minutes of focused work
+    - Natural breakpoints for testing and validation
+    - Complex enough to be meaningful, simple enough to execute
+  </Tab>
+  <Tab title="Sequencing">
+    - Dependencies respected (setup before implementation)
+    - Logical progression (data layer → business logic → UI)
+    - Verification steps after major phases
+  </Tab>
+  <Tab title="Customization">
+    Plan breakdown format can be customized via `plan_rules.md` to control:
+    - Level of detail (high-level vs granular)
+    - Plan structure and sections
+    - Information included (time estimates, risks, dependencies)
+  </Tab>
+</Tabs>
+
+---
 
 ## Plan Review and Approval
 
-[Content to be added]
+After submitting a request in Plan Mode, Verdent generates a structured plan displayed in the Chat View for your review.
+
+### Review Process
+
+<Steps>
+  <Step title="Receive Structured Plan">
+    Verdent generates a plan with clear sections, numbered steps, affected files, and identified dependencies
+  </Step>
+  <Step title="Analyze Plan Quality">
+    Review for:
+    - **Correctness:** Does the approach solve the problem?
+    - **Completeness:** Are all necessary steps included?
+    - **Efficiency:** Is this the best approach?
+    - **Risk:** What could go wrong? Edge cases or security concerns?
+  </Step>
+  <Step title="Ask Clarifying Questions">
+    Request additional information if anything is unclear:
+    ```
+    Can you explain step 3 in more detail?
+    Why are we modifying both the service and controller?
+    What happens if the API call fails in step 5?
+    ```
+  </Step>
+  <Step title="Request Modifications">
+    Provide feedback to revise the plan:
+    ```
+    Let's use JWT tokens instead of OAuth2
+    Can we break step 4 into smaller substeps?
+    Add error handling considerations to the plan
+    ```
+  </Step>
+  <Step title="Choose Your Next Action">
+    After Verdent generates the plan, two options are presented:
+    - **Edit**: Request modifications, ask clarifying questions, or refine the plan further
+    - **Start Building**: Switch to Agent Mode and begin executing the approved plan
+  </Step>
+</Steps>
+
+### Plan Interaction Options
+
+After reviewing the generated plan, Verdent presents two options:
+
+**Edit:**
+
+Choose this option to:
+- Request specific changes to the plan approach
+- Ask clarifying questions about implementation details
+- Add missing elements or considerations
+- Simplify or expand certain steps
+- Explore alternative approaches
+
+This keeps you in Plan Mode for iterative refinement without executing any changes.
+
+**Start Building:**
+
+Choose this option to:
+- Switch to Agent Mode and begin execution
+- Implement the approved plan with full autonomy
+- Make file modifications and execute commands as planned
+
+You can also opt for:
+- **Manual implementation**: Review the plan and implement changes yourself
+- **Incremental execution**: Ask Verdent to implement specific phases with checkpoints for review between stages
+
+<Tip>
+Use **Edit** to iterate on the plan as many times as needed. Only choose **Start Building** when you're confident the approach is correct and complete.
+</Tip>
+
+---
 
 ## Iterative Planning
 
-[Content to be added]
+Users can freely modify and iterate on plans by choosing **Edit** and providing conversational feedback. Verdent treats plan generation as an interactive, iterative process.
+
+### Modification Methods
+
+**Request Specific Changes:**
+```
+Change step 3 to use Redux instead of Context API
+Add input validation before the database insert
+Swap the order of steps 4 and 5
+```
+
+**Add Missing Elements:**
+```
+Add error handling for network failures
+Include rollback procedures
+Add performance optimization considerations
+```
+
+**Simplify or Expand:**
+```
+This is too complex - can we simplify the approach?
+Break down step 5 into more detailed substeps
+Give me more detail on the database schema changes
+```
+
+**Explore Alternatives:**
+```
+What if we used webhooks instead?
+Show me an alternative plan using microservices architecture
+Can we accomplish this without changing the database schema?
+```
+
+### Example Iteration Flow
+
+```
+User: "Add user authentication to the API"
+
+[Verdent generates initial plan with JWT tokens]
+
+User: "Actually, let's use OAuth2 instead of JWT"
+
+[Verdent revises plan to use OAuth2]
+
+User: "Add step for migrating existing users"
+
+[Verdent adds migration step to plan]
+
+User: "Can you break down the migration step more?"
+
+[Verdent expands migration with detailed substeps]
+
+User: Chooses **Start Building**
+
+[Verdent switches to Agent Mode and begins execution]
+```
+
+**Unlimited Iterations:**
+- No limit on the number of revisions
+- Each iteration maintains conversation context
+- Previous versions preserved in chat history
+- Can reference earlier plan versions: "go back to the first approach"
+
+<Note>
+Plan rejection is a natural part of the iterative planning process. It ensures only approved, well-understood strategies are executed, reducing wasted effort on incorrect implementations.
+</Note>
+
+---
+
+## FAQs (Frequently Asked Questions)
+
+<Accordion title="Does Plan Mode actually write any code to my files?">
+**No.** Plan Mode is strictly read-only:
+
+- Verdent can read files, search code, and analyze your codebase
+- **No file writes, edits, or deletions** occur during Plan Mode
+- Plans are displayed in the Chat View only
+- Code execution begins only after you explicitly approve and switch to Agent Mode
+
+**Safety guarantee:** Plan Mode cannot accidentally modify your code. It's designed for safe exploration and strategy development.
+</Accordion>
+
+<Accordion title="Can I execute a plan incrementally instead of all at once?">
+**Yes.** Incremental execution is fully supported:
+
+**Incremental Approval Pattern:**
+```
+Let's start with Phase 1 first, then we'll review before continuing
+Implement steps 1-3, then stop for review
+Do the database migration first, I'll review before the API changes
+```
+
+**How it works:**
+1. Verdent executes specified steps
+2. Stops for review checkpoint
+3. You review results and provide feedback
+4. Continue with next phase or adjust approach
+5. Repeat until complete
+
+**Best for:** High-risk changes, unfamiliar patterns, production-critical code where phased rollout reduces risk.
+
+<Tip>
+Incremental execution lets you approve parts of a plan while deferring others, useful when priorities shift mid-task.
+</Tip>
+</Accordion>
+
+<Accordion title="What happens if I reject a plan?">
+**Plan rejection is completely normal and expected:**
+
+- Verdent generates a new plan based on your feedback
+- Previous plan versions remain in chat history for reference
+- No code changes occur (Plan Mode is read-only)
+- You can iterate unlimited times until satisfied
+
+**Common rejection reasons:**
+- Approach is too complex or too simple
+- Missing edge cases or error handling
+- Better alternative architecture exists
+- Misunderstood requirements
+
+**Pro tip:** Rejection is part of the process. It's better to refine plans iteratively than waste effort executing incorrect strategies.
+</Accordion>
+
+<Accordion title="How do I switch between Plan Mode and Agent Mode?">
+**Switching is instant via the Input Box:**
+
+**To Enter Plan Mode:**
+- Click **Switch Mode** button in Input Box
+- Select **Plan Mode** from dropdown
+- OR say: "Switch to Plan Mode"
+
+**To Exit Plan Mode:**
+- Click **Switch Mode** button in Input Box
+- Select **Agent Mode** from dropdown
+- OR choose **Start Building** after reviewing a plan
+
+**Mode persistence:**
+- Mode choice persists within the current session
+- New sessions start in default Agent Mode
+- You can switch modes freely at any time
+
+**Typical workflow:** Plan Mode → review → Agent Mode → execute → back to Plan Mode for next complex feature.
+</Accordion>
+
+<Accordion title="Can I customize the format and detail level of generated plans?">
+**Yes, using `plan_rules.md`:**
+
+**Location:** `~/.verdent/plan_rules.md` (global configuration directory)
+
+**What you can customize:**
+- **Level of detail:** High-level overview vs. granular step-by-step
+- **Plan structure:** Sections to include (summary, risks, dependencies, testing)
+- **Information included:** Time estimates, file paths, verification steps
+- **Format preferences:** Numbered lists, phases, categorization
+
+**Example plan_rules.md:**
+```markdown
+# Plan Rules
+
+## Plan Structure
+- Start with a brief summary (2-3 sentences)
+- Include estimated time for each major step
+- List prerequisites before implementation steps
+- Identify potential risks and mitigation strategies
+
+## Level of Detail
+- Break tasks into subtasks of 15-30 minutes
+- Include specific file paths for modifications
+- List functions or components to create/modify
+- Provide verification steps for each phase
+```
+
+**Changes apply immediately** to new Plan Mode sessions.
+</Accordion>
+
+<Accordion title="Does Plan Mode use the same context as Agent Mode?">
+**No, Plan Mode has separate context management:**
+
+- **Plan Mode context:** Optimized for analysis and strategic thinking
+- **Agent Mode context:** Optimized for execution and implementation
+- **Benefit:** Plans don't pollute execution context with exploratory research
+
+**Why separation matters:**
+- Plan Mode can explore multiple approaches without cluttering Agent Mode
+- Rejected plan attempts don't consume Agent Mode context
+- Clean slate when switching to execution
+
+**Context reset:** Switching modes provides a fresh context for the new task type.
+</Accordion>
+
+<Accordion title="What if Verdent asks clarifying questions during planning?">
+**Clarifying questions are part of the breakdown process:**
+
+**Why questions are asked:**
+- Ambiguous requirements need clarification
+- Multiple valid approaches exist (choose one)
+- Edge cases or constraints not yet specified
+- Preferences not clear from initial request
+
+**How to respond:**
+- Answer directly in conversational language
+- Provide examples if helpful
+- Say "your choice" if you trust Verdent's judgment
+- Ask counter-questions if you're unsure
+
+**Example exchange:**
+```
+Verdent: "Should I modify the existing validation or create a new validator?"
+You: "Create a new validator - we'll deprecate the old one later"
+Verdent: [Updates plan with new validator approach]
+```
+
+**Pro tip:** Questions help Verdent generate accurate, relevant plans tailored to your specific needs.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Execution Modes" icon="sliders" href="/verdent-for-vscode/execution-modes/overview">
+    Learn more about Plan Mode and other execution modes
+  </Card>
+  <Card title="Best Practices: Prompts" icon="message" href="/verdent-for-vscode/best-practices/prompts">
+    Write effective prompts for Plan Mode
+  </Card>
+</CardGroup>

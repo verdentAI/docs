@@ -3,6 +3,301 @@ title: Multi-Step Task Examples
 description: Handling complex multi-step tasks with Verdent
 ---
 
+Verdent for VS Code excels at breaking down complex multi-step tasks autonomously. This guide provides step-by-step workflows for common multi-step scenarios, showing exactly how Verdent handles task decomposition, dependency management, and progressive execution.
 
+---
 
-[Content to be added]
+## Using Plan Mode for Complex Implementations
+
+Suppose you want to review a detailed plan before Verdent makes any changes to your codebase.
+
+<Steps>
+  <Step title="Switch to Plan Mode">
+    Click the "Switch Mode" button in the interface and select "Plan Mode".
+
+    Plan Mode is read-only: Verdent can analyze code, conduct research, and create plans without modifying files or executing commands.
+  </Step>
+
+  <Step title="Submit your complex request">
+    ```
+    Refactor this codebase to replace our custom authentication with OAuth 2.0
+    ```
+
+    Verdent analyzes your current implementation thoroughly.
+  </Step>
+
+  <Step title="Answer clarifying questions">
+    Verdent may ask questions to remove uncertainty:
+    - Which OAuth provider should we use?
+    - Should tokens be stored in localStorage or cookies?
+    - Do we need to support multiple OAuth providers?
+
+    Answer these questions to refine the plan.
+  </Step>
+
+  <Step title="Review the detailed plan">
+    Verdent presents a comprehensive plan showing:
+    - Files to be created
+    - Existing files to modify
+    - Implementation steps in logical order
+    - Dependencies between steps
+
+    Review this plan carefully before proceeding.
+  </Step>
+
+  <Step title="Choose Your Next Action">
+    After reviewing the plan, Verdent presents two options:
+    - Choose **Edit** to request modifications or ask clarifying questions
+    - Choose **Start Building** to switch to Agent Mode and begin execution
+
+    You can iterate on the plan as many times as needed before building.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Use Plan Mode for features affecting multiple files
+  - Perform multiple rounds of plan review to refine the approach
+  - Save the plan to a file for team discussion before execution
+  - Plan Mode helps ensure alignment between your expectations and Verdent's proposed solution
+  - **Customize plan format:** Access **Settings → Rules → Plan Rules** to control plan structure, detail level, and formatting preferences
+</Tip>
+
+***
+
+## Breaking Down Large Feature Requests
+
+Suppose you're building a complex e-commerce checkout system with multiple integrated components.
+
+<Steps>
+  <Step title="Provide the high-level goal">
+    ```
+    Build a complete checkout system with cart management, payment processing, order confirmation, and inventory updates
+    ```
+
+    Verdent analyzes what needs to be done.
+  </Step>
+
+  <Step title="Verdent creates logical subtasks">
+    The system autonomously breaks this into:
+    1. Create shopping cart data model and API
+    2. Build cart UI with add/remove/update items
+    3. Implement checkout page with shipping address form
+    4. Integrate payment gateway (Stripe or configured provider)
+    5. Create order confirmation page
+    6. Add inventory update logic
+    7. Implement email confirmation system
+    8. Write integration tests
+
+    Each subtask is shown in the todo list with clear descriptions.
+  </Step>
+
+  <Step title="Verdent handles dependencies automatically">
+    Verdent executes subtasks in the correct order:
+    - Creates data models before API endpoints that use them
+    - Builds backend endpoints before frontend components that call them
+    - Implements core features before adding tests
+
+    Dependencies are managed automatically without manual intervention.
+  </Step>
+
+  <Step title="Monitor real-time progress">
+    Watch the todo list update in real-time as Verdent works through each subtask. Todo items transition from pending → in progress → completed.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Let Verdent handle the breakdown autonomously for most tasks
+  - Use Plan Mode if you want to review the breakdown before execution
+  - Verdent adjusts its approach when it encounters edge cases or new requirements
+  - The visible todo list provides transparency into multi-step execution
+</Tip>
+
+***
+
+## Multi-Phase Refactoring Projects
+
+Suppose you're refactoring a large codebase and want to approach it in manageable phases.
+
+<Steps>
+  <Step title="Define the multi-phase approach">
+    ```
+    In Plan Mode: Refactor this codebase to replace our custom authentication with OAuth 2.0. I want this done in phases so we can test incrementally.
+    ```
+  </Step>
+
+  <Step title="Verdent proposes phase breakdown">
+    Verdent suggests a multi-phase plan:
+    - **Phase 1**: Add OAuth library and configure endpoints
+    - **Phase 2**: Update user model and database schema
+    - **Phase 3**: Migrate existing authentication logic
+    - **Phase 4**: Remove deprecated authentication code
+    - **Phase 5**: Update tests and documentation
+
+    Each phase is independently testable.
+  </Step>
+
+  <Step title="Execute phase by phase">
+    Approve Phase 1, allow Verdent to execute it, then test:
+
+    ```
+    npm test
+    ```
+
+    Once Phase 1 is verified working, move to Phase 2.
+  </Step>
+
+  <Step title="Adjust subsequent phases if needed">
+    Based on what you learn in Phase 1, you can adjust the approach for remaining phases:
+
+    ```
+    For Phase 2, let's also add user role migration to the database schema changes
+    ```
+  </Step>
+
+  <Step title="Complete all phases incrementally">
+    Work through all phases with testing and verification between each, ensuring safety and allowing course correction.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Multi-phase refactoring reduces risk by enabling incremental testing
+  - Each phase should leave the codebase in a working state
+  - Commit after each phase for easy rollback if needed
+  - Adjust later phases based on learnings from earlier phases
+</Tip>
+
+***
+
+## Coordinating Backend and Frontend Changes
+
+Suppose you're adding a feature that requires synchronized updates to both backend APIs and frontend components.
+
+<Steps>
+  <Step title="Describe the full-stack feature">
+    ```
+    Add a commenting system where users can add comments to blog posts. Include backend API, database schema, and frontend UI
+    ```
+  </Step>
+
+  <Step title="Verdent coordinates backend-first approach">
+    Verdent typically works backend-first for full-stack features:
+    1. Create database migration for comments table
+    2. Add API endpoint for creating comments
+    3. Add API endpoint for retrieving comments
+    4. Define TypeScript interfaces for comment data
+    5. Build frontend comment form component
+    6. Create comment display component
+    7. Connect frontend to API endpoints
+  </Step>
+
+  <Step title="Verdent ensures consistency">
+    Verdent ensures:
+    - Frontend TypeScript interfaces match backend data structures
+    - API endpoint URLs are correctly referenced in frontend code
+    - Request/response formats align between backend and frontend
+    - Error handling is consistent across stack
+  </Step>
+
+  <Step title="Integration testing">
+    ```
+    Write integration tests for the commenting system covering the full stack
+    ```
+
+    Verdent creates tests that verify backend and frontend work together correctly.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Backend-first approach ensures frontend has working APIs to integrate with
+  - Verdent maintains consistency between backend and frontend code automatically
+  - TypeScript interfaces help catch integration issues at compile time
+  - Integration tests verify the complete feature works end-to-end
+</Tip>
+
+***
+
+## Using Subagents for Parallel Execution
+
+Suppose you have multiple independent tasks that could be done simultaneously.
+
+<Steps>
+  <Step title="Identify parallelizable tasks">
+    ```
+    Generate unit tests for all service classes in the src/services directory
+    ```
+
+    These test files are independent and can be created in parallel.
+  </Step>
+
+  <Step title="Verdent delegates to multiple subagents">
+    Verdent automatically uses multiple subagents to work on independent tasks concurrently:
+    - Subagent 1: Creates tests for UserService
+    - Subagent 2: Creates tests for PaymentService
+    - Subagent 3: Creates tests for NotificationService
+    - Subagent 4: Creates tests for AuthService
+
+    All work happens in parallel, saving time.
+  </Step>
+
+  <Step title="Results are integrated">
+    Each subagent returns its results. Verdent integrates all test files into the project with proper naming and structure.
+  </Step>
+
+  <Step title="Sequential verification">
+    After parallel creation, run tests sequentially to verify they all work:
+
+    ```
+    npm test
+    ```
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Verdent automatically parallelizes independent tasks using subagents
+  - Loosely coupled work (separate test files, independent components) benefits from parallelization
+  - Tightly coupled work (files with dependencies) is done sequentially for correctness
+  - Parallel execution significantly speeds up large-scale changes
+</Tip>
+
+***
+
+## Frequently Asked Questions
+
+<Accordion title="Can I stop Verdent in the middle of a multi-step task?">
+Yes. You can interrupt execution at any time. Verdent will complete the current step it's working on, then stop. Progress up to that point is preserved. You can review what's been done, make adjustments, and either continue or take a different approach.
+</Accordion>
+
+<Accordion title="How do I know what Verdent is doing right now in a long task?">
+Watch the todo list. It shows real-time status with one item marked "in progress" at any time. The active item shows exactly what Verdent is currently working on. Completed items are marked done, and pending items show what's remaining.
+</Accordion>
+
+<Accordion title="What if I disagree with how Verdent broke down my task?">
+Use Plan Mode to review and adjust the breakdown before execution. In Plan Mode, you can provide feedback like "Split the frontend work into separate components" or "Combine those two steps." Verdent will revise the plan based on your input before any code is written.
+</Accordion>
+
+<Accordion title="Should I use Plan Mode for every multi-step task?">
+Not necessarily. Use Plan Mode for complex features affecting many files, large refactorings, or when you want to review the approach first. For familiar, straightforward tasks, Verdent can execute directly with real-time todo list visibility. Plan Mode adds a review step for higher-risk changes.
+</Accordion>
+
+<Accordion title="Can I modify Verdent's plan after execution has started?">
+You can provide corrective guidance as Verdent works. Say "Actually, use a different approach for the API integration" and Verdent will adjust remaining steps. For major plan changes, it's better to stop, commit what's done, and start a new session with the revised approach.
+</Accordion>
+
+***
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Writing New Code" icon="code" href="/verdent-for-vscode/task-based-guides/writing-code">
+    Creating new features and components with Verdent
+  </Card>
+
+  <Card title="Best Practices" icon="star" href="/verdent-for-vscode/best-practices/prompts">
+    Effective prompting and workflow strategies
+  </Card>
+</CardGroup>

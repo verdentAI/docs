@@ -1,0 +1,20 @@
+# Ignore reference materials and templates
+.references/
+.templates/
+.examples/
+.questionnaire/
+
+# Ignore git and Claude directories
+.git/
+.claude/
+
+# Ignore common development files
+node_modules/
+.env
+.env.local
+*.log
+
+# Ignore PDFs and temporary files
+*.pdf
+dump*.md
+plan.md

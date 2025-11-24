@@ -1,0 +1,438 @@
+---
+title: Integration Workflows
+description: Practical patterns for integrating Verdent with external tools and services
+---
+
+
+
+### What You'll Learn
+
+Practical integration workflows combining custom subagents, rules, and MCP servers for real-world development scenarios.
+
+---
+
+## Integration Methods
+
+| Method | Best For | Configuration |
+|--------|----------|---------------|
+| **Custom Subagents** | AI-powered specialized tasks | `~/.verdent/subagents/*.md` |
+| **Rules (AGENTS.md)** | Team standards and behavior | Project root `AGENTS.md` |
+| **MCP Servers** | Protocol-compliant external tools | `.mcp.json` (project root) |
+
+**Philosophy:** Combine methods to create comprehensive workflows tailored to your needs.
+
+---
+
+## Common Integration Patterns
+
+### Database Development Workflow
+
+**Stack:** Migration Reviewer Subagent + AGENTS.md Standards + PostgreSQL MCP Server
+
+**Subagent:**
+```markdown
+---
+name: migration-reviewer
+description: Reviews database migrations for safety
+---
+Checks: Destructive operations, reversibility, indexing, blocking operations
+```
+
+**AGENTS.md:**
+```markdown
+## Database Standards
+- All migrations reviewed by @migration-reviewer
+- Test on staging before production
+- Include rollback procedures
+```
+
+**MCP:** PostgreSQL server for query execution, schema inspection, migration validation
+
+**Workflow:** Write migration → @migration-reviewer validates → MCP tests on staging → PR documentation
+
+---
+
+### API Development with Security
+
+**Stack:** Security Auditor + AGENTS.md Rules + Custom API Testing Tool
+
+**Components:**
+- **Subagent:** `@api-security-auditor` - Input validation, SQL injection, auth, rate limiting
+- **Rules:** All endpoints require security review, rate limiting on public APIs
+- **External Tools:** Automated endpoint testing and security scans via custom integration
+
+**Result:** Automatic security review before PR approval.
+
+<Note>
+API testing and security scanning tools can be integrated via custom MCP server implementations or other integration methods depending on your tooling.
+</Note>
+
+---
+
+### Frontend Accessibility
+
+**Stack:** Accessibility Auditor + WCAG Rules + Lighthouse Integration
+
+**Workflow:**
+```
+Create component → @a11y-auditor reviews → Lighthouse tests accessibility → Rules enforce >90 score
+```
+
+<Note>
+Lighthouse and other accessibility tools can be integrated through custom MCP servers or CI/CD pipeline integration depending on your workflow.
+</Note>
+
+---
+
+## MCP Configuration Examples
+
+### Understanding MCP
+
+**Model Context Protocol (MCP)** is an open protocol that standardizes how applications provide context to LLMs. MCP servers are executables that implement the protocol—they're not database connections or API endpoints, but programs that run and communicate via JSON-RPC 2.0.
+
+**Key Concepts:**
+- **MCP Servers**: Executables (Node.js packages, Python scripts, etc.) that implement the MCP protocol
+- **Configuration**: Tells Verdent how to start the server (`command` + `args`)
+- **Communication**: Servers handle their own business logic (queries, API calls, etc.)
+
+### Basic Setup
+
+**Location:** `.mcp.json` in project root
+
+<CodeGroup>
+```json PostgreSQL Server
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://localhost:5432/myapp_dev"
+      ]
+    }
+  }
+}
+```
+
+```json GitHub Server
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+```json Multiple Servers
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://localhost:5432/myapp_dev"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+```
+</CodeGroup>
+
+**Explanation:**
+- `mcpServers` - Required top-level key for MCP configuration
+- `command` - Executable to run (typically `npx` for Node.js packages)
+- `args` - Arguments passed to the command (package name, connection strings, etc.)
+- `env` - Environment variables for authentication/configuration
+
+### Multi-Environment
+
+```json
+{
+  "mcpServers": {
+    "postgres-dev": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "${DEV_DATABASE_URL}"
+      ]
+    },
+    "postgres-staging": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "${STAGING_DATABASE_URL}"
+      ]
+    },
+    "postgres-prod": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "${PROD_DATABASE_URL}"
+      ]
+    }
+  }
+}
+```
+
+**Best Practice:** Use environment variables for connection strings to keep credentials secure. MCP servers handle read-only behavior internally based on their implementation—consult specific server documentation for access control options.
+
+<Tip>
+**Learn More About MCP:**
+- [Model Context Protocol Specification](https://modelcontextprotocol.io/specification)
+- [MCP Server Registry](https://mcp.so/servers) - Browse available MCP servers
+- [Official MCP Servers](https://github.com/modelcontextprotocol) - PostgreSQL, GitHub, Filesystem, and more
+</Tip>
+
+---
+
+## Workspace Integration
+
+### Project-Specific Configuration
+
+**Setup:**
+1. Store in project root: `.mcp.json`
+2. Commit to version control for team sharing
+3. Team members automatically use project MCP servers
+
+**Microservices Example:**
+```json
+{
+  "mcpServers": {
+    "users-db": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://localhost:5432/users"
+      ]
+    },
+    "orders-db": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://localhost:5433/orders"
+      ]
+    }
+  }
+}
+```
+
+<Note>
+For additional services like Kafka, you would need a compatible MCP server implementation. The official MCP server registry at [mcp.so/servers](https://mcp.so/servers) lists available community servers.
+</Note>
+
+---
+
+## Team Collaboration
+
+### Shared AGENTS.md Standards
+
+Commit to version control for team-wide consistency:
+
+```markdown
+# AGENTS.md
+
+## Code Review Process
+- Run @code-reviewer before PR
+- Address all security warnings
+- Minimum 80% test coverage
+
+## Integration Requirements
+- @migration-reviewer for database changes
+- @api-security-auditor for new endpoints
+- @a11y-auditor for UI components
+
+## MCP Servers
+- Use postgres-staging MCP server for queries
+- Never use postgres-prod MCP server for exploratory queries
+```
+
+**Benefits:** Consistent behavior, enforced standards, automatic quality gates.
+
+---
+
+## Multi-Agent Coordination
+
+### Complex Feature Workflow
+
+**Example:** New payment endpoint
+
+```
+1. Developer request → 2. Main agent generates code →
+3. @api-security-auditor reviews security →
+4. @migration-reviewer validates schema →
+5. MCP tests on staging →
+6. Main agent generates tests and PR
+```
+
+**Result:** Fully reviewed endpoint with security and database best practices applied.
+
+---
+
+## Integration Best Practices
+
+### Progressive Adoption
+
+**Phase 1:** Basic rules
+```markdown
+## Code Standards
+- Use TypeScript strict mode
+- Run tests before commit
+```
+
+**Phase 2:** Add specialized subagent
+```markdown
+## Code Review
+- Run @security-reviewer before PR
+```
+
+**Phase 3:** Integrate MCP
+```markdown
+## Database Access
+- Use MCP postgres-staging for queries
+```
+
+### Strategic Combinations
+
+| Combination | Purpose | Example |
+|-------------|---------|---------|
+| Rules + Subagents | Rules define *when*, subagents *analyze* | AGENTS.md: "Review with @security-reviewer" |
+| Rules + MCP | Rules specify *which* servers, MCP *accesses* | AGENTS.md: "Use db-staging only" |
+| Subagents + MCP | Subagent uses MCP for *external data* | Security auditor queries API endpoints |
+
+### Team Documentation Best Practices
+
+When documenting integrations for your team, include:
+
+- **Custom Subagents**: List each subagent's name, purpose, and when to invoke it
+- **AGENTS.md Rules**: Document rules with rationale explaining the "why" behind each standard
+- **MCP Servers**: Describe each server's purpose, access level (read-only/write), and when to use it
+- **Integration Workflows**: Provide example workflows showing how components work together
+- **Troubleshooting**: Document common issues specific to your setup and their solutions
+
+<Tip>
+Commit integration documentation alongside your `.mcp.json` and `AGENTS.md` files so new team members can quickly understand your setup.
+</Tip>
+
+---
+
+## Troubleshooting
+
+<Tabs>
+  <Tab title="Subagent Issues">
+    **Problem:** Subagent not invoking when expected
+
+    **Check:**
+
+    **Location**: File exists at `~/.verdent/subagents/[name].md`
+
+    **YAML Frontmatter**: Valid syntax with required `name` and `description` fields
+
+    **Invocation Policy**: Matches usage (strict requires explicit @-mention)
+
+    **Description**: Agent `description` accurately describes when the subagent should be used
+
+    **Restart**: Try restarting Verdent to reload subagent definitions
+
+    ---
+
+    **Common Causes:**
+    - Typo in subagent file name or @-mention
+    - Invalid YAML syntax in frontmatter
+    - Subagent `description` doesn't match task context
+  </Tab>
+
+  <Tab title="AGENTS.md Issues">
+    **Problem:** AGENTS.md rules not being applied
+
+    **Check:**
+
+    **Location**: File is in project root directory
+
+    **Syntax**: Valid Markdown with no parsing errors
+
+    **Directive Style**: Use specific commands ("Always use..." not "Try to...")
+
+    **Session**: Start new conversation to test fresh rule application
+
+    **Conflicts**: Check if user rules override project rules unintentionally
+
+    ---
+
+    **Common Causes:**
+    - AGENTS.md in wrong directory (must be project root)
+    - Vague instructions that AI interprets differently
+    - Rules applied but results not as expected (refine wording)
+  </Tab>
+
+  <Tab title="MCP Server Issues">
+    **Problem:** MCP server fails to start or connect
+
+    **Check:**
+
+    **Syntax**: `.mcp.json` contains valid JSON (use `jq` to validate)
+
+    **Structure**: Required `mcpServers` key is present at top level
+
+    **Server Config**: Each server has `command` and `args` specified correctly
+
+    **Package**: MCP server package is accessible (`npx` downloads packages automatically; `-y` flag bypasses confirmation prompt)
+
+    **Environment**: Variables in `env` object are set correctly in your shell
+
+    **Permissions**: Server executable has proper execution permissions
+
+    ---
+
+    **Common Causes:**
+    - Typo in JSON (missing comma, unclosed bracket)
+    - Wrong package name in args array
+    - Missing or incorrect environment variables
+    - Network/firewall blocking npx package installation
+
+    ---
+
+    **Debug Steps:**
+    1. Validate JSON: `cat .mcp.json | jq .`
+    2. Test command manually: `npx -y @modelcontextprotocol/server-postgres "postgresql://..."`
+    3. Check environment: `echo $GITHUB_TOKEN`
+    4. Review Verdent logs for specific error messages
+  </Tab>
+</Tabs>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Extensibility Guide" icon="puzzle-piece" href="/verdent-for-vscode/advanced-features/extensibility">
+    Complete extension methods overview
+  </Card>
+  <Card title="MCP Integration" icon="plug" href="/verdent-for-vscode/advanced-features/mcp">
+    Model Context Protocol details
+  </Card>
+</CardGroup>

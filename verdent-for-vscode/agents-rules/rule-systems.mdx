@@ -3,35 +3,1069 @@ title: Rule Systems & Behavior Guidance
 description: Controlling Verdent's behavior through rule systems
 ---
 
+Rule files are Markdown documents that define how Verdent behaves and responds during coding sessions. They guide the AI agent's behavior, output formatting, decision-making, and adherence to project standards.
 
+**Purpose:**
+Rules allow you to customize Verdent's behavior without changing code or settings. They establish coding conventions, preferred patterns, communication style, and task execution preferences that persist across sessions.
+
+**How Rules Work:**
+Verdent continuously references rule files during conversations, applying guidelines to code generation, analysis, documentation, and decision-making. Rules influence every agent response to ensure consistency with user preferences.
+
+**Three Categories:**
+- **Global preferences** (user_rules.md) - Personal coding style, language preferences
+- **Project-specific standards** (AGENTS.md) - Team conventions, architectural patterns
+- **Plan customization** (plan_rules.md) - Plan Mode output format and content
+
+**Rule Precedence:**
+When rules conflict, Verdent applies precedence: **AGENTS.md** (highest) → **user_rules.md** (medium) → **defaults** (lowest)
+
+---
 
 ## User Rules (user_rules.md)
 
-- Global preferences configuration
-- Output language settings
-- Code style preferences
-- Default behaviors
+user_rules.md defines global preferences that apply across all projects and sessions. It establishes personal coding style, preferred tools, communication preferences, and default behaviors.
 
-[Content to be added]
+### Location and Scope
+
+**File Location:** `~/.verdent/user_rules.md`
+
+**Scope:** Global to all projects
+
+**Access:**
+- Settings → Rules → User Rules
+- Direct file edit at `~/.verdent/user_rules.md`
+
+**Changes Take Effect:**
+Rules apply immediately in new conversations and influence current conversation responses.
+
+---
+
+### Use Cases
+
+<Tabs>
+  <Tab title="Coding Preferences">
+    **Coding Preferences**
+
+    - Indentation style (2-space, 4-space, tabs)
+    - Naming conventions (camelCase, snake_case, PascalCase)
+    - Preferred language features (ES6+, TypeScript strict mode, type hints)
+
+    Define your personal coding style and conventions applied across all projects.
+  </Tab>
+
+  <Tab title="Output Language">
+    **Output Language**
+
+    - Default response language (e.g., "Always respond in Spanish")
+    - Technical term handling ("Use English terms when no French equivalent exists")
+
+    Control the language Verdent uses in responses and explanations.
+  </Tab>
+
+  <Tab title="Code Comments">
+    **Code Comments**
+
+    - Detail level preferred ("Detailed comments" vs "Minimal comments only")
+    - Comment language ("Write comments in French")
+
+    Specify how much and in what language code should be commented.
+  </Tab>
+
+  <Tab title="Documentation">
+    **Documentation Style**
+
+    - How code should be documented (JSDoc, TSDoc, docstrings)
+    - Include usage examples in documentation
+
+    Set standards for API documentation and code documentation format.
+  </Tab>
+
+  <Tab title="Communication">
+    **Communication**
+
+    - Tone and verbosity of responses ("Brief explanations" vs "Detailed explanations")
+    - Explanation style ("Show code first, explain after")
+
+    Customize how Verdent communicates and presents information to you.
+  </Tab>
+</Tabs>
+
+---
+
+### Format and Syntax
+
+user_rules.md uses plain Markdown format with bullet points or numbered lists.
+
+**Structure:**
+```markdown
+# User Rules
+
+## Code Style Preferences
+- Always use TypeScript strict mode
+- Prefer functional components in React
+- Include JSDoc comments for exported functions
+
+## Documentation
+- Add JSDoc comments for all exported functions
+- Include usage examples in component documentation
+
+## Communication
+- Provide explanations before showing code
+- Highlight breaking changes explicitly
+```
+
+**Writing Style:**
+- Use clear, directive language ("Always use...", "Prefer...", "Never...")
+- Organize into logical sections with headers
+- Bullet points for individual rules
+- Be specific about desired behavior
+
+---
+
+### Examples by Developer Type
+
+<Tabs>
+  <Tab title="TypeScript">
+    ```markdown
+    # User Rules
+
+    ## TypeScript Preferences
+    - Use strict mode in tsconfig.json
+    - Prefer interfaces over type aliases for object shapes
+    - Include return types on all functions
+    - Use const assertions where appropriate
+
+    ## Code Organization
+    - One component per file
+    - Named exports instead of default exports
+    - Organize imports: external, internal, types
+
+    ## Documentation
+    - TSDoc comments for public APIs
+    - Include @param and @returns tags
+    ```
+
+    **Application:**
+    When you ask Verdent to create a new React component, it will automatically:
+    - Use TypeScript with strict mode
+    - Create a named export (not default)
+    - Add TSDoc comments with @param/@returns tags
+    - Organize imports by category
+  </Tab>
+
+  <Tab title="Python Data Science">
+    ```markdown
+    # User Rules
+
+    ## Python Style
+    - Follow PEP 8 conventions
+    - Use type hints for function signatures
+    - Prefer list comprehensions over map/filter
+
+    ## Data Analysis
+    - Use pandas for data manipulation
+    - Include DataFrame.head() after transformations
+    - Document assumptions about data
+
+    ## Output Format
+    - Show shape and info() after operations
+    - Include visualization examples
+    ```
+
+    **Application:**
+    When you ask Verdent to write data analysis code, it will:
+    - Use pandas for data operations
+    - Include type hints on all functions
+    - Show DataFrame.head() and shape after transformations
+    - Add inline comments documenting data assumptions
+  </Tab>
+
+  <Tab title="Full-Stack JS">
+    ```markdown
+    # User Rules
+
+    ## JavaScript Preferences
+    - Use ES6+ features (arrow functions, destructuring)
+    - Async/await over promises
+    - Template literals for string interpolation
+
+    ## Testing
+    - Jest for unit tests
+    - Include test cases for edge conditions
+    - Aim for 80%+ code coverage
+
+    ## Code Review
+    - Flag potential performance issues
+    - Suggest security improvements
+    ```
+
+    **Application:**
+    Verdent will:
+    - Write modern JavaScript with ES6+ syntax
+    - Use async/await instead of promise chains
+    - Generate Jest tests targeting 80% coverage
+    - Proactively identify performance and security concerns
+  </Tab>
+
+  <Tab title="Multilingual">
+    ```markdown
+    # User Rules
+
+    ## Communication
+    - Always respond in French
+    - Use technical English terms when no French equivalent exists
+    - Provide French variable/function names when appropriate
+
+    ## Code Comments
+    - Write comments in French
+    - Documentation in both French and English
+    ```
+
+    **Application:**
+    All Verdent responses will be in French, with technical terms in English where appropriate. Code comments and documentation will follow your language preferences.
+  </Tab>
+
+  <Tab title="Minimalist">
+    ```markdown
+    # User Rules
+
+    ## Code Style
+    - Minimal comments - code should be self-documenting
+    - Short, focused functions (< 20 lines)
+    - Avoid unnecessary abstractions
+
+    ## Output Preferences
+    - Brief explanations
+    - Show code first, explain after
+    - No verbose documentation unless requested
+    ```
+
+    **Application:**
+    Verdent will:
+    - Generate concise, self-documenting code
+    - Keep functions under 20 lines
+    - Provide brief explanations after showing code
+    - Avoid verbose comments unless you explicitly request them
+  </Tab>
+</Tabs>
+
+---
+
+### How to Create and Edit
+
+<Tabs>
+  <Tab title="Settings Menu">
+    **Recommended for most users**
+
+    1. Click **Settings** button in Verdent top bar
+    2. Select **Rules** from dropdown
+    3. Choose **User Rules**
+    4. File opens in VS Code editor
+    5. Edit using Markdown format
+    6. Save file (`Cmd+S` / `Ctrl+S`)
+
+    This method automatically locates the file and opens it in your default editor.
+  </Tab>
+
+  <Tab title="Direct File Edit">
+    **Recommended for advanced users**
+
+    1. Navigate to `~/.verdent/user_rules.md`
+    2. Open in any text editor
+    3. Edit Markdown content
+    4. Save changes
+
+    This method is faster if you prefer working directly with configuration files.
+  </Tab>
+</Tabs>
+
+---
 
 ## Project Rules (AGENTS.md)
 
-- Custom agent definitions
-- Project-specific behavior control
-- Agent tool access configuration
-- Workflow guidelines
+AGENTS.md defines project-specific rules that control agent behavior for the current project. It establishes team coding standards, architectural patterns, testing requirements, and development workflows specific to the project.
 
-[Content to be added]
+### Location and Scope
+
+**File Location:** Project root directory
+
+**Scope:** Current project only
+
+**Version Control:** Can be committed to git for team-wide sharing
+
+**Access:**
+- Settings → Rules → Project Rules
+- Direct edit at `<project-root>/AGENTS.md`
+
+---
+
+### Use Cases
+
+<Tabs>
+  <Tab title="Team Conventions">
+    **Team Conventions**
+
+    Shared coding standards all team members follow:
+    - Consistent indentation across team
+    - Naming conventions for components/functions
+    - File organization patterns
+
+    Enforce consistent coding style across the entire development team.
+  </Tab>
+
+  <Tab title="Architecture">
+    **Architectural Patterns**
+
+    Project-specific design patterns:
+    - MVC, microservices, monorepo structure
+    - State management approach (Redux, Context, Zustand)
+    - API design patterns (REST, GraphQL)
+
+    Define the architectural decisions and patterns for the project.
+  </Tab>
+
+  <Tab title="Testing">
+    **Testing Requirements**
+
+    Expected test coverage and frameworks:
+    - Minimum coverage thresholds (80%, 90%)
+    - Testing frameworks (Jest, pytest, Vitest)
+    - Test file naming conventions
+
+    Establish testing standards and quality gates for the project.
+  </Tab>
+
+  <Tab title="Workflows">
+    **Development Workflows**
+
+    Build commands, deployment procedures, PR guidelines:
+    - How to run tests (`pnpm test`, `npm run test`)
+    - Build commands for specific packages
+    - PR title format requirements
+
+    Document team workflows and development procedures.
+  </Tab>
+
+  <Tab title="Technology">
+    **Technology Constraints**
+
+    Approved libraries and framework versions:
+    - Allowed dependencies
+    - Framework version requirements
+    - Platform support (iOS 14+, Android API 26+)
+
+    Control technology stack choices and maintain consistency.
+  </Tab>
+</Tabs>
+
+**Team Collaboration:**
+AGENTS.md is stored in the project root and can be committed to version control, ensuring all team members work with consistent agent behavior.
+
+<Tip>
+Share AGENTS.md with your team via version control to ensure consistent AI behavior across all team members.
+</Tip>
+
+---
+
+### Format and Syntax
+
+AGENTS.md uses Markdown format with structured sections and bullet points, similar to user_rules.md but focused on project-specific requirements.
+
+**Structure:**
+```markdown
+# AGENTS.md
+
+## Dev environment tips
+- Command for navigating workspace
+- Installation commands
+- Environment setup instructions
+
+## Testing instructions
+- Test execution commands
+- Coverage requirements
+- CI/CD integration details
+
+## PR instructions
+- Title format requirements
+- Pre-commit checklist
+- Review guidelines
+```
+
+**Writing Style:**
+- Imperative, directive language
+- Organized by workflow area (dev, testing, deployment)
+- Specific commands and procedures
+- Team-wide standards, not personal preferences
+
+---
+
+### Examples by Project Type
+
+<Tabs>
+  <Tab title="Monorepo">
+    ```markdown
+    # AGENTS.md
+
+    ## Dev environment tips
+    - Use `pnpm dlx turbo run where <project_name>` to jump to a package
+    - Run `pnpm install --filter <project_name>` to add package to workspace
+    - Check the name field in package.json to confirm the right name
+
+    ## Testing instructions
+    - Run `pnpm turbo run test --filter <project_name>` for all checks
+    - From package root: `pnpm test`
+    - Focus on one test: `pnpm vitest run -t "<test name>"`
+    - Fix all errors before merge
+
+    ## PR instructions
+    - Title format: [<project_name>] <Title>
+    - Always run `pnpm lint` and `pnpm test` before committing
+    ```
+
+    **Application:**
+    When working on this monorepo, Verdent will:
+    - Use turbo commands for navigation and testing
+    - Format PR titles with project name prefix
+    - Run lint and test commands before suggesting commits
+  </Tab>
+
+  <Tab title="React/TypeScript">
+    ```markdown
+    # AGENTS.md
+
+    ## Code Standards
+    - Use functional components with hooks
+    - TypeScript strict mode required
+    - Named exports only (no default exports)
+    - PropTypes or TypeScript interfaces for all components
+
+    ## File Organization
+    - One component per file
+    - Components in `src/components/`
+    - Hooks in `src/hooks/`
+    - Utils in `src/utils/`
+
+    ## Testing
+    - Jest + React Testing Library
+    - Test all user interactions
+    - 80%+ coverage required
+    ```
+
+    **Application:**
+    All React components Verdent creates will:
+    - Use functional components with hooks
+    - Include TypeScript interfaces
+    - Be placed in the correct directory
+    - Include Jest tests targeting 80% coverage
+  </Tab>
+
+  <Tab title="Backend API">
+    ```markdown
+    # AGENTS.md
+
+    ## API Standards
+    - All endpoints include input validation
+    - Use async/await for asynchronous operations
+    - Consistent error format: { error: string, code: number }
+    - Rate limiting on public endpoints
+
+    ## Security
+    - Never log sensitive data (passwords, tokens, PII)
+    - Parameterized queries only (prevent SQL injection)
+    - Validate and sanitize all inputs
+
+    ## Testing
+    - Unit tests for all business logic
+    - Integration tests for API endpoints
+    - Test success and error cases
+    ```
+
+    **Application:**
+    When creating API endpoints, Verdent will:
+    - Add input validation automatically
+    - Use parameterized queries for database operations
+    - Generate tests for both success and error cases
+    - Avoid logging sensitive data
+  </Tab>
+
+  <Tab title="Mobile App">
+    ```markdown
+    # AGENTS.md
+
+    ## Platform Support
+    - iOS 14+ and Android API 26+
+    - React Native 0.72+
+    - Test on both platforms before PR
+
+    ## State Management
+    - Use Redux Toolkit
+    - Async operations with Redux Thunk
+    - Normalize state shape
+
+    ## Performance
+    - Images: WebP format, max 500KB
+    - Bundle size: monitor with bundle analyzer
+    - FlatList for long lists (>20 items)
+    ```
+
+    **Application:**
+    Mobile app code will:
+    - Support minimum platform versions
+    - Use Redux Toolkit for state
+    - Optimize images to WebP format
+    - Use FlatList for performance on long lists
+  </Tab>
+
+  <Tab title="Python Django">
+    ```markdown
+    # AGENTS.md
+
+    ## Django Conventions
+    - Follow Django best practices and PEP 8
+    - Class-based views preferred
+    - Django ORM for database operations
+    - Migrations: never edit generated files
+
+    ## Testing
+    - pytest-django for all tests
+    - Factory Boy for test fixtures
+    - Coverage must be 90%+
+
+    ## Deployment
+    - Docker compose for local development
+    - Environment variables in .env (never committed)
+    - Run migrations before deployment
+    ```
+
+    **Application:**
+    Django code will:
+    - Use class-based views
+    - Use Django ORM instead of raw SQL
+    - Generate pytest tests with Factory Boy fixtures
+    - Target 90%+ test coverage
+  </Tab>
+</Tabs>
+
+---
+
+### Differences from user_rules.md
+
+**Scope:**
+- **user_rules.md:** Personal preferences across all projects
+- **AGENTS.md:** Team standards for specific project only
+
+**Priority:**
+- **AGENTS.md:** Higher precedence - overrides user_rules for project consistency
+- **user_rules.md:** Lower precedence - applies when no project rule conflicts
+
+**Content Focus:**
+- **user_rules.md:** Individual coding style, communication preferences, personal tools
+- **AGENTS.md:** Team conventions, project architecture, shared workflows, technology stack
+
+**Version Control:**
+- **user_rules.md:** Not shared - stays on individual's machine
+- **AGENTS.md:** Committed to git - shared with entire team
+
+**Storage:**
+- **user_rules.md:** `~/.verdent/user_rules.md` (global)
+- **AGENTS.md:** Project root directory (project-specific)
+
+**Example Conflict Resolution:**
+```
+user_rules.md: "I prefer 2-space indentation"
+AGENTS.md: "This project uses 4-space indentation"
+→ Result: 4-space indentation (team standard wins)
+```
+
+**When to Use Which:**
+- **user_rules.md:** Personal preferences you want across all projects
+- **AGENTS.md:** Standards the entire team must follow for this project
+
+---
 
 ## Plan Rules (plan_rules.md)
 
-- Plan Mode output customization
-- Plan structure and format
-- Required sections and diagrams
-- Task breakdown preferences
+plan_rules.md customizes the content and format of plans generated in Plan Mode. It controls plan detail level, sections included, formatting preferences, and information displayed.
 
-[Content to be added]
+### Location and Scope
+
+**File Location:** `~/.verdent/plan_rules.md`
+
+**Scope:** Global to all projects
+
+**Application:** Only applied during Plan Mode when generating plans
+
+**Access:**
+- Settings → Rules → Plan Rules
+- Direct file edit at `~/.verdent/plan_rules.md`
+
+---
+
+### Use Cases
+
+<Tabs>
+  <Tab title="Plan Structure">
+    **Plan Structure**
+
+    Define sections to include:
+    - Summary, prerequisites, steps, verification
+    - Risk assessment, rollback procedures
+    - Time estimates, critical path
+
+    Control what sections and information appear in every plan.
+  </Tab>
+
+  <Tab title="Detail Level">
+    **Detail Level**
+
+    Control granularity:
+    - High-level overview (phases of 1-2 hours each)
+    - Detailed implementation steps (tasks of 15-30 minutes)
+    - Function-level specifics (signatures, file paths)
+
+    Adjust how granular and specific implementation plans should be.
+  </Tab>
+
+  <Tab title="Format">
+    **Format Preferences**
+
+    Choose presentation style:
+    - Numbered lists vs bullet points
+    - Code snippets vs descriptions
+    - Diagrams (described verbally)
+
+    Customize how plan information is formatted and displayed.
+  </Tab>
+
+  <Tab title="Information">
+    **Information Inclusion**
+
+    Specify additional elements:
+    - Time estimates inline
+    - Risk levels (low/medium/high)
+    - Role assignments for team collaboration
+    - Testing requirements emphasized
+
+    Add context and metadata to make plans more actionable.
+  </Tab>
+</Tabs>
+
+---
+
+### Format and Syntax
+
+plan_rules.md uses Markdown format with sections describing desired plan structure and content.
+
+**Structure:**
+```markdown
+# Plan Rules
+
+## Plan Structure
+- Start with brief summary (2-3 sentences)
+- Include estimated time for each major step
+- List prerequisites before implementation steps
+- Identify potential risks
+
+## Level of Detail
+- Break tasks into subtasks of 15-30 minutes
+- Include specific file paths for modifications
+- List functions/components to create/modify
+
+## Format
+- Use numbered lists for sequential steps
+- Use bullet points for options
+- Include code snippets for complex changes
+```
+
+---
+
+### Examples by Planning Style
+
+<Tabs>
+  <Tab title="Detailed Technical">
+    ```markdown
+    # Plan Rules
+
+    ## Plan Structure
+    - Executive summary (2-3 sentences)
+    - Prerequisites and dependencies
+    - Numbered implementation steps
+    - Testing and verification strategy
+    - Rollback procedures
+
+    ## Level of Detail
+    - Break into 20-30 minute tasks
+    - Specific file paths for all modifications
+    - Function signatures for new code
+    - Database schema changes with migration steps
+
+    ## Format
+    - Numbered lists for sequence
+    - Code blocks for complex logic
+    - Diagrams for architecture changes (describe verbally)
+    ```
+
+    **Application:**
+    Plans will include:
+    - Executive summary at the top
+    - 20-30 minute task breakdowns
+    - Specific file paths like `src/components/Auth/Login.tsx`
+    - Function signatures like `async function authenticateUser(credentials: UserCredentials): Promise<AuthResult>`
+    - Testing and rollback procedures
+  </Tab>
+
+  <Tab title="High-Level Strategic">
+    ```markdown
+    # Plan Rules
+
+    ## Plan Structure
+    - Brief overview (1 paragraph)
+    - Major phases only (3-5 high-level steps)
+    - Key decisions and trade-offs
+    - Success criteria
+
+    ## Level of Detail
+    - High-level phases (1-2 hours each)
+    - Avoid implementation specifics
+    - Focus on approach and strategy
+
+    ## Format
+    - Bullet points for flexibility
+    - Minimal code examples
+    - Emphasize "why" over "how"
+    ```
+
+    **Application:**
+    Plans will be high-level, focusing on:
+    - Strategic approach in 3-5 major phases
+    - "Why" explanations over implementation details
+    - Decision points and trade-offs
+    - Success criteria without specific implementation
+  </Tab>
+
+  <Tab title="Time-Conscious">
+    ```markdown
+    # Plan Rules
+
+    ## Plan Structure
+    - Time estimates for each step
+    - Total project duration estimate
+    - Parallel tasks identified
+    - Critical path highlighted
+
+    ## Level of Detail
+    - Tasks sized to 30-minute increments
+    - Dependencies clearly marked
+    - Blocking operations identified
+
+    ## Format
+    - Include time estimates inline
+    - Mark parallel tasks
+    - Highlight critical path with bold
+    ```
+
+    **Application:**
+    Plans will include:
+    - Each step with time estimate: "Create authentication middleware (45 minutes)"
+    - Total duration: "Estimated total: 6 hours"
+    - Parallel tasks marked: "Can be done in parallel with step 3"
+    - Critical path bolded to show blocking operations
+  </Tab>
+
+  <Tab title="Risk-Focused">
+    ```markdown
+    # Plan Rules
+
+    ## Plan Structure
+    - Risk assessment for each phase
+    - Mitigation strategies included
+    - Rollback procedures defined
+    - Testing requirements emphasized
+
+    ## Level of Detail
+    - Identify potential failure points
+    - Document error handling approach
+    - Include recovery procedures
+
+    ## Format
+    - Risk levels: low, medium, high
+    - Separate "Risks" section for each phase
+    - Mitigation steps in sub-bullets
+    ```
+
+    **Application:**
+    Each phase will include:
+    - Risk assessment: "Risk: high (database migration on production)"
+    - Mitigation: "Run migration on staging first, verify with test queries"
+    - Rollback: "Revert migration with down script if issues occur"
+  </Tab>
+
+  <Tab title="Team Collaboration">
+    ```markdown
+    # Plan Rules
+
+    ## Plan Structure
+    - Role assignments for each task
+    - Coordination points identified
+    - Review checkpoints included
+    - Communication requirements
+
+    ## Level of Detail
+    - Specify who handles each component
+    - List integration points between team members
+    - Include pair programming opportunities
+
+    ## Format
+    - Use mentions for role assignments
+    - Mark collaboration points
+    - Include "Review required" markers
+    ```
+
+    **Application:**
+    Plans will specify:
+    - "Backend API (Backend Team): Create authentication endpoints"
+    - "Integration point: Frontend team waits for API spec from backend"
+    - "Review required: Security team review before merge"
+  </Tab>
+</Tabs>
+
+---
+
+### When Are Plan Rules Applied?
+
+**Plan Rules Application:**
+- **Timing:** Only applied during Plan Mode when generating plans
+- **Scope:** Controls plan format and content, not code generation
+- **Independence:** Doesn't conflict with user_rules.md or AGENTS.md
+
+**Other Rule Types Application:**
+- **user_rules.md:** Continuously applied across all modes (Agent, Plan, Chat)
+- **AGENTS.md:** Continuously applied across all modes for project-specific behavior
+
+**Interaction Example:**
+```
+Plan Mode activated:
+1. user_rules.md: "Use TypeScript" → Applied to code in plan
+2. AGENTS.md: "Follow project conventions" → Applied to approach
+3. plan_rules.md: "Include time estimates" → Applied to plan format
+→ Result: Plan shows TypeScript code following project conventions with time estimates
+```
+
+**Mode-Specific Behavior:**
+- **Agent Mode:** user_rules.md + AGENTS.md applied (no plan_rules.md)
+- **Plan Mode:** user_rules.md + AGENTS.md + plan_rules.md all applied
+- **Chat Mode:** user_rules.md + AGENTS.md applied (no plan_rules.md)
+
+---
 
 ## Rule Precedence and Conflict Resolution
 
-[Content to be added]
+When rules conflict, Verdent applies precedence to ensure consistent behavior.
+
+### Precedence Order
+
+**1. Project Rules (AGENTS.md) - Highest Priority**
+Project-specific rules override global preferences. Team standards take precedence over individual preferences for consistency.
+
+**2. User Rules (user_rules.md) - Medium Priority**
+Global preferences apply when no project-specific rule conflicts.
+
+**3. Default Behavior - Lowest Priority**
+Verdent's built-in defaults apply when no rules are specified.
+
+**Example Conflict Resolution:**
+```
+user_rules.md: "Use 2-space indentation"
+AGENTS.md: "Use 4-space indentation for this project"
+→ Result: Verdent uses 4-space indentation (project rules win)
+```
+
+**Plan Rules:**
+plan_rules.md applies independently during Plan Mode and doesn't conflict with user/project rules. It controls plan format, while user_rules.md and AGENTS.md control code style within the plan.
+
+<Note>
+Plan Rules only affect Plan Mode output format—they don't change how Verdent analyzes or implements solutions.
+</Note>
+
+<Tip>
+Remember precedence: AGENTS.md (highest) → user_rules.md (medium) → defaults (lowest). Project rules always win conflicts.
+</Tip>
+
+<Info>
+Detailed conflict resolution algorithms, mechanisms to view which rule is being applied during conflicts, and override mechanisms for temporary rule suspension are currently in development.
+</Info>
+
+---
+
+### Troubleshooting Rule Conflicts
+
+When you observe unexpected behavior that contradicts a rule, follow this debug strategy:
+
+#### Step 1: Identify the Conflict
+
+1. Observe unexpected behavior that contradicts a rule
+2. Check which rules might apply to the situation
+3. Look for contradictions between rule files
+
+#### Step 2: Check Rule Precedence
+
+```
+AGENTS.md (highest) → user_rules.md (medium) → defaults (lowest)
+```
+Project rules override personal preferences.
+
+#### Step 3: Test in Isolation
+
+**Disable user_rules.md:**
+Temporarily rename or clear file, test if conflict resolves
+
+**Test without AGENTS.md:**
+Work in project without AGENTS.md to isolate user_rules behavior
+
+**New conversation:**
+Start fresh session to eliminate conversation context influence
+
+---
+
+### Common Conflict Scenarios
+
+#### Scenario 1: Formatting Conflict
+
+```
+user_rules.md: "Use 2-space indentation"
+AGENTS.md: "Use 4-space indentation"
+→ Resolution: AGENTS.md wins (project standard)
+→ Fix: Accept project standard or discuss with team
+```
+
+#### Scenario 2: Contradictory Rules in Same File
+
+```
+AGENTS.md:
+- "Prefer functional components"
+- "Use class components for complex state"
+→ Resolution: Verdent interprets based on context
+→ Fix: Clarify when each rule applies
+```
+
+Example fix:
+```markdown
+- Prefer functional components for simple UI
+- Use functional components with hooks for complex state
+- Only use class components for legacy code maintenance
+```
+
+#### Scenario 3: Rule Too Vague
+
+```
+"Write good tests"
+→ Problem: What is "good"?
+→ Fix: "Generate unit tests with 80%+ coverage, include edge cases"
+```
+
+---
+
+### Debug Strategy
+
+**1. Explicit Test:**
+Ask Verdent "Which rule are you following for [specific behavior]?"
+
+Example:
+```
+You: "Which rule are you following for indentation?"
+Verdent: "I'm using 4-space indentation from AGENTS.md (line 12),
+which overrides your user_rules.md preference for 2-space indentation."
+```
+
+**2. Incremental Refinement:**
+Add specificity to ambiguous rules
+
+<Tip>
+When debugging rule conflicts, temporarily disable rules one-by-one to isolate which rule causes unexpected behavior.
+</Tip>
+
+Before:
+```markdown
+- Use appropriate error handling
+```
+
+After:
+```markdown
+- Wrap async operations in try/catch blocks
+- Return error objects with message and code fields
+- Log errors with context (function name, input parameters)
+```
+
+**3. Priority Markers:**
+Use "CRITICAL:" or "REQUIRED:" for non-negotiable rules
+
+```markdown
+## Security Rules
+- **CRITICAL:** Never log passwords, API keys, or tokens
+- **REQUIRED:** All user inputs must be validated and sanitized
+- Preferred: Use parameterized queries for database operations
+```
+
+---
+
+### Best Practices for Writing Rules
+
+**Be Specific and Directive:**
+- Use clear, imperative language ("Always use...", "Never...", "Prefer...")
+- Avoid ambiguous phrasing ("Try to..." → "Always...")
+- State exactly what you want, not what you don't want
+
+**Good:**
+```markdown
+- Use async/await for asynchronous operations
+- Include JSDoc comments for all exported functions
+```
+
+**Avoid:**
+```markdown
+- Try to use modern JavaScript features
+- Add comments when necessary
+```
+
+**Organize Logically:**
+- Group related rules under section headers
+- Separate concerns (style, testing, documentation, security)
+- Use consistent structure across rule files
+
+**Keep Rules Maintainable:**
+- Write concise rules (one concept per bullet)
+- Review and update rules as project evolves
+- Remove obsolete rules promptly
+
+**Prioritize Important Rules:**
+- Place critical rules first in each section
+- Use emphasis for non-negotiable standards ("**NEVER** commit credentials")
+- Focus on rules that prevent bugs or security issues
+
+**Test Rules Effectiveness:**
+- Verify Verdent follows rules in practice
+- Start new conversation to test rule application
+- Refine rules based on actual agent behavior
+
+**Balance Detail and Flexibility:**
+- Too specific → Rigid behavior that doesn't adapt
+- Too vague → Inconsistent behavior
+- Aim for clear guidance with room for context-appropriate decisions
+
+**Team Considerations (AGENTS.md):**
+- Involve team in rule creation
+- Document rationale for non-obvious rules
+- Keep team rules focused on shared standards, not personal preferences
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Subagent Management" icon="robot" href="/verdent-for-vscode/agents-rules/subagent-management">
+    Create and manage specialized subagents for project-specific tasks
+  </Card>
+  <Card title="Best Practices: Prompts" icon="message-lines" href="/verdent-for-vscode/best-practices/prompts">
+    Writing effective prompts to get the most from Verdent
+  </Card>
+</CardGroup>

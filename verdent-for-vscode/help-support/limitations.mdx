@@ -5,18 +5,303 @@ description: Understanding Verdent's limitations and constraints
 
 
 
+### What You'll Learn
+
+Known limitations of Verdent for VS Code, including file format restrictions, tool constraints, and platform-specific considerations.
+
+---
+
 ## Known Limitations
 
-[Content to be added]
+<Tabs>
+  <Tab title="File Formats">
+    ### Binary Files Not Supported
 
-## What the Tool Cannot Do
+    Verdent's file tools only work with text-based formats. The following cannot be edited:
 
-[Content to be added]
+    | Format Type | Examples |
+    |-------------|----------|
+    | **Images** | PNG, JPG, GIF, SVG (as binary) |
+    | **Videos** | MP4, AVI, MOV |
+    | **Compiled Code** | EXE, DLL, SO |
+    | **Archives** | ZIP, TAR, GZ |
+    | **Office Docs** | DOCX, XLSX, PPTX |
+    | **PDFs** | PDF files |
+
+    **Workaround:** Binary files can be referenced in code or discussed conceptually, but modifications require external tools.
+  </Tab>
+
+  <Tab title="Tool Constraints">
+    ### file_read Line Limits
+
+    **Limitation:**
+    - Large files (>10,000 lines) should be read in sections
+    - Reading entire large files may cause context exhaustion
+
+    **Solution:** Use line ranges: `file_read("file.js", start_line=100, max_lines=50)`
+
+    ---
+
+    ### bash Command Timeouts
+
+    **Limitation:**
+    - Maximum timeout: 120 seconds (2 minutes)
+    - Long-running operations will be automatically terminated
+
+    **Solution:** Break operations into smaller commands that complete within 2 minutes
+
+    ---
+
+    ### Search Performance
+
+    **Limitation:**
+    - Broad glob patterns (`**/*`) can return thousands of results
+    - Regex searches slower than literal strings
+
+    **Solution:** Use specific patterns and exclude unnecessary directories
+  </Tab>
+
+  <Tab title="Context Window">
+    ### Context Exhaustion
+
+    **Issue:**
+    During long sessions or complex operations, the AI's context window can fill up, limiting the ability to reference earlier conversation.
+
+    **Mitigation Strategies:**
+    - Use subagents for exploratory research (results only consume main context)
+    - Read files strategically with line ranges
+    - Use `grep_file` before reading full contents
+    - Delegate background tasks to Explorer subagent
+
+    <Tip>
+    For files over 500 lines, always use line ranges to preserve context space.
+    </Tip>
+  </Tab>
+
+  <Tab title="Language Support">
+    ### Support Quality Varies
+
+    **Excellent Support:**
+    - JavaScript, TypeScript, Python, React, Node.js, Java, Go
+
+    **Very Good Support:**
+    - C/C++, Rust, Ruby, Swift, Kotlin
+
+    **Good Support:**
+    - PHP, Assembly, Julia, Objective-C
+
+    **Reason:** Common languages have more training data. Less common or domain-specific languages may have reduced support quality but remain functional.
+  </Tab>
+</Tabs>
+
+---
+
+## What Verdent Cannot Do
+
+<Tabs>
+  <Tab title="System Administration">
+    ### No Direct System Administration
+
+    **Cannot:**
+    - Modify VS Code settings programmatically
+    - Install VS Code extensions automatically
+    - Change system-level configurations
+    - Restart VS Code or system services
+
+    **Scope:** Verdent operates within the VS Code workspace, not at the system administration level.
+  </Tab>
+
+  <Tab title="Autonomous Execution">
+    ### No Autonomous Execution
+
+    **Manual Accept Mode Controls:**
+    - Users must approve tool executions in Manual Accept Mode
+    - No automated background operations without approval
+    - Cannot run commands while VS Code is closed
+
+    **Purpose:** Safety and user control over all operations.
+
+    <Warning>
+    Verdent cannot execute commands in the background without user approval. All operations require explicit consent in Manual Accept Mode.
+    </Warning>
+  </Tab>
+
+  <Tab title="Real-Time Monitoring">
+    ### No Real-Time Monitoring
+
+    **Cannot:**
+    - Monitor running processes continuously
+    - Track file system changes in real-time
+    - Alert on system events
+    - Stream log files continuously
+
+    **Alternative:** Use MCP integrations for external monitoring tools.
+  </Tab>
+
+  <Tab title="Network Operations">
+    ### No Network Operations Without MCP
+
+    **Built-in Limitations:**
+    - Cannot make arbitrary HTTP requests (use `web_fetch` for specific pages)
+    - No direct database connections (requires MCP)
+    - Cannot access cloud services directly (requires MCP)
+    - No real-time API integrations (requires MCP)
+
+    **Solution:** Configure MCP servers for external system access.
+  </Tab>
+</Tabs>
+
+---
 
 ## Platform-Specific Restrictions
 
-[Content to be added]
+### Operating System Differences
+
+**bash Tool Behavior:**
+| Platform | Shell | Notes |
+|----------|-------|-------|
+| **macOS/Linux** | bash/zsh | Full bash functionality |
+| **Windows** | PowerShell | Some bash commands unavailable, use PowerShell equivalents |
+| **WSL** | bash | Linux commands work in WSL environment |
+
+**Path Handling:**
+- Windows uses backslashes (`\`), Unix uses forward slashes (`/`)
+- File paths may need adjustment for cross-platform projects
+
+---
+
+### VS Code Version Requirements
+
+**Minimum Requirements:**
+- VS Code version compatibility (check extension marketplace for current minimum)
+- Node.js 18+ for certain operations
+- Sufficient disk space for context caching
+
+<Info>
+Specific version requirements are maintained in the VS Code marketplace listing. Check extension details for current compatibility.
+</Info>
+
+---
+
+### Workspace Constraints
+
+**Single Workspace Focus:**
+- Verdent operates within one VS Code workspace at a time
+- Cannot simultaneously modify files across multiple open VS Code windows
+- Multi-root workspaces supported but context limited to current active workspace
+
+---
 
 ## Workarounds for Common Limitations
 
-[Content to be added]
+<Tabs>
+  <Tab title="Binary Files">
+    ### Binary File Modification
+
+    **Limitation:** Cannot edit images, PDFs, or compiled binaries
+
+    **Workarounds:**
+    - Reference external tools in bash commands: `bash("convert input.png -resize 50% output.png")`
+    - Generate scripts that external tools can execute
+    - Document manual steps for binary file operations
+
+    **Example:**
+    ```bash
+    # Image conversion
+    bash("convert input.png -resize 50% output.png")
+
+    # PDF to text
+    bash("pdftotext document.pdf output.txt")
+    ```
+  </Tab>
+
+  <Tab title="Large Files">
+    ### Large File Handling
+
+    **Limitation:** Files over 10,000 lines strain the context window
+
+    **Workarounds:**
+    - Use line ranges: `file_read("large.log", start_line=1000, max_lines=100)`
+    - Search first: `grep_content("ERROR", glob="large.log")` to find relevant sections
+    - Break files into smaller modules for easier management
+
+    <Tip>
+    Always use `grep_content` first to identify relevant sections, then read only those specific line ranges.
+    </Tip>
+  </Tab>
+
+  <Tab title="Context Window">
+    ### Context Window Exhaustion
+
+    **Limitation:** Long conversations fill the context window
+
+    **Workarounds:**
+    - Delegate to Explorer subagent for codebase research
+    - Use Verifier subagent for isolated validation tasks
+    - Start new conversation for distinct tasks
+    - Use `todo_update` to track progress across sessions
+
+    **Best Practice:** Delegate background research to subagents to preserve main context for active development.
+  </Tab>
+
+  <Tab title="Platform Differences">
+    ### Platform Command Differences
+
+    **Limitation:** bash commands differ between Windows and Unix
+
+    **Workarounds:**
+    - Use cross-platform tools: npm scripts instead of raw bash
+    - Conditional commands: `bash("if [[ \"$OSTYPE\" == \"linux-gnu\"* ]]; then ...; fi")`
+    - Project-specific AGENTS.md with platform notes
+
+    **Example:**
+    ```bash
+    # Cross-platform
+    bash("npm run build")
+
+    # Platform-specific conditional
+    bash("if [[ \"$OSTYPE\" == \"linux-gnu\"* ]]; then make; else nmake; fi")
+    ```
+  </Tab>
+
+  <Tab title="Timeouts">
+    ### Timeout Constraints
+
+    **Limitation:** bash commands timeout after 2 minutes (hard limit, cannot be extended)
+
+    **Workarounds:**
+    - Chain commands: `bash("task1") then bash("task2") then bash("task3")`
+    - Break into smaller sequential operations that each complete within 2 minutes
+    - Run long operations outside Verdent and provide results
+
+    **Example:**
+    ```bash
+    # Extend timeout
+    bash("npm run long-build", timeout=600000)
+
+    # Chain operations
+    bash("npm install && npm test && npm run build")
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Future Improvements
+
+<Note>
+Limitations are continuously being addressed. Check Verdent release notes for updates on expanded capabilities, increased limits, and new integrations.
+</Note>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Tool Reference" icon="wrench" href="/verdent-for-vscode/advanced-features/tool-reference">
+    Complete tool capabilities
+  </Card>
+  <Card title="Best Practices" icon="lightbulb" href="/verdent-for-vscode/best-practices/prompts">
+    Optimize Verdent usage
+  </Card>
+</CardGroup>

@@ -3,6 +3,459 @@ title: Testing & Debugging
 description: Testing and debugging workflows with Verdent
 ---
 
+Verdent for VS Code helps you write comprehensive tests and debug issues through multipass generate-test-repair cycles, error analysis, and automated test coverage improvements. Generate unit, integration, and end-to-end tests that match your project's testing framework and style.
 
+### What You'll Learn
 
-[Content to be added]
+- Generate unit tests covering edge cases and expected behavior
+- Work with all major testing frameworks (Jest, Pytest, JUnit, etc.)
+- Create integration tests verifying multi-component workflows
+- Improve test coverage by identifying and testing uncovered code paths
+- Debug issues using error message analysis and execution tracing
+- Diagnose bugs from stack traces, error logs, and unexpected behavior
+
+### Prerequisites
+
+Before testing and debugging with Verdent:
+
+- Visual Studio Code with Verdent extension installed
+- A codebase or project workspace open in VS Code
+- Active Verdent subscription with available credits
+- Testing framework configured in your project (optional for test generation)
+
+---
+
+## Writing Unit Tests
+
+Verdent generates unit tests that match your project's testing framework and style. It analyzes existing tests to understand your patterns, then generates tests with proper setup, assertions, and mocking.
+
+**Example:**
+
+```
+Write unit tests for the calculateDiscount function
+```
+
+Verdent will:
+- Examine the `calculateDiscount` function implementation
+- Identify input parameters and return values
+- Analyze existing tests to match your conventions (test structure, assertion style, naming patterns)
+- Generate tests covering:
+  - **Happy path**: Valid inputs with expected outputs
+  - **Edge cases**: Boundary values, zero, negative numbers, maximum values
+  - **Invalid inputs**: null, undefined, wrong types
+  - **Expected behavior**: Business logic validation
+
+**Generated Test Structure:**
+
+Verdent creates tests following your project's patterns:
+
+- **Test suite organization**: Describe blocks, test classes, or module structure
+- **Setup and teardown**: Before/after hooks matching your existing tests
+- **Assertions**: Using your project's assertion library (expect, assert, should, etc.)
+- **Mocking**: Matching your mocking patterns (jest.mock, sinon, unittest.mock)
+- **Naming conventions**: Test names following your established style
+
+**Multipass Generate-Test-Repair Cycles:**
+
+For comprehensive testing, Verdent uses multipass cycles:
+
+1. **Generate**: Create initial test suite
+2. **Run**: Execute tests to verify they work
+3. **Repair**: Fix failing tests or improve coverage
+4. **Iterate**: Repeat until tests pass and coverage is sufficient
+
+This ensures tests are not just written but actually work correctly with your codebase.
+
+<Tip>
+  Verdent analyzes your existing tests to match your conventions. The more consistent your existing test patterns, the better Verdent's generated tests will align with your project's style.
+</Tip>
+
+---
+
+## Supported Test Frameworks
+
+Verdent supports all major testing frameworks across different programming languages and technology stacks without requiring additional configuration.
+
+<Tabs>
+  <Tab title="JavaScript/TypeScript">
+    **Unit Testing Frameworks:**
+
+    <CodeGroup>
+    ```javascript Jest
+    test('sum returns correct result', () => {
+      expect(sum(2, 3)).toBe(5);
+    });
+    ```
+
+    ```javascript Mocha
+    const assert = require('assert');
+
+    describe('sum', () => {
+      it('returns correct result', () => {
+        assert.strictEqual(sum(2, 3), 5);
+      });
+    });
+    ```
+
+    ```javascript Vitest
+    import { describe, it, expect } from 'vitest';
+
+    it('sum returns correct result', () => {
+      expect(sum(2, 3)).toBe(5);
+    });
+    ```
+
+    ```javascript Jasmine
+    describe('sum', () => {
+      it('returns correct result', () => {
+        expect(sum(2, 3)).toEqual(5);
+      });
+    });
+    ```
+    </CodeGroup>
+
+    **Framework-Specific Testing:**
+    - **React Testing Library** - User-centric React component testing
+    - **Vue Test Utils** - Official Vue.js testing library
+
+    **End-to-End Testing:**
+    - **Cypress** - End-to-end and component testing
+    - **Playwright** - Cross-browser end-to-end testing
+    - **Puppeteer** - Headless Chrome testing
+  </Tab>
+
+  <Tab title="Python">
+    - **Pytest** - Most popular Python testing framework
+    - **unittest** - Built-in Python testing framework
+    - **nose2** - Extends unittest with plugins
+    - **doctest** - Tests embedded in docstrings
+
+    Verdent generates tests with proper fixtures, parameterization, and assertion patterns matching your Python testing style.
+  </Tab>
+
+  <Tab title="Java & JVM">
+    - **JUnit** - Standard Java testing framework (JUnit 4, JUnit 5)
+    - **TestNG** - Testing framework with advanced features
+    - **Mockito** - Mocking framework for Java
+    - **AssertJ** - Fluent assertion library
+
+    Verdent creates tests with annotations, lifecycle methods, and assertions following Java testing conventions.
+  </Tab>
+
+  <Tab title="Other Languages">
+    - **RSpec** (Ruby) - Behavior-driven development framework
+    - **PHPUnit** (PHP) - Unit testing framework for PHP
+    - **Go testing** (Go) - Built-in Go testing package
+    - **xUnit** (C#/.NET) - Testing framework for .NET
+    - **Catch2** (C++) - Modern C++ testing framework
+
+    Verdent adapts to your language's testing idioms and generates tests matching your project's conventions.
+  </Tab>
+</Tabs>
+
+Verdent recognizes your testing framework from your project configuration and existing tests, automatically generating tests that match your setup.
+
+---
+
+## Generating Integration Tests
+
+Verdent generates integration tests that verify how multiple components, services, or modules work together. It creates tests simulating real workflows including API interactions, database operations, authentication flows, and multi-step user journeys.
+
+**Example:**
+
+```
+Write integration tests for the user registration flow
+```
+
+Verdent generates tests verifying the complete flow:
+
+1. **Form Submission**: User submits registration form with valid data
+2. **Validation**: Backend validates email format, password strength, data completeness
+3. **Database Insertion**: User record is created in the database
+4. **Email Sending**: Confirmation email is sent (mocked or actual)
+5. **Successful Login**: New user can immediately log in with credentials
+
+**Integration Test Structure:**
+
+Verdent creates integration tests with:
+
+- **Test Setup**: Database seeding, service initialization, test data creation
+- **Workflow Simulation**: Multi-step operations in sequence
+- **State Verification**: Checking database state, API responses, side effects
+- **Mocking External Services**: Email services, payment APIs, third-party integrations
+- **Test Teardown**: Cleanup of test data, database rollback, service shutdown
+
+**Example Test Scenarios:**
+
+```
+Write integration tests for the checkout and payment process
+```
+
+Verdent tests:
+- Adding items to cart
+- Applying discount codes
+- Calculating totals with tax and shipping
+- Processing payment (with mocked payment gateway)
+- Creating order record in database
+- Sending confirmation email
+- Updating inventory
+
+**Test Isolation:**
+
+Verdent ensures integration tests are properly isolated:
+- Each test starts with a clean database state
+- External service calls are mocked to prevent side effects
+- Tests can run in any order without dependencies
+- Cleanup happens even if tests fail
+
+<Tip>
+Integration tests benefit from isolated test environments, Verdent can help set up database fixtures and mock external services.
+</Tip>
+
+<Note>
+  Integration tests verify that components work together correctly. They're more complex than unit tests but provide higher confidence that real-world workflows function as expected.
+</Note>
+
+---
+
+## Improving Test Coverage
+
+Verdent analyzes your codebase to identify untested functions, branches, and edge cases, then generates tests to improve coverage. It examines your existing test suite and identifies gaps where code paths aren't exercised.
+
+**Example:**
+
+```
+Analyze test coverage and write tests for uncovered code paths in the payment module
+```
+
+Verdent will:
+
+1. **Analyze Existing Tests**: Examine what's currently tested
+2. **Identify Coverage Gaps**: Find specific functions, conditional branches, error handling paths, and edge cases lacking tests
+3. **Generate Missing Tests**: Create tests targeting uncovered code
+4. **Verify Coverage Improvement**: Run tests to confirm coverage increases
+
+**What Verdent Identifies:**
+
+- **Untested Functions**: Functions with no test coverage at all
+- **Conditional Branches**: If/else statements where one branch isn't tested
+- **Error Handling Paths**: Try/catch blocks or error callbacks without failure tests
+- **Edge Cases**: Boundary values, null/undefined handling, type coercion
+- **Integration Points**: API calls, database operations, external service interactions
+
+**Example Coverage Improvement:**
+
+```
+Improve test coverage for the UserService class
+```
+
+Verdent identifies:
+- `getUserById` has tests for valid IDs but not invalid IDs
+- `updateUser` missing tests for validation failures
+- `deleteUser` missing tests for authorization checks
+- Error handling paths in `createUser` are untested
+
+Then generates tests specifically targeting these gaps, increasing coverage from 65% to 95%.
+
+**Coverage Metrics:**
+
+Verdent helps you reach higher coverage percentages and catch potential bugs in previously untested code:
+
+- **Line Coverage**: Percentage of code lines executed by tests
+- **Branch Coverage**: Percentage of conditional branches tested
+- **Function Coverage**: Percentage of functions with at least one test
+- **Statement Coverage**: Percentage of statements executed
+
+---
+
+## Debugging with Verdent
+
+Verdent helps debug by analyzing error messages, tracing execution flow, identifying root causes, and suggesting fixes. Paste error logs, describe unexpected behavior, or ask Verdent to investigate specific issues.
+
+<Tabs>
+  <Tab title="Unexpected Behavior">
+    Describe what's wrong and what you expected:
+
+    ```
+    This function returns undefined instead of the user object. Debug it.
+    ```
+
+    Verdent will:
+    - Read the function implementation
+    - Trace the execution flow
+    - Identify where the code path goes wrong (missing return statement, incorrect conditional, async/await issue)
+    - Propose a fix with explanation
+    - Suggest test cases to prevent regression
+
+    **Example:**
+
+    ```
+    The login form redirects to the home page even when credentials are invalid
+    ```
+
+    Verdent will:
+    - Examine the login form submission logic
+    - Trace authentication flow
+    - Identify the bug (redirect happens before async validation completes)
+    - Propose a fix (await validation before redirecting)
+  </Tab>
+
+  <Tab title="Performance Issues">
+    Request performance analysis:
+
+    ```
+    The product search is slow when the database has 10,000+ products
+    ```
+
+    Verdent will:
+    - Analyze the search query implementation
+    - Identify inefficiency (N+1 queries, missing database index, inefficient algorithm)
+    - Suggest optimization (add database index, batch queries, cache results)
+
+    Performance debugging helps identify bottlenecks in algorithms, database queries, or API responses that slow down your application.
+  </Tab>
+
+  <Tab title="Execution Flow">
+    Understand how code executes:
+
+    ```
+    Why does this API endpoint return a 500 error when the email parameter is missing?
+    ```
+
+    Verdent will:
+    - Trace request handling from endpoint to validation to database
+    - Identify where error occurs (accessing property of undefined)
+    - Explain why error happens (missing null check before property access)
+    - Suggest defensive fix (validate parameters before using them)
+
+    Execution flow tracing helps you understand the path your code takes and where it deviates from expected behavior.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Paste error messages or stack traces directly into the chat. Verdent analyzes the error, locates the problematic code, and explains what went wrong with specific file paths and line numbers.
+</Tip>
+
+---
+
+## Diagnosing from Error Messages and Logs
+
+Paste error messages, stack traces, or log files directly into the chat. Verdent analyzes the error, identifies the source file and line number, explains the cause, and suggests a fix.
+
+<Tabs>
+  <Tab title="Stack Traces">
+    Paste error messages and stack traces:
+
+    ```
+    TypeError: Cannot read property 'name' of undefined
+        at UserProfile.render (UserProfile.jsx:45)
+        at processComponent (react-dom.js:2103)
+    ```
+
+    Paste this into Verdent:
+
+    ```
+    I'm getting this error: [paste stack trace]
+    ```
+
+    Verdent will:
+    - Identify the error type (TypeError from null/undefined access)
+    - Locate the exact line (`UserProfile.jsx:45`)
+    - Read the code at that location
+    - Explain why it's happening (user object is undefined before data loads)
+    - Propose fixes:
+      - Add null check: `if (!user) return <Loading />`
+      - Use optional chaining: `user?.name`
+      - Ensure data loads before rendering component
+  </Tab>
+
+  <Tab title="Log Analysis">
+    Paste log files or console output for analysis:
+
+    ```
+    Analyze these logs and tell me why the API requests are failing:
+    [paste 50 lines of log output]
+    ```
+
+    Verdent will:
+    - Scan the logs for error patterns
+    - Identify authentication failures, network timeouts, or database errors
+    - Trace the sequence of events leading to failure
+    - Suggest fixes based on the error pattern
+
+    Log analysis helps identify patterns across multiple failures and understand the sequence of events leading to errors.
+  </Tab>
+
+  <Tab title="Multi-Step Debugging">
+    For complex issues, Verdent uses multi-step debugging:
+
+    1. **Analyze error logs** to identify the failure point
+    2. **Read relevant code** to understand the implementation
+    3. **Trace execution flow** to find where things go wrong
+    4. **Suggest fixes** with code examples
+    5. **Generate tests** to prevent regression
+
+    **Example:**
+
+    ```
+    The shopping cart total is sometimes incorrect. Here are the error logs: [paste logs]
+    ```
+
+    Verdent will:
+    1. Analyze logs and identify when the bug occurs (when discount codes are applied)
+    2. Read the discount calculation logic
+    3. Identify the bug (discount calculated before tax, not after)
+    4. Propose a fix (reorder calculation steps)
+    5. Suggest test cases (cart with discount, cart with tax, cart with both)
+  </Tab>
+</Tabs>
+
+---
+
+## Best Practices
+
+<Accordion title="Generate tests early">
+  Write tests as you develop features, not after completion. Verdent can generate tests immediately after creating new functions or components.
+</Accordion>
+
+<Accordion title="Use existing tests as style guides">
+  Verdent matches your project's testing patterns. Maintain consistent test structure so Verdent generates tests that align with your conventions.
+</Accordion>
+
+<Accordion title="Request tests for edge cases explicitly">
+  Ask Verdent to test boundary conditions, error scenarios, and unusual inputs: "Write tests including edge cases for invalid inputs and boundary values."
+</Accordion>
+
+<Accordion title="Paste error messages directly">
+  Don't paraphrase errors. Paste the complete stack trace for accurate diagnosis and faster resolution.
+</Accordion>
+
+<Accordion title="Describe expected vs actual behavior">
+  When debugging, clearly state what you expected to happen and what actually happened. This context helps Verdent identify the root cause.
+</Accordion>
+
+<Accordion title="Use multipass testing for complex features">
+  For critical features, request comprehensive test generation with multipass cycles: "Generate comprehensive tests for the payment module and verify they all pass."
+</Accordion>
+
+<Accordion title="Test after refactoring">
+  After refactoring code, request tests to verify functionality is preserved: "Generate tests to verify the refactored authentication module works correctly."
+</Accordion>
+
+<Accordion title="Combine debugging with test generation">
+  After fixing a bug, request a test to prevent regression: "Write a test that ensures this bug doesn't happen again."
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Writing New Code" icon="code" href="/verdent-for-vscode/task-based-guides/writing-code">
+    Learn how to write new features with Verdent's AI assistance
+  </Card>
+
+  <Card title="Refactoring Code" icon="wrench" href="/verdent-for-vscode/task-based-guides/refactoring">
+    Improve code quality through safe refactoring workflows
+  </Card>
+</CardGroup>

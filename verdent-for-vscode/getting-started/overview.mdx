@@ -1,14 +1,151 @@
 ---
 title: Overview
-description: Introduction to Verdent - what it is and its key use cases
+description: AI-powered coding assistant for Visual Studio Code with autonomous planning, verification, and multi-agent architecture
 ---
 
+# Verdent for Visual Studio Code
 
+> Describe what you want to build in plain English. Verdent creates a plan, writes the code, tests it, and delivers production-ready results within your existing Visual Studio Code workflow.
+
+---
+
+## Get Started in Minutes
+
+Prerequisites:
+
+* Visual Studio Code installed
+* Verdent subscription (starting at $19/month)
+
+**Install Verdent:**
+
+<Tabs>
+  <Tab title="Visual Studio Code Marketplace">
+    Visit the [Verdent extension page](https://marketplace.visualstudio.com/items?itemName=verdentai.verdent) and click **Install**.
+  </Tab>
+
+  <Tab title="Extensions Panel">
+    1. Open Visual Studio Code
+    2. Press `Ctrl+Shift+X` (or `Cmd+Shift+X` on macOS)
+    3. Search for "Verdent"
+    4. Click **Install**
+  </Tab>
+
+  <Tab title="Command Line">
+    ```bash theme={null}
+    code --install-extension verdentai.verdent
+    ```
+  </Tab>
+</Tabs>
+
+**Start using Verdent:**
+
+<Steps>
+  <Step title="Open Visual Studio Code">
+    Open Visual Studio Code in your project folder.
+  </Step>
+
+  <Step title="Access Verdent">
+    Click the Verdent icon in the sidebar or press `Ctrl+Shift+V` (Windows/Linux) / `Cmd+Shift+V` (macOS).
+  </Step>
+
+  <Step title="Sign In">
+    Sign in when prompted to authenticate with your Verdent account.
+  </Step>
+</Steps>
+
+You're ready to start coding with AI assistance! [Continue with Quickstart (5 mins) →](/verdent-for-vscode/getting-started/quick-start)
+
+<Tip>
+  See [Installation](/verdent-for-vscode/getting-started/installation) for detailed setup options or [Troubleshooting](/verdent-for-vscode/help-support/common-issues) if you encounter issues.
+</Tip>
+
+---
 
 ## What is Verdent?
 
-[Content to be added]
+Verdent for Visual Studio Code is an AI coding assistant built for professional software projects. It integrates autonomous planning, coding, and verification directly into your existing Visual Studio Code workflow.
+
+The extension uses specialized subagents to handle different tasks. Features include Plan Mode for reviewing approaches before making changes, context-aware suggestions that learn from your coding style, and the ability to handle multiple tasks concurrently.
+
+Code verification uses dedicated subagents that run comprehensive tests through iterative testing cycles until acceptance. Each iteration produces detailed summaries with code diffs showing exactly what changed and whether it passed verification. The extension learns your coding habits and project patterns, enabling custom workflows and specialized subagent deployment.
+
+**Key capabilities:**
+
+* **Build features from descriptions**: Tell Verdent what you want to build in plain English. It will make a plan, write the code, and ensure it works through comprehensive verification.
+* **Debug and fix issues**: Describe a bug or paste an error message. Verdent will analyze your codebase, identify the problem, and implement a fix with multipass testing.
+* **Navigate and refactor any codebase**: Ask anything about your codebase and get thoughtful answers. Perform safe refactoring across multiple files while preserving functionality.
+* **Automate testing and verification**: Generate comprehensive unit and integration tests, verify code quality through iterative cycles, and ensure production readiness before delivery.
+
+---
+
+## Why Developers Choose Verdent
+
+* **Multi-Provider Intelligence**: Unlike competitors locked to a single AI provider, Verdent orchestrates models from different providers (Claude, GPT-5, Gemini, MiniMax) within a single workflow. Each specialized agent leverages the optimal model for its specific task.
+* **Plan-First Workflows**: Review detailed implementation plans before execution. Verdent asks clarifying questions and creates structured approaches. After generating a plan, choose **Edit** to refine or **Start Building** to execute, ensuring alignment before making changes.
+* **Production-Ready Verification**: Iterative testing cycles ensure code passes comprehensive testing before delivery. Verdent automatically generates, tests, and repairs code until it works correctly. Each result includes detailed summaries with interactive code diffs and verification results.
+* **Native Visual Studio Code Integration**: Works seamlessly within your existing workflow with minimal disruption. No need to learn new tools or restructure your development process.
+
+---
+
+## Pricing Plans
+
+Verdent uses a credit-based pricing model with four tiers:
+
+| Plan | Price | Credits/Month | AI Model Requests* | Best For |
+|------|-------|---------------|-------------------------|----------|
+| **Free Trial** | $0 | 100 credits (7 days) | ~200 requests | One-time offer per new user |
+| **Starter** | $19/month | 640 credits | ~1,000 requests | Light users & first-time explorers |
+| **Pro** | $59/month | 2,000 credits | ~3,000 requests | Regular users & mid-sized projects |
+| **Max** | $179/month | 6,000 credits | ~10,000 requests | Heavy users & demanding tasks |
+
+<Note>
+  *AI model requests based on Claude Sonnet 4.5 (an advanced AI model). Credits shown include 2× limited-time bonus (base credits doubled). All plans include access to Claude Sonnet 4.5, GPT-5, and GPT-5-Codex.
+</Note>
+
+<Tip>
+  Credits are shared across both Verdent for Visual Studio Code and the Verdent desktop app, enabling seamless workflow integration between platforms.
+</Tip>
+
+---
 
 ## Use Cases at a Glance
 
-[Content to be added]
+<CardGroup cols={2}>
+  <Card title="Writing New Code" icon="code">
+    Autonomous planning and implementation of new features, components, and functions across multiple files with intelligent task breakdown.
+  </Card>
+  <Card title="Code Understanding" icon="book">
+    Deep codebase analysis, explaining complex functions, identifying patterns, and performing safe refactoring while preserving functionality.
+  </Card>
+  <Card title="Testing & Debugging" icon="bug">
+    Comprehensive test generation, bug diagnosis from error messages, and multipass repair cycles until code passes verification.
+  </Card>
+  <Card title="Multi-File Operations" icon="folder-tree">
+    Coordinated changes across multiple files with understanding of project structure, dependencies, and architectural improvements.
+  </Card>
+</CardGroup>
+
+---
+
+## FAQs
+
+<Accordion title="What is Visual Studio Code?">
+  Visual Studio Code is a free, open-source code editor developed by Microsoft. It's a lightweight but powerful development environment that supports multiple programming languages and offers features like debugging, syntax highlighting, intelligent code completion, and integrated version control. Verdent integrates directly into Visual Studio Code as an extension, adding AI-powered coding capabilities to your existing workflow.
+</Accordion>
+
+<Accordion title="What is Plan Mode?">
+  Plan Mode is a read-only execution mode where Verdent analyzes code, conducts research, and creates detailed implementation plans without modifying files or executing commands. After generating a plan, Verdent presents two options: **Edit** (to request modifications and refine the plan) or **Start Building** (to switch to Agent Mode and begin execution). The agent can ask clarifying questions to remove uncertainty before execution. This mode is ideal for complex tasks where you want to review the approach before committing to changes, ensuring alignment between your expectations and Verdent's proposed solution.
+</Accordion>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/verdent-for-vscode/getting-started/quick-start">
+    Complete your first task with Verdent in 5 minutes
+  </Card>
+  <Card title="Core Concepts" icon="lightbulb" href="/verdent-for-vscode/getting-started/core-concepts">
+    Understand subagents, execution modes, and the multi-agent system
+  </Card>
+</CardGroup>

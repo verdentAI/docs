@@ -3,24 +3,582 @@ title: Subagent Management
 description: Understanding and managing subagents in Verdent
 ---
 
+Subagents are specialized AI agents that operate with their own custom system prompt, separate context window, and isolated execution environment. They handle specific tasks delegated by the main agent without polluting the main conversation context.
 
+**Key Characteristics:**
+
+- **Isolated Context Windows:** Each subagent maintains its own separate context window. Only the final results returned by subagents consume space in the main agent's context, not the intermediate processing.
+- **Custom System Prompts:** Every subagent has a dedicated system prompt defining its behavior, personality, and task interpretation approach.
+- **Automatic Task Delegation:** The main agent automatically invokes subagents when appropriate task types are detected, similar to automatic tool selection.
+- **Manual Invocation:** Users can explicitly reference subagents using @-mentions (`@Verifier`, `@Explorer`, `@Code-reviewer`).
+
+**Two Categories:**
+- **Default Subagents:** Built-in (Verifier, Explorer, Code-reviewer) - immediately available, pre-configured
+- **Custom Subagents:** User-created, stored in `~/.verdent/subagents/` - tailored to project-specific needs
+
+---
 
 ## Understanding Default Subagents
 
-[Content to be added]
+Verdent for VS Code includes three built-in default subagents that are pre-configured, immediately available, and require no setup or configuration.
+
+<Tabs>
+  <Tab title="@Verifier">
+    **Specialization:** Quick code checks and validation
+
+    **Capabilities:**
+    - Validates code logic
+    - Checks syntax correctness
+    - Verifies implementation against requirements
+
+    **Usage:**
+    Reference during coding tasks:
+    ```
+    @Verifier check this authentication logic
+    ```
+
+    **Best For:** Rapid validation without full code review overhead
+  </Tab>
+
+  <Tab title="@Explorer">
+    **Specialization:** Fast codebase exploration and navigation
+
+    **Capabilities:**
+    - Finds files by pattern or name
+    - Searches code for keywords/functions
+    - Answers architectural questions
+    - Identifies where functionality is implemented
+
+    **Usage:**
+    Automatically invoked for codebase questions or when explicitly requested:
+    ```
+    @Explorer find all API endpoints
+    ```
+
+    **Best For:**
+    - Understanding unfamiliar codebases
+    - Locating specific implementations
+    - Architectural analysis
+
+    **Performance:** Token-efficient, can run multiple instances in parallel for complex searches
+  </Tab>
+
+  <Tab title="@Code-reviewer">
+    **Specialization:** Code quality assessment
+
+    **Capabilities:**
+    - Proactively scans new and modified code for security vulnerabilities
+    - Identifies maintainability issues
+    - Detects performance problems
+
+    **Usage:**
+    Reference for quality checks:
+    ```
+    @Code-reviewer review this authentication flow
+    ```
+
+    **Best For:**
+    - Pre-commit reviews
+    - Identifying issues before integration
+    - Ensuring code quality standards
+  </Tab>
+</Tabs>
+
+---
+
+### Automatic vs Manual Invocation
+
+**Automatic Selection Triggers:**
+
+The main agent automatically selects subagents based on task pattern recognition:
+
+**Explorer Subagent:**
+- Questions about codebase structure ("What is the architecture?", "Where is X implemented?")
+- File search requests ("Find all files that...", "Show me components related to...")
+- Code navigation queries ("How does authentication work?", "What calls this function?")
+
+**Code-reviewer Subagent:**
+- Security review requests ("Review security vulnerabilities", "Check for SQL injection risks")
+- Code quality assessment prompts ("Analyze code quality", "Identify maintainability issues")
+- Pre-commit review scenarios (implicitly when code changes are presented)
+
+**Verifier Subagent:**
+- Validation requests ("Verify this logic", "Check if this implementation is correct")
+- Syntax and correctness checks ("Does this code work?", "Validate the authentication flow")
+
+**Manual Specification:**
+
+Users can override automatic routing using @-mentions:
+
+```
+@Explorer find all authentication-related files
+@Code-reviewer review the security of login flow
+@Verifier check validation logic in middleware
+```
+
+**Add Subagent Button:**
+Click the **Add Subagent** button in the Input Box to:
+- Select from available subagents (default and custom)
+- Explicitly delegate task to chosen subagent
+- Override automatic routing decisions
+
+**Benefits of Manual Specification:**
+- **Precision:** Ensure exact subagent handles the task
+- **Override:** Choose specific subagent when multiple could apply
+- **Testing:** Validate custom subagent behavior explicitly
+- **Consistency:** Repeat tasks with same subagent for consistent results
+
+<Info>
+Custom subagents may be auto-invoked based on their defined "When to use" guidelines in the subagent system prompt invocation policy. Details about trigger pattern configuration are currently in development.
+</Info>
+
+---
 
 ## Creating Custom Subagents
 
-[Content to be added]
+Custom subagents enable you to create specialized agents tailored to your project-specific needs, domain expertise, or team workflows.
+
+### Creation Methods
+
+<Tabs>
+  <Tab title="Settings Menu">
+    **Recommended for beginners**
+
+    1. Click **Settings** → **Subagents**
+    2. Select "Create new subagent"
+    3. Define subagent name, description, and system prompt
+    4. Configure invocation policy and usage guidelines
+    5. Save to `~/.verdent/subagents/` directory
+
+    This method provides a guided interface for creating subagents with validation and helpful prompts.
+  </Tab>
+
+  <Tab title="Direct File Creation">
+    **Recommended for advanced users**
+
+    1. Navigate to `~/.verdent/subagents/`
+    2. Create markdown file (e.g., `security-reviewer.md`)
+    3. Add YAML frontmatter with `name` and `description`
+    4. Write system prompt defining behavior
+    5. Specify invocation policy and "When to use" guidelines
+
+    This method offers more control and is faster for users familiar with the file structure.
+
+    <Tip>
+    Share custom subagents across projects by storing them in ~/.verdent/subagents/—they'll be available in all workspaces.
+    </Tip>
+  </Tab>
+</Tabs>
+
+---
+
+### File Structure
+
+Custom subagent files use Markdown format with YAML frontmatter:
+
+```markdown
+---
+name: subagent-name
+description: Brief description of specialization
+---
+# System Prompt
+
+[Behavior definition, personality, interpretation style]
+
+Invocation policy (strict): Only run if explicitly requested.
+
+When to use:
+- Specific scenario 1
+- Specific scenario 2
+
+When NOT to use:
+- Avoid scenario 1
+- Avoid scenario 2
+```
+
+**YAML Frontmatter (Required):**
+- `name`: Subagent identifier used in @-mentions
+- `description`: One-line description of subagent purpose
+
+**System Prompt Section:**
+Markdown content defining subagent behavior:
+- Personality and tone
+- Interpretation approach for tasks
+- Output format preferences
+- Decision-making principles
+
+**Invocation Policy (Required):**
+```
+Invocation policy (strict|flexible): Policy description
+```
+- **strict:** Only invoke when explicitly requested by user
+- **flexible:** Allow automatic invocation based on task patterns
+
+**Usage Guidelines:**
+```
+When to use the [name] agent:
+- Bullet list of scenarios for invocation
+
+When NOT to use:
+- Bullet list of scenarios to avoid
+```
+
+---
+
+### Custom Subagent Examples
+
+<Tabs>
+  <Tab title="API Documentation">
+    ```markdown
+    ---
+    name: api-documenter
+    description: Generates comprehensive API documentation from code
+    ---
+    # System Prompt
+
+    You are an API documentation specialist.
+
+    Documentation approach:
+    - Extract endpoints, parameters, and responses from code
+    - Generate OpenAPI/Swagger specifications
+    - Include usage examples and error codes
+    - Document authentication requirements
+
+    Output format:
+    - Markdown tables for endpoints
+    - Code examples in multiple languages
+    - Authentication flow diagrams
+
+    Invocation policy (strict): Only run when explicitly requested.
+
+    When to use:
+    - User requests API documentation generation
+    - Need to document REST/GraphQL endpoints
+    - Creating developer guides
+
+    When NOT to use:
+    - Inline code comments
+    - User-facing documentation
+    ```
+
+    **Use Case:** Automatically generate comprehensive API documentation by analyzing route handlers, controllers, and schema definitions.
+  </Tab>
+
+  <Tab title="Database Migration">
+    ```markdown
+    ---
+    name: migration-reviewer
+    description: Reviews database migrations for safety and correctness
+    ---
+    # System Prompt
+
+    You are a database migration safety specialist.
+
+    Review checklist:
+    - Check for destructive operations (DROP, DELETE without WHERE)
+    - Verify reversible migrations (up/down compatibility)
+    - Identify potential data loss scenarios
+    - Validate index creation strategies
+    - Check for blocking operations on large tables
+
+    Risk assessment:
+    - Categorize migrations: low/medium/high risk
+    - Recommend staging environment testing for high-risk changes
+    - Suggest rollback procedures
+
+    Invocation policy (strict): Only run when explicitly requested.
+
+    When to use:
+    - User creates or modifies migration files
+    - Pre-deployment migration review
+    - Investigating migration failures
+
+    When NOT to use:
+    - Schema design from scratch
+    - Query optimization
+    ```
+
+    **Use Case:** Prevent production incidents by identifying risky database operations before deployment.
+  </Tab>
+
+  <Tab title="Accessibility">
+    ```markdown
+    ---
+    name: a11y-auditor
+    description: Audits frontend code for accessibility compliance
+    ---
+    # System Prompt
+
+    You are an accessibility compliance specialist (WCAG 2.1 Level AA).
+
+    Audit criteria:
+    - Semantic HTML structure
+    - ARIA labels and roles
+    - Keyboard navigation support
+    - Color contrast ratios
+    - Screen reader compatibility
+    - Focus management
+
+    Report format:
+    - Issues categorized by severity (critical/major/minor)
+    - WCAG guideline references
+    - Code examples showing fixes
+    - Testing recommendations
+
+    Invocation policy (flexible): May auto-invoke for UI component reviews.
+
+    When to use:
+    - User creates/modifies UI components
+    - Pre-deployment accessibility checks
+    - Compliance audits
+
+    When NOT to use:
+    - Backend API code
+    - Build configuration files
+    ```
+
+    **Use Case:** Ensure web applications meet accessibility standards before deployment.
+  </Tab>
+</Tabs>
+
+---
+
+### Common Use Cases for Custom Subagents
+
+<Tabs>
+  <Tab title="Domain Expertise">
+    **Domain-Specific Expertise**
+
+    - **Financial calculations:** Subagent specialized in tax compliance, financial regulations
+    - **Healthcare HIPAA compliance:** Review code for patient data handling standards
+    - **Cryptography:** Analyze security implementations against best practices
+
+    Ideal for industries with specialized knowledge requirements and regulatory constraints.
+  </Tab>
+
+  <Tab title="Team Workflows">
+    **Team-Specific Workflows**
+
+    - **Code style enforcer:** Check against team-specific coding standards beyond linter rules
+    - **Documentation consistency:** Ensure docs follow team templates and tone
+    - **Dependency auditor:** Monitor third-party package usage against approved lists
+
+    Enforce team conventions and maintain consistency across collaborative projects.
+  </Tab>
+
+  <Tab title="Tech Stack">
+    **Technology Stack Specialists**
+
+    - **React performance optimizer:** Identify unnecessary re-renders, memoization opportunities
+    - **SQL query optimizer:** Analyze and improve database query performance
+    - **Docker configuration reviewer:** Validate containerization best practices
+
+    Deep expertise in specific frameworks, languages, or infrastructure technologies.
+  </Tab>
+
+  <Tab title="Quality Assurance">
+    **Quality Assurance**
+
+    - **Test coverage analyzer:** Identify untested code paths, suggest test scenarios
+    - **Error handling reviewer:** Ensure comprehensive exception handling
+    - **Logging standards enforcer:** Verify logging practices for debugging and monitoring
+
+    Automated quality checks to maintain code reliability and maintainability standards.
+  </Tab>
+
+  <Tab title="Compliance">
+    **Compliance and Security**
+
+    - **GDPR compliance checker:** Review data handling for privacy requirements
+    - **Security vulnerability scanner:** Specialized detection for framework-specific issues
+    - **License compliance auditor:** Check dependencies for license compatibility
+
+    Ensure adherence to legal, security, and licensing requirements before deployment.
+  </Tab>
+
+  <Tab title="Project-Specific">
+    **Project-Specific Needs**
+
+    - **Legacy code modernizer:** Identify outdated patterns, suggest modern alternatives
+    - **Migration assistant:** Guide framework or language version upgrades
+    - **Performance budget enforcer:** Monitor bundle sizes, load times against thresholds
+
+    Custom solutions tailored to unique project challenges and technical debt management.
+  </Tab>
+</Tabs>
+
+---
 
 ## Subagent Behavior Configuration (AGENTS.md Pattern)
 
-[Content to be added]
+While AGENTS.md primarily serves as a project rules file (see [Rule Systems](/verdent-for-vscode/agents-rules/rule-systems)), it can also define project-specific subagent behavior.
+
+### System Prompt Design Principles
+
+**Be Specific and Directive:**
+Define exact behavior expectations rather than general guidance.
+
+<Tip>
+Be specific and directive in system prompts, 'Profile before optimizing' is better than 'Try to optimize when possible'.
+</Tip>
+
+**Good:**
+```markdown
+Analysis approach:
+- Profile before optimizing
+- Focus on algorithmic improvements
+- Provide before/after benchmarks
+```
+
+**Avoid:**
+```markdown
+Try to optimize code when possible
+```
+
+**Establish Personality and Tone:**
+Create distinct "personas" optimized for specific purposes:
+
+```markdown
+You are a performance optimization specialist.
+```
+
+**Define Decision-Making Principles:**
+Guide how the subagent should approach trade-offs:
+
+```markdown
+When suggesting optimizations:
+1. Measure first, optimize second
+2. Prioritize readability over micro-optimizations
+3. Only suggest changes with >10% performance improvement
+```
+
+**Specify Output Format:**
+Control how results are presented:
+
+```markdown
+Output format:
+- Markdown tables for endpoints
+- Code examples in multiple languages
+- Authentication flow diagrams
+```
+
+---
+
+### Invocation Policy Configuration
+
+**Strict Policy:**
+```markdown
+Invocation policy (strict): Only run when explicitly requested.
+```
+
+Use when:
+- Subagent handles sensitive operations (security reviews, database migrations)
+- User should consciously decide when to invoke
+- Automatic invocation could be disruptive
+
+**Flexible Policy:**
+```markdown
+Invocation policy (flexible): May auto-invoke based on task patterns.
+```
+
+Use when:
+- Subagent provides helpful context without disruption
+- Automatic invocation enhances workflow efficiency
+- Task patterns are clearly identifiable
+
+**Usage Guidelines Best Practices:**
+
+**"When to use" section:**
+- Be specific about trigger scenarios
+- Include example prompts that should invoke the subagent
+- Describe task characteristics that match subagent specialization
+
+**"When NOT to use" section:**
+- Explicitly list exclusions to prevent inappropriate invocation
+- Clarify boundaries with related subagents
+- Prevent scope creep
+
+---
 
 ## Task Routing and Dispatch
 
-[Content to be added]
+Verdent's multi-subagent system enables parallel task execution with automatic routing and coordination across specialized agents.
+
+### Architecture Components
+
+**Main Agent (Orchestrator):**
+The primary agent analyzes user requests, breaks down complex tasks, and delegates specialized work to appropriate subagents. It maintains conversation context and coordinates subagent results.
+
+**Subagent Pool:**
+Collection of available subagents (both default and custom) that can be invoked automatically or manually. Each operates independently with isolated context.
+
+**Automatic Task Routing:**
+When the main agent detects task patterns matching subagent specializations, it automatically dispatches work:
+- Codebase exploration questions → Explorer subagent
+- Security review requests → Code-reviewer subagent
+- Validation checks → Verifier subagent
+
+**Parallel Execution:**
+Multiple subagents can run concurrently for complex operations. Example: Explorer subagent searches codebase while Code-reviewer analyzes security simultaneously, delivering faster results.
+
+<Note>
+Parallel subagent execution accelerates complex tasks, Explorer can search while Code-reviewer analyzes simultaneously.
+</Note>
+
+**Result Consolidation:**
+Subagent outputs are returned to the main agent, which synthesizes results and presents unified responses to the user.
+
+<Info>
+Detailed information about subagent execution scheduling, priority, maximum concurrent limits, error handling, and resource allocation is currently in development. Contact support for specific architectural questions.
+</Info>
+
+---
 
 ## Subagent Monitoring
 
-[Content to be added]
+Track subagent usage and performance through the Chat View where Verdent displays subagent operations and results.
+
+### Monitoring Methods
+
+**Chat View Indicators:**
+- Subagent invocations appear in the conversation history
+- Progress indicators show when subagents are executing
+- Results explicitly identify which subagent provided the output
+
+**Subagent Outputs Section:**
+Dedicated display for:
+- Results from subagent task execution
+- Progress indicators for parallel tasks
+- Consolidated summaries when tasks complete
+
+**Response Attribution:**
+Verdent attributes findings to specific subagents in responses, making it clear which agent performed which analysis or search.
+
+### Visibility and Transparency
+
+**Operation Transparency:**
+Verdent shows:
+- Which subagent was invoked
+- Whether invocation was automatic or manual
+- Task delegation reason
+- Subagent execution status
+
+**Manual Specification Verification:**
+When you use @-mentions, Verdent confirms the specified subagent is handling the task, ensuring your routing preferences are respected.
+
+<Info>
+Enhanced monitoring features including detailed execution logs, performance metrics (execution time, token usage), historical invocation tracking, activity visibility settings, and usage analytics dashboards are currently in development.
+</Info>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Rule Systems & Behavior Guidance" icon="sliders" href="/verdent-for-vscode/agents-rules/rule-systems">
+    Configure Verdent behavior through user rules, project rules, and plan rules
+  </Card>
+  <Card title="Tool Reference" icon="wrench" href="/verdent-for-vscode/advanced-features/tool-reference">
+    Complete reference of available tools and capabilities
+  </Card>
+</CardGroup>

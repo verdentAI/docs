@@ -1,0 +1,179 @@
+---
+title: Glossary of Terms
+description: Technical terminology and definitions for Verdent features and concepts
+---
+
+Alphabetized reference of Verdent-specific terms and technical concepts.
+
+---
+
+## Core Concepts
+
+<Accordion title="Agent">
+The main AI assistant that processes requests and executes tools
+</Accordion>
+
+<Accordion title="Context Exhaustion">
+When conversation history fills context window, limiting the ability to reference earlier content
+</Accordion>
+
+<Accordion title="Context Window">
+Amount of conversation history the AI can reference
+</Accordion>
+
+<Accordion title="MCP (Model Context Protocol)">
+System for extending Verdent with external tools
+</Accordion>
+
+<Accordion title="Subagent">
+Specialized AI agent with isolated context for specific tasks (Explorer, Verifier, Code-reviewer)
+</Accordion>
+
+<Accordion title="Tool">
+Function the agent can execute (file_read, bash, glob, etc.)
+</Accordion>
+
+---
+
+## Execution Modes
+
+<Accordion title="Auto-Run Mode">
+Tools execute automatically without approval prompts
+</Accordion>
+
+<Accordion title="Manual Accept Mode">
+User approves each tool execution before running
+</Accordion>
+
+<Accordion title="Plan Mode">
+Agent creates plan before executing changes
+</Accordion>
+
+<Accordion title="Skip Permissions">
+Run without permission prompts (advanced)
+</Accordion>
+
+---
+
+## Files & Configuration
+
+<Accordion title="AGENTS.md">
+Project-specific team standards file (project root, version controlled)
+</Accordion>
+
+<Accordion title="mcp.json">
+MCP server configuration (`~/.verdent/mcp.json`)
+</Accordion>
+
+<Accordion title="plan_rules.md">
+Plan Mode output customization (`~/.verdent/plan_rules.md`)
+</Accordion>
+
+<Accordion title="user_rules.md">
+Global personal preferences file (`~/.verdent/user_rules.md`)
+</Accordion>
+
+<Accordion title="Workspace">
+Current VS Code project directory where Verdent operates
+</Accordion>
+
+---
+
+## Tool-Specific Terms
+
+<Accordion title="Glob Pattern">
+File search pattern using wildcards (`**/*.ts`, `src/**/*.js`)
+</Accordion>
+
+<Accordion title="Line Range">
+Specific lines to read from large files (start_line, max_lines)
+</Accordion>
+
+<Accordion title="Regex">
+Regular expression for advanced text searching
+</Accordion>
+
+<Accordion title="Replace All">
+file_edit flag to replace multiple identical strings
+</Accordion>
+
+<Accordion title="Timeout">
+Maximum time for bash commands: 120 seconds (2 minutes, hard limit)
+</Accordion>
+
+---
+
+## Subagent Terms
+
+<Accordion title="Flexible Policy">
+Subagent can activate automatically based on request patterns
+</Accordion>
+
+<Accordion title="Invocation Policy">
+Rules for when subagent activates (strict vs flexible)
+</Accordion>
+
+<Accordion title="Isolated Context">
+Subagent's separate context window (doesn't consume main context)
+</Accordion>
+
+<Accordion title="Strict Policy">
+Subagent only runs when explicitly @-mentioned
+</Accordion>
+
+<Accordion title="System Prompt">
+Instructions defining subagent's behavior and expertise
+</Accordion>
+
+---
+
+## MCP Terms
+
+<Accordion title="Global Config">
+User-wide MCP configuration (`~/.verdent/mcp.json`)
+</Accordion>
+
+<Accordion title="MCP Server">
+External tool/service integrated via Model Context Protocol
+</Accordion>
+
+<Accordion title="Plugin">
+Pre-built MCP integration for specific tools or services
+</Accordion>
+
+<Accordion title="Workspace Config">
+Project-specific MCP configuration (`.verdent/mcp.json`)
+</Accordion>
+
+---
+
+## Performance Terms
+
+<Accordion title="Delegation">
+Routing tasks to subagents to preserve main context
+</Accordion>
+
+<Accordion title="Parallel Execution">
+Multiple subagents running simultaneously
+</Accordion>
+
+<Accordion title="Strategic Reading">
+Using line ranges and search to minimize context usage
+</Accordion>
+
+<Accordion title="Task Coordination">
+Main agent managing multiple subagent operations
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Core Concepts" icon="lightbulb" href="/verdent-for-vscode/getting-started/core-concepts">
+    Fundamental Verdent concepts
+  </Card>
+  <Card title="Tool Reference" icon="wrench" href="/verdent-for-vscode/advanced-features/tool-reference">
+    Complete tool capabilities
+  </Card>
+</CardGroup>

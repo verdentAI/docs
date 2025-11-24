@@ -5,14 +5,464 @@ description: Common issues, diagnostics, and solutions
 
 
 
-## Common Issues & Quick Fixes
+### What You'll Learn
 
-[Content to be added]
+Common troubleshooting procedures, diagnostic steps, and known issue workarounds for Verdent for VS Code.
 
-## Diagnosing Issues
+<Info>
+Detailed troubleshooting for top user-reported issues is being compiled from support data. This page provides general diagnostic procedures. Contact support@verdent.ai for specific issues not covered here.
+</Info>
 
-[Content to be added]
+---
+
+## Quick Diagnostics
+
+<Tabs>
+  <Tab title="Service Errors (Most Common)">
+    ### "Service is experiencing high traffic. Please try again later!"
+
+    **This is the #1 most common error** users encounter. It indicates the Verdent service is temporarily overloaded.
+
+    **When it happens:**
+    - During peak usage times
+    - When backend services are under heavy load
+    - Temporary service degradation
+
+    **Recovery steps (in order):**
+
+    <Steps>
+      <Step title="Wait and Retry">
+        Wait 30-60 seconds and try your request again. Most service issues resolve quickly.
+      </Step>
+
+      <Step title="Roll Back Message">
+        If the error persists, roll back the most recent message:
+        - Click the rollback/undo button in the chat interface
+        - Resubmit your request after a brief wait
+      </Step>
+
+      <Step title="Start New Session">
+        If errors continue, start a fresh session:
+        - Click the "+" (New Session) button in the top bar
+        - This clears context and tool approvals
+        - Resubmit your request in the clean session
+      </Step>
+    </Steps>
+
+    <Warning>
+    If the issue persists for more than 5-10 minutes across multiple sessions, check the [Verdent status page](https://verdent.ai/status) or contact support@verdent.ai.
+    </Warning>
+  </Tab>
+
+  <Tab title="Installation & Setup">
+    ### Installation & Setup Issues
+
+    **System Requirements:**
+    - **VS Code version:** 1.90.0 or later (required)
+    - **Internet connection:** Active connection required
+    - **Subscription:** Active Verdent subscription
+
+    **Basic diagnostic checklist:**
+    1. **Verify VS Code version:** Help → About (must be 1.90.0+)
+    2. **Check internet connection:** Verdent requires an active connection
+    3. **Verify subscription:** Ensure Verdent subscription is active
+    4. **Restart VS Code:** After installation or configuration changes
+    5. **Check extension status:** View → Extensions → Verdent (should show "Enabled")
+
+    **Clean Reinstall Procedure:**
+    <Steps>
+      <Step title="Uninstall Verdent">
+        View → Extensions → Verdent → Uninstall
+      </Step>
+
+      <Step title="Restart VS Code">
+        Completely close and reopen VS Code
+      </Step>
+
+      <Step title="Reinstall Verdent">
+        View → Extensions → Search "Verdent" → Install
+      </Step>
+    </Steps>
+
+    **Check Logs:**
+    - Open Output panel: View → Output
+    - Select "Verdent" from the dropdown
+    - Look for error messages or stack traces
+
+    <Info>
+    Most installation issues resolve with a simple VS Code reload or clean reinstall. If issues persist, check logs and contact support with log details.
+    </Info>
+  </Tab>
+
+  <Tab title="Authentication & Account">
+    ### Cannot Log In to Verdent for VS Code
+
+    **Most common cause:** Proxy configuration issue
+
+    **Solution:**
+    <Steps>
+      <Step title="Open VS Code Settings">
+        Press `Cmd+,` (macOS) or `Ctrl+,` (Windows/Linux)
+      </Step>
+
+      <Step title="Search for Proxy Setting">
+        Search for "useProxy" or "verdent.enableProxy" in the settings search bar
+      </Step>
+
+      <Step title="Toggle Proxy Status">
+        Toggle the proxy setting on/off (opposite of current state)
+      </Step>
+
+      <Step title="Retry Login">
+        Try logging in to Verdent again
+      </Step>
+    </Steps>
+
+    <Info>
+    If you're behind a corporate firewall, you may need to enable the proxy setting. If you're on a home network, try disabling it.
+    </Info>
+
+    ---
+
+    ### Free Trial Credits Not Received
+
+    **Error:** Free trial credits were not received or free trial access denied
+
+    **Reason:** Terms of service violation detected during registration
+
+    **Resolution:** Contact support@verdent.ai for assistance with your free trial access. The support team will review your account and help resolve the issue.
+
+    ---
+
+    ### Registration Failed
+
+    **Error:** Account registration was rejected or restricted
+
+    **Reason:** The registration violated Verdent's terms of service, resulting in access restriction
+
+    **Resolution:** Contact support@verdent.ai for assistance. The support team can review your registration and provide guidance on resolving the issue.
+
+    ---
+
+    ### Missing Models (Claude, GPT, Gemini)
+
+    **Issue:** Cannot find Claude, GPT, or Gemini models in model selection
+
+    **Reason:** Location-based restrictions from model providers
+
+    **Explanation:** Some AI model providers have regional restrictions that prevent certain models from being available in specific geographic locations. When this happens:
+    - Restricted models will not appear in your model selection menu
+    - You can still use all other available models without interruption
+    - No impact on your subscription or credits
+
+    **Check Available Models:** Visit https://www.verdent.ai/regions to see which models are available in your region
+
+    <Note>
+    Regional restrictions are set by the AI model providers (Anthropic, OpenAI, Google), not by Verdent. Verdent cannot override these restrictions.
+    </Note>
+  </Tab>
+
+  <Tab title="Performance">
+    ### Performance Issues
+
+    **Symptoms:**
+    - Slow response times
+    - Context window full errors
+    - Tool execution timeouts
+
+    **Common causes & fixes:**
+
+    | Issue | Cause | Solution |
+    |-------|-------|----------|
+    | Slow responses | Large files being read | Use line ranges: `file_read("file.js", start_line=100, max_lines=50)` |
+    | Context full | Long conversation history | Delegate to subagents or start new conversation |
+    | Tool timeouts | Long-running bash commands | Set explicit timeout or break into smaller commands |
+    | High memory usage | Too many parallel operations | Limit concurrent tool executions |
+
+    <Tip>
+    Delegate exploratory tasks to @Explorer subagent to preserve main context.
+    </Tip>
+  </Tab>
+</Tabs>
+
+---
+
+## Tool-Specific Issues
+
+<Tabs>
+  <Tab title="file_edit Failures">
+    ### file_edit Failures
+
+    **Error:** "Failed to find exact match"
+
+    **Causes:**
+    - Text changed since last file_read
+    - Whitespace differences (tabs vs spaces)
+    - String not unique in file
+
+    **Solutions:**
+    ```bash
+    # 1. Read file again to get current state
+    file_read("file.js")
+
+    # 2. Use larger context string for uniqueness
+    file_edit("file.js",
+      old_string="function foo() {\n  return 42;\n}",
+      new_string="...")
+
+    # 3. For multiple identical strings, use replace_all
+    file_edit("file.js", old_string="TODO", new_string="DONE", replace_all=true)
+    ```
+
+    <Warning>
+    Always read the file immediately before editing to ensure you have the current state.
+    </Warning>
+  </Tab>
+
+  <Tab title="bash Failures">
+    ### bash Command Failures
+
+    **Error:** Command timeout or execution failure
+
+    **Maximum Timeout:** 120 seconds (2 minutes, hard limit)
+
+    **Solution:** Break long commands into smaller operations:
+    ```bash
+    # Instead of one long command, break into steps
+    bash("step1")  # Completes in < 2min
+    bash("step2")  # Completes in < 2min
+    ```
+
+    **Command not found:**
+    - Check if command exists: `bash("which command-name")`
+    - Ensure correct path or activate environment first
+    - Use full paths for executables
+
+    **Permission errors:**
+    - Commands execute with user permissions
+    - Use `sudo` only if necessary and in Manual Accept Mode
+    - Check file/directory permissions
+  </Tab>
+
+  <Tab title="Search Issues">
+    ### Search Returning No Results
+
+    **Issue:** grep_file or glob not finding expected files
+
+    **Check pattern syntax:**
+    ```bash
+    # Wrong
+    grep_file("*.ts")  # Missing ** for recursive
+
+    # Correct
+    grep_file("**/*.ts")  # Recursive search
+    ```
+
+    **Check exclusions:**
+    ```bash
+    # Ensure not accidentally excluding target files
+    glob("**/*.js", exclude=["**/dist/**", "**/node_modules/**"])
+    ```
+
+    **Case sensitivity:**
+    ```bash
+    # Use case-insensitive search if needed
+    grep_content("pattern", case_insensitive=true)
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Subagent & Configuration Issues
+
+<Tabs>
+  <Tab title="Subagent Not Invoking">
+    ### Subagent Not Invoking
+
+    **Problem:** Custom subagent doesn't activate automatically
+
+    **Checklist:**
+    - [ ] File location: `~/.verdent/subagents/[name].md`
+    - [ ] Valid YAML frontmatter with `name` and `description`
+    - [ ] Invocation policy matches usage (strict requires @-mention)
+    - [ ] "When to use" guidelines match request pattern
+    - [ ] No syntax errors in markdown file
+
+    **Test manually:**
+    ```
+    @subagent-name perform task
+    ```
+
+    <Tip>
+    Use explicit @-mention to verify the subagent works before troubleshooting automatic invocation.
+    </Tip>
+  </Tab>
+
+  <Tab title="Built-in Subagents">
+    ### Built-in Subagent Behavior
+
+    **Issue:** @Explorer, @Verifier, or @Code-reviewer not behaving as expected
+
+    **Common causes:**
+    - Request does not match subagent's specialization
+    - Subagent context full (rare)
+    - Main conversation context affecting routing
+
+    **Solution:**
+    - Use explicit @-mention to force specific subagent
+    - Rephrase request to match subagent expertise
+    - Start fresh conversation if context is an issue
+  </Tab>
+
+  <Tab title="AGENTS.md Rules">
+    ### AGENTS.md Not Applied
+
+    **Problem:** Project rules not affecting Verdent behavior
+
+    **Diagnostic:**
+    1. **Location:** File must be in project root directory
+    2. **Syntax:** Valid Markdown (check for syntax errors)
+    3. **Specificity:** Rules must be directive: "Always use X" not "Try to use X"
+    4. **Testing:** Start new conversation to test fresh application
+
+    **Precedence check:**
+    ```markdown
+    # In AGENTS.md (highest priority)
+    - Use 4-space indentation
+
+    # In user_rules.md (lower priority)
+    - Use 2-space indentation
+
+    # Result: 4-space indentation (AGENTS.md wins)
+    ```
+  </Tab>
+
+  <Tab title="MCP Connection">
+    ### MCP Connection Failures
+
+    **Error:** Cannot connect to MCP server
+
+    **Diagnostic steps:**
+    1. **Check mcp.json:** Valid JSON syntax in `~/.verdent/mcp.json`
+    2. **Server running:** Ensure MCP server process is active
+    3. **Network:** Verify connectivity to server endpoint
+    4. **Authentication:** Confirm credentials are correct
+    5. **Logs:** Check MCP server logs for error details
+
+    **Common fixes:**
+    - Restart MCP server
+    - Verify connection string format
+    - Check firewall rules allowing MCP traffic
+    - Validate API keys or tokens
+  </Tab>
+</Tabs>
+
+---
 
 ## Known Issues & Workarounds
 
-[Content to be added]
+<Tabs>
+  <Tab title="Binary Files">
+    ### Binary File Limitations
+
+    **Issue:** Cannot edit images, PDFs, compiled binaries
+
+    **Workaround:**
+    ```bash
+    # Use bash to call external tools
+    bash("convert input.png -resize 50% output.png")
+    bash("pdftotext document.pdf output.txt")
+    ```
+
+    <Info>
+    Binary file modifications require external tools invoked via bash commands.
+    </Info>
+  </Tab>
+
+  <Tab title="Large Files">
+    ### Large File Handling
+
+    **Issue:** Files over 10,000 lines cause context issues
+
+    **Workaround:**
+    ```bash
+    # Always use line ranges for large files
+    file_read("large.log", start_line=1000, max_lines=100)
+
+    # Search first to find relevant sections
+    grep_content("ERROR", glob="large.log")
+    ```
+
+    <Tip>
+    Search with grep_content first to locate relevant line numbers, then read only those specific ranges.
+    </Tip>
+  </Tab>
+
+  <Tab title="Platform Differences">
+    ### Cross-Platform Command Differences
+
+    **Issue:** bash commands differ between Windows and Unix
+
+    **Workaround:**
+    ```bash
+    # Use cross-platform tools when possible
+    bash("npm run build")  # Works everywhere
+
+    # Or conditional execution
+    bash("if [[ \"$OSTYPE\" == \"linux-gnu\"* ]]; then ...; fi")
+    ```
+
+    **Best practice:** Use npm scripts for cross-platform compatibility.
+  </Tab>
+</Tabs>
+
+---
+
+## Getting Additional Help
+
+### Support Channels
+
+**For specific issues not covered here:**
+- **Email:** support@verdent.ai
+- **Discord:** [Join the Verdent community](https://discord.com/invite/NGjXEZcbJq) for real-time support
+- **GitHub Issues:** Report bugs or request features
+
+**When reporting issues, include:**
+1. Verdent version (from Extensions panel)
+2. VS Code version
+3. Operating system
+4. Error messages (exact text)
+5. Steps to reproduce
+6. Expected vs actual behavior
+
+---
+
+### Diagnostic Information Collection
+
+**To help support diagnose:**
+
+```bash
+# VS Code version
+bash("code --version")
+
+# System info
+bash("uname -a")  # Unix
+bash("systeminfo")  # Windows
+
+# Verdent logs location
+# Check VS Code Output panel → Verdent
+```
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="FAQs" icon="circle-question" href="/verdent-for-vscode/help-support/faqs">
+    Frequently asked questions
+  </Card>
+  <Card title="Limitations" icon="triangle-exclamation" href="/verdent-for-vscode/help-support/limitations">
+    Known limitations and constraints
+  </Card>
+</CardGroup>

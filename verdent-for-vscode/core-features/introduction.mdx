@@ -1,0 +1,474 @@
+---
+title: Core Features
+description: Overview of Verdent's AI-powered development capabilities
+---
+
+Verdent for VS Code combines advanced AI capabilities with professional development workflows. This guide introduces the core features that enable AI-assisted coding, from requirement engineering through automated quality assurance.
+
+### What You'll Learn
+
+- Core workflow capabilities (Clear Mode, Blueprint, Code Diff, Verify Loop)
+- Context awareness and specialized sub-agents
+- Collaboration modes and extensibility
+
+---
+
+## Core Workflow Features
+
+<CardGroup cols={2}>
+  <Card title="Clear Mode" icon="crosshairs">
+    Precision control over AI workflows through natural language, visual requirements, and interactive demos
+  </Card>
+  <Card title="Blueprint" icon="diagram-project">
+    Transform ideas into production-ready implementation plans with intelligent requirement clarification
+  </Card>
+  <Card title="Code Diff" icon="code-compare">
+    Enterprise-grade code review with natural language summaries and senior engineer-level analysis
+  </Card>
+  <Card title="Verify Loop" icon="circle-check">
+    Automated quality assurance with configurable verification and continuous validation
+  </Card>
+</CardGroup>
+
+---
+
+## Clear Mode: Precision Control Over AI Workflows
+
+Clear Mode provides granular control over agent behavior and acceptance criteria through multiple input modalities:
+
+#### Multi-Modal Specification
+
+<Tabs>
+  <Tab title="Natural Language">
+    Express requirements, constraints, and acceptance criteria in plain English:
+
+    - Rich contextual understanding of technical and business requirements
+    - Supports complex, multi-layered specifications
+    - Natural conversation flow for requirement definition
+  </Tab>
+
+  <Tab title="Visual Requirements">
+    Upload UI mockups, design screenshots, or reference implementations:
+
+    - Pixel-perfect recreation from visual specifications
+    - Supports multiple image formats for design communication
+    - Visual context for UI/UX implementation
+  </Tab>
+
+  <Tab title="Interactive Demos">
+    Share working examples or prototypes:
+
+    - Communicate behavior and user experience expectations
+    - Demonstrate complex interactions and workflows
+    - Live examples for clearer requirement communication
+  </Tab>
+</Tabs>
+
+This multi-modal approach ensures complex requirements, especially UI/UX specifications, are captured accurately without ambiguity.
+
+---
+
+## Blueprint: Professional Requirement Engineering
+
+The Blueprint system transforms informal ideas into production-ready implementation plans through structured, collaborative processes.
+
+#### Intelligent Requirement Clarification
+
+Verdent engages as a technical partner:
+
+<Tabs>
+  <Tab title="Exploratory Dialogue">
+    Multi-turn conversations to uncover implicit requirements:
+
+    - Edge case identification and technical constraint discovery
+    - Proactive ambiguity resolution before implementation
+    - Iterative refinement through collaborative discussion
+  </Tab>
+
+  <Tab title="Domain Expertise">
+    Applies software engineering best practices:
+
+    - Suggests optimal approaches, design patterns, and technology choices
+    - Presents trade-off analysis with pros/cons for informed decision-making
+    - Recommends industry-standard solutions and frameworks
+  </Tab>
+</Tabs>
+
+#### Professional Blueprint Generation
+
+Comprehensive, developer-ready blueprints include:
+
+<Steps>
+  <Step title="Requirement Overview">
+    High-level summary of goals, scope, and success criteria to establish project direction.
+  </Step>
+
+  <Step title="Task Breakdown">
+    Hierarchical list with dependencies and priorities to organize implementation workflow.
+  </Step>
+
+  <Step title="Technical Design">
+    Detailed specification including:
+    - System architecture diagrams
+    - Component structure and relationships
+    - Data models and API contracts
+    - UI/UX specifications with visual mockups
+    - Technology stack justification
+  </Step>
+</Steps>
+
+**Format:**
+- Rich, interactive documents with collapsible sections
+- Embedded diagrams (sequence diagrams, architecture diagrams, flowcharts)
+- Code snippets and pseudocode for critical logic
+- Links to relevant documentation and resources
+
+#### Inline Editing and Iterative Refinement
+
+Blueprints are living documents:
+
+- **Contextual Selection** - Highlight specific sections for focused discussion
+- **Targeted Modifications** - Request changes without disrupting overall plan
+- **Q&A Integration** - Ask clarifying questions with answers integrated inline
+- **Version Tracking** - Review change history to understand requirement evolution
+
+#### Persistence and Reusability
+
+- **Local Storage** - Save blueprints as markdown files for version control
+- **Modular Composition** - Reference and combine blueprints across projects
+- **Template Library** - Build reusable patterns for common scenarios (CRUD, API integrations, UI components)
+
+---
+
+## Code Diff: Professional Code Review Workflow
+
+Enterprise-grade change management and review capabilities ensure transparent, traceable, high-quality modifications.
+
+#### Natural Language Diff Summaries
+
+Understand changes before diving into code:
+
+- **Change Localization** - Lists all modified files with context
+- **Logic Summarization** - Explains what changed and why in plain English
+- **Impact Analysis** - Highlights downstream effects on documentation, APIs, and dependent code
+
+#### Senior Engineer-Level Code Review
+
+Multi-dimensional code analysis:
+
+**Quality Checks:**
+- **Correctness** - Logic errors, edge case handling, potential bugs
+- **Performance** - Algorithmic complexity, resource usage, scalability concerns
+- **Security** - Vulnerability scanning (injection attacks, insecure dependencies, credential exposure)
+- **Maintainability** - Code clarity, documentation, adherence to project conventions
+- **Test Coverage** - Identification of untested code paths and missing test cases
+
+**Review Output:**
+- Categorized findings (Critical / Major / Minor)
+- Specific line references with suggested fixes
+- Explanations of why changes are recommended
+- Code snippets demonstrating improvements
+
+#### Interactive Review Acceptance
+
+Navigate and manage changes efficiently:
+
+- **Side-by-Side Diff View** - Visual comparison with syntax highlighting
+- **Quick Actions** - Accept, Reject, Undo, Navigate to file locations
+- **Batch Operations** - Accept/reject multiple related changes simultaneously
+- **Annotation** - Add comments to specific changes for future reference
+
+---
+
+## Verify Loop: Automated Quality Assurance
+
+The Verify Loop validates that implemented code meets specifications through configurable automated verification.
+
+#### Configurable Automated Verification
+
+<Tabs>
+  <Tab title="Verification Scope">
+    Choose validation coverage:
+
+    - Full codebase scan
+    - Modified files only (code diff)
+    - Specific modules or features
+  </Tab>
+
+  <Tab title="Verification Tools">
+    Integrate existing tools:
+
+    - Linters: ESLint, Pylint, Rubocop
+    - Type Checkers: TypeScript compiler, mypy, Flow
+    - Formatters: Prettier, Black, gofmt
+    - Security Scanners: npm audit, Snyk, Bandit
+  </Tab>
+
+  <Tab title="Test Execution">
+    Run comprehensive tests:
+
+    - Unit tests (Jest, pytest, JUnit)
+    - Integration tests
+    - End-to-end tests (Playwright, Cypress)
+    - Performance benchmarks
+  </Tab>
+</Tabs>
+
+**Model Selection:** Choose AI models for intelligent test generation and failure analysis (fast/cheap vs. thorough/expensive).
+
+#### HAI (Human-AI) Loop: Continuous Improvement
+
+The HAI Loop creates a feedback cycle that refines both code and requirements:
+
+<Steps>
+  <Step title="Blueprint Definition">
+    Define requirements, acceptance criteria, and project specifications in a structured blueprint document.
+  </Step>
+
+  <Step title="Test Case Generation">
+    Generate test cases automatically from acceptance criteria defined in the blueprint.
+  </Step>
+
+  <Step title="Implementation">
+    Write code to implement the features specified in the blueprint.
+  </Step>
+
+  <Step title="Test Code Generation">
+    Generate unit and integration tests to validate the implementation.
+  </Step>
+
+  <Step title="Automated Test Execution">
+    Run all generated tests automatically to verify code correctness.
+  </Step>
+
+  <Step title="Results Analysis">
+    Analyze test results and determine next steps:
+    - **Pass**: Implementation complete
+    - **Fail**: Update blueprint or code and repeat the loop
+  </Step>
+</Steps>
+
+**Benefits:**
+- **Specification Alignment** - Ensures code matches blueprint intent
+- **Regression Prevention** - Auto-generated tests become permanent safeguards
+- **Documentation Sync** - Test cases serve as executable documentation
+- **Continuous Validation** - Re-run on every change to catch breakages early
+
+---
+
+## Additional Capabilities
+
+### Context Awareness: Deep Codebase Understanding
+
+Verdent's context management system enables comprehensive project comprehension:
+
+#### Massive Context Window
+- **1M Token Capacity** - Ingest entire medium-sized codebases (~750,000 words or 3,000+ files)
+- **Smart Context Loading** - Automatically prioritizes relevant files based on task context
+- **Sub-Agent Context Optimization** - Delegates specialized tasks to focused sub-agents
+
+#### Adaptive Learning
+- **Convention Detection** - Learns project-specific patterns (naming, file organization, error handling)
+- **Style Mimicry** - Generates code matching existing style (indentation, brace placement, comments)
+- **Library Awareness** - Recognizes frameworks in use, preferring them over new dependencies
+
+#### Cross-File Coherence
+- **Dependency Tracking** - Understands imports, exports, and module relationships
+- **Impact Prediction** - Identifies components affected by proposed changes
+- **Consistency Enforcement** - Ensures modifications align with existing architecture
+
+---
+
+### Specialized Sub-Agents: Division of Labor
+
+Verdent orchestrates specialized AI agents optimized for specific development tasks:
+
+<Tabs>
+  <Tab title="Explorer Agent">
+    **Purpose:** Fast, evidence-based codebase navigation and analysis
+
+    **Capabilities:**
+    - **Pattern Matching** - Locate files using glob patterns (e.g., all TypeScript files, backend API files)
+    - **Semantic Search** - Find code by functionality (e.g., "where is authentication middleware implemented?")
+    - **Multi-Location Synthesis** - Aggregate information from multiple files
+
+    **Thoroughness Levels:**
+    - **Quick:** Basic pattern matching for fast answers
+    - **Medium:** Broader search with contextual confirmation
+    - **Very Thorough:** Exhaustive scan with variant checking and cross-references
+
+    **Use Cases:** "Find all database query functions", "Locate configuration loading logic", "How does the app handle errors?"
+  </Tab>
+
+  <Tab title="Verifier Agent">
+    **Purpose:** Rapid code quality checks and validation
+
+    **Capabilities:**
+    - **Lint Checks** - ESLint, Pylint, Rubocop, etc.
+    - **Type Validation** - TypeScript, mypy, Flow type checking
+    - **Fast Test Execution** - Targeted unit tests with under 30s budget
+    - **Diff-Focused Verification** - Validate only changed code for efficiency
+
+    **Fail-Fast Philosophy:** Returns structured error reports on first real issue, avoiding time waste
+
+    **Use Cases:** Pre-commit checks, post-fix validation, quick sanity tests
+  </Tab>
+
+  <Tab title="Code Reviewer Agent">
+    **Purpose:** Comprehensive code quality, security, and maintainability audits
+
+    **Capabilities:**
+    - **Security Analysis** - Vulnerability scanning, credential exposure detection, injection risk assessment
+    - **Architecture Review** - Design pattern validation, SOLID principle adherence, anti-pattern detection
+    - **Performance Analysis** - Algorithmic complexity, resource leaks, optimization opportunities
+    - **Documentation Completeness** - Comment quality, API documentation, README accuracy
+
+    **Review Depth:** More thorough than Verifier, suitable for pre-merge PR reviews
+
+    **Use Cases:** Feature completion review, security audit, refactoring validation
+  </Tab>
+</Tabs>
+
+---
+
+### Flexible Collaboration Modes
+
+Choose the level of autonomy that fits your workflow:
+
+- **Auto Run Mode** - Executes tasks autonomously while notifying you of potentially risky actions
+- **Manual Accept Mode** - Requires your approval for every change before execution
+- **Skip Permissions Mode** - Fully autonomous execution, including risky operations (advanced users only)
+
+See [Execution Modes & Permissions](/verdent-for-vscode/execution-modes/overview) for detailed mode documentation.
+
+---
+
+### MCP (Model Context Protocol) Integration
+
+Enables interoperability with external tools and services:
+
+- Extends functionality through existing toolchains and custom plugins
+- Works seamlessly with sub-agents to support distributed task execution
+- Supports integration with external APIs, databases, and development tools
+
+See [Integration & Extensions](/verdent-for-vscode/advanced-features/integrations) for MCP setup and configuration.
+
+---
+
+### Additional Features
+
+<Tabs>
+  <Tab title="Auto Model Selection">
+    **Intelligent Model Optimization:**
+
+    Verdent automatically selects the most suitable AI model for each task based on complexity, performance requirements, and cost considerations.
+
+    **Features:**
+    - **Task Analysis** - Evaluates task complexity to determine optimal model
+    - **Performance Balancing** - Weighs speed, accuracy, and cost trade-offs
+    - **Context-Aware Selection** - Adjusts model choice based on project size and requirements
+    - **Cost Optimization** - Uses lighter models for simple tasks, reserves powerful models for complex operations
+
+    **Benefits:** Maximizes efficiency while minimizing credit usage, ensuring you get the best results without overspending.
+  </Tab>
+
+  <Tab title="Context Referencing">
+    **Precise Context Control:**
+
+    Attach specific files, folders, or code sections directly in chat using `@` mentions to provide targeted context for AI assistance.
+
+    **How It Works:**
+    - Type `@` in chat to see a list of available files and folders
+    - Select specific files to include in the conversation context
+    - Reference entire directories for broader context
+    - Mention specific code sections or documentation pages
+
+    **Use Cases:**
+    - Focus AI on specific modules when debugging
+    - Include configuration files when discussing setup
+    - Reference related components when implementing features
+    - Provide documentation context for accurate guidance
+  </Tab>
+
+  <Tab title="Visual Support">
+    **Multi-Modal Input:**
+
+    Upload or paste images directly into chat to communicate visual requirements, UI designs, or debugging scenarios.
+
+    **Supported Use Cases:**
+    - **UI/UX Design** - Upload mockups, wireframes, or design screenshots for pixel-perfect implementation
+    - **Bug Reports** - Share error screenshots or visual glitches for faster diagnosis
+    - **Frontend Development** - Provide design references for accurate styling and layout
+    - **Documentation** - Include diagrams, flowcharts, or architecture visualizations
+
+    **Technical Specifications:**
+    - **Supported Formats:** PNG, JPG, JPEG, GIF, BMP, WebP
+    - **Maximum Resolution:** 2000×2000 pixels
+    - **File Size Limit:** 5MB (automatically compressed if exceeded; error if still >5MB after compression)
+
+    **Benefits:** Eliminates ambiguity in visual requirements and accelerates frontend development workflows.
+  </Tab>
+
+  <Tab title="Project History">
+    **Session Management:**
+
+    Access and manage your conversation history to review past interactions, decisions, and implementation details.
+
+    **Features:**
+    - **Session Logs** - Complete record of all conversations and AI responses
+    - **Repository Storage** - Logs saved alongside your project for easy access and version control
+    - **Session Clearing** - Clear history when starting fresh or switching contexts
+    - **Decision Trail** - Review reasoning behind past implementation choices
+
+    **Benefits:** Maintain continuity across sessions, audit AI recommendations, and track project evolution over time.
+  </Tab>
+
+  <Tab title="User Center">
+    **Account Management:**
+
+    Centralized hub for managing your Verdent account, credits, and plugin settings.
+
+    **Available Controls:**
+    - **Credit Tracking** - Monitor daily credit usage and remaining balance
+    - **Account Information** - View current subscription plan and profile details
+    - **Sign-Out Management** - Securely log out from the plugin or switch accounts
+    - **Usage Monitoring** - Track credit consumption patterns
+
+    **Access:** Available through the Verdent sidebar in VS Code.
+  </Tab>
+
+  <Tab title="Feedback">
+    **Product Improvement:**
+
+    Submit feedback, bug reports, and feature requests directly from VS Code to help improve Verdent.
+
+    **Feedback Options:**
+    - **Text Notes** - Describe issues, suggestions, or experiences in a simple text box
+    - **Direct Submission** - Send feedback without leaving your development environment
+    - **Email Responses** - Receive follow-up communication via email
+
+    **What to Report:**
+    - Bugs or unexpected behavior
+    - Feature requests or workflow improvements
+    - Documentation gaps or unclear instructions
+    - Performance issues or errors
+
+    **Impact:** Your feedback directly influences Verdent's development roadmap and helps create a better experience for all users.
+  </Tab>
+</Tabs>
+
+---
+
+## See Also
+
+<CardGroup cols={3}>
+  <Card title="Getting Started" icon="rocket" href="/verdent-for-vscode/getting-started/quick-start">
+    Start using Verdent in minutes
+  </Card>
+  <Card title="Subagent Management" icon="users" href="/verdent-for-vscode/agents-rules/subagent-management">
+    Configure specialized sub-agents
+  </Card>
+  <Card title="Plan-First Workflows" icon="clipboard-list" href="/verdent-for-vscode/configuration/plan-workflows">
+    Review implementation plans before execution
+  </Card>
+</CardGroup>

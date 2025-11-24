@@ -3,6 +3,405 @@ title: Version Control Integration
 description: Working with Git and other version control systems
 ---
 
+Verdent for VS Code integrates seamlessly with Git and other version control systems, enabling natural language version control operations, automated commit message generation, and intelligent branch management. This guide shows you how to leverage Verdent's Git integration for efficient version control workflows.
 
+---
 
-[Content to be added]
+## Creating Meaningful Commit Messages
+
+Suppose you've made changes and want Verdent to generate a descriptive commit message.
+
+<Steps>
+  <Step title="Request commit with generated message">
+    ```
+    Stage all changes and create a commit with an appropriate message
+    ```
+
+    Verdent analyzes your changes using git diff.
+  </Step>
+
+  <Step title="Verdent analyzes changes">
+    Verdent examines:
+    - Files modified and their purpose
+    - Nature of changes (new feature, bug fix, refactoring)
+    - Scope of impact
+    - Related functionality
+  </Step>
+
+  <Step title="Generates descriptive commit message">
+    ```bash
+    git commit -m "feat: add user profile image upload with S3 integration
+
+    - Add file upload endpoint to user API
+    - Integrate AWS S3 for image storage
+    - Update user model with profileImage field
+    - Add frontend image upload component with preview"
+    ```
+
+    Message follows conventional commit format and describes what changed.
+  </Step>
+
+  <Step title="Commit is created">
+    Changes are committed with the generated message. You can review the commit:
+
+    ```bash
+    git log -1
+    ```
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Verdent follows conventional commit formats (feat, fix, refactor, docs, etc.)
+  - Commit messages focus on "what" and "why", not "how"
+  - You can customize commit message format in User Rules or Project Rules
+  - Request specific commit message styles: "Create a commit with a detailed multi-line message"
+</Tip>
+
+***
+
+## Customizing Commit Message Formats
+
+Suppose you want Verdent to follow your team's specific commit message conventions.
+
+<Tabs>
+  <Tab title="User Rules (Global)">
+    Define commit message preferences in `user_rules.md` for all projects:
+
+    ```markdown
+    # user_rules.md
+
+    ## Git Commit Messages
+
+    When generating commit messages:
+    - Always include ticket number in format: [PROJ-123]
+    - Use present tense verbs
+    - Maximum 50 characters for first line
+    - Include detailed explanation in body
+    - Add "Co-authored-by" for pair programming sessions
+
+    Example format:
+    [PROJ-123] Add user authentication feature
+
+    Detailed explanation of changes...
+
+    Co-authored-by: Team Member <email@example.com>
+    ```
+
+    Verdent follows these rules globally.
+  </Tab>
+
+  <Tab title="Project Rules">
+    Define project-specific commit conventions in `AGENTS.md`:
+
+    ```markdown
+    # AGENTS.md
+
+    ## Git Commit Conventions
+
+    For this project, use conventional commits with these scopes:
+    - feat(api): API changes
+    - feat(ui): Frontend changes
+    - fix(auth): Authentication fixes
+    - docs(readme): Documentation updates
+
+    Always reference GitHub issue: "Fixes #123" or "Relates to #456"
+    ```
+
+    Rules apply only to this project.
+  </Tab>
+
+  <Tab title="Inline Instructions">
+    Provide one-time instructions directly:
+
+    ```
+    Create a commit with message format: "[TICKET-NUMBER] description" including reference to issue #42
+    ```
+
+    Verdent generates:
+    ```bash
+    git commit -m "[PROJ-42] Add search functionality
+
+    Relates to #42"
+    ```
+  </Tab>
+</Tabs>
+
+<Tip>
+  **Tips:**
+  - User Rules apply globally across all projects
+  - Project Rules (AGENTS.md) override User Rules for specific projects
+  - Inline instructions override both for one-time needs
+  - Conventional Commits format is recommended for consistency
+</Tip>
+
+***
+
+## Creating Pull Requests
+
+Suppose you want Verdent to create a comprehensive pull request.
+
+<Steps>
+  <Step title="Ensure changes are committed">
+    ```
+    Make sure all my changes are committed
+    ```
+
+    Verdent checks git status and commits any uncommitted changes.
+  </Step>
+
+  <Step title="Push branch to remote">
+    ```
+    Push this branch to origin
+    ```
+
+    Verdent pushes:
+    ```bash
+    git push origin feature/user-notifications
+    ```
+  </Step>
+
+  <Step title="Request PR creation">
+    ```
+    Create a pull request for this feature
+    ```
+
+    Verdent uses `gh` CLI to create PR.
+  </Step>
+
+  <Step title="Verdent generates PR description">
+    Verdent analyzes commits and changes to generate:
+
+    **Title:** Add user notification system
+
+    **Body:**
+    ```markdown
+    ## Summary
+    - Implements real-time user notifications
+    - Adds WebSocket support for instant delivery
+    - Includes email fallback for offline users
+    - Comprehensive test coverage
+
+    ## Test Plan
+    - [ ] Test real-time notifications in browser
+    - [ ] Verify email fallback for offline users
+    - [ ] Check notification persistence across sessions
+    - [ ] Test with multiple concurrent users
+
+    ## Changes
+    - Added NotificationService with WebSocket integration
+    - Created notification UI components
+    - Integrated SendGrid for email notifications
+    - Added notification preferences to user settings
+    ```
+
+    The PR is created with a comprehensive description.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Verdent analyzes all commits in the branch to generate PR description
+  - Request specific PR formats: "Create a PR with detailed test plan"
+  - Include screenshots: "Add this screenshot to the PR description"
+  - You can refine PR description before creation: "Update the PR to mention the breaking change"
+</Tip>
+
+***
+
+## Resolving Merge Conflicts
+
+Suppose you encounter merge conflicts and need Verdent's help resolving them.
+
+<Steps>
+  <Step title="Attempt merge">
+    ```
+    Merge main into this feature branch
+    ```
+
+    Merge conflict occurs:
+    ```bash
+    Auto-merging src/auth.ts
+    CONFLICT (content): Merge conflict in src/auth.ts
+    ```
+  </Step>
+
+  <Step title="Request conflict resolution">
+    ```
+    Help me resolve the merge conflict in src/auth.ts
+    ```
+
+    Verdent reads the conflict markers.
+  </Step>
+
+  <Step title="Verdent analyzes both versions">
+    Verdent examines:
+    - Current branch changes (HEAD)
+    - Incoming changes (main branch)
+    - Context around conflicts
+    - Intent of both changes
+  </Step>
+
+  <Step title="Verdent proposes resolution">
+    ```
+    The conflict is between your JWT implementation and the main branch's session-based auth. I'll merge both approaches to support both authentication methods.
+    ```
+
+    Verdent resolves the conflict by integrating both changes intelligently.
+  </Step>
+
+  <Step title="Mark conflict as resolved">
+    ```bash
+    git add src/auth.ts
+    git commit -m "Merge main into feature/jwt-auth, resolved conflicts"
+    ```
+
+    The conflict is resolved and the merge is complete.
+  </Step>
+</Steps>
+
+<Tip>
+  **Tips:**
+  - Verdent understands code context to resolve conflicts intelligently
+  - Always review conflict resolutions before committing
+  - For complex conflicts, ask Verdent to explain both versions first
+  - Test thoroughly after resolving conflicts
+</Tip>
+
+<Tip>
+Verdent analyzes merge conflicts by understanding both branches' intent, suggesting resolutions that preserve functionality from both sides.
+</Tip>
+
+***
+
+## Managing Branches and Tags
+
+Suppose you need to manage branches and create release tags.
+
+<Tabs>
+  <Tab title="Branch Operations">
+    **Create and switch branches:**
+
+    ```
+    Create a new branch called feature/user-notifications
+    ```
+
+    Verdent executes:
+
+    <CodeGroup>
+    ```bash "Create New Branch"
+    git checkout -b feature/user-notifications
+    ```
+
+    ```bash "Switch to Existing Branch"
+    git checkout main
+    ```
+
+    ```bash "Create and Push Branch"
+    git checkout -b feature/payment-integration
+    git push -u origin feature/payment-integration
+    ```
+    </CodeGroup>
+  </Tab>
+
+  <Tab title="Merging">
+    **Merge feature branches:**
+
+    ```
+    Merge the feature/user-notifications branch into main
+    ```
+
+    Verdent performs the merge workflow:
+    ```bash
+    git checkout main
+    git pull origin main
+    git merge feature/user-notifications
+    git push origin main
+    ```
+
+    Verdent ensures main is up-to-date before merging.
+  </Tab>
+
+  <Tab title="Tagging Releases">
+    **Create annotated tags:**
+
+    ```
+    Create an annotated tag for version 1.2.0 with release notes
+    ```
+
+    Verdent creates detailed tag:
+    ```bash
+    git tag -a v1.2.0 -m "Release 1.2.0
+
+    New Features:
+    - User notification system
+    - Email integration
+    - Real-time WebSocket support
+
+    Bug Fixes:
+    - Fixed authentication timeout issue
+    - Resolved cart calculation bug"
+    ```
+
+    **Push tags:**
+
+    ```
+    Push all tags to origin
+    ```
+
+    Verdent pushes:
+    ```bash
+    git push origin --tags
+    ```
+  </Tab>
+</Tabs>
+
+<Tip>
+  **Tips:**
+  - Use descriptive branch names: `feature/user-auth`, `fix/cart-bug`, `refactor/api-layer`
+  - Always pull latest changes before merging
+  - Use annotated tags for releases (they include metadata)
+  - Follow semantic versioning: v1.2.3 (major.minor.patch)
+</Tip>
+
+<Tip>
+Consistent branch naming conventions help Verdent understand your workflow—define patterns in AGENTS.md for automatic compliance.
+</Tip>
+
+***
+
+## Frequently Asked Questions
+
+<Accordion title="Does Verdent automatically commit my changes?">
+No. Verdent only creates commits when you explicitly request them. You maintain full control over when changes are committed. Simply ask "Stage all changes and create a commit" when you're ready.
+</Accordion>
+
+<Accordion title="Can I edit the commit message before committing?">
+Yes. You can ask Verdent to revise the commit message before it's created. Say "Update the commit message to mention the breaking change" or "Make that commit message more concise." Verdent will regenerate the message based on your feedback.
+</Accordion>
+
+<Accordion title="Does Verdent work with GitHub, GitLab, Bitbucket, and other Git platforms?">
+Yes. Verdent uses standard Git commands, so it works with any Git repository regardless of hosting platform. For creating pull requests, Verdent uses the `gh` CLI which requires GitHub, but all other Git operations work universally.
+</Accordion>
+
+<Accordion title="Will Verdent push to remote repositories without asking?">
+No. Verdent only pushes to remote repositories when you explicitly request it. All Git operations (commit, push, merge, rebase) require your explicit instruction for safety.
+</Accordion>
+
+<Accordion title="Can Verdent resolve all types of merge conflicts?">
+Verdent can resolve most text-based merge conflicts by understanding code context and intent. Binary file conflicts or very complex multi-way conflicts may require manual intervention. Always review Verdent's conflict resolution before committing.
+</Accordion>
+
+***
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Multi-Step Task Examples" icon="list-check" href="/verdent-for-vscode/common-workflows/multi-step-tasks">
+    Complex multi-step workflows and task management
+  </Card>
+
+  <Card title="Writing New Code" icon="code" href="/verdent-for-vscode/task-based-guides/writing-code">
+    Creating new features and components with Verdent
+  </Card>
+</CardGroup>
