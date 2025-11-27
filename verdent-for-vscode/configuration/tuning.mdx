@@ -20,18 +20,18 @@ Optimize Verdent for VS Code to balance speed, cost, and thoroughness based on y
 
 Choose the appropriate model preset based on task complexity and budget:
 
-| Preset | Cost | Requests per 100 Credits | Best For |
-|--------|------|--------------------------|----------|
-| **Efficiency** | ~0.3x Balance (70% reduction) | ~450 requests | Simple tasks, quick fixes, rapid prototyping |
-| **Balance** (Default) | 1x baseline | ~140 requests | General development tasks, everyday coding |
-| **Performance** | 1-2x Balance | ~70 requests (1M context) | Complex architectural decisions, intricate refactoring |
+| Preset | Cost | Cost Efficiency | Best For |
+|--------|------|----------------|----------|
+| **Efficiency** | ~0.3x Balance (70% reduction) | 3.2x more efficient than Sonnet | Simple tasks, quick fixes, rapid prototyping |
+| **Balance** (Default) | 1x baseline | 1x baseline | General development tasks, everyday coding |
+| **Performance** | 1-2x Balance | 0.5x efficiency (2x cost, 1M context) | Complex architectural decisions, intricate refactoring |
 
 **Additional Models:**
 
-- **Claude-4.5-haiku:** Fastest, most economical (~450 requests per 100 credits)
-- **Claude-4.5-sonnet:** Balanced general-purpose model (~140 requests per 100 credits)
-- **Claude-4.5-sonnet-1m:** Extended context for complex tasks (~70 requests per 100 credits when input exceeds 200k tokens)
-- **GPT-5 / GPT-5-codex:** Reasoning and creativity focus (Beta, ~186 requests per 100 credits)
+- **Claude-4.5-sonnet:** Balanced general-purpose model (1x baseline)
+- **Claude-4.5-sonnet-1m:** Extended context for complex tasks (0.5x efficiency, 2x cost when input exceeds 200k tokens)
+- **Claude-4.5-haiku:** Fastest, most economical (3.2x more efficient than Sonnet)
+- **GPT-5 / GPT-5-codex:** Reasoning and creativity focus (Beta, 1.3x more efficient than Sonnet)
 - **Minimax-m2:** Fast and cost-effective (Beta, free until November 10th)
 
 ### Execution Mode Configuration

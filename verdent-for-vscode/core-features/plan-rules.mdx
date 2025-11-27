@@ -1,0 +1,165 @@
+---
+title: Plan Rules
+description: Customize how clarifications and plans are presented based on your role and professional background
+---
+
+Plan Rules supports the **Plan** phase by personalizing how Verdent presents requirements, clarifications, and implementation plans. Use built-in role-based templates as starting points or create fully custom rules that match your thinking style and work habits.
+
+### What You'll Learn
+
+- How Plan Rules customize plan presentation
+- Built-in role templates (Frontend, Test, Product Manager)
+- Creating custom plan rules
+- When plan rules are applied
+
+---
+
+## What Plan Rules Can Customize
+
+Plan Rules control how Verdent presents plans in Plan Mode:
+
+<Tabs>
+  <Tab title="Presentation Format">
+    - **Summary-detail-summary** - Executive summary upfront, detailed steps in middle, impact summary at end
+    - **Diagram-first** - Visual representation leads, text provides supporting details
+    - **Tabular vs narrative** - Structured tables for scannable data, prose for contextual explanations
+    - **Section ordering** - Customize which sections appear first and define hierarchy
+
+    <Tip>
+    Use summary-detail-summary for stakeholder reviews where quick comprehension matters. Use diagram-first when architectural understanding is critical before diving into implementation.
+    </Tip>
+  </Tab>
+
+  <Tab title="Content Depth">
+    - **High-level strategic** - Focuses on "what" and "why" with minimal technical details
+    - **Detailed technical** - Includes implementation specifics, code patterns, architecture decisions
+    - **Code examples** - Control whether code appears (include/exclude, full vs snippets, diff format)
+    - **Testing content** - Include by default for QA workflows, omit for PM-focused plans
+
+    <Tip>
+    Match content depth to your audience. Use high-level strategic for cross-team collaboration and detailed technical when implementing alone or with senior developers.
+    </Tip>
+  </Tab>
+
+  <Tab title="Visual Elements">
+    - **Mermaid diagrams** - Flowcharts, sequence diagrams, state machines (auto-generated or explicit)
+    - **DOM hierarchy trees** - Component structure in tree-style folder format
+    - **Wireframes** - UI mockups and layout sketches
+    - **Style tables** - CSS specifications with merged cells, organized by component
+
+    <Tip>
+    Mermaid diagrams are auto-generated from plan content when requested. Explicitly ask for specific diagram types in your plan rules if you want them by default.
+    </Tip>
+  </Tab>
+
+  <Tab title="Default Behaviors">
+    - **Omit by default** - Testing, styles, backward compatibility (reduces plan length)
+    - **Required elements** - Acceptance criteria, edge cases, KPIs (ensures production-readiness)
+    - **Clarification preferences** - Multiple rounds vs single confirmation vs no confirmation
+
+    <Tip>
+    Start with omissions to keep plans concise, then add required elements only for what you actually need. You can always request omitted content in specific plan sessions.
+    </Tip>
+  </Tab>
+
+  <Tab title="Role-Specific">
+    - **Frontend** - Visual architecture with diagrams, DOM trees, style tables, omits testing by default
+    - **QA/Test** - Test case tables with coverage matrices, boundary value analysis, traceability
+    - **Product Manager** - Business requirements only, diagrams/wireframes, no code snippets
+
+    <Tip>
+    Start with a role template and customize from there. Most developers use Frontend or QA templates as a base and adjust specific sections to match their workflow.
+    </Tip>
+  </Tab>
+</Tabs>
+
+---
+
+## Role-Based Plan Templates
+
+Verdent provides professional role templates that automatically adjust plan structure, content depth, and presentation style:
+
+<Tabs>
+  <Tab title="Frontend">
+    **Focus:** Technical implementation plans with visual structure
+
+    **Key Characteristics:**
+    - Comprehensive codebase research before planning
+    - Mermaid flowcharts and state diagrams for interaction flows
+    - DOM hierarchy in tree-style folder format
+    - Style tables with merged cells for CSS properties
+    - **Omits:** Testing content and styles by default (unless requested)
+    - **Provides:** Definitive solutions without multiple options
+
+    **Best For:** Frontend developers needing visual architecture and clear implementation paths
+  </Tab>
+
+  <Tab title="Test">
+    **Focus:** Comprehensive test case generation and quality assurance
+
+    **Key Characteristics:**
+    - Goal-oriented test design (business logic, security, stability)
+    - Structured test cases with 9-column Markdown tables
+    - Equivalence classes, boundary values, and key parameters
+    - Full coverage: normal, alternative, exception, and edge cases
+    - Executability focus with automation support
+    - Traceability to requirement points
+
+    **Best For:** QA engineers and test automation specialists needing systematic test coverage
+  </Tab>
+
+  <Tab title="Product Manager (PM)">
+    **Focus:** Product requirements from business perspective
+
+    **Key Characteristics:**
+    - **No code snippets or technical implementation**
+    - Focuses on **what** and **why**, not **how**
+    - Sequence diagrams, flowcharts, and wireframes
+    - Requirement lists with priorities and Before/After comparisons
+    - Edge cases with handling strategies
+    - Data specifications with KPIs and event tracking
+
+    **Best For:** Product managers defining business requirements without technical pollution
+  </Tab>
+</Tabs>
+
+---
+
+## Custom Plan Rules
+
+Create personalized plan rules by defining:
+
+**Rule Components:**
+- **Presentation Style** - Summary-detail-summary, diagram-first, or tabular format
+- **Content Depth** - High-level overview vs detailed implementation
+- **Omissions** - What to exclude by default (testing, styles, backward compatibility)
+- **Required Elements** - Mandatory sections (diagrams, acceptance criteria, data specs)
+- **Interaction Preferences** - Clarification approach, confirmation requirements
+
+<Tip>
+In Plan Mode, click the **Plan Rules** button in the Input Box to quickly access and modify your plan rules.
+</Tip>
+
+**Rule Application:**
+- Applies to all Plan Mode sessions
+- Persists across workspace sessions
+- Can be overridden with inline directives
+- Works with custom subagents
+
+**Learn More:** Create or edit `plan_rules.md` in your workspace to define custom plan rules using Markdown format.
+
+---
+
+## See Also
+
+<CardGroup cols={3}>
+  <Card title="Blueprint" icon="diagram-project" href="/verdent-for-vscode/core-features/blueprint">
+    Transform ideas into implementation plans
+  </Card>
+  <Card title="Clarification Loop" icon="message-dots" href="/verdent-for-vscode/core-features/clarification-loop">
+    Interactive requirement refinement
+  </Card>
+  <Card title="Clear Mode" icon="crosshairs" href="/verdent-for-vscode/core-features/clear-mode">
+    Multi-modal specification
+  </Card>
+</CardGroup>

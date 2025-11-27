@@ -1,0 +1,102 @@
+---
+title: Verify Loop
+description: Automated quality assurance with configurable verification and continuous validation
+---
+
+The Verify Loop is Verdent's **Verify** phase tool, ensuring code meets specifications through automated testing before delivery. The Verify Loop validates that implemented code meets specifications through configurable automated verification.
+
+### What You'll Learn
+
+- Configurable automated verification
+- HAI (Human-AI) Loop continuous improvement
+- Benefits of automated validation
+
+---
+
+## Configurable Automated Verification
+
+<Tabs>
+  <Tab title="Verification Scope">
+    Choose validation coverage:
+
+    - Full codebase scan
+    - Modified files only (code diff)
+    - Specific modules or features
+  </Tab>
+
+  <Tab title="Verification Tools">
+    Integrate existing tools:
+
+    - Linters: ESLint, Pylint, Rubocop
+    - Type Checkers: TypeScript compiler, mypy, Flow
+    - Formatters: Prettier, Black, gofmt
+    - Security Scanners: npm audit, Snyk, Bandit
+  </Tab>
+
+  <Tab title="Test Execution">
+    Run comprehensive tests:
+
+    - Unit tests (Jest, pytest, JUnit)
+    - Integration tests
+    - End-to-end tests (Playwright, Cypress)
+    - Performance benchmarks
+  </Tab>
+</Tabs>
+
+**Model Selection:** Choose AI models for intelligent test generation and failure analysis (fast/cheap vs. thorough/expensive).
+
+---
+
+## HAI (Human-AI) Loop: Continuous Improvement
+
+The HAI Loop creates a feedback cycle that refines both code and requirements:
+
+<Steps>
+  <Step title="Blueprint Definition">
+    Define requirements, acceptance criteria, and project specifications in a structured blueprint document.
+  </Step>
+
+  <Step title="Test Case Generation">
+    Generate test cases automatically from acceptance criteria defined in the blueprint.
+  </Step>
+
+  <Step title="Implementation">
+    Write code to implement the features specified in the blueprint.
+  </Step>
+
+  <Step title="Test Code Generation">
+    Generate unit and integration tests to validate the implementation.
+  </Step>
+
+  <Step title="Automated Test Execution">
+    Run all generated tests automatically to verify code correctness.
+  </Step>
+
+  <Step title="Results Analysis">
+    Analyze test results and determine next steps:
+    - **Pass**: Implementation complete
+    - **Fail**: Update blueprint or code and repeat the loop
+  </Step>
+</Steps>
+
+**Benefits:**
+- **Specification Alignment** - Ensures code matches blueprint intent
+- **Regression Prevention** - Auto-generated tests become permanent safeguards
+- **Documentation Sync** - Test cases serve as executable documentation
+- **Continuous Validation** - Re-run on every change to catch breakages early
+
+---
+
+## See Also
+
+<CardGroup cols={3}>
+  <Card title="Clear Mode" icon="crosshairs" href="/verdent-for-vscode/core-features/clear-mode">
+    Precision control over AI workflows
+  </Card>
+  <Card title="Blueprint" icon="diagram-project" href="/verdent-for-vscode/core-features/blueprint">
+    Transform ideas into implementation plans
+  </Card>
+  <Card title="Code Diff" icon="code-compare" href="/verdent-for-vscode/core-features/code-diff">
+    Enterprise-grade code review workflow
+  </Card>
+</CardGroup>

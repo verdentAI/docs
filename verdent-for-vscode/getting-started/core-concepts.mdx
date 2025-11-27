@@ -3,7 +3,17 @@ title: Core Concepts
 description: Understanding Verdent's architecture and key terminology
 ---
 
-Verdent for VS Code uses a sophisticated subagent architecture that intelligently dispatches tasks to specialized subagents. Understanding these core concepts will help you work more effectively with the extension.
+Verdent for VS Code brings precision and control to AI-powered development. Traditional AI coding tools guess your intent. Verdent lets you see exactly what the AI will do before it executes, verify it works correctly, and deliver reliable code every time.
+
+**Plan First, Verify Early, Deliver Reliable Code**
+
+Verdent's workflow is built around three core phases:
+
+* **Plan** - See what the AI will do before execution. Clarify requirements with Blueprint's interactive architecture plans, task breakdowns, and visual diagrams, customized through Plan Rules
+* **Verify** - Automate quality assurance with Verify Loop. Iterate through multipass repair cycles until code passes comprehensive validation
+* **Code** - Review changes with Code Diff's enterprise-grade analysis and deliver production-ready results with confidence
+
+Understanding these core concepts and Verdent's architecture will help you work more effectively with the extension.
 
 ---
 
@@ -109,13 +119,13 @@ Verdent orchestrates models from multiple AI providers (Claude, GPT-5, Gemini, M
 
 **Individual Models Available:**
 
-| Provider | Model | Best For | Cost |
-|----------|-------|----------|------|
-| Anthropic | Claude 4.5 Sonnet | Balanced complex tasks | ~140 requests/100 credits |
-| Anthropic | Claude 4.5 Sonnet 1M | Long or complex tasks (>200k input) | ~70 requests/100 credits |
-| Anthropic | Claude 4.5 Haiku | Fast, simple tasks | ~450 requests/100 credits |
-| OpenAI | GPT-5 (Beta) | Reasoning and creativity | ~186 requests/100 credits |
-| OpenAI | GPT-5 Codex (Beta) | Coding and debugging | ~186 requests/100 credits |
+| Provider | Model | Best For | Cost Efficiency |
+|----------|-------|----------|-----------------|
+| Anthropic | Claude 4.5 Sonnet | Balanced complex tasks | 1x baseline |
+| Anthropic | Claude 4.5 Sonnet 1M | Long or complex tasks (>200k input) | 0.5x efficiency (2x cost) |
+| Anthropic | Claude 4.5 Haiku | Fast, simple tasks | 3.2x more efficient than Sonnet |
+| OpenAI | GPT-5 (Beta) | Reasoning and creativity | 1.3x more efficient than Sonnet |
+| OpenAI | GPT-5 Codex (Beta) | Coding and debugging | 1.3x more efficient than Sonnet |
 | Google | Gemini 3 Pro | Advanced reasoning and multimodal | Variable |
 | MiniMax | MiniMax M2 (Beta) | Fast and cost-effective | Free until Nov 10th |
 
@@ -142,7 +152,7 @@ The unit of measurement for context windows. Tokens represent pieces of text (wo
 </Accordion>
 
 <Accordion title="What are credits?">
-The usage currency for Verdent. Different models consume different amounts of credits per request. Your subscription includes a monthly credit allotment (e.g., 640 credits for Starter, 2,000 for Pro, 6,000 for Max).
+The usage currency for Verdent. Different models have different cost efficiency (e.g., Haiku is 3.2x more efficient than Sonnet baseline, Sonnet is 1x baseline). Your subscription includes a monthly credit allotment (e.g., 640 credits for Starter, 2,000 for Pro, 6,000 for Max).
 </Accordion>
 
 <Accordion title="What is the Multipass Generate-Test-Repair Cycle?">

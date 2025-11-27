@@ -1,5 +1,5 @@
 ---
-title: Core Features
+title: Overview
 description: Overview of Verdent's AI-powered development capabilities
 ---
 
@@ -13,246 +13,38 @@ Verdent for VS Code combines advanced AI capabilities with professional developm
 
 ---
 
+Verdent's workflow is built around three core phases:
+
+* **Plan** - Clarify requirements with Blueprint and Clear Mode
+* **Verify** - Automate testing with Verify Loop and catch issues early
+* **Code** - Review and refine with Code Diff for reliable delivery
+
+These features work together to ensure precision and control throughout your development process.
+
+---
+
 ## Core Workflow Features
 
 <CardGroup cols={2}>
-  <Card title="Clear Mode" icon="crosshairs">
+  <Card title="Clear Mode" icon="crosshairs" href="/verdent-for-vscode/core-features/clear-mode">
     Precision control over AI workflows through natural language, visual requirements, and interactive demos
   </Card>
-  <Card title="Blueprint" icon="diagram-project">
+  <Card title="Blueprint" icon="diagram-project" href="/verdent-for-vscode/core-features/blueprint">
     Transform ideas into production-ready implementation plans with intelligent requirement clarification
   </Card>
-  <Card title="Code Diff" icon="code-compare">
+  <Card title="Code Diff" icon="code-compare" href="/verdent-for-vscode/core-features/code-diff">
     Enterprise-grade code review with natural language summaries and senior engineer-level analysis
   </Card>
-  <Card title="Verify Loop" icon="circle-check">
+  <Card title="Verify Loop" icon="circle-check" href="/verdent-for-vscode/core-features/verify-loop">
     Automated quality assurance with configurable verification and continuous validation
   </Card>
+  <Card title="Clarification Loop" icon="message-dots" href="/verdent-for-vscode/core-features/clarification-loop">
+    Smarter planning through continuous discussion and refinement of requirements
+  </Card>
+  <Card title="Plan Rules" icon="list-check" href="/verdent-for-vscode/core-features/plan-rules">
+    Customize how clarifications and plans are presented based on your role and professional background
+  </Card>
 </CardGroup>
-
----
-
-## Clear Mode: Precision Control Over AI Workflows
-
-Clear Mode provides granular control over agent behavior and acceptance criteria through multiple input modalities:
-
-#### Multi-Modal Specification
-
-<Tabs>
-  <Tab title="Natural Language">
-    Express requirements, constraints, and acceptance criteria in plain English:
-
-    - Rich contextual understanding of technical and business requirements
-    - Supports complex, multi-layered specifications
-    - Natural conversation flow for requirement definition
-  </Tab>
-
-  <Tab title="Visual Requirements">
-    Upload UI mockups, design screenshots, or reference implementations:
-
-    - Pixel-perfect recreation from visual specifications
-    - Supports multiple image formats for design communication
-    - Visual context for UI/UX implementation
-  </Tab>
-
-  <Tab title="Interactive Demos">
-    Share working examples or prototypes:
-
-    - Communicate behavior and user experience expectations
-    - Demonstrate complex interactions and workflows
-    - Live examples for clearer requirement communication
-  </Tab>
-</Tabs>
-
-This multi-modal approach ensures complex requirements, especially UI/UX specifications, are captured accurately without ambiguity.
-
----
-
-## Blueprint: Professional Requirement Engineering
-
-The Blueprint system transforms informal ideas into production-ready implementation plans through structured, collaborative processes.
-
-#### Intelligent Requirement Clarification
-
-Verdent engages as a technical partner:
-
-<Tabs>
-  <Tab title="Exploratory Dialogue">
-    Multi-turn conversations to uncover implicit requirements:
-
-    - Edge case identification and technical constraint discovery
-    - Proactive ambiguity resolution before implementation
-    - Iterative refinement through collaborative discussion
-  </Tab>
-
-  <Tab title="Domain Expertise">
-    Applies software engineering best practices:
-
-    - Suggests optimal approaches, design patterns, and technology choices
-    - Presents trade-off analysis with pros/cons for informed decision-making
-    - Recommends industry-standard solutions and frameworks
-  </Tab>
-</Tabs>
-
-#### Professional Blueprint Generation
-
-Comprehensive, developer-ready blueprints include:
-
-<Steps>
-  <Step title="Requirement Overview">
-    High-level summary of goals, scope, and success criteria to establish project direction.
-  </Step>
-
-  <Step title="Task Breakdown">
-    Hierarchical list with dependencies and priorities to organize implementation workflow.
-  </Step>
-
-  <Step title="Technical Design">
-    Detailed specification including:
-    - System architecture diagrams
-    - Component structure and relationships
-    - Data models and API contracts
-    - UI/UX specifications with visual mockups
-    - Technology stack justification
-  </Step>
-</Steps>
-
-**Format:**
-- Rich, interactive documents with collapsible sections
-- Embedded diagrams (sequence diagrams, architecture diagrams, flowcharts)
-- Code snippets and pseudocode for critical logic
-- Links to relevant documentation and resources
-
-#### Inline Editing and Iterative Refinement
-
-Blueprints are living documents:
-
-- **Contextual Selection** - Highlight specific sections for focused discussion
-- **Targeted Modifications** - Request changes without disrupting overall plan
-- **Q&A Integration** - Ask clarifying questions with answers integrated inline
-- **Version Tracking** - Review change history to understand requirement evolution
-
-#### Persistence and Reusability
-
-- **Local Storage** - Save blueprints as markdown files for version control
-- **Modular Composition** - Reference and combine blueprints across projects
-- **Template Library** - Build reusable patterns for common scenarios (CRUD, API integrations, UI components)
-
----
-
-## Code Diff: Professional Code Review Workflow
-
-Enterprise-grade change management and review capabilities ensure transparent, traceable, high-quality modifications.
-
-#### Natural Language Diff Summaries
-
-Understand changes before diving into code:
-
-- **Change Localization** - Lists all modified files with context
-- **Logic Summarization** - Explains what changed and why in plain English
-- **Impact Analysis** - Highlights downstream effects on documentation, APIs, and dependent code
-
-#### Senior Engineer-Level Code Review
-
-Multi-dimensional code analysis:
-
-**Quality Checks:**
-- **Correctness** - Logic errors, edge case handling, potential bugs
-- **Performance** - Algorithmic complexity, resource usage, scalability concerns
-- **Security** - Vulnerability scanning (injection attacks, insecure dependencies, credential exposure)
-- **Maintainability** - Code clarity, documentation, adherence to project conventions
-- **Test Coverage** - Identification of untested code paths and missing test cases
-
-**Review Output:**
-- Categorized findings (Critical / Major / Minor)
-- Specific line references with suggested fixes
-- Explanations of why changes are recommended
-- Code snippets demonstrating improvements
-
-#### Interactive Review Acceptance
-
-Navigate and manage changes efficiently:
-
-- **Side-by-Side Diff View** - Visual comparison with syntax highlighting
-- **Quick Actions** - Accept, Reject, Undo, Navigate to file locations
-- **Batch Operations** - Accept/reject multiple related changes simultaneously
-- **Annotation** - Add comments to specific changes for future reference
-
----
-
-## Verify Loop: Automated Quality Assurance
-
-The Verify Loop validates that implemented code meets specifications through configurable automated verification.
-
-#### Configurable Automated Verification
-
-<Tabs>
-  <Tab title="Verification Scope">
-    Choose validation coverage:
-
-    - Full codebase scan
-    - Modified files only (code diff)
-    - Specific modules or features
-  </Tab>
-
-  <Tab title="Verification Tools">
-    Integrate existing tools:
-
-    - Linters: ESLint, Pylint, Rubocop
-    - Type Checkers: TypeScript compiler, mypy, Flow
-    - Formatters: Prettier, Black, gofmt
-    - Security Scanners: npm audit, Snyk, Bandit
-  </Tab>
-
-  <Tab title="Test Execution">
-    Run comprehensive tests:
-
-    - Unit tests (Jest, pytest, JUnit)
-    - Integration tests
-    - End-to-end tests (Playwright, Cypress)
-    - Performance benchmarks
-  </Tab>
-</Tabs>
-
-**Model Selection:** Choose AI models for intelligent test generation and failure analysis (fast/cheap vs. thorough/expensive).
-
-#### HAI (Human-AI) Loop: Continuous Improvement
-
-The HAI Loop creates a feedback cycle that refines both code and requirements:
-
-<Steps>
-  <Step title="Blueprint Definition">
-    Define requirements, acceptance criteria, and project specifications in a structured blueprint document.
-  </Step>
-
-  <Step title="Test Case Generation">
-    Generate test cases automatically from acceptance criteria defined in the blueprint.
-  </Step>
-
-  <Step title="Implementation">
-    Write code to implement the features specified in the blueprint.
-  </Step>
-
-  <Step title="Test Code Generation">
-    Generate unit and integration tests to validate the implementation.
-  </Step>
-
-  <Step title="Automated Test Execution">
-    Run all generated tests automatically to verify code correctness.
-  </Step>
-
-  <Step title="Results Analysis">
-    Analyze test results and determine next steps:
-    - **Pass**: Implementation complete
-    - **Fail**: Update blueprint or code and repeat the loop
-  </Step>
-</Steps>
-
-**Benefits:**
-- **Specification Alignment** - Ensures code matches blueprint intent
-- **Regression Prevention** - Auto-generated tests become permanent safeguards
-- **Documentation Sync** - Test cases serve as executable documentation
-- **Continuous Validation** - Re-run on every change to catch breakages early
 
 ---
 

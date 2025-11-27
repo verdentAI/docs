@@ -1,0 +1,81 @@
+---
+title: Clarification Loop
+description: Smarter planning through continuous discussion and refinement of requirements
+---
+
+In Plan Mode, AI asks clarifying questions through an interactive questionnaire, allowing collaborative requirement confirmation before implementation.
+
+### What You'll Learn
+
+- Interactive questionnaire system with multiple choice answers
+- File attachment support for contextual answers
+- Continuous refinement controls (regenerate, modify, skip, rollback)
+- When clarification loops are triggered
+
+---
+
+## Interactive Questionnaire System
+
+Clarification Loop works like a questionnaire where AI asks clarifying questions and you provide answers:
+
+<Tabs>
+  <Tab title="Answer Options">
+    - **Multiple choice** - Select from predefined answer options
+    - **Custom answers** - Craft your own answer when choices don't fit
+    - **Mixed approach** - Select an option and add custom clarification
+  </Tab>
+
+  <Tab title="File Attachments">
+    - Attach files to any answer for visual or technical context
+    - Upload screenshots, mockups, config files, or reference implementations
+    - Enhanced context leads to more accurate plans
+    - Supports standard image and document formats
+
+    <Tip>
+    Attach UI mockups or design screenshots to clarification answers for accurate visual requirement understanding.
+    </Tip>
+  </Tab>
+</Tabs>
+
+---
+
+## Continuous Refinement Controls
+
+Available interactions during the clarification loop:
+
+- **Regenerate** - Request different clarification questions when current ones don't address your needs
+- **Modify Options** - Adjust the multiple choice options presented to better match your context
+- **Skip Clarifications** - Proceed with AI's best judgment when requirements are clear enough
+- **Rollback Changes** - Revert to previous clarification state and resubmit different answers
+
+---
+
+## When Clarifications Are Triggered
+
+AI asks clarifying questions when encountering:
+
+- Ambiguous requirements needing specification
+- Multiple valid implementation approaches requiring your preference
+- Edge cases requiring decisions on handling strategies
+- Technical constraints not yet defined (performance, security, compatibility)
+- Architecture or technology stack choices
+
+<Tip>
+Request clarification loops explicitly in Plan Mode: "Ask me clarifying questions about the requirements before creating the plan"
+</Tip>
+
+---
+
+## See Also
+
+<CardGroup cols={3}>
+  <Card title="Blueprint" icon="diagram-project" href="/verdent-for-vscode/core-features/blueprint">
+    Transform ideas into implementation plans
+  </Card>
+  <Card title="Plan Rules" icon="list-check" href="/verdent-for-vscode/core-features/plan-rules">
+    Customize plan presentation
+  </Card>
+  <Card title="Clear Mode" icon="crosshairs" href="/verdent-for-vscode/core-features/clear-mode">
+    Multi-modal specification
+  </Card>
+</CardGroup>

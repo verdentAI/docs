@@ -183,6 +183,20 @@ Detailed troubleshooting for top user-reported issues is being compiled from sup
     Delegate exploratory tasks to @Explorer subagent to preserve main context.
     </Tip>
   </Tab>
+
+  <Tab title="Image Errors">
+    ### Image-Related Error Messages
+
+    **Quick reference for common image processing errors:**
+
+    | Error Message | Cause | Solution |
+    |--------------|-------|----------|
+    | **Unsupported Image Type** | Only JPEG, PNG, GIF, or WebP images are supported | Roll back and change the image type to a supported format |
+    | **Image Dimensions Too Large** | Image width or height cannot exceed 8000 pixels | Roll back and adjust image dimensions to 8000×8000 or smaller |
+    | **Input Too Long** | The input exceeds the model's maximum allowed length | Simplify your input or reduce image size |
+    | **File Too Large** | Image size cannot exceed 5 MB | Roll back and send a compressed image (max 5 MB) |
+    | **Unreadable Image** | Could not process the image, file may be corrupted or unsupported format | Roll back and replace the image with a valid file |
+  </Tab>
 </Tabs>
 
 ---
