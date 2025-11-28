@@ -1,13 +1,13 @@
 ---
-title: Overview
-description: Overview of Verdent's AI-powered development capabilities
+title: "Overview"
+description: "Overview of Verdent's AI-powered development capabilities"
 ---
 
 Verdent for VS Code combines advanced AI capabilities with professional development workflows. This guide introduces the core features that enable AI-assisted coding, from requirement engineering through automated quality assurance.
 
 ### What You'll Learn
 
-- Core workflow capabilities (Clear Mode, Blueprint, Code Diff, Verify Loop)
+- Core workflow capabilities (, Code Diff, Verify Loop)
 - Context awareness and specialized sub-agents
 - Collaboration modes and extensibility
 
@@ -15,9 +15,9 @@ Verdent for VS Code combines advanced AI capabilities with professional developm
 
 Verdent's workflow is built around three core phases:
 
-* **Plan** - Clarify requirements with Blueprint and Clear Mode
-* **Verify** - Automate testing with Verify Loop and catch issues early
-* **Code** - Review and refine with Code Diff for reliable delivery
+- **Plan** - Clarify requirements with Blueprint and Clear Mode
+- **Verify** - Automate testing with Verify Loop and catch issues early
+- **Code** - Review and refine with Code Diff for reliable delivery
 
 These features work together to ensure precision and control throughout your development process.
 
@@ -55,16 +55,19 @@ These features work together to ensure precision and control throughout your dev
 Verdent's context management system enables comprehensive project comprehension:
 
 #### Massive Context Window
+
 - **1M Token Capacity** - Ingest entire medium-sized codebases (~750,000 words or 3,000+ files)
 - **Smart Context Loading** - Automatically prioritizes relevant files based on task context
 - **Sub-Agent Context Optimization** - Delegates specialized tasks to focused sub-agents
 
 #### Adaptive Learning
+
 - **Convention Detection** - Learns project-specific patterns (naming, file organization, error handling)
 - **Style Mimicry** - Generates code matching existing style (indentation, brace placement, comments)
 - **Library Awareness** - Recognizes frameworks in use, preferring them over new dependencies
 
 #### Cross-File Coherence
+
 - **Dependency Tracking** - Understands imports, exports, and module relationships
 - **Impact Prediction** - Identifies components affected by proposed changes
 - **Consistency Enforcement** - Ensures modifications align with existing architecture
@@ -80,22 +83,24 @@ Verdent orchestrates specialized AI agents optimized for specific development ta
     **Purpose:** Fast, evidence-based codebase navigation and analysis
 
     **Capabilities:**
+
     - **Pattern Matching** - Locate files using glob patterns (e.g., all TypeScript files, backend API files)
     - **Semantic Search** - Find code by functionality (e.g., "where is authentication middleware implemented?")
     - **Multi-Location Synthesis** - Aggregate information from multiple files
 
     **Thoroughness Levels:**
+
     - **Quick:** Basic pattern matching for fast answers
     - **Medium:** Broader search with contextual confirmation
     - **Very Thorough:** Exhaustive scan with variant checking and cross-references
 
     **Use Cases:** "Find all database query functions", "Locate configuration loading logic", "How does the app handle errors?"
   </Tab>
-
   <Tab title="Verifier Agent">
     **Purpose:** Rapid code quality checks and validation
 
     **Capabilities:**
+
     - **Lint Checks** - ESLint, Pylint, Rubocop, etc.
     - **Type Validation** - TypeScript, mypy, Flow type checking
     - **Fast Test Execution** - Targeted unit tests with under 30s budget
@@ -105,11 +110,11 @@ Verdent orchestrates specialized AI agents optimized for specific development ta
 
     **Use Cases:** Pre-commit checks, post-fix validation, quick sanity tests
   </Tab>
-
   <Tab title="Code Reviewer Agent">
     **Purpose:** Comprehensive code quality, security, and maintainability audits
 
     **Capabilities:**
+
     - **Security Analysis** - Vulnerability scanning, credential exposure detection, injection risk assessment
     - **Architecture Review** - Design pattern validation, SOLID principle adherence, anti-pattern detection
     - **Performance Analysis** - Algorithmic complexity, resource leaks, optimization opportunities
@@ -156,6 +161,7 @@ See [Integration & Extensions](/verdent-for-vscode/advanced-features/integration
     Verdent automatically selects the most suitable AI model for each task based on complexity, performance requirements, and cost considerations.
 
     **Features:**
+
     - **Task Analysis** - Evaluates task complexity to determine optimal model
     - **Performance Balancing** - Weighs speed, accuracy, and cost trade-offs
     - **Context-Aware Selection** - Adjusts model choice based on project size and requirements
@@ -163,50 +169,52 @@ See [Integration & Extensions](/verdent-for-vscode/advanced-features/integration
 
     **Benefits:** Maximizes efficiency while minimizing credit usage, ensuring you get the best results without overspending.
   </Tab>
-
   <Tab title="Context Referencing">
     **Precise Context Control:**
 
     Attach specific files, folders, or code sections directly in chat using `@` mentions to provide targeted context for AI assistance.
 
     **How It Works:**
+
     - Type `@` in chat to see a list of available files and folders
     - Select specific files to include in the conversation context
     - Reference entire directories for broader context
     - Mention specific code sections or documentation pages
 
     **Use Cases:**
+
     - Focus AI on specific modules when debugging
     - Include configuration files when discussing setup
     - Reference related components when implementing features
     - Provide documentation context for accurate guidance
   </Tab>
-
   <Tab title="Visual Support">
     **Multi-Modal Input:**
 
     Upload or paste images directly into chat to communicate visual requirements, UI designs, or debugging scenarios.
 
     **Supported Use Cases:**
+
     - **UI/UX Design** - Upload mockups, wireframes, or design screenshots for pixel-perfect implementation
     - **Bug Reports** - Share error screenshots or visual glitches for faster diagnosis
     - **Frontend Development** - Provide design references for accurate styling and layout
     - **Documentation** - Include diagrams, flowcharts, or architecture visualizations
 
     **Technical Specifications:**
+
     - **Supported Formats:** PNG, JPG, JPEG, GIF, BMP, WebP
     - **Maximum Resolution:** 2000×2000 pixels
-    - **File Size Limit:** 5MB (automatically compressed if exceeded; error if still >5MB after compression)
+    - **File Size Limit:** 5MB (automatically compressed if exceeded; error if still \>5MB after compression)
 
     **Benefits:** Eliminates ambiguity in visual requirements and accelerates frontend development workflows.
   </Tab>
-
   <Tab title="Project History">
     **Session Management:**
 
     Access and manage your conversation history to review past interactions, decisions, and implementation details.
 
     **Features:**
+
     - **Session Logs** - Complete record of all conversations and AI responses
     - **Repository Storage** - Logs saved alongside your project for easy access and version control
     - **Session Clearing** - Clear history when starting fresh or switching contexts
@@ -214,13 +222,13 @@ See [Integration & Extensions](/verdent-for-vscode/advanced-features/integration
 
     **Benefits:** Maintain continuity across sessions, audit AI recommendations, and track project evolution over time.
   </Tab>
-
   <Tab title="User Center">
     **Account Management:**
 
     Centralized hub for managing your Verdent account, credits, and plugin settings.
 
     **Available Controls:**
+
     - **Credit Tracking** - Monitor daily credit usage and remaining balance
     - **Account Information** - View current subscription plan and profile details
     - **Sign-Out Management** - Securely log out from the plugin or switch accounts
@@ -228,18 +236,19 @@ See [Integration & Extensions](/verdent-for-vscode/advanced-features/integration
 
     **Access:** Available through the Verdent sidebar in VS Code.
   </Tab>
-
   <Tab title="Feedback">
     **Product Improvement:**
 
     Submit feedback, bug reports, and feature requests directly from VS Code to help improve Verdent.
 
     **Feedback Options:**
+
     - **Text Notes** - Describe issues, suggestions, or experiences in a simple text box
     - **Direct Submission** - Send feedback without leaving your development environment
     - **Email Responses** - Receive follow-up communication via email
 
     **What to Report:**
+
     - Bugs or unexpected behavior
     - Feature requests or workflow improvements
     - Documentation gaps or unclear instructions
@@ -259,8 +268,5 @@ See [Integration & Extensions](/verdent-for-vscode/advanced-features/integration
   </Card>
   <Card title="Subagent Management" icon="users" href="/verdent-for-vscode/agents-rules/subagent-management">
     Configure specialized sub-agents
-  </Card>
-  <Card title="Plan-First Workflows" icon="clipboard-list" href="/verdent-for-vscode/configuration/plan-workflows">
-    Review implementation plans before execution
   </Card>
 </CardGroup>
