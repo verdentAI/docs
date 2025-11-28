@@ -1,6 +1,6 @@
 ---
-title: Overview
-description: AI-powered coding assistant for Visual Studio Code with autonomous planning, verification, and multi-agent architecture
+title: "Overview"
+description: "AI-powered coding assistant for Visual Studio Code with autonomous planning, verification, and multi-agent architecture"
 ---
 
 # Verdent for Visual Studio Code
@@ -13,8 +13,8 @@ description: AI-powered coding assistant for Visual Studio Code with autonomous 
 
 Prerequisites:
 
-* Visual Studio Code installed
-* Verdent subscription (starting at $19/month)
+- Visual Studio Code installed
+- Verdent subscription (starting at \$19/month)
 
 **Install Verdent:**
 
@@ -22,16 +22,14 @@ Prerequisites:
   <Tab title="Visual Studio Code Marketplace">
     Visit the [Verdent extension page](https://marketplace.visualstudio.com/items?itemName=verdentai.verdent) and click **Install**.
   </Tab>
-
   <Tab title="Extensions Panel">
     1. Open Visual Studio Code
     2. Press `Ctrl+Shift+X` (or `Cmd+Shift+X` on macOS)
     3. Search for "Verdent"
     4. Click **Install**
   </Tab>
-
   <Tab title="Command Line">
-    ```bash theme={null}
+    ```bash
     code --install-extension verdentai.verdent
     ```
   </Tab>
@@ -43,11 +41,9 @@ Prerequisites:
   <Step title="Open Visual Studio Code">
     Open Visual Studio Code in your project folder.
   </Step>
-
   <Step title="Access Verdent">
     Click the Verdent icon in the sidebar or press `Ctrl+Shift+V` (Windows/Linux) / `Cmd+Shift+V` (macOS).
   </Step>
-
   <Step title="Sign In">
     Sign in when prompted to authenticate with your Verdent account.
   </Step>
@@ -67,27 +63,27 @@ Verdent for Visual Studio Code is an AI coding assistant built for professional 
 
 **Plan-Verify-Code Workflow:**
 
-* **Plan** - Clarify requirements and design solutions with clear, visual logic diagrams using Blueprint and Clear Mode
-* **Verify** - Automate test interactions and catch issues early with dedicated verifier subagents and browser tools through the Verify Loop
-* **Code** - Review, refactor, and improve your code with Code Diff, delivering clear results every time
+- **Plan** - Clarify requirements and design solutions with clear, visual logic diagrams
+- **Verify** - Automate test interactions and catch issues early with dedicated verifier subagents and browser tools through the Verify Loop
+- **Code** - Review, refactor, and improve your code with Code Diff, delivering clear results every time
 
 The extension uses specialized subagents to handle different workflow phases. Each subagent operates with isolated context to maintain peak performance and prevent context pollution. The extension learns your coding habits and project patterns, enabling custom workflows and specialized subagent deployment.
 
 **Key capabilities:**
 
-* **Build features from descriptions**: Tell Verdent what you want to build in plain English. It will make a plan, write the code, and ensure it works through comprehensive verification.
-* **Debug and fix issues**: Describe a bug or paste an error message. Verdent will analyze your codebase, identify the problem, and implement a fix with multipass testing.
-* **Navigate and refactor any codebase**: Ask anything about your codebase and get thoughtful answers. Perform safe refactoring across multiple files while preserving functionality.
-* **Automate testing and verification**: Generate comprehensive unit and integration tests, verify code quality through iterative cycles, and ensure production readiness before delivery.
+- **Build features from descriptions**: Tell Verdent what you want to build in plain English. It will make a plan, write the code, and ensure it works through comprehensive verification.
+- **Debug and fix issues**: Describe a bug or paste an error message. Verdent will analyze your codebase, identify the problem, and implement a fix with multipass testing.
+- **Navigate and refactor any codebase**: Ask anything about your codebase and get thoughtful answers. Perform safe refactoring across multiple files while preserving functionality.
+- **Automate testing and verification**: Generate comprehensive unit and integration tests, verify code quality through iterative cycles, and ensure production readiness before delivery.
 
 ---
 
 ## Why Developers Choose Verdent
 
-* **Multi-Provider Intelligence**: Unlike competitors locked to a single AI provider, Verdent orchestrates models from different providers (Claude, GPT-5, Gemini, MiniMax) within a single workflow. Each specialized agent leverages the optimal model for its specific task.
-* **Plan-Verify-Code Workflow**: Plan precisely what to build, verify it works correctly before delivery, and code with confidence. Verdent asks clarifying questions, creates structured plans, automates verification, and ensures alignment before making changes. After generating a plan, choose **Edit** to refine or **Start Building** to execute.
-* **Production-Ready Verification**: Iterative testing cycles ensure code passes comprehensive testing before delivery. Verdent automatically generates, tests, and repairs code until it works correctly. Each result includes detailed summaries with interactive code diffs and verification results.
-* **Native Visual Studio Code Integration**: Works seamlessly within your existing workflow with minimal disruption. No need to learn new tools or restructure your development process.
+- **Multi-Provider Intelligence**: Unlike competitors locked to a single AI provider, Verdent orchestrates models from different providers (Claude, GPT-5, Gemini, Kimi) within a single workflow. Each specialized agent leverages the optimal model for its specific task.
+- **Plan-Verify-Code Workflow**: Plan precisely what to build, verify it works correctly before delivery, and code with confidence. Verdent asks clarifying questions, creates structured plans, automates verification, and ensures alignment before making changes. After generating a plan, choose **Edit** to refine or **Start Building** to execute.
+- **Production-Ready Verification**: Iterative testing cycles ensure code passes comprehensive testing before delivery. Verdent automatically generates, tests, and repairs code until it works correctly. Each result includes detailed summaries with interactive code diffs and verification results.
+- **Native Visual Studio Code Integration**: Works seamlessly within your existing workflow with minimal disruption. No need to learn new tools or restructure your development process.
 
 ---
 
@@ -95,15 +91,15 @@ The extension uses specialized subagents to handle different workflow phases. Ea
 
 Verdent uses a credit-based pricing model with four tiers:
 
-| Plan | Price | Monthly Credits* | Best For |
-|------|-------|------------------|----------|
-| **Free Trial** | $0 | 100 (7 days) | One-time offer per new user |
-| **Starter** | $19/month | 320 | Light users & first-time explorers |
-| **Pro** | $59/month | 1,000 | Regular users & mid-sized projects |
-| **Max** | $179/month | 3,000 | Heavy users & demanding tasks |
+| Plan           | Price       | Monthly Credits\* | Best For                           |
+| -------------- | ----------- | ----------------- | ---------------------------------- |
+| **Free Trial** | \$0         | 100 (7 days)      | One-time offer per new user        |
+| **Starter**    | \$19/month  | 320               | Light users & first-time explorers |
+| **Pro**        | \$59/month  | 1,000             | Regular users & mid-sized projects |
+| **Max**        | \$179/month | 3,000             | Heavy users & demanding tasks      |
 
 <Note>
-  *Limited-time 2× bonus active: All plans currently include double credits (320 becomes 640, 1,000 becomes 2,000, 3,000 becomes 6,000). Verdent will provide 15+ days advance notice before this bonus ends. All plans include access to Claude Sonnet 4.5, GPT-5, and GPT-5-Codex.
+  \*Limited-time 2× bonus active: All plans currently include double credits (320 becomes 640, 1,000 becomes 2,000, 3,000 becomes 6,000). Verdent will provide 15+ days advance notice before this bonus ends. All plans include access to Claude Sonnet 4.5, GPT-5, and GPT-5-Codex.
 </Note>
 
 <Tip>
@@ -150,6 +146,6 @@ Verdent uses a credit-based pricing model with four tiers:
     Complete your first task with Verdent in 5 minutes
   </Card>
   <Card title="Core Concepts" icon="lightbulb" href="/verdent-for-vscode/getting-started/core-concepts">
-    Understand subagents, execution modes, and the multi-agent system
+    Understand subagents, execution modes, and the multi-agent systemimi
   </Card>
 </CardGroup>

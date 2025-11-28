@@ -1,6 +1,6 @@
 ---
-title: Core Concepts
-description: Understanding Verdent's architecture and key terminology
+title: "Core Concepts"
+description: "Understanding Verdent's architecture and key terminology"
 ---
 
 Verdent for VS Code brings precision and control to AI-powered development. Traditional AI coding tools guess your intent. Verdent lets you see exactly what the AI will do before it executes, verify it works correctly, and deliver reliable code every time.
@@ -9,9 +9,9 @@ Verdent for VS Code brings precision and control to AI-powered development. Trad
 
 Verdent's workflow is built around three core phases:
 
-* **Plan** - See what the AI will do before execution. Clarify requirements with Blueprint's interactive architecture plans, task breakdowns, and visual diagrams, customized through Plan Rules
-* **Verify** - Automate quality assurance with Verify Loop. Iterate through multipass repair cycles until code passes comprehensive validation
-* **Code** - Review changes with Code Diff's enterprise-grade analysis and deliver production-ready results with confidence
+- **Plan** - Before anything is executed, talk through a clarification loop with the AI. You can customize its behavior with plan rules, and use interactive architecture planning, visual diagrams, and task breakdowns to make your requirements crystal clear
+- **Verify** - Automate quality assurance with Verify Loop and browser action. Iterate through multipass repair cycles until code passes comprehensive validation
+- **Code** - Review changes with Code Diff's enterprise-grade analysis and deliver production-ready results with confidence
 
 Understanding these core concepts and Verdent's architecture will help you work more effectively with the extension.
 
@@ -27,11 +27,11 @@ This separation maintains peak performance and prevents context pollution, allow
 
 Verdent includes three default subagents immediately available:
 
-| Subagent | Purpose | When It's Used |
-|----------|---------|----------------|
-| **@Verifier** | Quick code checks and validation | During coding tasks to ensure code quality and correctness |
-| **@Explorer** | Fast codebase exploration | Finding files and answering questions about your codebase structure |
-| **@Code-reviewer** | Instant code quality assessment | Proactive scanning for security, maintainability, and performance issues |
+| Subagent           | Purpose                          | When It's Used                                                           |
+| ------------------ | -------------------------------- | ------------------------------------------------------------------------ |
+| **@Verifier**      | Quick code checks and validation | During coding tasks to ensure code quality and correctness               |
+| **@Explorer**      | Fast codebase exploration        | Finding files and answering questions about your codebase structure      |
+| **@Code-reviewer** | Instant code quality assessment  | Proactive scanning for security, maintainability, and performance issues |
 
 **Custom Subagents:**
 
@@ -39,10 +39,10 @@ You can create custom subagents tailored to your specific needs. Each custom sub
 
 Custom subagents can be invoked automatically based on task patterns or manually using @-mentions. Common use cases include:
 
-* **Technology Stack Specialists** - React performance optimizer, SQL query optimizer, Docker configuration reviewer
-* **Quality Assurance** - Test coverage analyzer, error handling reviewer, logging standards enforcer
-* **Team-Specific Workflows** - Code style enforcer, documentation consistency checker, dependency auditor
-* **Project-Specific Needs** - Legacy code modernizer, migration assistant, performance budget enforcer
+- **Technology Stack Specialists** - React performance optimizer, SQL query optimizer, Docker configuration reviewer
+- **Quality Assurance** - Test coverage analyzer, error handling reviewer, logging standards enforcer
+- **Team-Specific Workflows** - Code style enforcer, documentation consistency checker, dependency auditor
+- **Project-Specific Needs** - Legacy code modernizer, migration assistant, performance budget enforcer
 
 **Learn more:** [Subagent Management](/verdent-for-vscode/agents-rules/subagent-management)
 
@@ -54,31 +54,31 @@ Verdent supports multiple execution modes that control how the AI handles permis
 
 **Permission Modes:**
 
-* **Manual Accept Mode** (default) - Requests permission on first use of each tool. Best for learning and general development with maximum control.
-* **Auto-Run Mode** - Automatically accepts permissions for safe operations (file reads, web searches). File edits and command execution still require approval. Ideal for trusted projects and rapid prototyping.
-* **Plan Mode** - Read-only mode for analysis and planning without file modifications. Can ask clarifying questions before execution. Excellent for complex tasks and code review.
-* **Skip Permissions Mode** - Fully autonomous operation bypassing all prompts. Only for isolated, safe environments like automated testing or sandboxes.
+- **Manual Accept Mode** (default) - Requests permission on first use of each tool. Best for learning and general development with maximum control.
+- **Auto-Run Mode** - Automatically accepts permissions for safe operations (file reads, web searches). File edits and command execution still require approval. Ideal for trusted projects and rapid prototyping.
+- **Plan Mode** - Read-only mode for analysis and planning without file modifications. Can ask clarifying questions before execution. Excellent for complex tasks and code review.
+- **Skip Permissions Mode** - Fully autonomous operation bypassing all prompts. Only for isolated, safe environments like automated testing or sandboxes.
 
 <Tip>
-To switch between Permission Modes, click the **Switch Permission** button in the Input Box (shows current mode like "Manual" or "Auto") and select your desired mode from the dropdown.
+  To switch between Permission Modes, click the **Switch Permission** button in the Input Box (shows current mode like "Manual" or "Auto") and select your desired mode from the dropdown.
 </Tip>
 
 **Switch Mode** (controls interaction style):
 
-* **Agent Mode** - Full agentic behavior with autonomous task execution and file operations
-* **Plan Mode** - Planning-focused interaction for reviewing approaches before execution
-* **Chat Mode** - Conversational interaction without autonomous file operations
+- **Agent Mode** - Full agentic behavior with autonomous task execution and file operations
+- **Plan Mode** - Planning-focused interaction for reviewing approaches before execution
+- **Chat Mode** - Conversational interaction without autonomous file operations
 
 <Tip>
-To switch between interaction styles, click the **Switch Mode** button in the Input Box (shows current mode like "Agent" or "Plan") and select your desired mode from the dropdown.
+  To switch between interaction styles, click the **Switch Mode** button in the Input Box (shows current mode like "Agent" or "Plan") and select your desired mode from the dropdown.
 </Tip>
 
 **Additional Modes:**
 
-* **Think Hard Mode** - Allocates maximum computational resources to analyze problems deeply, explore multiple approaches, and provide more thorough solutions. Ideal for architectural decisions, complex debugging, and tasks requiring sophisticated reasoning.
+- **Think Hard Mode** - Allocates maximum computational resources to analyze problems deeply, explore multiple approaches, and provide more thorough solutions. Ideal for architectural decisions, complex debugging, and tasks requiring sophisticated reasoning.
 
 <Tip>
-To activate Think Hard Mode, click the **Think Hard** button in the Input Box before submitting your request.
+  To activate Think Hard Mode, click the **Think Hard** button in the Input Box before submitting your request.
 </Tip>
 
 **Learn more:** [Execution Modes Overview](/verdent-for-vscode/execution-modes/overview)
@@ -91,17 +91,17 @@ Context management controls what information Verdent has access to during your s
 
 **How Context Works:**
 
-* **@-Mentions** - Explicitly add files to context using `@filename.js` for precise control
-* **Automatic Loading** - Verdent automatically includes relevant files based on the task
-* **Separate Subagent Context** - Each subagent operates with isolated context windows, preventing pollution of the main agent's memory
-* **Context Window Limits** - Finite context measured in tokens. As conversations grow, available space decreases and model performance degrades
+- **@-Mentions** - Explicitly add files to context using `@filename.js` for precise control
+- **Automatic Loading** - Verdent automatically includes relevant files based on the task
+- **Separate Subagent Context** - Each subagent operates with isolated context windows, preventing pollution of the main agent's memory
+- **Context Window Limits** - Finite context measured in tokens. As conversations grow, available space decreases and model performance degrades
 
 **Best Practices:**
 
-* Break large tasks into smaller chunks with natural breakpoints
-* Use Plan Mode for complex tasks to review approaches before execution
-* Complete individual components before integration to avoid context depletion
-* Start a new conversation when beginning a new task to clear context and maintain optimal performance
+- Break large tasks into smaller chunks with natural breakpoints
+- Use Plan Mode for complex tasks to review approaches before execution
+- Complete individual components before integration to avoid context depletion
+- Start a new conversation when beginning a new task to clear context and maintain optimal performance
 
 **Learn more:** [Context Management Best Practices](/verdent-for-vscode/best-practices/context)
 
@@ -113,21 +113,22 @@ Verdent orchestrates models from multiple AI providers (Claude, GPT-5, Gemini, M
 
 **Preset Models:**
 
-* **Performance** - Maximum context, frontier models (1-2x credit usage)
-* **Balance** - Optimal blend of performance and cost (1x credit usage)
-* **Efficiency** - Fast, responsive, cost-efficient tasks (~0.3x credit usage)
+- **Performance** - Maximum context, frontier models (1-2x credit usage)
+- **Balance** - Optimal blend of performance and cost (1x credit usage)
+- **Efficiency** - Fast, responsive, cost-efficient tasks (~0.3x credit usage)
 
 **Individual Models Available:**
 
-| Provider | Model | Best For | Cost Efficiency |
-|----------|-------|----------|-----------------|
-| Anthropic | Claude 4.5 Sonnet | Balanced complex tasks | 1x baseline |
-| Anthropic | Claude 4.5 Sonnet 1M | Long or complex tasks (>200k input) | 0.5x efficiency (2x cost) |
-| Anthropic | Claude 4.5 Haiku | Fast, simple tasks | 3.2x more efficient than Sonnet |
-| OpenAI | GPT-5 (Beta) | Reasoning and creativity | 1.3x more efficient than Sonnet |
-| OpenAI | GPT-5 Codex (Beta) | Coding and debugging | 1.3x more efficient than Sonnet |
-| Google | Gemini 3 Pro | Advanced reasoning and multimodal | Variable |
-| MiniMax | MiniMax M2 (Beta) | Fast and cost-effective | Free until Nov 10th |
+| Provider  | Model                | Best For                                         | Cost Efficiency                 |
+| --------- | -------------------- | ------------------------------------------------ | ------------------------------- |
+| Anthropic | Claude 4.5 Opus      | Great for deep coding tasks and problem-solving. | 1.5 cost                        |
+| Anthropic | Claude 4.5 Sonnet    | Balanced complex tasks                           | 1x baseline                     |
+| Anthropic | Claude 4.5 Sonnet 1M | Long or complex tasks (\>200k input)             | 0.5x efficiency (2x cost)       |
+| Anthropic | Claude 4.5 Haiku     | Fast, simple tasks                               | 3.2x more efficient than Sonnet |
+| OpenAI    | GPT-5 (Beta)         | Reasoning and creativity                         | 1.3x more efficient than Sonnet |
+| OpenAI    | GPT-5 Codex (Beta)   | Coding and debugging                             | 1.3x more efficient than Sonnet |
+| Google    | Gemini 3 Pro         | Advanced reasoning and multimodal                | Variable                        |
+| Kimi      | Kimi 2 Turbo (Beta)  | Lighting-fact model for coding                   | 3.1x more efficient than Sonnet |
 
 **Learn more:** [Configuration Settings](/verdent-for-vscode/configuration/settings)
 
@@ -136,27 +137,27 @@ Verdent orchestrates models from multiple AI providers (Claude, GPT-5, Gemini, M
 ## FAQs
 
 <Accordion title="What is context pollution?">
-When previous actions and information in the context create unintended behavioral patterns that affect future tasks. For example, if you repeatedly update code and then deploy it, the agent may begin associating all code updates with immediate deployment, even when you're just experimenting. Subagents prevent context pollution by operating with isolated context windows, allowing each specialized task to start with clean context and avoiding cross-contamination between different types of work.
+  When previous actions and information in the context create unintended behavioral patterns that affect future tasks. For example, if you repeatedly update code and then deploy it, the agent may begin associating all code updates with immediate deployment, even when you're just experimenting. Subagents prevent context pollution by operating with isolated context windows, allowing each specialized task to start with clean context and avoiding cross-contamination between different types of work.
 </Accordion>
 
 <Accordion title="What are safe operations?">
-Operations that only read data without making changes: file reads and web searches. These are automatically approved in Auto-Run Mode, while file edits and command execution still require approval for safety.
+  Operations that only read data without making changes: file reads and web searches. These are automatically approved in Auto-Run Mode, while file edits and command execution still require approval for safety.
 </Accordion>
 
 <Accordion title="What is command execution?">
-Running terminal commands or shell scripts through Verdent, including operations like running tests, installing packages, or executing build commands. Command execution requires approval in most Permission Modes to prevent unintended system changes.
+  Running terminal commands or shell scripts through Verdent, including operations like running tests, installing packages, or executing build commands. Command execution requires approval in most Permission Modes to prevent unintended system changes.
 </Accordion>
 
 <Accordion title="What is a token?">
-The unit of measurement for context windows. Tokens represent pieces of text (words, parts of words, or characters) that the AI model processes. Context limits are measured in tokens rather than characters or words, with typical conversations consuming thousands of tokens.
+  The unit of measurement for context windows. Tokens represent pieces of text (words, parts of words, or characters) that the AI model processes. Context limits are measured in tokens rather than characters or words, with typical conversations consuming thousands of tokens.
 </Accordion>
 
 <Accordion title="What are credits?">
-The usage currency for Verdent. Different models have different cost efficiency (e.g., Haiku is 3.2x more efficient than Sonnet baseline, Sonnet is 1x baseline). Your subscription includes a monthly credit allotment (e.g., 640 credits for Starter, 2,000 for Pro, 6,000 for Max).
+  The usage currency for Verdent. Different models have different cost efficiency (e.g., Haiku is 3.2x more efficient than Sonnet baseline, Sonnet is 1x baseline). Your subscription includes a monthly credit allotment (e.g., 640 credits for Starter, 2,000 for Pro, 6,000 for Max).
 </Accordion>
 
 <Accordion title="What is the Multipass Generate-Test-Repair Cycle?">
-An iterative verification process where code is generated, tested, and repaired until it passes comprehensive testing. Verdent automatically runs tests, analyzes failures, fixes issues, and retests in multiple passes until the code works correctly. This delivers production-ready code, not just suggestions. Each result includes detailed summaries and code diffs showing exactly what changed.
+  An iterative verification process where code is generated, tested, and repaired until it passes comprehensive testing. Verdent automatically runs tests, analyzes failures, fixes issues, and retests in multiple passes until the code works correctly. This delivers production-ready code, not just suggestions. Each result includes detailed summaries and code diffs showing exactly what changed.
 </Accordion>
 
 ---
