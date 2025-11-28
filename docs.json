@@ -29,11 +29,10 @@
             "group": "Core Features",
             "pages": [
               "verdent-for-vscode/core-features/overview",
-              "verdent-for-vscode/core-features/blueprint",
-              "verdent-for-vscode/core-features/code-diff",
-              "verdent-for-vscode/core-features/verify-loop",
+              "verdent-for-vscode/core-features/professional-plan",
               "verdent-for-vscode/core-features/clarification-loop",
-              "verdent-for-vscode/core-features/plan-rules"
+              "verdent-for-vscode/core-features/plan-rules",
+              "verdent-for-vscode/core-features/code-diff"
             ]
           },
           {
