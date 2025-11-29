@@ -1,6 +1,6 @@
 ---
-title: Installation
-description: Step-by-step guide to installing and setting up Verdent
+title: "Installation"
+description: "Step-by-step guide to installing and setting up Verdent"
 ---
 
 This guide walks you through installing Verdent for VS Code from the Visual Studio Code Marketplace and completing the initial authentication.
@@ -13,13 +13,13 @@ Before installing Verdent, ensure your system meets these prerequisites:
 
 ### System Requirements
 
-* **Visual Studio Code**: Version 1.90.0 or higher
-* **Operating System**: macOS 11+, Windows 10+, or Linux (Ubuntu 20.04+, Debian 10+, RHEL 8+)
-* **Internet Connection**: Active connection required for AI service communication
+- **Visual Studio Code**: Version 1.90.0 or higher
+- **Operating System**: macOS 11+, Windows 10+, or Linux (Ubuntu 20.04+, Debian 10+, RHEL 8+)
+- **Internet Connection**: Active connection required for AI service communication
 
 ### Optional but Recommended
 
-* **Git**: For version control integration and tracking code changes
+- **Git**: For version control integration and tracking code changes
 
 See [System Requirements](/verdent-for-vscode/getting-started/system-requirements) for detailed compatibility information.
 
@@ -35,49 +35,44 @@ Verdent for VS Code is distributed through the Visual Studio Code Marketplace.
       <Step title="Visit Marketplace">
         Navigate to the [Verdent extension page](https://marketplace.visualstudio.com/items?itemName=verdentai.verdent) in your browser.
       </Step>
-
       <Step title="Click Install">
         Click the **Install** button on the marketplace page.
       </Step>
-
       <Step title="Open in VS Code">
         VS Code will automatically open and begin the installation process.
       </Step>
     </Steps>
   </Tab>
-
   <Tab title="Extensions Panel">
     <Steps>
       <Step title="Open VS Code">
         Launch Visual Studio Code on your computer.
       </Step>
-
       <Step title="Access Extensions">
         Click the Extensions icon in the left sidebar (four squares icon) or press:
-        * **macOS**: `Cmd+Shift+X`
-        * **Windows/Linux**: `Ctrl+Shift+X`
-      </Step>
 
+        - **macOS**: `Cmd+Shift+X`
+        - **Windows/Linux**: `Ctrl+Shift+X`
+      </Step>
       <Step title="Search for Verdent">
         Type "Verdent" in the search box at the top of the Extensions panel. Look for "Verdent" by Verdent AI in the results.
       </Step>
-
       <Step title="Install">
         Click the **Install** button next to the Verdent extension. Installation typically takes a few seconds.
       </Step>
     </Steps>
   </Tab>
-
   <Tab title="Command Line">
-    ```bash theme={null}
+    ```bash
     code --install-extension verdentai.verdent
     ```
 
     This method is useful for:
-    * Automated setup scripts
-    * Remote server installations via SSH
-    * CI/CD environment configuration
-    * Installing on multiple machines quickly
+
+    - Automated setup scripts
+    - Remote server installations via SSH
+    - CI/CD environment configuration
+    - Installing on multiple machines quickly
   </Tab>
 </Tabs>
 
@@ -97,19 +92,15 @@ After installation, you'll need to authenticate with your Verdent account to sta
   <Step title="Open Verdent">
     After installation, click the Verdent icon in the VS Code sidebar. You'll see Sign In / Sign Up options.
   </Step>
-
   <Step title="Sign In">
     Click **Sign In**. VS Code will show a popup asking "Do you want Code to open the external website?" - click **Open**.
   </Step>
-
   <Step title="Browser Authentication">
     Your browser will open to the Verdent authentication page. Sign in with your Verdent account credentials (email/password or OAuth providers like Google, GitHub, etc.).
   </Step>
-
   <Step title="Authorize VS Code">
     Grant VS Code access to your Verdent account when prompted.
   </Step>
-
   <Step title="Return to VS Code">
     Return to VS Code once authentication completes. The Verdent panel will now display the input interface.
   </Step>
@@ -122,17 +113,18 @@ After installation, you'll need to authenticate with your Verdent account to sta
 Verdent for VS Code is designed for immediate use after authentication with minimal configuration required.
 
 **Default Settings:**
-* **Permission Mode**: Manual Accept Mode (approve each operation)
-* **Model Preset**: Balance (optimal performance/cost blend)
-* **Context Management**: Automatic
+
+- **Permission Mode**: Auto-Run Mode (approve each operation)
+- **Model Preset**: Balance (optimal performance/cost blend)
+- **Context Management**: Automatic
 
 **Optional Customization:**
 
 You can adjust these settings later through the Verdent panel:
 
-* **Permission Mode** - Choose Manual Accept, Auto-Run, Plan Mode, or Skip Permissions
-* **Model Selection** - Select Performance, Balance, Efficiency presets or specific models
-* **Workspace Settings** - Configure project-specific preferences
+- **Permission Mode** - Choose Manual Accept, Auto-Run, Plan Mode, or Skip Permissions
+- **Model Selection** - Select Performance, Balance, Efficiency presets or specific models
+- **Workspace Settings** - Configure project-specific preferences
 
 <Note>
   Most users can start using Verdent immediately after signing in without any additional configuration. Advanced settings can be adjusted as needed.
@@ -155,11 +147,9 @@ Confirm your installation is working correctly with these simple checks:
   <Step title="Open Verdent Panel">
     Click the Verdent icon in the sidebar or press `Cmd+L` (macOS) / `Ctrl+L` (Windows/Linux).
   </Step>
-
   <Step title="Send Test Prompt">
     Try a simple request like "Explain what this workspace contains" in the input box.
   </Step>
-
   <Step title="Receive Response">
     Verdent should analyze your workspace and provide a response within seconds.
   </Step>
@@ -167,19 +157,19 @@ Confirm your installation is working correctly with these simple checks:
 
 **Success Indicators:**
 
-* Verdent icon visible in sidebar
-* Successfully authenticated account
-* Can send prompts and receive responses
+- Verdent icon visible in sidebar
+- Successfully authenticated account
+- Can send prompts and receive responses
 
 ### Troubleshooting
 
 If verification fails, try these solutions:
 
-| Issue | Solution |
-|-------|----------|
-| Sidebar icon missing | Restart VS Code or check for extension updates |
+| Issue                 | Solution                                        |
+| --------------------- | ----------------------------------------------- |
+| Sidebar icon missing  | Restart VS Code or check for extension updates  |
 | Prompts don't respond | Check internet connection and firewall settings |
-| Extension not found | Ensure VS Code version is 1.90.0 or higher |
+| Extension not found   | Ensure VS Code version is 1.90.0 or higher      |
 
 <Warning>
   Verdent requires an active internet connection. If prompts aren't responding, verify your network connectivity and firewall configuration allows outbound HTTPS to Verdent's API endpoints.
