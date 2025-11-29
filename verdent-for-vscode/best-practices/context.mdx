@@ -1,6 +1,6 @@
 ---
-title: Context Management
-description: Managing context effectively for better results
+title: "Context Management"
+description: "Managing context effectively for better results"
 ---
 
 ---
@@ -24,17 +24,19 @@ Verdent for VS Code's context window size depends on the model being used.
 <Tabs>
   <Tab title="Standard Models (200K)">
     Most models use standard `200K` context windows:
+
     - **Claude 4.5 Sonnet** - Balanced for complex tasks
     - **Claude 4.5 Haiku** - Fast and efficient
     - **GPT-5** - Excellent for reasoning (Beta)
     - **GPT-5-Codex** - Optimized for coding (Beta)
-    - **MiniMax-M2** - Fast and cost-effective (Beta)
 
     **Capacity:**
+
     - ~`200,000` tokens of total memory capacity
     - Sufficient for most development tasks and medium-sized projects
 
     **What's Included:**
+
     - All messages in conversation
     - File contents loaded into context
     - Tool outputs and responses
@@ -42,25 +44,28 @@ Verdent for VS Code's context window size depends on the model being used.
     - MCP server definitions
 
     **Performance:**
+
     - Degrades significantly when approaching limits
     - Watch for signs of context overload (slower responses, less accurate outputs)
     - Reset context more frequently for optimal performance
   </Tab>
-
   <Tab title="Extended Context (1M)">
     Claude Sonnet 4.5 offers extended context (`1M` tokens) when explicitly selected or when input exceeds `200K` tokens.
 
     **Capacity:**
+
     - `1,000,000` tokens of total memory
     - 5x larger than standard models
 
     **Benefits:**
+
     - Perfect for loading entire large codebases without chunking
     - Eliminates most context management concerns for big projects
     - Work longer before hitting context limits
     - Fewer session resets needed
 
     **When to Use:**
+
     - Large codebases with `1000+` files
     - Complex multi-file refactoring across entire projects
     - Long development sessions spanning multiple related tasks
@@ -75,7 +80,7 @@ Verdent for VS Code's context window size depends on the model being used.
 Be strategic about file selection to optimize context usage and avoid hitting limits.
 
 <Tip>
-Start with fewer files and add more only when needed, Verdent can always read additional files during the conversation.
+  Start with fewer files and add more only when needed, Verdent can always read additional files during the conversation.
 </Tip>
 
 ### Use @-Mentions for Explicit Inclusion
@@ -117,12 +122,14 @@ File selection becomes much less critical - you can often load entire project re
 <Tabs>
   <Tab title="Response Quality">
     **Signs:**
+
     - Less accurate or incomplete responses
     - Missing important details from earlier in conversation
     - Difficulty maintaining consistency across long sessions
     - Confused about recent changes or context
 
     **Concrete Examples:**
+
     - Suggests solutions you already rejected earlier in the session
     - Ignores coding conventions you established `20` messages ago
     - Generates code that conflicts with changes made earlier in the conversation
@@ -130,14 +137,15 @@ File selection becomes much less critical - you can often load entire project re
 
     **Primary signal:** Verdent's responses become less accurate or inconsistent
   </Tab>
-
   <Tab title="Speed Issues">
     **Signs:**
+
     - Noticeably slower response times
     - Longer processing delays before responses begin
     - Increased latency between messages
 
     **Concrete Examples:**
+
     - Responses that normally take `5-10` seconds now take `30+` seconds
     - Visible delay before typing indicator appears after you send a message
     - Streaming responses start much slower than usual
@@ -145,15 +153,16 @@ File selection becomes much less critical - you can often load entire project re
 
     **Primary signal:** Responses take significantly longer than usual
   </Tab>
-
   <Tab title="Behavioral Changes">
     **Signs:**
+
     - Requests to clarify information already provided
     - Forgetting patterns or conventions established earlier
     - Inability to reference files or code discussed previously
     - Redundant questions about project structure
 
     **Concrete Examples:**
+
     - Asks "What framework are you using?" when you specified React `30` messages ago
     - Requests file paths you've already `@-mentioned` multiple times
     - Doesn't remember the naming convention you established at the start of the session
@@ -161,15 +170,16 @@ File selection becomes much less critical - you can often load entire project re
 
     **Primary signal:** Verdent asks about things already discussed
   </Tab>
-
   <Tab title="Technical Indicators">
     **Signs:**
+
     - Approaching the last fifth of the `200K` token limit (~`160K+` tokens used)
     - Long conversations with many file reads and tool outputs
     - Multiple MCP servers enabled with heavy tool definitions
     - Large files loaded into context repeatedly
 
     **Concrete Examples:**
+
     - Session has been running for `2+` hours with `100+` messages
     - You've loaded `20+` files with `@-mentions` throughout the conversation
     - Multiple large files (`>1000` lines each) are in context
@@ -183,7 +193,7 @@ File selection becomes much less critical - you can often load entire project re
 **When to Take Action:** Performance degradation is your primary signal. If Verdent's responses become less accurate, slower, or inconsistent - start a fresh session or use context management strategies.
 
 <Warning>
-If Verdent's responses become vague or repetitive, context overload may be occurring. Reset the conversation to restore full performance.
+  If Verdent's responses become vague or repetitive, context overload may be occurring. Reset the conversation to restore full performance.
 </Warning>
 
 **Note:** With `1M` token context (Claude Sonnet 4.5), these issues are much less common.
@@ -201,7 +211,6 @@ If Verdent's responses become vague or repetitive, context overload may be occur
 
     **Action:** Start fresh session when quality degrades
   </Tab>
-
   <Tab title="Task Transitions">
     - Switching between unrelated features or modules
     - Completing one todo and moving to next
@@ -210,7 +219,6 @@ If Verdent's responses become vague or repetitive, context overload may be occur
 
     **Action:** New session for new major task
   </Tab>
-
   <Tab title="After Commits">
     - After committing completed features to version control
     - Between logical checkpoints in development workflow
@@ -218,7 +226,6 @@ If Verdent's responses become vague or repetitive, context overload may be occur
 
     **Action:** Commit → test → new session
   </Tab>
-
   <Tab title="Session Management">
     - Before starting major new features
     - When conversation history becomes very long
@@ -242,62 +249,68 @@ Workspace organization directly impacts how efficiently context is used and how 
 <Tabs>
   <Tab title="Well-Organized">
     **Smaller, Focused Files:**
+
     - Many small files consume context more efficiently than few large files
     - Easier to load only relevant modules
     - Better granular control over what's in context
     - Reduces need to load entire large files
 
     **Clear Directory Structure:**
+
     - Logical organization helps Verdent locate related files
     - Feature-based or module-based organization improves context targeting
     - Reduces need to load unrelated code
 
-    **Documentation in `AGENTS.md`:**
+    **`Documentation in AGENTS.md:`**
+
     - Project documentation replaces need to load many example files
     - Architectural patterns described once, referenced repeatedly
     - Coding standards documented centrally
     - Reduces context overhead from exploratory file reads
 
     **Benefits:**
+
     - Work on isolated modules without loading entire codebase
     - Clear boundaries enable focused sessions
     - Chunking work becomes natural along module boundaries
   </Tab>
-
   <Tab title="Poorly Organized">
     **Problems:**
+
     - Monolithic files force loading entire large contexts
     - Unclear structure requires loading many files to understand architecture
     - Mixed concerns in same files waste context on irrelevant code
 
     **Impact:**
+
     - Frequent context limit issues
     - Wasted tokens on irrelevant code
     - Difficulty isolating work to specific modules
     - More frequent need for session resets
 
     **Common Anti-Patterns:**
+
     - Single `5000+` line files with multiple concerns
     - Flat directory structure with `100+` files at root
     - No clear separation between features/modules
     - Lack of centralized documentation
   </Tab>
-
   <Tab title="Improvement Strategies">
     **Refactoring Approaches:**
+
     - Split large files into smaller, focused modules
     - Organize by feature or domain (not by file type)
     - Create clear directory hierarchy
     - Extract shared code into separate modules
 
     **Documentation:**
+
     - Create `AGENTS.md` with architectural patterns
     - Document coding standards centrally
     - Maintain `README` files per module
     - Keep design decisions documented
 
-    **Context Impact:**
-    For standard `200K` token contexts, organized workspaces make the difference between hitting limits frequently or rarely. For `1M` token contexts, organization matters less but still improves efficiency.
+    **Context Impact:** For standard `200K` token contexts, organized workspaces make the difference between hitting limits frequently or rarely. For `1M` token contexts, organization matters less but still improves efficiency.
   </Tab>
 </Tabs>
 
@@ -310,88 +323,92 @@ Effective context optimization combines monitoring, strategic planning, and tech
 <Tabs>
   <Tab title="Monitoring">
     **Watch for Performance Signs:**
+
     - Monitor response quality and speed throughout sessions
     - Notice when responses become slower or less accurate
     - Track conversation length and file count manually
     - Be proactive about starting fresh sessions
 
     **What to Monitor:**
+
     - Response accuracy and consistency
     - Time to first response (typing indicator delay)
     - Overall response completion time
     - Memory of earlier conversation details
 
     **Subagent Management:**
+
     - Disable unused custom subagents when not needed
     - Each enabled subagent adds definitions to system overhead
     - Keep only actively used subagents enabled
     - Re-enable as needed for specific tasks
 
-    **Action Threshold:**
-    When you notice `2-3` degradation signals, it's time to start a fresh session.
+    **Action Threshold:** When you notice `2-3` degradation signals, it's time to start a fresh session.
 
     <Tip>
-    Monitor response quality as a leading indicator of context health, degraded responses signal it's time to reset.
+      Monitor response quality as a leading indicator of context health, degraded responses signal it's time to reset.
     </Tip>
   </Tab>
-
   <Tab title="Task Planning">
     **Chunking Approach:**
+
     - Break large tasks into smaller pieces
     - Complete related work in focused sessions
     - Avoid mixing different task types in long conversations
     - Avoid the last fifth of the context window for memory-intensive work
 
     **Session Management:**
+
     - Start fresh sessions between major tasks
     - Clear context after commits: test → verify → commit → new session
     - Use todos for multi-step planning
     - Work through todo items in separate focused sessions
 
     **Best Practice Pattern:**
+
     1. Plan task in Plan Mode
     2. Execute focused implementation in fresh session
     3. Test and verify changes
     4. Commit to version control
     5. Start new session for next task
 
-    **Task Isolation:**
-    Keep debugging separate from feature development, research separate from implementation.
+    **Task Isolation:** Keep debugging separate from feature development, research separate from implementation.
   </Tab>
-
   <Tab title="File Management">
     **Strategic Inclusion:**
+
     - Use `@-mentions` for explicit file inclusion only when necessary
     - Leverage `AGENTS.md` documentation instead of loading many files
     - Work on one module at a time for large projects
     - Split large files into smaller, focused components
 
     **File Selection Principles:**
+
     - Include only files that need modification or direct reference
     - Prefer documentation over example file loading
     - Remove files from context when no longer needed
     - Load files just-in-time, not preemptively
 
     **Large File Handling:**
+
     - Consider splitting files over `500` lines
     - Extract utilities and helpers to separate files
     - Use clear module boundaries
     - Document file relationships in `AGENTS.md`
   </Tab>
-
   <Tab title="Workflow">
     **Optimization Workflow:**
 
     Monitor performance → Identify session bloat → Disable unused subagents → Start fresh sessions proactively → Focus on task quality
 
     **Daily Practice:**
+
     - Start each major feature with fresh context
     - Commit frequently and reset between commits
     - Keep sessions focused on single objectives
     - Review context usage at natural breakpoints
 
-    **For Extended Context (`1M` tokens):**
-    With Claude Sonnet 4.5's larger context window, optimization becomes less critical - focus on task quality rather than aggressive context management. However, good practices still improve efficiency and organization.
+    **`For Extended Context (1M tokens):`** With Claude Sonnet 4.5's larger context window, optimization becomes less critical - focus on task quality rather than aggressive context management. However, good practices still improve efficiency and organization.
   </Tab>
 </Tabs>
 
@@ -400,23 +417,23 @@ Effective context optimization combines monitoring, strategic planning, and tech
 ## FAQs
 
 <Accordion title="What's the difference between 200K and 1M context windows?">
-Standard models (Claude 4.5 Sonnet, Haiku, GPT-5, GPT-5-Codex, MiniMax-M2) have `200K` token context windows sufficient for most tasks. Claude Sonnet 4.5 offers extended `1M` token context (5x larger) for large codebases with `1000+` files, complex multi-file refactoring, or long development sessions. The `1M` context activates automatically when input exceeds `200K` tokens or can be explicitly selected.
+  Standard models (Claude 4.5 Sonnet, Haiku, GPT-5, GPT-5-Codex, MiniMax-M2) have `200K` token context windows sufficient for most tasks. Claude Sonnet 4.5 offers extended `1M` token context (5x larger) for large codebases with `1000+` files, complex multi-file refactoring, or long development sessions. The `1M` context activates automatically when input exceeds `200K` tokens or can be explicitly selected.
 </Accordion>
 
 <Accordion title="Should I manually reset context or will Verdent do it automatically?">
-You must manually start a new session to reset context - Verdent does not automatically clear context. Best practice: reset after completing an atomic unit of work, testing, and committing to version control. For `1M` token contexts, resets are needed much less frequently.
+  You must manually start a new session to reset context - Verdent does not automatically clear context. Best practice: reset after completing an atomic unit of work, testing, and committing to version control. For `1M` token contexts, resets are needed much less frequently.
 </Accordion>
 
 <Accordion title="How many files can I safely load into context?">
-There's no fixed file limit - it depends on file sizes and total token count. For `200K` contexts, avoid loading `20+` large files (`>1000` lines each). Focus on files directly relevant to your current task. Use `@-mentions` selectively and leverage `AGENTS.md` documentation instead of loading many example files. With `1M` context, file selection becomes much less critical.
+  There's no fixed file limit - it depends on file sizes and total token count. For `200K` contexts, avoid loading `20+` large files (`>1000` lines each). Focus on files directly relevant to your current task. Use `@-mentions` selectively and leverage `AGENTS.md` documentation instead of loading many example files. With `1M` context, file selection becomes much less critical.
 </Accordion>
 
 <Accordion title="What counts toward my context window?">
-Everything in your session: all messages in the conversation, file contents loaded into context, tool outputs (grep/search results, file reads), system prompts and instructions, and MCP server definitions. Each of these consumes tokens from your total context capacity.
+  Everything in your session: all messages in the conversation, file contents loaded into context, tool outputs (grep/search results, file reads), system prompts and instructions, and MCP server definitions. Each of these consumes tokens from your total context capacity.
 </Accordion>
 
 <Accordion title="Will resetting context lose my work?">
-No - resetting context only clears the conversation history and loaded files from memory. Your actual code changes, commits, and file modifications are preserved. Always commit your work to version control before resetting context for safety. Reset → start fresh session → continue working on next task.
+  No - resetting context only clears the conversation history and loaded files from memory. Your actual code changes, commits, and file modifications are preserved. Always commit your work to version control before resetting context for safety. Reset → start fresh session → continue working on next task.
 </Accordion>
 
 ---
@@ -424,13 +441,13 @@ No - resetting context only clears the conversation history and loaded files fro
 ## See Also
 
 <CardGroup cols={3}>
-  <Card title="Prompt Engineering" href="/verdent-for-vscode/best-practices/prompts" icon="message">
+  <Card title="Prompt Engineering" icon="message" href="/verdent-for-vscode/best-practices/prompts">
     Best practices for writing effective prompts
   </Card>
-  <Card title="Execution Modes" href="/verdent-for-vscode/execution-modes/overview" icon="toggle-on">
+  <Card title="Execution Modes" icon="toggle-on" href="/verdent-for-vscode/execution-modes/overview">
     Understanding execution modes and their resource implications
   </Card>
-  <Card title="Resource Management" href="/verdent-for-vscode/resource-management/monitoring" icon="chart-line">
+  <Card title="Resource Management" icon="chart-line" href="/verdent-for-vscode/resource-management/monitoring">
     Monitor token usage, credits, and performance
   </Card>
 </CardGroup>
