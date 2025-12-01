@@ -1,6 +1,6 @@
 ---
-title: Resource Management
-description: Managing tokens, credits, and computational resources
+title: "Resource Management"
+description: "Managing tokens, credits, and computational resources"
 ---
 
 ---
@@ -14,6 +14,7 @@ Verdent for VS Code uses a credit-based system to manage computational resources
 ### Credit Balance (In VS Code)
 
 Monitor your credit balance through the **User Center** in VS Code:
+
 - Click the User Center button in the top bar of the Verdent panel
 - View account name, current plan, and credit balance
 - See total credits (subscription + top-ups), credits left in subscription, and remaining top-up credits
@@ -27,46 +28,43 @@ For detailed token usage analytics and monitoring:
   <Step title="Access Dashboard">
     Visit the [Verdent Dashboard](https://verdent.ai/dashboard) on the official website
   </Step>
-
   <Step title="View Token Usage">
     Check detailed token consumption across all your sessions and projects
   </Step>
-
   <Step title="Analyze Patterns">
     Review usage patterns, model selection impact, and cost optimization opportunities
   </Step>
 </Steps>
 
 <Info>
-**Credit balance** (available in VS Code User Center) shows your remaining credits. **Token usage details** (available on website Dashboard) show granular consumption analytics for optimization.
+  **Credit balance** (available in VS Code User Center) shows your remaining credits. **Token usage details** (available on website Dashboard) show granular consumption analytics for optimization.
 </Info>
 
 ---
 
 ## Subscription Plans & Quotas
 
-| Plan | Price | Credits/Month | Frontier Requests | Best For |
-|------|-------|---------------|-------------------|----------|
-| **Free Trial** | Free | 100 (7 days) | ~200 | New users |
-| **Starter** | $19/month | 640* | ~1,000 | Light users |
-| **Pro** | $59/month | 2,000* | ~3,000 | Regular users |
-| **Max** | $179/month | 6,000* | ~10,000 | Heavy users |
+| Plan           | Price       | Credits/Month | Frontier Requests | Best For      |
+| -------------- | ----------- | ------------- | ----------------- | ------------- |
+| **Free Trial** | Free        | 100 (7 days)  | ~200              | New users     |
+| **Starter**    | \$19/month  | 320           | ~500              | Light users   |
+| **Pro**        | \$59/month  | 1000          | ~1,500            | Regular users |
+| **Max**        | \$179/month | 3000          | ~5,000            | Heavy users   |
 
-*Includes 2× limited-time bonus (320 base + 320 bonus for Starter, etc.)
+<Note>
+  The 2× Credit Bonus is a limited-time offer. Verdent will provide 15+ days notice before it ends.
+</Note>
 
 **Credit System:**
+
 - Credits refresh monthly per billing cycle
 - Consumption varies by model type - frontier models (Claude Sonnet 4.5, GPT-5, GPT-5-Codex), Think Hard Mode, and Performance preset consume more credits
 
-**Flexible Top-ups:** 240 ($20), 720 ($60), 960 ($80), 1,200 ($100), or 2,400 credits ($200)
+**Flexible Top-ups:** 240 (\$$20), 720 ($$60), 960 ($$80), 1,200 ($\$100), or 2,400 credits (\$200)
 
 <Tip>
-Credits are shared across all Verdent products (VS Code extension, desktop app), enabling seamless workflow integration between platforms.
+  Credits are shared across all Verdent products (VS Code extension, desktop app), enabling seamless workflow integration between platforms.
 </Tip>
-
-<Note>
-The 2× Credit Bonus is a limited-time offer. Verdent will provide 15+ days notice before it ends.
-</Note>
 
 ---
 
@@ -75,6 +73,7 @@ The 2× Credit Bonus is a limited-time offer. Verdent will provide 15+ days noti
 Effective resource management requires strategic session planning. See [Best Practices: Context](/verdent-for-vscode/best-practices/context) for detailed guidance on breaking tasks into chunks, monitoring performance, and context window optimization (200K vs 1M tokens).
 
 **Quick Tips:**
+
 - Use Plan Mode for complex changes to understand scope before execution
 - Start fresh sessions between major tasks to reset context and tool approvals
 - Complete atomic work units (feature → test → commit), then start fresh sessions
@@ -85,13 +84,13 @@ Effective resource management requires strategic session planning. See [Best Pra
 ## See Also
 
 <CardGroup cols={3}>
-  <Card title="Execution Modes" href="/verdent-for-vscode/execution-modes/overview" icon="toggle-on">
+  <Card title="Execution Modes" icon="toggle-on" href="/verdent-for-vscode/execution-modes/overview">
     Understanding execution modes and their resource implications
   </Card>
-  <Card title="Best Practices: Context" href="/verdent-for-vscode/best-practices/context" icon="layer-group">
+  <Card title="Best Practices: Context" icon="layer-group" href="/verdent-for-vscode/best-practices/context">
     Context window management and optimization strategies
   </Card>
-  <Card title="Configuration Settings" href="/verdent-for-vscode/configuration/settings" icon="gear">
+  <Card title="Configuration Settings" icon="gear" href="/verdent-for-vscode/configuration/settings">
     Configure model and performance presets
   </Card>
 </CardGroup>
