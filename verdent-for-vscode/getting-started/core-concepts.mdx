@@ -10,8 +10,8 @@ Verdent for VS Code brings precision and control to AI-powered development. Trad
 Verdent's workflow is built around three core phases:
 
 - **Plan** - Before anything is executed, talk through a clarification loop with the AI. You can customize its behavior with plan rules, and use interactive architecture planning, visual diagrams, and task breakdowns to make your requirements crystal clear
-- **Verify** - Automate quality assurance with Verify Loop and browser action. Iterate through multipass repair cycles until code passes comprehensive validation
 - **Code** - Review changes with Code Diff's enterprise-grade analysis and deliver production-ready results with confidence
+- **Verify** - Automate quality assurance with Verify subagent and browser action. Iterate through multipass repair cycles until code passes comprehensive validation
 
 Understanding these core concepts and Verdent's architecture will help you work more effectively with the extension.
 
@@ -56,8 +56,8 @@ Verdent supports multiple execution modes that control how the AI handles permis
 
 **Permission Modes:**
 
-- **Manual Accept Mode** (default) - Requests permission on first use of each tool. Best for learning and general development with maximum control.
-- **Auto-Run Mode** - Automatically accepts permissions for safe operations (file reads, web searches). File edits and command execution still require approval. Ideal for trusted projects and rapid prototyping.
+- **Manual Accept Mode** - Requests permission on first use of each tool. Best for learning and general development with maximum control.
+- **Auto-Run Mode**  (default)- Automatically accepts permissions for safe operations (file reads, web searches). File edits and command execution still require approval. Ideal for trusted projects and rapid prototyping.
 - **Plan Mode** - Read-only mode for analysis and planning without file modifications. Can ask clarifying questions before execution. Excellent for complex tasks and code review.
 - **Skip Permissions Mode** - Fully autonomous operation bypassing all prompts. Only for isolated, safe environments like automated testing or sandboxes.
 
