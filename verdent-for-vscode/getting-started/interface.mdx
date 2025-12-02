@@ -1,6 +1,6 @@
 ---
-title: User Interface Overview
-description: Understanding Verdent's interface components and navigation
+title: "User Interface Overview"
+description: "Understanding Verdent's interface components and navigation"
 ---
 
 Verdent for VS Code features a clean, three-part interface designed for minimal distraction. All interactions happen within the Visual Studio Code sidebar, keeping you close to your code.
@@ -18,7 +18,7 @@ Open Verdent using any of these methods:
 The panel opens in the Visual Studio Code sidebar and can be resized, moved, or docked as needed.
 
 <Tip>
-Resize the Verdent panel by dragging its edge to see more conversation history or give your editor more space.
+  Resize the Verdent panel by dragging its edge to see more conversation history or give your editor more space.
 </Tip>
 
 ---
@@ -29,15 +29,14 @@ Resize the Verdent panel by dragging its edge to see more conversation history o
   <Tab title="Top Bar">
     Quick access to key functionality:
 
-    | Button | Function |
-    |--------|----------|
-    | New Session | Start a fresh conversation with clean context |
-    | Project History | Browse and restore previous sessions |
-    | User Center | View account information and credit balance |
-    | Feedback | Submit feedback and report issues |
-    | Settings | Configure MCP servers, subagents, rules, and model presets |
+    | Button          | Function                                                   |
+    | --------------- | ---------------------------------------------------------- |
+    | New Session     | Start a fresh conversation with clean context              |
+    | Project History | Browse and restore previous sessions                       |
+    | User Center     | View account information and credit balance                |
+    | Feedback        | Submit feedback and report issues                          |
+    | Settings        | Configure MCP servers, subagents, rules, and model presets |
   </Tab>
-
   <Tab title="Chat View">
     The main conversation area displays:
 
@@ -50,7 +49,6 @@ Resize the Verdent panel by dragging its edge to see more conversation history o
 
     The Chat View maintains full conversation history, allowing you to scroll back through previous interactions.
   </Tab>
-
   <Tab title="Input Box">
     The input area at the bottom with controls for composing requests:
 
@@ -58,16 +56,16 @@ Resize the Verdent panel by dragging its edge to see more conversation history o
 
     **Action Buttons:**
 
-    | Button | Function |
-    |--------|----------|
-    | Add Context | Reference files with @-mentions or invoke subagents |
-    | Add Images or Files | Include screenshots, diagrams, or documents for analysis |
-    | Add Subagent | Delegate tasks to specialized subagents |
-    | Switch Mode | Toggle between Agent, Plan, and Chat modes |
-    | Switch/Customize AI Model | Select Performance, Balance, Efficiency presets or specific models |
-    | Think Hard Mode | Enable maximum thinking budget for complex reasoning |
-    | Switch Permission | Change permission mode (Manual Accept, Auto-Run, Plan, Skip Permissions) |
-    | Send | Submit your prompt to the AI model |
+    | Button                    | Function                                                                 |
+    | ------------------------- | ------------------------------------------------------------------------ |
+    | Add Context               | Reference files with @-mentions or invoke subagents                      |
+    | Add Images or Files       | Include screenshots, diagrams, or documents for analysis                 |
+    | Add Subagent              | Delegate tasks to specialized subagents                                  |
+    | Switch Mode               | Toggle between Agent, Plan, and Chat modes                               |
+    | Switch/Customize AI Model | Select Performance, Balance, Efficiency presets or specific models       |
+    | Think Hard Mode           | Enable maximum thinking budget for complex reasoning                     |
+    | Switch Permission         | Change permission mode (Manual Accept, Auto-Run, Plan, Skip Permissions) |
+    | Send                      | Submit your prompt to the AI model                                       |
   </Tab>
 </Tabs>
 
@@ -82,27 +80,21 @@ Verdent communicates system state through visual indicators:
     The Chat View communicates status through visual cues rather than explicit labels:
 
     - **Processing Indicator** - A visual indicator appears when Verdent is actively working. This shows when the AI is reading files, analyzing code, or preparing to respond.
-
     - **Text Being Generated** - You'll see Verdent's response appearing in real-time as the AI composes explanations, code suggestions, or plans. The streaming text indicates the model is actively generating output.
-
     - **Nothing Happening** - When the Chat View is static with no activity, Verdent is waiting. This means you need to approve file changes, answer clarifying questions, or provide your next request.
   </Tab>
-
   <Tab title="Text Cursor">
     The text cursor in the Input Box indicates whether Verdent is ready to accept new requests:
 
     - **Flashing Cursor** - The Input Box is active and ready for text input. You can type your request and press Send. This appears when Verdent has completed processing and is waiting for your next prompt.
-
     - **No Cursor/Disabled** - The Input Box is disabled while Verdent is processing a request. This prevents interruptions to the current task and ensures each request completes before starting another.
 
     **Workflow pattern:** When you submit a request, the cursor disappears (input becomes disabled). Once Verdent completes the task, the cursor reappears, signaling you can type your next request.
   </Tab>
-
   <Tab title="Mode Indicators">
     The Input Box displays indicators showing your current configuration:
 
     - **Switch Permission Button** - Shows your current permission mode as a label on the button itself. You'll see "Manual", "Auto", "Plan", or "Skip" displayed. This lets you confirm which execution mode is active before submitting your request. Click the button to cycle through available modes.
-
     - **Switch/Customize AI Model Button** - Displays the currently selected model or preset. You'll see "Performance", "Balance", or "Efficiency" for presets, or specific model names like "Claude 4.5 Sonnet" if you've selected an individual model. This confirms which AI model will process your next request.
 
     These indicators provide at-a-glance confirmation of your current settings, helping you ensure the right configuration before sending prompts.
@@ -110,7 +102,7 @@ Verdent communicates system state through visual indicators:
 </Tabs>
 
 <Note>
-Status indicators update in real-time to show exactly what Verdent is doing, helping you understand agent activity.
+  Status indicators update in real-time to show exactly what Verdent is doing, helping you understand agent activity.
 </Note>
 
 ---
@@ -122,58 +114,59 @@ Status indicators update in real-time to show exactly what Verdent is doing, hel
     The Top Bar uses different navigation patterns depending on the function:
 
     **Buttons:**
+
     - **New Session** - Clicking this button immediately clears your current conversation and returns you to a fresh Chat View with clean context. There's no separate page or popup; it happens instantly in the same view.
 
     **Pages:**
+
     - **Project History** - Opens a dedicated full-page view where you can browse all your previous sessions and conversations. This navigates away from the Chat View to show your session history. Click the **X** button to return to the Chat View.
 
     **Popups (Overlay Dialogs):**
+
     - **User Center** - Opens an overlay popup displaying your account information, credit balance, and usage details. The Chat View remains visible behind the popup.
     - **Feedback** - Opens an overlay popup with a form to submit feedback and report issues. The Chat View stays in the background.
 
     To close popups, either click outside the popup area or use the **X** button in the popup corner.
 
     **Dropdown Menus:**
+
     - **Settings** - Opens an inline dropdown menu with options for MCP servers, subagents, rules, and model presets. When you select an option from the menu (e.g., "MCP Servers"), it opens a dedicated full-page view for that configuration. Click the **X** button to return to the Chat View.
   </Tab>
-
   <Tab title="Input Box Navigation">
     All Input Box buttons open dropdown menus for quick, inline configuration:
 
-    **Dropdown Menu Pattern:**
-    Every button in the Input Box (Add Context, Add Images or Files, Add Subagent, Switch Mode, Switch/Customize AI Model, Think Hard Mode, Switch Permission) opens a dropdown menu directly below the button. These menus allow you to configure your request without navigating away from the Chat View.
+    **Dropdown Menu Pattern:** Every button in the Input Box (Add Context, Add Images or Files, Add Subagent, Switch Mode, Switch/Customize AI Model, Think Hard Mode, Switch Permission) opens a dropdown menu directly below the button. These menus allow you to configure your request without navigating away from the Chat View.
 
-    **Why Dropdowns:**
-    This design keeps you anchored to the Chat View for all common operations. You can adjust settings, select models, change modes, and add context without losing sight of your conversation or interrupting your workflow.
+    **Why Dropdowns:** This design keeps you anchored to the Chat View for all common operations. You can adjust settings, select models, change modes, and add context without losing sight of your conversation or interrupting your workflow.
 
-    **Closing Dropdowns:**
-    Dropdown menus automatically close when you make a selection or click anywhere outside the menu. This allows you to quickly configure settings and return to composing your request.
+    **Closing Dropdowns:** Dropdown menus automatically close when you make a selection or click anywhere outside the menu. This allows you to quickly configure settings and return to composing your request.
   </Tab>
-
   <Tab title="Returning to Chat View">
     Different navigation elements use different methods to return to the main Chat View:
 
     **From Pages (Project History, Settings):**
+
     - Click the **X** button in the top corner of the page
     - This returns you to the Chat View where you left off
 
     **From Popups (User Center, Feedback):**
+
     - Click the **X** button in the popup corner, or
     - Click anywhere outside the popup overlay
     - The Chat View was always visible behind the popup, so closing the popup immediately returns focus
 
     **From Dropdown Menus:**
+
     - Menus close automatically when you make a selection
     - Click anywhere outside the menu to close without selecting
     - You never leave the Chat View, so there's nothing to "return" from
 
-    **Navigation Philosophy:**
-    Most interactions happen through dropdown menus that keep you in the Chat View. **Project History** and **Settings options** navigate to separate pages, while **User Center** and **Feedback** use overlay popups that don't hide your conversation.
+    **Navigation Philosophy:** Most interactions happen through dropdown menus that keep you in the Chat View. **Project History** and **Settings options** navigate to separate pages, while **User Center** and **Feedback** use overlay popups that don't hide your conversation.
   </Tab>
 </Tabs>
 
 <Tip>
-Use @-mentions and slash commands to guide navigation—this helps Verdent understand your intent and choose the right tools.
+  Use @-mentions and slash commands to guide navigation—this helps Verdent understand your intent and choose the right tools.
 </Tip>
 
 ---
@@ -191,12 +184,14 @@ Access **Settings** → **Rules** to customize Verdent's behavior using Markdown
     **Purpose:** Set your personal usage preferences that Verdent will apply during chats across all workspaces. These are global settings that persist across all sessions regardless of which project you're working on.
 
     **Common Use Cases:**
+
     - Default output language (e.g., "Always respond in Spanish")
     - Code comment preferences (e.g., "Include detailed comments in generated code")
     - Response formatting (e.g., "Use TypeScript for all JavaScript examples")
     - Personal coding style preferences
 
     **How to Edit:**
+
     <Steps>
       <Step title="Open Settings">
         Click **Settings** in the Top Bar
@@ -209,7 +204,6 @@ Access **Settings** → **Rules** to customize Verdent's behavior using Markdown
       </Step>
     </Steps>
   </Tab>
-
   <Tab title="Project Rules">
     **File:** `AGENTS.md`
 
@@ -218,12 +212,14 @@ Access **Settings** → **Rules** to customize Verdent's behavior using Markdown
     **Purpose:** Define coding standards, architectural patterns, and development workflows that apply specifically to the current project. These rules override User Rules when working in this workspace and help Verdent understand your project's unique requirements.
 
     **Common Use Cases:**
+
     - Project-specific coding standards (e.g., "Use kebab-case for all file names")
     - Architectural patterns (e.g., "Follow the repository pattern for data access")
     - Technology stack requirements (e.g., "Use React Hooks, not class components")
     - Team conventions (e.g., "All API responses must include error codes")
 
     **How to Edit:**
+
     <Steps>
       <Step title="Open Settings">
         Click **Settings** in the Top Bar
@@ -235,24 +231,24 @@ Access **Settings** → **Rules** to customize Verdent's behavior using Markdown
         Select **Project Rules** to create or edit `AGENTS.md` in your workspace root
       </Step>
     </Steps>
-
     This file is project-specific and typically committed to version control.
   </Tab>
-
   <Tab title="Plan Rules">
-    **File:** `plan_rules.md`
+    **File:** `Plan.md`
 
     **Scope:** Controls Plan Mode output format and content
 
     **Purpose:** Customize what information appears in plans, how detailed they are, and what format they follow when using Plan Mode. These rules determine the structure and content of the plans Verdent generates before executing complex tasks.
 
     **Common Use Cases:**
+
     - Plan detail level (e.g., "Include time estimates for each step")
     - Plan structure (e.g., "Always include a 'Risks' section")
     - Content requirements (e.g., "List all files that will be modified")
     - Output format (e.g., "Use numbered lists for sequential steps")
 
     **How to Edit:**
+
     <Steps>
       <Step title="Open Settings">
         Click **Settings** in the Top Bar
