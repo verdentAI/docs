@@ -1,6 +1,6 @@
 ---
-title: Command Reference
-description: VS Code commands, tool syntax, and subagent invocation for Verdent
+title: "Command Reference"
+description: "VS Code commands, tool syntax, and subagent invocation for Verdent"
 ---
 
 Complete reference for VS Code commands, built-in tool syntax, and subagent usage.
@@ -12,34 +12,33 @@ Complete reference for VS Code commands, built-in tool syntax, and subagent usag
 ### Opening Verdent
 
 **Primary Commands:**
-| Command | Shortcut | Description |
-|---------|----------|-------------|
-| Open Chat View | `Ctrl+L` (Windows/Linux)<br/>`Cmd+L` (macOS) | Open Verdent chat interface |
-| Open Verdent Panel | Click sidebar icon | Access Verdent in Activity Bar |
+
+| Command            | Shortcut                                      | Description                    |
+| ------------------ | --------------------------------------------- | ------------------------------ |
+| Open Chat View     | `Ctrl+L` (Windows/Linux)<br />`Cmd+L` (macOS) | Open Verdent chat interface    |
+| Open Verdent Panel | Click sidebar icon                            | Access Verdent in Activity Bar |
 
 ---
 
 ### Execution Modes
 
-**Mode Switching:**
-Access through input box "Switch Mode" button or Settings:
+**Mode Switching:** Access through input box "Switch Mode" button or Settings:
 
-| Mode | Description | Use Case |
-|------|-------------|----------|
-| **Manual Accept** | Review and approve each operation | Shared codebases, production, learning |
-| **Auto-Run** | Automatic execution without approval | Solo projects, trusted code |
-| **Plan Mode** | Create plans before executing | Complex changes, unfamiliar code |
-| **Skip Permissions** | Run without permission prompts | Rapid iteration |
+| Mode                 | Description                          | Use Case                               |
+| -------------------- | ------------------------------------ | -------------------------------------- |
+| **Manual Accept**    | Review and approve each operation    | Shared codebases, production, learning |
+| **Auto-Run**         | Automatic execution without approval | Solo projects, trusted code            |
+| **Skip Permissions** | Run without permission prompts       | Rapid iteration                        |
 
 ---
 
 ### Conversation Management
 
-| Action | Method | Description |
-|--------|--------|-------------|
-| **New Conversation** | Button in chat interface | Start fresh conversation, clear context |
-| **Clear History** | Settings menu | Remove conversation history |
-| **Reload Window** | `Ctrl/Cmd + Shift + P` → "Reload Window" | Refresh VS Code after config changes |
+| Action               | Method                                   | Description                             |
+| -------------------- | ---------------------------------------- | --------------------------------------- |
+| **New Conversation** | Button in chat interface                 | Start fresh conversation, clear context |
+| **Clear History**    | Settings menu                            | Remove conversation history             |
+| **Reload Window**    | `Ctrl/Cmd + Shift + P` → "Reload Window" | Refresh VS Code after config changes    |
 
 ---
 
@@ -48,37 +47,38 @@ Access through input box "Switch Mode" button or Settings:
 ### File Operations
 
 **Built-in Tools:**
-| Tool | Command Syntax | Purpose |
-|------|----------------|---------|
-| `file_read` | `file_read("path/to/file.js")` | Read file contents |
-| `file_read` (range) | `file_read("file.js", start_line=100, max_lines=50)` | Read specific line range |
-| `file_edit` | `file_edit("file.js", old_string="...", new_string="...")` | Replace exact text match |
-| `file_write` | `file_write("path/to/new-file.js", content="...")` | Create or overwrite file |
+
+| Tool                | Command Syntax                                             | Purpose                  |
+| ------------------- | ---------------------------------------------------------- | ------------------------ |
+| `file_read`         | `file_read("path/to/file.js")`                             | Read file contents       |
+| `file_read` (range) | `file_read("file.js", start_line=100, max_lines=50)`       | Read specific line range |
+| `file_edit`         | `file_edit("file.js", old_string="...", new_string="...")` | Replace exact text match |
+| `file_write`        | `file_write("path/to/new-file.js", content="...")`         | Create or overwrite file |
 
 ---
 
 ### Search & Navigation
 
-| Tool | Command Syntax | Purpose |
-|------|----------------|---------|
-| `glob` | `glob("**/*.ts")` | Find files by pattern |
-| `glob` (filtered) | `glob("**/*.js", exclude=["**/node_modules/**"])` | Find files with exclusions |
-| `grep_file` | `grep_file("pattern", glob="**/*.ts")` | List files containing pattern |
-| `grep_content` | `grep_content("pattern", context_before=2, context_after=2)` | Search with context lines |
-| `list_dir` | `list_dir("path/to/dir", max_depth=2)` | Display directory structure |
+| Tool              | Command Syntax                                               | Purpose                       |
+| ----------------- | ------------------------------------------------------------ | ----------------------------- |
+| `glob`            | `glob("**/*.ts")`                                            | Find files by pattern         |
+| `glob` (filtered) | `glob("**/*.js", exclude=["**/node_modules/**"])`            | Find files with exclusions    |
+| `grep_file`       | `grep_file("pattern", glob="**/*.ts")`                       | List files containing pattern |
+| `grep_content`    | `grep_content("pattern", context_before=2, context_after=2)` | Search with context lines     |
+| `list_dir`        | `list_dir("path/to/dir", max_depth=2)`                       | Display directory structure   |
 
 ---
 
 ### Execution & Integration
 
-| Tool | Command Syntax | Purpose |
-|------|----------------|---------|
-| `bash` | `bash("npm test")` | Execute shell command |
-| `bash` (timeout) | `bash("long-task", timeout=600000)` | Command with custom timeout |
-| `spawn_subagent` | `@Explorer search codebase for...` | Delegate to specialized agent |
-| `todo_update` | `todo_update([{task: "...", status: "pending"}])` | Manage task list |
-| `web_search` | `web_search("query", max_results=5)` | Search internet |
-| `web_fetch` | `web_fetch("https://example.com")` | Fetch web page content |
+| Tool             | Command Syntax                                    | Purpose                       |
+| ---------------- | ------------------------------------------------- | ----------------------------- |
+| `bash`           | `bash("npm test")`                                | Execute shell command         |
+| `bash` (timeout) | `bash("long-task", timeout=600000)`               | Command with custom timeout   |
+| `spawn_subagent` | `@Explorer search codebase for...`                | Delegate to specialized agent |
+| `todo_update`    | `todo_update([{task: "...", status: "pending"}])` | Manage task list              |
+| `web_search`     | `web_search("query", max_results=5)`              | Search internet               |
+| `web_fetch`      | `web_fetch("https://example.com")`                | Fetch web page content        |
 
 ---
 
@@ -86,11 +86,11 @@ Access through input box "Switch Mode" button or Settings:
 
 ### Built-in Subagents
 
-| Subagent | Invocation | Purpose |
-|----------|------------|---------|
-| **@Explorer** | `@Explorer find all React components` | Codebase search and architecture questions |
-| **@Verifier** | `@Verifier check if tests pass` | Quick validation and verification |
-| **@Code-reviewer** | `@Code-reviewer review for security` | Security and quality analysis |
+| Subagent           | Invocation                            | Purpose                                    |
+| ------------------ | ------------------------------------- | ------------------------------------------ |
+| **@Explorer**      | `@Explorer find all React components` | Codebase search and architecture questions |
+| **@Verifier**      | `@Verifier check if tests pass`       | Quick validation and verification          |
+| **@Code-reviewer** | `@Code-reviewer review for security`  | Security and quality analysis              |
 
 ---
 
@@ -99,11 +99,13 @@ Access through input box "Switch Mode" button or Settings:
 **Location:** `~/.verdent/subagents/[name].md`
 
 **Invocation:**
+
 ```
 @custom-subagent-name perform task
 ```
 
 **Create via Settings:**
+
 ```
 Settings → Subagents → Create New Subagent
 ```
