@@ -581,7 +581,7 @@ AGENTS.md: "This project uses 4-space indentation"
 
 ## Plan Rules (Plan.md)
 
-plan_rules.md customizes the content and format of plans generated in Plan Mode. It controls plan detail level, sections included, formatting preferences, and information displayed.
+Plan.md customizes the content and format of plans generated in Plan Mode. It controls plan detail level, sections included, formatting preferences, and information displayed.
 
 ### Location and Scope
 
@@ -594,7 +594,7 @@ plan_rules.md customizes the content and format of plans generated in Plan Mode.
 **Access:**
 
 - Settings → Rules → Plan Rules
-- Direct file edit at `~/.verdent/plan_rules.md`
+- Direct file edit at ~/.verdent/plan_settings.json
 
 ---
 
@@ -652,12 +652,17 @@ plan_rules.md customizes the content and format of plans generated in Plan Mode.
 
 ### Format and Syntax
 
-plan_rules.md uses Markdown format with sections describing desired plan structure and content.
+Plan.md uses Markdown format with sections describing desired plan structure and content.
 
 **Structure:**
 
 ```markdown
-# Plan Rules
+
+---
+name: Plan Rules
+version: 1.0.0
+last_updated: 2025-11-26
+---
 
 ## Plan Structure
 - Start with brief summary (2-3 sentences)
@@ -683,7 +688,11 @@ plan_rules.md uses Markdown format with sections describing desired plan structu
 <Tabs>
   <Tab title="Detailed Technical">
     ```markdown
-    # Plan Rules
+    ---
+    name: Detailed Technical
+    version: 1.0.0
+    last_updated: 2025-11-26
+    ---
     
     ## Plan Structure
     - Executive summary (2-3 sentences)
@@ -714,7 +723,11 @@ plan_rules.md uses Markdown format with sections describing desired plan structu
   </Tab>
   <Tab title="High-Level Strategic">
     ```markdown
-    # Plan Rules
+    ---
+    name: High-Level Strategic
+    version: 1.0.0
+    last_updated: 2025-11-26
+    ---
     
     ## Plan Structure
     - Brief overview (1 paragraph)
@@ -742,7 +755,11 @@ plan_rules.md uses Markdown format with sections describing desired plan structu
   </Tab>
   <Tab title="Time-Conscious">
     ```markdown
-    # Plan Rules
+    ---
+    name: Time-Conscious
+    version: 1.0.0
+    last_updated: 2025-11-26
+    ---
     
     ## Plan Structure
     - Time estimates for each step
@@ -770,7 +787,11 @@ plan_rules.md uses Markdown format with sections describing desired plan structu
   </Tab>
   <Tab title="Risk-Focused">
     ```markdown
-    # Plan Rules
+    ---
+    name: Risk-Focused
+    version: 1.0.0
+    last_updated: 2025-11-26
+    ---
     
     ## Plan Structure
     - Risk assessment for each phase
@@ -797,7 +818,11 @@ plan_rules.md uses Markdown format with sections describing desired plan structu
   </Tab>
   <Tab title="Team Collaboration">
     ```markdown
-    # Plan Rules
+    ---
+    name: Team Collaboration
+    version: 1.0.0
+    last_updated: 2025-11-26
+    ---
     
     ## Plan Structure
     - Role assignments for each task
