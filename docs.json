@@ -122,7 +122,6 @@
             "group": "Reference",
             "pages": [
               "verdent-for-vscode/reference/commands",
-              "verdent-for-vscode/reference/shortcuts",
               "verdent-for-vscode/reference/glossary",
               "verdent-for-vscode/reference/changelog",
               "verdent-for-vscode/reference/security",
