@@ -1,0 +1,166 @@
+---
+title: "Browser Tool"
+description: "Automate web interactions, test UIs, and capture screenshots using browser sessions"
+---
+
+The Browser Tool enables AI-driven browser interactions. Launch browser sessions, click elements, type text, scroll pages, and capture screenshots through natural language commands.
+
+### What You'll Learn
+
+- Session lifecycle: launch → interact → close
+- Browser actions: click, type, scroll
+- Use cases: UI testing, screenshots, navigation
+
+---
+
+## Session Lifecycle
+
+Every browser automation workflow follows a strict sequence:
+
+1. **Launch** - Start a browser session at a target URL
+2. **Interact** - Perform actions (click, type, scroll)
+3. **Close** - End the session to release resources
+
+Browser state persists across actions within a session. You must close the browser before using other Verdent tools.
+
+<Tip>
+  Each action returns a screenshot showing the current browser state. Review screenshots between actions to verify success before proceeding.
+</Tip>
+
+---
+
+## Browser Actions
+
+<Tabs>
+  <Tab title="launch">
+    **Start a new browser session**
+
+    - Required: target URL
+    - Opens browser at 1920x1080 resolution
+    - Always the first action in any workflow
+
+    ```
+    Launch browser at https://example.com
+    ```
+  </Tab>
+  <Tab title="click">
+    **Click at specific coordinates**
+
+    - Required: x,y coordinates
+    - Coordinates are viewport-relative
+    - Target element centers for reliability
+
+    ```
+    Click coordinates 450,300
+    ```
+  </Tab>
+  <Tab title="type">
+    **Type text via keyboard**
+
+    - Required: text to type
+    - Types into currently focused element
+    - Often follows a click on an input field
+
+    ```
+    Type "user@example.com"
+    ```
+  </Tab>
+  <Tab title="scroll">
+    **Scroll the page**
+
+    - `scroll_down` - Scroll one page height down
+    - `scroll_up` - Scroll one page height up
+    - Reveals off-screen content
+
+    ```
+    Scroll down to load more content
+    ```
+  </Tab>
+  <Tab title="close">
+    **End browser session**
+
+    - Always the last action in any workflow
+    - Required before using other tools
+    - Releases browser resources
+
+    ```
+    Close browser
+    ```
+  </Tab>
+</Tabs>
+
+<Tip>
+  Coordinates are relative to the 1920x1080 viewport. Center is approximately (960, 540). Use screenshots to estimate element positions.
+</Tip>
+
+---
+
+## Common Use Cases
+
+<Tabs>
+  <Tab title="UI Testing">
+    **Test form submissions and navigation flows**
+
+    Launch at a login page, click input fields, type credentials, submit forms, and verify results through screenshots.
+
+    ```
+    Launch browser at https://app.example.com/login
+    Click coordinates 450,280
+    Type "testuser@example.com"
+    Click coordinates 450,340
+    Type "password123"
+    Click coordinates 500,420
+    Close browser
+    ```
+  </Tab>
+  <Tab title="Screenshots">
+    **Capture pages for documentation**
+
+    Screenshots are captured automatically after each action. Navigate to target pages and sections to build visual documentation.
+
+    ```
+    Launch browser at https://docs.example.com
+    Scroll down to API section
+    Close browser
+    ```
+  </Tab>
+  <Tab title="Navigation">
+    **Navigate to target content**
+
+    Use browser automation to reach content that requires interaction (clicking menus, loading lazy content) before extraction.
+
+    ```
+    Launch browser at https://store.example.com
+    Scroll down three times
+    Click "Next Page" at 960,800
+    Close browser
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Limitations
+
+- **Tool exclusivity** - Only browser_action can be used during active sessions
+- **Coordinate-based** - Requires x,y coordinates, not CSS selectors
+- **Fixed resolution** - Browser viewport locked at 1920x1080
+- **Chrome only** - Puppeteer supports Chrome/Chromium browsers
+- **No persistence** - Sessions don't survive Verdent restarts
+- **No WSL support** - Browser Tool does not work in WSL environments
+- **No saved state** - Each session starts fresh without cookies or authentication
+- **Single session** - Only one browser session can be active at a time
+
+<Tip>
+  Always close the browser session before using file operations, search tools, or bash commands. The browser locks other tools during active sessions.
+</Tip>
+
+---
+
+## See Also
+
+<CardGroup cols={3}>
+  <Card title="Code Diff" icon="code-compare" href="/verdent-for-vscode/core-features/code-diff">
+    Review and approve code changes
+  </Card>
+</CardGroup>
