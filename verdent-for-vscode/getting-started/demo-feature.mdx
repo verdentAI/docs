@@ -1,6 +1,6 @@
 ---
 title: "Demo: Feature Documentation (Tutorial Style)"
-description: Example of a tutorial-style feature documentation following the 300-350 line template with hands-on guidance
+description: "Example of a tutorial-style feature documentation following the 300-350 line template with hands-on guidance"
 ---
 
 ---
@@ -9,8 +9,7 @@ description: Example of a tutorial-style feature documentation following the 300
 
 This demo page showcases the **Feature Documentation (Tutorial Style)** template pattern. This template variant is designed for features best learned through guided hands-on experience, with special attention to security considerations.
 
-
-### What You'll Learn
+###  What You'll Learn
 
 By following this tutorial, you'll understand how to implement and use interactive code completion in your development environment, including:
 
@@ -20,7 +19,7 @@ By following this tutorial, you'll understand how to implement and use interacti
 - Security best practices for AI-powered completions
 
 <Tip>
-This is a **demo page** showing template structure, not actual Verdent documentation. Notice the progressive complexity and code-heavy approach characteristic of tutorial-style feature docs.
+  This is a **demo page** showing template structure, not actual Verdent documentation. Notice the progressive complexity and code-heavy approach characteristic of tutorial-style feature docs.
 </Tip>
 
 ### Prerequisites
@@ -47,7 +46,7 @@ Let's start with the fundamental concept: triggering code completions.
     function calculateSum(a: number, b: number): number {
       return a + b;
     }
-
+    
     // Type 'calc' and trigger completion to see the function suggestion
     calc
     ```
@@ -59,7 +58,6 @@ Let's start with the fundamental concept: triggering code completions.
     - Type information from your codebase
     - Recently used symbols
   </Tab>
-
   <Tab title="Automatic Triggers">
     Completions can trigger automatically when you type certain characters:
 
@@ -69,14 +67,15 @@ Let's start with the fundamental concept: triggering code completions.
       name: "Alice",
       email: "alice@example.com"
     };
-
+    
     user. // Completion list shows: name, email
-
+    
     // Typing '(' after a function shows parameter hints
     calculateSum( // Shows: (a: number, b: number)
     ```
 
     **Common trigger characters:**
+
     - `.` for object members
     - `(` for function parameters
     - `<` for generic types
@@ -128,7 +127,7 @@ console.log(/* localVar not suggested */);
 ```
 
 <Tip>
-**Best Practice**: Enable strict type checking in your project. This significantly improves completion accuracy by providing the engine with more type information.
+  **Best Practice**: Enable strict type checking in your project. This significantly improves completion accuracy by providing the engine with more type information.
 </Tip>
 
 ---
@@ -147,7 +146,6 @@ You can extend the completion system with custom providers for domain-specific s
     import * as vscode from 'vscode';
     ```
   </Step>
-
   <Step title="Create Completion Items">
     Define the completion items you want to provide:
 
@@ -165,7 +163,6 @@ You can extend the completion system with custom providers for domain-specific s
     );
     ```
   </Step>
-
   <Step title="Register the Provider">
     Register the completion provider with trigger characters:
 
@@ -185,12 +182,11 @@ You can extend the completion system with custom providers for domain-specific s
         },
         '.' // Trigger on dot character
       );
-
+    
       context.subscriptions.push(provider);
     }
     ```
   </Step>
-
   <Step title="Test Your Provider">
     Type the trigger character in a TypeScript file to see your custom completions appear in the suggestion list.
   </Step>
@@ -228,20 +224,20 @@ This snippet creates a complete test structure with three tab stops for customiz
 When integrating AI-powered completion features, security and privacy are critical concerns.
 
 <Warning>
-**Security Considerations for AI Completions:**
+  **Security Considerations for AI Completions:**
 
-- Never send sensitive data (API keys, passwords, tokens) to completion providers
-- Review your editor's data sharing settings
-- Be aware that code context may be sent to cloud services
-- Consider using local-only AI models for sensitive codebases
-- Implement content filtering before sending to external APIs
+  - Never send sensitive data (API keys, passwords, tokens) to completion providers
+  - Review your editor's data sharing settings
+  - Be aware that code context may be sent to cloud services
+  - Consider using local-only AI models for sensitive codebases
+  - Implement content filtering before sending to external APIs
 </Warning>
 
 ### Implementing Safe AI Completions
 
 Here's a secure pattern for AI-powered completions:
 
-```typescript {11,14-17,44-46,51-53}
+```typescript {11,14,15,16,17,44,45,46,51,52,53}
 interface CompletionRequest {
   context: string;
   cursor: number;
@@ -302,7 +298,7 @@ function containsSecrets(code: string): boolean {
 ```
 
 <Tip>
-**Privacy Best Practice**: Always inform users when their code is being sent to external services. Provide clear opt-in/opt-out settings in your extension configuration.
+  **Privacy Best Practice**: Always inform users when their code is being sent to external services. Provide clear opt-in/opt-out settings in your extension configuration.
 </Tip>
 
 ---
@@ -327,11 +323,11 @@ Choose a ranking strategy that fits your use case:
       return completions.sort((a, b) => {
         const aRecent = recentlyUsed.indexOf(a.label);
         const bRecent = recentlyUsed.indexOf(b.label);
-
+    
         // Items not in history go to end
         if (aRecent === -1) return 1;
         if (bRecent === -1) return -1;
-
+    
         // Sort by recency (lower index = more recent)
         return aRecent - bRecent;
       });
@@ -340,7 +336,6 @@ Choose a ranking strategy that fits your use case:
 
     **Best for**: Users with repetitive patterns who frequently reuse the same completions.
   </Tab>
-
   <Tab title="Context-Aware">
     Prioritize based on current typing and scope:
 
@@ -357,26 +352,25 @@ Choose a ranking strategy that fits your use case:
         .sort((a, b) => b.score - a.score)
         .map(({ item }) => item);
     }
-
+    
     function calculateRelevanceScore(
       item: vscode.CompletionItem,
       context: CompletionContext
     ): number {
       let score = 0;
-
+    
       // Boost items matching current typing
       if (item.label.startsWith(context.currentWord)) score += 5;
-
+    
       // Boost items in current scope
       if (context.visibleSymbols.has(item.label)) score += 3;
-
+    
       return score;
     }
     ```
 
     **Best for**: Users who want intelligent suggestions based on current code context.
   </Tab>
-
   <Tab title="Hybrid Approach">
     Combine multiple ranking factors:
 
@@ -393,28 +387,28 @@ Choose a ranking strategy that fits your use case:
         .sort((a, b) => b.score - a.score)
         .map(({ item }) => item);
     }
-
+    
     function calculateHybridScore(
       item: vscode.CompletionItem,
       context: CompletionContext
     ): number {
       let score = 0;
-
+    
       // Boost recently used items (highest weight)
       if (context.recentlyUsed.includes(item.label)) {
         score += 10;
       }
-
+    
       // Boost items matching current typing
       if (item.label.startsWith(context.currentWord)) {
         score += 5;
       }
-
+    
       // Boost items in current scope
       if (context.visibleSymbols.has(item.label)) {
         score += 3;
       }
-
+    
       return score;
     }
     ```
@@ -508,15 +502,15 @@ If completions are irrelevant:
 ## Best Practices Summary
 
 <Check>
-**Key Takeaways:**
+  **Key Takeaways:**
 
-- Always filter sensitive data before sending to external completion services
-- Use type annotations to improve completion accuracy
-- Implement debouncing to prevent excessive API calls
-- Rank completions based on relevance and recency
-- Provide clear user controls for privacy and data sharing
-- Test completion performance with realistic codebases
-- Handle errors gracefully without disrupting the editing experience
+  - Always filter sensitive data before sending to external completion services
+  - Use type annotations to improve completion accuracy
+  - Implement debouncing to prevent excessive API calls
+  - Rank completions based on relevance and recency
+  - Provide clear user controls for privacy and data sharing
+  - Test completion performance with realistic codebases
+  - Handle errors gracefully without disrupting the editing experience
 </Check>
 
 ---
@@ -532,53 +526,55 @@ Now that you understand interactive code completion, explore these related featu
 
 ---
 
-
 ## FAQs (Frequently Asked Questions)
 
 <Accordion title="What is a completion provider?">
-A completion provider is a VS Code extension component that supplies suggestions when users type code. It implements the `CompletionItemProvider` interface and returns an array of `CompletionItem` objects that appear in the suggestion list.
+  A completion provider is a VS Code extension component that supplies suggestions when users type code. It implements the `CompletionItemProvider` interface and returns an array of `CompletionItem` objects that appear in the suggestion list.
 </Accordion>
 
 <Accordion title="What is the difference between CompletionItemKind?">
-`CompletionItemKind` indicates what type of item is being completed. Common types include:
-- `Function` - For function/method completions
-- `Variable` - For variable names
-- `Keyword` - For language keywords
-- `Snippet` - For multi-line code snippets
-- `Property` - For object properties
+  `CompletionItemKind` indicates what type of item is being completed. Common types include:
 
-The kind affects both the icon displayed and how the completion is sorted in the list.
+  - `Function` - For function/method completions
+  - `Variable` - For variable names
+  - `Keyword` - For language keywords
+  - `Snippet` - For multi-line code snippets
+  - `Property` - For object properties
+
+  The kind affects both the icon displayed and how the completion is sorted in the list.
 </Accordion>
 
 <Accordion title="What is a SnippetString?">
-A `SnippetString` is a special text format that supports placeholder variables like `${1:placeholder}`. When inserted, users can tab through numbered placeholders to fill in multiple values. For example, `${1:name}` creates a tab stop where "name" is pre-selected.
+  A `SnippetString` is a special text format that supports placeholder variables like `${1:placeholder}`. When inserted, users can tab through numbered placeholders to fill in multiple values. For example, `${1:name}` creates a tab stop where "name" is pre-selected.
 </Accordion>
 
 <Accordion title="What does 'debouncing' mean in this context?">
-Debouncing delays execution of a function until after a certain time period has passed without new events. For completions, this prevents making API calls on every keystroke. Instead, it waits for a pause in typing (e.g., 300ms) before fetching suggestions.
+  Debouncing delays execution of a function until after a certain time period has passed without new events. For completions, this prevents making API calls on every keystroke. Instead, it waits for a pause in typing (e.g., 300ms) before fetching suggestions.
 </Accordion>
 
 <Accordion title="What is the CompletionContext?">
-`CompletionContext` contains metadata about when and why completions were triggered. It includes:
-- `triggerKind` - Whether triggered manually or automatically
-- `triggerCharacter` - The character that triggered completion (e.g., `.` or `(`)
-- Additional context like cursor position and current document state
+  `CompletionContext` contains metadata about when and why completions were triggered. It includes:
 
-This allows providers to customize suggestions based on how they were invoked.
+  - `triggerKind` - Whether triggered manually or automatically
+  - `triggerCharacter` - The character that triggered completion (e.g., `.` or `(`)
+  - Additional context like cursor position and current document state
+
+  This allows providers to customize suggestions based on how they were invoked.
 </Accordion>
 
 <Accordion title="What is a completion trigger character?">
-A trigger character is a specific character that automatically activates the completion list when typed. Common examples include `.` (for object members), `(` (for function parameters), and `<` (for generic types). You register these when creating the completion provider.
+  A trigger character is a specific character that automatically activates the completion list when typed. Common examples include `.` (for object members), `(` (for function parameters), and `<` (for generic types). You register these when creating the completion provider.
 </Accordion>
 
 <Accordion title="What does 'ranking completions' mean?">
-Ranking completions refers to sorting the suggestion list to show the most relevant items first. This typically considers factors like:
-- How closely the item matches what the user is typing
-- How recently the item was used
-- Whether the item is in the current scope
-- User preferences and settings
+  Ranking completions refers to sorting the suggestion list to show the most relevant items first. This typically considers factors like:
 
-Better ranking improves the user experience by reducing the number of keystrokes needed to select the right completion.
+  - How closely the item matches what the user is typing
+  - How recently the item was used
+  - Whether the item is in the current scope
+  - User preferences and settings
+
+  Better ranking improves the user experience by reducing the number of keystrokes needed to select the right completion.
 </Accordion>
 
 ---

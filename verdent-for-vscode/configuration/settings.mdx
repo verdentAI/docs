@@ -1,11 +1,11 @@
 ---
-title: Configuration & Customization
-description: Customizing Verdent to fit your workflow
+title: "Configuration & Customization"
+description: "Customizing Verdent to fit your workflow"
 ---
 
 Verdent for VS Code provides extensive configuration options to adapt to your development workflow, coding preferences, and team standards. Configure settings through VS Code's native settings interface, customize keyboard shortcuts, and create rules and subagents for specialized behavior.
 
-### What You'll Learn
+###  What You'll Learn
 
 - Configure VS Code extension settings for Verdent
 - Customize keyboard shortcuts for efficient workflow
@@ -60,13 +60,13 @@ Settings changes take effect immediately without requiring VS Code restart.
 
 Verdent for VS Code provides **2 core extension settings** that can be configured through VS Code's settings interface:
 
-| Setting | Type | Default | Description |
-|---------|------|---------|-------------|
-| `verdent.enableCheckpoints` | `boolean` | `true` | Enables extension to save checkpoints of workspace throughout tasks using git. May impact performance on large workspaces. |
-| `verdent.enableProxy` | `boolean` | `true` | Enables proxy support for network connections. Required for users behind corporate firewalls or proxy servers. |
+| Setting                     | Type      | Default | Description                                                                                                                |
+| --------------------------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `verdent.enableCheckpoints` | `boolean` | `true`  | Enables extension to save checkpoints of workspace throughout tasks using git. May impact performance on large workspaces. |
+| `verdent.enableProxy`       | `boolean` | `true`  | Enables proxy support for network connections. Required for users behind corporate firewalls or proxy servers.             |
 
 <Note>
-These are the complete VS Code extension settings for Verdent. Additional configuration options (Rules, Subagents, MCP Servers) are managed through the Verdent Settings menu in the extension's top bar.
+  These are the complete VS Code extension settings for Verdent. Additional configuration options (Rules, Subagents, MCP Servers) are managed through the Verdent Settings menu in the extension's top bar.
 </Note>
 
 ---
@@ -75,15 +75,15 @@ These are the complete VS Code extension settings for Verdent. Additional config
 
 The Input Box at the bottom of the Verdent panel provides quick access to configuration controls:
 
-| Control | Purpose | Options |
-|---------|---------|---------|
-| **Add Context** | Attach files using @-mentions | @filename, @foldername |
-| **Add Images or Files** | Include screenshots or documents | Upload images, PDFs, text files |
-| **Add Subagent** | Delegate to specialized agents | @Verifier, @Explorer, @Code-reviewer, custom subagents |
-| **Switch Mode** | Toggle execution mode | Agent Mode, Plan Mode, Chat Mode |
+| Control                       | Purpose                               | Options                                                            |
+| ----------------------------- | ------------------------------------- | ------------------------------------------------------------------ |
+| **Add Context**               | Attach files using @-mentions         | @filename, @foldername                                             |
+| **Add Images or Files**       | Include screenshots or documents      | Upload images, PDFs, text files                                    |
+| **Add Subagent**              | Delegate to specialized agents        | @Verifier, @Explorer, @Code-reviewer, custom subagents             |
+| **Switch Mode**               | Toggle execution mode                 | Agent Mode, Plan Mode, Chat Mode                                   |
 | **Switch/Customize AI Model** | Select model preset or specific model | Performance (1-2x cost), Balance (1x cost), Efficiency (0.3x cost) |
-| **Think Hard Mode** | Enable extended reasoning | Toggle on/off for complex problems |
-| **Switch Permission** | Change permission level | Manual Accept (default), Auto-Run, Plan, Skip Permissions |
+| **Think Hard Mode**           | Enable extended reasoning             | Toggle on/off for complex problems                                 |
+| **Switch Permission**         | Change permission level               | Manual Accept (default), Auto-Run, Plan, Skip Permissions          |
 
 ### Permission Modes
 
@@ -193,6 +193,7 @@ All Verdent keyboard shortcuts can be customized using VS Code's standard keybin
       </Step>
       <Step title="Add Custom Keybinding">
         <CodeGroup>
+
         ```json macOS
         {
           "key": "cmd+shift+v",
@@ -200,12 +201,14 @@ All Verdent keyboard shortcuts can be customized using VS Code's standard keybin
         }
         ```
 
+        
         ```json Windows/Linux
         {
           "key": "ctrl+shift+v",
           "command": "verdent.addToChat"
         }
         ```
+
         </CodeGroup>
       </Step>
     </Steps>
@@ -223,10 +226,10 @@ All Verdent keyboard shortcuts can be customized using VS Code's standard keybin
 
 Verdent follows VS Code's platform-specific keyboard conventions:
 
-| Platform | Modifier Key Pattern |
-|----------|---------------------|
-| **macOS** | `Cmd` for primary shortcuts, `Option` for alternate |
-| **Windows/Linux** | `Ctrl` for primary shortcuts, `Alt` for alternate |
+| Platform          | Modifier Key Pattern                                |
+| ----------------- | --------------------------------------------------- |
+| **macOS**         | `Cmd` for primary shortcuts, `Option` for alternate |
+| **Windows/Linux** | `Ctrl` for primary shortcuts, `Alt` for alternate   |
 
 **Common Patterns:**
 
@@ -284,7 +287,7 @@ Rules define how Verdent behaves and responds during coding sessions. Rules are 
 
 **Example User Rules:**
 
-```markdown filename="user_rules.md"
+```markdown
 # Code Style Preferences
 - Always use functional React components with hooks
 - Prefer TypeScript over JavaScript
@@ -294,7 +297,7 @@ Rules define how Verdent behaves and responds during coding sessions. Rules are 
 
 **Example Project Rules:**
 
-```markdown filename="AGENTS.md"
+```markdown
 ## Testing instructions
 - Run `pnpm turbo run test --filter <project_name>` to run all checks
 - Fix test and type errors until suite is green
@@ -307,11 +310,11 @@ Rules define how Verdent behaves and responds during coding sessions. Rules are 
 
 #### Rules Storage and Application
 
-| Rule Type | Location | Scope | Version Control |
-|-----------|----------|-------|-----------------|
-| User Rules | `~/.verdent/user_rules.md` | All projects | Personal, not shared |
-| Project Rules | `<project>/AGENTS.md` | Current project | Can be committed for team consistency |
-| Plan Rules | `~/.verdent/plan_rules.md` | All projects (Plan Mode) | Personal, not shared |
+| Rule Type     | Location                   | Scope                    | Version Control                       |
+| ------------- | -------------------------- | ------------------------ | ------------------------------------- |
+| User Rules    | `~/.verdent/user_rules.md` | All projects             | Personal, not shared                  |
+| Project Rules | `<project>/AGENTS.md`      | Current project          | Can be committed for team consistency |
+| Plan Rules    | `~/.verdent/plan_rules.md` | All projects (Plan Mode) | Personal, not shared                  |
 
 **Configuration Priority:**
 
@@ -322,7 +325,7 @@ When rules conflict, Verdent applies this priority order:
 3. **Default Behavior** - Verdent's built-in defaults
 
 <Tip>
-Commit AGENTS.md to version control to share project-specific coding standards with your entire team. Each team member's workspace automatically follows the project rules while maintaining individual preferences through user_rules.md.
+  Commit AGENTS.md to version control to share project-specific coding standards with your entire team. Each team member's workspace automatically follows the project rules while maintaining individual preferences through user_rules.md.
 </Tip>
 
 ---
@@ -372,7 +375,7 @@ Verdent includes three default subagents immediately available without configura
 
 **Subagent File Format:**
 
-```markdown filename="security-reviewer.md"
+```markdown
 ---
 name: security-reviewer
 description: Security-focused code review specialist
@@ -410,23 +413,25 @@ Access through **Settings → Subagents** to:
 ### Using Subagents
 
 **Built-in Subagents:**
+
 - Reference with @-mentions: `@Verifier`, `@Explorer`, `@Code-reviewer`
 - Automatically invoked when appropriate task types are detected
 
 **Custom Subagents:**
+
 - Click **Add Subagent** button in Input Box
 - Select from dropdown
 - Main agent automatically delegates appropriate tasks
 
 ### Subagent vs Rules
 
-| Aspect | Rules | Subagents |
-|--------|-------|-----------|
-| **When Applied** | Continuously, every response | On-demand for specific tasks |
-| **Context** | Shared main context window | Isolated separate context |
-| **Behavior** | Preferences and guidelines | Task-specific behavioral personas |
-| **Invocation** | Always active | Automatic or manual delegation |
-| **Purpose** | Define WHAT you prefer | Define WHO handles tasks and HOW |
+| Aspect           | Rules                        | Subagents                         |
+| ---------------- | ---------------------------- | --------------------------------- |
+| **When Applied** | Continuously, every response | On-demand for specific tasks      |
+| **Context**      | Shared main context window   | Isolated separate context         |
+| **Behavior**     | Preferences and guidelines   | Task-specific behavioral personas |
+| **Invocation**   | Always active                | Automatic or manual delegation    |
+| **Purpose**      | Define WHAT you prefer       | Define WHO handles tasks and HOW  |
 
 **Example Workflow:**
 
@@ -437,7 +442,7 @@ Access through **Settings → Subagents** to:
 5. **Main Agent:** Receives results and continues without context pollution
 
 <Tip>
-Share subagents with team members by using the **Copy** button in Settings → Subagents, or by sharing subagent markdown files directly from `~/.verdent/subagents/`.
+  Share subagents with team members by using the **Copy** button in Settings → Subagents, or by sharing subagent markdown files directly from `~/.verdent/subagents/`.
 </Tip>
 
 ---
@@ -445,63 +450,68 @@ Share subagents with team members by using the **Copy** button in Settings → S
 ## FAQs (Frequently Asked Questions)
 
 <Accordion title="When do configuration changes take effect?">
-Most Verdent settings apply immediately without requiring a restart:
+  Most Verdent settings apply immediately without requiring a restart:
 
-- **Permission modes:** Switch instantly via Input Box
-- **Model presets:** Apply to next request
-- **Rules files:** Apply to new conversations (save triggers reload)
-- **Subagents:** Available immediately after creation
-- **Keyboard shortcuts:** Apply after saving in VS Code
+  - **Permission modes:** Switch instantly via Input Box
+  - **Model presets:** Apply to next request
+  - **Rules files:** Apply to new conversations (save triggers reload)
+  - **Subagents:** Available immediately after creation
+  - **Keyboard shortcuts:** Apply after saving in VS Code
 
-**Exception:** VS Code extension settings (like `verdent.enableCheckpoints`) take effect immediately but may require reopening files or sessions for full application.
+  **Exception:** VS Code extension settings (like `verdent.enableCheckpoints`) take effect immediately but may require reopening files or sessions for full application.
 </Accordion>
 
 <Accordion title="What's the difference between Rules and Subagents?">
-**Rules** define WHAT you prefer globally:
-- Continuous application to all conversations
-- Coding standards, communication style, preferences
-- Stored in markdown files (user_rules.md, AGENTS.md, plan_rules.md)
-- Always active in background
+  **Rules** define WHAT you prefer globally:
 
-**Subagents** define WHO handles specific tasks and HOW:
-- On-demand invocation for specific task types
-- Specialized behavioral personas with custom system prompts
-- Isolated context windows (don't pollute main context)
-- Delegated automatically or manually via @-mentions
+  - Continuous application to all conversations
+  - Coding standards, communication style, preferences
+  - Stored in markdown files (user_rules.md, AGENTS.md, plan_rules.md)
+  - Always active in background
 
-**Example:** A rule says "Generate unit tests for new functions." A Test Generator subagent handles the actual test creation with comprehensive testing methodology.
+  **Subagents** define WHO handles specific tasks and HOW:
+
+  - On-demand invocation for specific task types
+  - Specialized behavioral personas with custom system prompts
+  - Isolated context windows (don't pollute main context)
+  - Delegated automatically or manually via @-mentions
+
+  **Example:** A rule says "Generate unit tests for new functions." A Test Generator subagent handles the actual test creation with comprehensive testing methodology.
 </Accordion>
 
 <Accordion title="Can I use multiple permission modes at the same time?">
-No, permission modes are mutually exclusive - you can only use ONE at a time:
+  No, permission modes are mutually exclusive - you can only use ONE at a time:
 
-- **Manual Accept** - Default, maximum control
-- **Auto-Run** - Streamlined for trusted projects
-- **Plan** - Read-only planning mode
-- **Skip Permissions** - Full autonomy
+  - **Manual Accept** - Default, maximum control
+  - **Auto-Run** - Streamlined for trusted projects
+  - **Plan** - Read-only planning mode
+  - **Skip Permissions** - Full autonomy
 
-You can switch modes instantly via the **Switch Permission** button in the Input Box. Most users switch between modes based on task context (e.g., Plan Mode for complex features, Auto-Run for quick fixes).
+  You can switch modes instantly via the **Switch Permission** button in the Input Box. Most users switch between modes based on task context (e.g., Plan Mode for complex features, Auto-Run for quick fixes).
 </Accordion>
 
 <Accordion title="How do I choose the right model preset for my task?">
-Match model preset to task complexity and budget:
+  Match model preset to task complexity and budget:
 
-**Use Efficiency (3.2x more efficient than Sonnet):**
-- Quick bug fixes and simple code generation
-- Routine operations and high-frequency tasks
-- When speed matters more than depth
+  **Use Efficiency (3.2x more efficient than Sonnet):**
 
-**Use Balance (1x baseline) - Default:**
-- General development and everyday coding
-- Feature implementation and code reviews
-- Balanced performance for most scenarios
+  - Quick bug fixes and simple code generation
+  - Routine operations and high-frequency tasks
+  - When speed matters more than depth
 
-**Use Performance (0.5x efficiency, 2x cost):**
-- Complex architectural decisions
-- Large codebases requiring extensive context (200k+ tokens)
-- Sophisticated debugging and refactoring
+  **Use Balance (1x baseline) - Default:**
 
-**Pro tip:** Most users keep Balance as default and switch to Performance only when hitting context limits or needing deep reasoning.
+  - General development and everyday coding
+  - Feature implementation and code reviews
+  - Balanced performance for most scenarios
+
+  **Use Performance (0.5x efficiency, 2x cost):**
+
+  - Complex architectural decisions
+  - Large codebases requiring extensive context (200k+ tokens)
+  - Sophisticated debugging and refactoring
+
+  **Pro tip:** Most users keep Balance as default and switch to Performance only when hitting context limits or needing deep reasoning.
 </Accordion>
 
 ---
