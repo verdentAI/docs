@@ -60,8 +60,7 @@
           {
             "group": "Pricing",
             "pages": [
-              "verdent/pricing/overview",
-              "verdent/pricing/plans"
+              "verdent/pricing/overview"
             ]
           },
           {
@@ -182,8 +181,7 @@
           {
             "group": "Pricing",
             "pages": [
-              "verdent-for-vscode/pricing/overview",
-              "verdent-for-vscode/pricing/plans"
+              "verdent-for-vscode/pricing/overview"
             ]
           },
           {
