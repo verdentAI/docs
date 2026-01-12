@@ -1,0 +1,218 @@
+---
+title: Installation
+description: "Step-by-step guide to installing and setting up Verdent"
+---
+
+This guide walks you through downloading Verdent, completing platform-specific installation, and authenticating with your Verdent account.
+
+---
+
+## Requirements
+
+Before installing Verdent, ensure your system meets these prerequisites:
+
+### System Requirements
+
+* **Operating System**: macOS 11+ or Windows 10+ (64-bit)
+* **Git**: Version 2.20 or higher ([Installation Guide](/verdent/getting-started/git-installation))  
+  Verdent uses Git worktrees for workspace isolation. Your project folder does not need to be a Git repository, but some features require Git and Verdent may guide you to initialize a repo when needed.
+* **Internet Connection**: Active connection required for AI service communication
+
+### Optional but Recommended
+
+* **Disk Space**: At least 2 GB free (more recommended for large repositories, worktrees, and caching)
+
+See [System Requirements](/verdent/getting-started/system-requirements) for detailed compatibility information.
+
+---
+
+## Download
+
+Download Verdent from the official website:
+
+**[verdent.ai/download](https://verdent.ai/download)**
+
+Select your operating system to download the appropriate installer.
+
+---
+
+## macOS Installation
+
+<Steps>
+  <Step title="Download">
+    Download the `.dmg` file from [verdent.ai/download](https://verdent.ai/download)
+  </Step>
+  <Step title="Open DMG">
+    Double-click the downloaded `.dmg` file to mount it
+  </Step>
+  <Step title="Install">
+    Drag the Verdent icon to the Applications folder
+  </Step>
+  <Step title="Launch">
+    Open Applications and double-click Verdent
+  </Step>
+  <Step title="Security Approval">
+    If prompted, open **System Settings (or System Preferences) → Privacy & Security / Security & Privacy** and click **Open Anyway**
+  </Step>
+</Steps>
+
+**Supported macOS Versions:**
+- macOS 11 (Big Sur) and later
+- Intel and Apple Silicon supported
+
+---
+
+## Windows Installation
+
+<Steps>
+  <Step title="Download">
+    Download the `.exe` installer from [verdent.ai/download](https://verdent.ai/download)
+  </Step>
+  <Step title="Run Installer">
+    Double-click the downloaded `.exe` file
+  </Step>
+  <Step title="UAC Prompt">
+    Click **Yes** when prompted by User Account Control
+  </Step>
+  <Step title="Installation Options">
+    Follow the installer prompts (some builds may not offer a custom installation directory)
+  </Step>
+  <Step title="Complete">
+    Click **Install** and wait for completion
+  </Step>
+  <Step title="Launch">
+    Click **Finish** to launch Verdent, or find it in Start Menu
+  </Step>
+</Steps>
+
+**Supported Windows Versions:**
+- Windows 10
+- Windows 11
+- 64-bit only
+
+---
+
+## Authentication & Setup
+
+After installation, you'll need to authenticate with your Verdent account to start using the application.
+
+### Initial Authentication
+
+<Steps>
+  <Step title="Launch Verdent">
+    Open Verdent from Applications (macOS) or Start Menu (Windows). The welcome screen appears.
+  </Step>
+
+  <Step title="Sign In">
+    Click **Sign In**. Your browser will open to the Verdent authentication page.
+  </Step>
+
+  <Step title="Browser Authentication">
+    Sign in with your Verdent account credentials (email/password or OAuth providers like Google, GitHub, etc.).
+  </Step>
+
+  <Step title="Return to App">
+    Return to Verdent once authentication completes. You'll see the main interface.
+  </Step>
+
+  <Step title="Open Project">
+    Choose **Open Project** to select a directory, or **Recent Projects** if returning.
+  </Step>
+</Steps>
+
+---
+
+## Verifying Installation
+
+Confirm your installation is working correctly with these simple checks:
+
+### Visual Verification
+
+1. **Application Icon** - Verdent appears in Applications (macOS) or Start Menu (Windows)
+2. **Signed In** - You can see your account status in the app after authentication (e.g., avatar/email)
+
+### Functional Verification
+
+<Steps>
+  <Step title="Open Project">
+    Open a directory in Verdent.
+  </Step>
+
+  <Step title="Send Test Prompt">
+    Try a simple request like "Explain what this project contains" in the input box.
+  </Step>
+
+  <Step title="Receive Response">
+    Verdent should analyze your project and provide a response shortly.
+  </Step>
+</Steps>
+
+**Success Indicators:**
+
+* Verdent launches without errors
+* Successfully authenticated account
+* Can send prompts and receive responses
+
+<Warning>
+  Verdent requires an active internet connection for AI features. If prompts aren't responding, verify your network connectivity and ensure your firewall allows outbound HTTPS to Verdent's API endpoints.
+</Warning>
+
+---
+
+## Troubleshooting Installation
+
+<Tabs>
+  <Tab title="macOS Security">
+    **Problem:** "Verdent cannot be opened because it is from an unidentified developer"
+
+    **Solution:**
+    1. Open **System Settings (or System Preferences) → Privacy & Security / Security & Privacy**
+    2. Find the Verdent warning message
+    3. Click **Open Anyway**
+    4. Confirm by clicking **Open**
+  </Tab>
+  <Tab title="Windows Defender">
+    **Problem:** Windows Defender blocks installation
+
+    **Solution:**
+    1. Click **More info** on the SmartScreen popup
+    2. If you downloaded Verdent from the official website and trust the source, click **Run anyway**
+    3. Continue the installation
+  </Tab>
+</Tabs>
+
+---
+
+## FAQs
+
+<Accordion title="Can I install Verdent alongside the VS Code extension?">
+Yes. Verdent and the VS Code extension are independent applications. You can use both, and they share the same credit pool and account.
+</Accordion>
+
+<Accordion title="How do I update Verdent?">
+Verdent checks for updates automatically on launch. When an update is available:
+1. A notification appears
+2. Click **Update** to download and install
+3. Restart the application
+
+You can also check manually from the app menu (for example: **Help → Check for Updates**).
+</Accordion>
+
+<Accordion title="How do I uninstall Verdent?">
+**macOS:** Drag Verdent from Applications to Trash
+
+**Windows:** Use **Settings → Apps → Verdent → Uninstall** or **Control Panel → Programs and Features**
+</Accordion>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/verdent/getting-started/quick-start">
+    Complete your first task
+  </Card>
+  <Card title="Interface Guide" icon="window" href="/verdent/getting-started/interface">
+    Explore the Verdent interface
+  </Card>
+</CardGroup>

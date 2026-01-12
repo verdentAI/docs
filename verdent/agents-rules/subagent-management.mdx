@@ -1,0 +1,133 @@
+---
+title: Subagent Management
+description: Understanding and managing subagents in Verdent
+---
+
+Subagents are specialized AI agents that operate with their own custom system prompt and isolated context window. They handle specific tasks delegated by the main agent without polluting the main conversation context.
+
+### What You'll Learn
+
+- Understanding default subagents
+- When to use each subagent
+- Manual invocation with @-mentions
+
+---
+
+## Key Characteristics
+
+- **Isolated Context:** Each subagent maintains its own separate context window
+- **Custom System Prompts:** Every subagent has a dedicated system prompt defining its behavior
+- **Manual Invocation:** Users can explicitly reference subagents using @-mentions (`@Verifier`, `@Code-reviewer`)
+
+---
+
+## Default Subagents
+
+Verdent includes two built-in subagents that are pre-configured and immediately available.
+
+<Tabs>
+  <Tab title="@Verifier">
+    **Specialization:** Quick code checks and validation
+
+    **Capabilities:**
+    - Validates code logic
+    - Checks syntax correctness
+    - Verifies implementation against requirements
+
+    **Usage:**
+    ```
+    @Verifier check this authentication logic
+    ```
+
+    **Best For:** Rapid validation without full code review overhead
+
+    <Tip>
+    @Verifier can be configured to use a different model in Settings. Use a smaller, cheaper model for simple verification tasks.
+    </Tip>
+  </Tab>
+
+  <Tab title="@Code-reviewer">
+    **Specialization:** Code quality assessment
+
+    **Capabilities:**
+    - Scans code for security vulnerabilities
+    - Identifies maintainability issues
+    - Detects performance problems
+
+    **Usage:**
+    ```
+    @Code-reviewer review this authentication flow
+    ```
+
+    **Best For:**
+    - Pre-commit reviews
+    - Identifying issues before integration
+    - Security analysis
+  </Tab>
+</Tabs>
+
+---
+
+## Using Subagents
+
+### Manual Invocation
+
+Use @-mentions to explicitly invoke a subagent:
+
+```
+@Code-reviewer review the security of login flow
+@Verifier check validation logic in middleware
+```
+
+**Benefits of Manual Invocation:**
+- **Precision:** Ensure exact subagent handles the task
+- **Control:** Choose specific subagent when multiple could apply
+- **Consistency:** Repeat tasks with same subagent for consistent results
+
+### When to Use Each Subagent
+
+| Task Type | Subagent | Example |
+|-----------|----------|---------|
+| Quick validation | @Verifier | `@Verifier check this logic` |
+| Security review | @Code-reviewer | `@Code-reviewer review auth flow` |
+| Code quality | @Code-reviewer | `@Code-reviewer identify issues` |
+| Syntax check | @Verifier | `@Verifier validate this function` |
+
+---
+
+## Subagent vs Main Agent
+
+| Aspect | Subagent | Main Agent |
+|--------|----------|------------|
+| **Context** | Isolated, focused | Full conversation context |
+| **Speed** | Faster for specific tasks | Better for complex analysis |
+| **Best for** | Validation, review | Investigation, implementation |
+
+---
+
+## FAQs
+
+<Accordion title="When should I use a subagent instead of the main agent?">
+Use subagents for quick, focused tasks like validation or code review. Use the main agent for complex investigations requiring full context.
+</Accordion>
+
+<Accordion title="Do subagents share context with the main agent?">
+No. Subagents have isolated context windows. Only the final results are returned to the main agent.
+</Accordion>
+
+<Accordion title="Can I configure subagent models?">
+Yes. @Verifier can be configured to use a different model in Settings for cost optimization.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Debugging" icon="bug" href="/verdent/task-based-guides/debugging">
+    Using @Verifier for debugging workflows
+  </Card>
+  <Card title="Settings" icon="gear" href="/verdent/configuration/settings">
+    Configure subagent models
+  </Card>
+</CardGroup>

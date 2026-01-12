@@ -1,0 +1,156 @@
+---
+title: Version Control
+description: "Git integration and version control in Verdent"
+---
+
+Verdent manages Git automatically through workspace isolation. Each workspace operates on its own branch, with changes rebased to master when complete.
+
+## What You'll Learn
+
+- Use Source Control for staging and commits
+- How Verdent handles Git operations
+- Rebasing changes to master
+
+---
+
+## Source Control Panel
+
+For manual Git operations, use the **Source Control** panel (`Ctrl+Shift+G` / `Cmd+Shift+G`):
+
+- View changed files
+- Stage and unstage changes
+- Commit with custom messages
+- Diff view for individual files
+- Revert changes
+
+---
+
+## Git Through Verdent
+
+Ask Verdent to handle Git operations naturally:
+
+<Tabs>
+  <Tab title="Commits">
+    ```
+    Commit these changes with message "Add user authentication"
+    ```
+
+    ```
+    Commit current changes as work-in-progress
+    ```
+
+    Verdent reviews changed files, generates a descriptive message, and executes the commit.
+  </Tab>
+  <Tab title="History">
+    ```
+    Show me the last 10 commits
+    ```
+
+    ```
+    What changed in the last commit?
+    ```
+
+    ```
+    Show me the diff between master and this branch
+    ```
+  </Tab>
+  <Tab title="Branches">
+    ```
+    Create a new branch called feature-login
+    ```
+
+    ```
+    Sync this branch with the latest changes from master
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Workspace Operations
+
+Each workspace has its own Git branch. Use **Workspace Actions** in the Top Bar:
+
+| Operation | Action |
+|-----------|--------|
+| **Sync with master** | Pull latest changes from master into workspace |
+| **Rebase to master** | Apply workspace changes to master |
+
+### Rebase Workflow
+
+<Steps>
+  <Step title="Complete Work">
+    Finish your feature or fix in the workspace
+  </Step>
+  <Step title="Commit Changes">
+    Use Source Control (`Ctrl+Shift+G`) to stage changes and commit with a descriptive message
+  </Step>
+  <Step title="Test">
+    Run tests to ensure everything works
+  </Step>
+  <Step title="Rebase">
+    Click **Workspace Actions → Rebase to master**
+  </Step>
+  <Step title="Clean Up">
+    Click **Delete Workspace** in the Workspace Bar
+  </Step>
+</Steps>
+
+---
+
+## Terminal Access (Optional)
+
+For advanced Git operations, use the integrated terminal (`Ctrl+J`):
+
+<Accordion title="Common terminal commands">
+```bash
+# Status and diff
+git status
+git diff
+
+# History
+git log --oneline -10
+
+# Reset uncommitted changes
+git checkout -- .
+
+# Reset to previous commit (destructive)
+git reset --hard HEAD~1
+```
+</Accordion>
+
+---
+
+## FAQs
+
+<Accordion title="What happens to uncommitted changes when switching workspaces?">
+Each workspace maintains its own state. Uncommitted changes in one workspace don't affect others.
+</Accordion>
+
+<Accordion title="How do I resolve conflicts when syncing?">
+1. Click **Workspace Actions → Sync with master**
+2. Conflicts appear in affected files
+3. Ask Verdent to help: `Help me resolve the conflicts in @userService.ts`
+4. Stage resolved files and complete the sync
+</Accordion>
+
+<Accordion title="Why does Verdent use rebase instead of merge?">
+Rebase creates cleaner linear history and easier code review. Each workspace produces a clean branch that rebases onto master when complete.
+</Accordion>
+
+<Accordion title="Can I push workspace branches to remote?">
+Yes. Each workspace branch is a normal Git branch. Use `git push origin branch-name` for backup, code review, or collaboration.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Workspace Isolation" icon="code-branch" href="/verdent/core-features/workspace-isolation">
+    How workspaces use Git branches
+  </Card>
+  <Card title="Refactoring" icon="code" href="/verdent/task-based-guides/refactoring">
+    Version control for refactoring workflows
+  </Card>
+</CardGroup>

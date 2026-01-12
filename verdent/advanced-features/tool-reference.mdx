@@ -1,0 +1,630 @@
+---
+title: Tool System Reference
+description: "Complete reference for Verdent's tool system"
+---
+
+### What You'll Learn
+
+Comprehensive reference for Verdent's built-in tool system, including file operations, search capabilities, command execution, and integration tools.
+
+---
+
+## Available Tools Overview
+
+Verdent provides a comprehensive toolkit for code manipulation, navigation, and external interaction.
+
+<Tabs>
+  <Tab title="File Operations">
+    | Tool | Purpose | Key Capabilities |
+    |------|---------|------------------|
+    | `file_read` | Read file contents | Supports line ranges for large files, works with all text formats |
+    | `file_edit` | Targeted modifications | Replace exact text matches, multiple replacements, preserves formatting |
+    | `file_write` | Create or overwrite files | Complete file creation/replacement, handles text content |
+  </Tab>
+
+  <Tab title="Search & Navigation">
+    | Tool | Purpose | Key Capabilities |
+    |------|---------|------------------|
+    | `glob` | Pattern-based file search | Glob patterns (`**/*.ts`), exclude patterns, result limiting |
+    | `grep_content` | Content search with context | Regex support, context lines, case-insensitive options |
+    | `grep_file` | List files with matches | Quickly identify files before reading contents |
+    | `list_dir` | Directory structure | Show hierarchy, exclude patterns, depth control |
+  </Tab>
+
+  <Tab title="Execution & Integration">
+    | Tool | Purpose | Key Capabilities |
+    |------|---------|------------------|
+    | `bash` | Shell command execution | Timeout configuration, summary descriptions, command chaining |
+    | `spawn_subagent` | Delegate to specialists | Launch verifier or code-reviewer subagents |
+    | `todo_update` | Track task progress | Manage task lists, update status, progress tracking |
+  </Tab>
+
+  <Tab title="Web Access">
+    | Tool | Purpose | Key Capabilities |
+    |------|---------|------------------|
+    | `web_search` | Internet search | Query execution, result count control, freshness filtering |
+    | `web_fetch` | Fetch and analyze pages | Retrieve content, extract information with queries |
+  </Tab>
+</Tabs>
+
+---
+
+## Tool Capabilities and Use Cases
+
+<Tabs>
+  <Tab title="File Operations">
+    ### file_read
+
+    **Capabilities:**
+    - Read complete file contents or specific line ranges
+    - Essential for understanding code before modifications
+    - Efficient handling of large files through range specification
+
+    **Use Cases:**
+    - Reading configuration files before editing
+    - Understanding existing implementation patterns
+    - Reviewing test files to understand coverage
+
+    **Example:**
+    ```bash
+    # Read entire file
+    file_read("src/components/Button.tsx")
+
+    # Read specific range for large files
+    file_read("package-lock.json", start_line=1, max_lines=50)
+    ```
+
+    ---
+
+    ### file_edit
+
+    **Capabilities:**
+    - Precise text replacement using exact string matching
+    - Multiple replacement operations with `multiple` flag
+    - Preserves file structure and formatting
+
+    **Use Cases:**
+    - Updating function implementations
+    - Modifying configuration values
+    - Refactoring variable names across files
+
+    **Best Practice:** Use for targeted changes. For complete rewrites, use `file_write` instead.
+
+    ---
+
+    ### file_write
+
+    **Capabilities:**
+    - Create new files from scratch
+    - Completely replace existing file contents
+    - Handle any text-based format
+
+    **Use Cases:**
+    - Generating new components or modules
+    - Creating configuration files
+    - Writing test files
+
+    **Warning:** Overwrites existing files completely. Use `file_edit` for partial modifications.
+  </Tab>
+
+  <Tab title="Search & Navigation">
+    ### glob
+
+    **Capabilities:**
+    - Find files matching patterns: `**/*.ts`, `src/**/*.js`
+    - Filter by directory path
+    - Exclude patterns to narrow results
+    - Control result count
+
+    **Use Cases:**
+    - Finding all components in a project
+    - Locating test files
+    - Identifying configuration files across directories
+
+    **Example Patterns:**
+    ```bash
+    **/*.tsx          # All TypeScript React files
+    src/**/*.test.js  # All test files in src
+    **/config.*       # All config files anywhere
+    ```
+
+    ---
+
+    ### grep_content
+
+    **Capabilities:**
+    - Search file contents using regex patterns
+    - Show context lines before/after matches
+    - Case-insensitive searching
+    - Filter by file type using glob patterns
+
+    **Use Cases:**
+    - Finding function definitions
+    - Locating API endpoint implementations
+    - Searching for specific error messages
+
+    **Example:**
+    ```bash
+    # Find authentication-related code
+    grep_content("auth.*login", glob="**/*.ts")
+
+    # Search with context
+    grep_content("TODO", glob="src/**", context_before=2, context_after=2)
+    ```
+
+    ---
+
+    ### grep_file
+
+    **Capabilities:**
+    - List files containing pattern matches
+    - Faster than `grep_content` when you only need file locations
+    - Regex pattern support
+    - Glob filtering for file types
+
+    **Use Cases:**
+    - Identifying which files need refactoring
+    - Finding files that import specific modules
+    - Locating files with deprecated patterns
+
+    **Best Practice:** Use `grep_file` first to identify relevant files, then `file_read` for detailed examination.
+
+    ---
+
+    ### list_dir
+
+    **Capabilities:**
+    - Display directory hierarchy
+    - Control depth with `max_depth` parameter
+    - Exclude patterns to filter output
+
+    **Use Cases:**
+    - Understanding project structure
+    - Verifying directory organization
+    - Finding specific subdirectories
+  </Tab>
+
+  <Tab title="Execution & Integration">
+    ### bash
+
+    **Capabilities:**
+    - Execute shell commands
+    - Maximum timeout: 120 seconds (2 minutes, hard limit)
+    - Chain commands with `&&` for dependencies
+    - Provide descriptive summaries for clarity
+
+    **Use Cases:**
+    - Running tests
+    - Building projects
+    - Installing dependencies
+    - Git operations
+    - Database migrations
+
+    **Example:**
+    ```bash
+    # Run tests
+    bash("npm test", timeout=60000, summary="Run Jest test suite")
+
+    # Chain dependent commands
+    bash("npm install && npm run build", timeout=120000)
+    ```
+
+    ---
+
+    ### spawn_subagent
+
+    **Capabilities:**
+    - Launch specialized subagents with isolated contexts
+    - Types: `verifier`, `code-reviewer`
+    - Delegate complex tasks without polluting main context
+    - Parallel subagent execution for efficiency
+
+    **Use Cases:**
+    - **@Verifier:** Validate implementation logic and syntax
+    - **@Code-reviewer:** Security and quality assessment
+
+    **Best Practice:** Delegate research and validation tasks to subagents to preserve main conversation context.
+
+    ---
+
+    ### todo_update
+
+    **Capabilities:**
+    - Create and manage task lists
+    - Update task status (pending, in_progress, completed)
+    - Track progress across complex implementations
+  </Tab>
+
+  <Tab title="Web Access">
+    ### web_search
+
+    **Capabilities:**
+    - Query internet search engines
+    - Control result count
+    - Filter by freshness (recent days)
+
+    **Use Cases:**
+    - Finding documentation for unfamiliar APIs
+    - Researching error messages
+    - Checking current best practices
+
+    ---
+
+    ### web_fetch
+
+    **Capabilities:**
+    - Retrieve web page contents
+    - Analyze content with specific queries
+    - Extract structured information
+
+    **Use Cases:**
+    - Reading documentation pages
+    - Analyzing API documentation
+    - Extracting examples from tutorials
+  </Tab>
+</Tabs>
+
+---
+
+## File Format Support
+
+Verdent works with all text-based file formats through its file operation tools.
+
+<Tabs>
+  <Tab title="Source Code">
+    | Category | Languages/Extensions |
+    |----------|---------------------|
+    | **Web** | JavaScript, TypeScript, HTML, CSS, SCSS, LESS |
+    | **Backend** | Python, Java, Go, Rust, C, C++, C#, Ruby, PHP, Perl |
+    | **Mobile** | Swift, Kotlin, Dart (Flutter), Objective-C |
+    | **Functional** | Haskell, Scala, Elixir, Clojure, F# |
+    | **Scripting** | Bash, PowerShell, Zsh, Fish |
+    | **Data** | SQL, R, Julia, MATLAB |
+  </Tab>
+
+  <Tab title="Configuration">
+    | Format | Common Examples |
+    |--------|----------------|
+    | **JSON** | package.json, tsconfig.json, settings.json |
+    | **YAML** | docker-compose.yml, GitHub Actions, Kubernetes configs |
+    | **TOML** | Cargo.toml, pyproject.toml |
+    | **XML** | pom.xml, web.xml, config files |
+    | **INI** | .gitconfig, .editorconfig |
+    | **ENV** | .env files, environment configuration |
+    | **HCL** | Terraform configuration |
+  </Tab>
+
+  <Tab title="Documentation">
+    | Format | Use Cases |
+    |--------|-----------|
+    | **Markdown** | README.md, documentation files |
+    | **HTML** | Templates, web pages |
+    | **LaTeX** | Scientific documents, academic papers |
+    | **reStructuredText** | Python documentation |
+    | **AsciiDoc** | Technical documentation |
+  </Tab>
+
+  <Tab title="Data & Build">
+    ### Data Formats
+
+    | Format | Description |
+    |--------|-------------|
+    | **CSV/TSV** | Tabular data files |
+    | **Text-based data** | Log files, data dumps |
+    | **JSON/YAML** | Structured data interchange |
+
+    ### Build & Package Files
+
+    | File | Purpose |
+    |------|---------|
+    | **Makefile** | Build automation |
+    | **package.json** | Node.js dependencies |
+    | **requirements.txt** | Python packages |
+    | **Gemfile** | Ruby gems |
+    | **Cargo.toml** | Rust packages |
+    | **build.gradle** | Gradle builds |
+  </Tab>
+
+  <Tab title="Binary Limitations">
+    | Format Type | Examples | Editability |
+    |-------------|----------|-------------|
+    | **Images** | PNG, JPG, GIF, SVG (binary) | Not directly editable |
+    | **Videos** | MP4, AVI, MOV | Not directly editable |
+    | **Compiled binaries** | EXE, DLL, SO | Not directly editable |
+    | **Archives** | ZIP, TAR, GZ | Not directly editable |
+    | **Office documents** | DOCX, XLSX, PPTX | Not directly editable |
+    | **PDFs** | PDF files | Not directly editable |
+
+    <Note>
+    Binary files may be referenced in code but cannot be modified through file tools.
+    </Note>
+  </Tab>
+</Tabs>
+
+---
+
+## Programming Language Support
+
+Verdent provides comprehensive support for all text-based programming languages and frameworks.
+
+<Tabs>
+  <Tab title="Web Development">
+    | Language/Framework | Support Level | Common Use Cases |
+    |-------------------|---------------|------------------|
+    | JavaScript | Excellent | Frontend logic, Node.js backends, tooling |
+    | TypeScript | Excellent | Type-safe web apps, large-scale projects |
+    | React | Excellent | Component-based UIs, hooks, state management |
+    | Vue | Excellent | Progressive web apps, single-file components |
+    | Angular | Excellent | Enterprise applications, TypeScript integration |
+    | Svelte | Very Good | Compiled components, reactive programming |
+    | HTML/CSS | Excellent | Markup, styling, responsive design |
+    | SCSS/LESS | Excellent | Advanced styling, variables, mixins |
+  </Tab>
+
+  <Tab title="Backend">
+    | Language/Framework | Support Level | Common Use Cases |
+    |-------------------|---------------|------------------|
+    | Python | Excellent | APIs, data processing, automation |
+    | Django/Flask/FastAPI | Excellent | Web frameworks, REST APIs |
+    | Node.js/Express | Excellent | JavaScript backends, microservices |
+    | Java/Spring | Excellent | Enterprise applications, Spring Boot |
+    | Go | Excellent | High-performance services, CLIs |
+    | Rust | Very Good | Systems programming, performance-critical code |
+    | C/C++ | Very Good | Systems, embedded, game engines |
+    | C# / .NET | Excellent | Windows apps, web services, Unity |
+    | Ruby/Rails | Very Good | Web applications, rapid development |
+    | PHP | Good | WordPress, Laravel, legacy apps |
+  </Tab>
+
+  <Tab title="Mobile">
+    | Language/Framework | Support Level | Common Use Cases |
+    |-------------------|---------------|------------------|
+    | Swift | Excellent | iOS/macOS native apps |
+    | Kotlin | Excellent | Android native apps |
+    | Dart/Flutter | Excellent | Cross-platform mobile apps |
+    | React Native | Excellent | JavaScript-based mobile apps |
+    | Objective-C | Good | Legacy iOS/macOS apps |
+  </Tab>
+
+  <Tab title="Data & Scientific">
+    | Language | Support Level | Common Use Cases |
+    |----------|---------------|------------------|
+    | Python | Excellent | NumPy, Pandas, scikit-learn, TensorFlow |
+    | R | Very Good | Statistical analysis, data visualization |
+    | SQL | Excellent | Database queries, schema design |
+    | Julia | Good | Scientific computing, numerical analysis |
+  </Tab>
+
+  <Tab title="Systems & Low-Level">
+    | Language | Support Level | Common Use Cases |
+    |----------|---------------|------------------|
+    | C | Very Good | Systems programming, embedded |
+    | C++ | Very Good | Performance-critical applications |
+    | Rust | Very Good | Memory-safe systems programming |
+    | Go | Excellent | Concurrent systems, cloud services |
+    | Assembly | Good | Low-level optimization, debugging |
+  </Tab>
+</Tabs>
+
+**Support Quality:** Common languages (JavaScript, Python, TypeScript) have stronger support due to extensive training data. Less common or domain-specific languages may have reduced support quality but remain functional.
+
+---
+
+## Usage Limits and Best Practices
+
+<Tabs>
+  <Tab title="File Operations">
+    ### file_read Efficiency
+
+    **Best Practices:**
+    - Use line ranges for files over 500 lines to avoid context overload
+    - Read only relevant sections needed for the task
+    - For large files, use `grep_content` first to identify relevant line numbers
+
+    ```bash
+    # Good: Read specific section
+    file_read("large-config.json", start_line=100, max_lines=50)
+
+    # Less efficient: Read entire large file
+    file_read("large-config.json")  # May consume excessive context
+    ```
+
+    ---
+
+    ### file_edit Precision
+
+    **Best Practices:**
+    - Ensure exact string matches to avoid failed edits
+    - For multiple similar changes, use `multiple=true` flag
+    - Verify file paths before editing
+
+    ---
+
+    ### file_write Safety
+
+    **Best Practices:**
+    - Double-check paths to prevent accidental overwrites
+    - Use for new files or complete rewrites only
+    - For modifications, prefer `file_edit` for safety
+  </Tab>
+
+  <Tab title="Search & Navigation">
+    ### glob Pattern Specificity
+
+    - Use specific patterns to narrow scope: `src/**/*.ts` instead of `**/*`
+    - Exclude directories with exclude patterns: `!**/node_modules/**`
+    - Limit results to prevent overwhelming output
+
+    ```bash
+    # Good: Specific scope
+    glob("src/components/**/*.tsx", max_results=50)
+
+    # Less efficient: Too broad
+    glob("**/*")  # Returns thousands of results
+    ```
+
+    ### grep Strategy
+
+    **Recommended Workflow:**
+    1. Use `grep_file` to identify relevant files
+    2. Read specific files with `file_read`
+    3. Use `grep_content` when you need surrounding context
+
+    **Performance Tips:**
+    - Regex patterns may take longer than literal strings
+    - Case-insensitive searches are slower
+    - Limit context lines (`-A`, `-B`) to what's necessary
+  </Tab>
+
+  <Tab title="Command Execution">
+    ### bash Best Practices
+
+    **Safe Command Execution:**
+    - Provide clear summaries for command descriptions
+    - Set appropriate timeouts for long-running operations
+    - Chain dependent commands with `&&`
+    - Review destructive commands carefully (rm, drop, truncate)
+
+    ```bash
+    # Good: Clear summary, reasonable timeout
+    bash("npm test", timeout=60000, summary="Run Jest test suite")
+
+    # Good: Chained dependencies
+    bash("npm install && npm run build", timeout=120000)
+    ```
+
+    ### Security Considerations
+
+    - Commands execute with user permissions
+    - Never run untrusted commands
+    - Use Plan Mode for review in shared codebases
+    - Avoid commands that expose credentials or sensitive data
+
+    <Warning>
+    Always review bash commands in Plan Mode when working in shared codebases or production environments.
+    </Warning>
+  </Tab>
+
+  <Tab title="Subagents & Context">
+    ### Subagent Delegation Efficiency
+
+    **When to Use Subagents:**
+    - **@Verifier:** Quick validation checks (isolated verification)
+    - **@Code-reviewer:** Security and quality reviews (detailed analysis)
+
+    **Best Practice:**
+    Delegate validation and review tasks to subagents to preserve main conversation context for active development work.
+
+    ---
+
+    ### Context Management
+
+    **Strategic Tool Usage:**
+    - Read files strategically - only what's needed
+    - Use subagents for validation and review
+    - Monitor context consumption during long sessions
+    - Break complex operations into steps with todo_update
+
+    **Efficient Workflows:**
+    1. **Planning:** Use glob/grep to identify scope
+    2. **Reading:** Read only relevant files/sections
+    3. **Execution:** Delegate to subagents when appropriate
+    4. **Verification:** Quick checks with @Verifier subagent
+  </Tab>
+
+  <Tab title="Performance">
+    ### File Size Limits
+
+    **Large File Handling:**
+    Very large files (>10,000 lines) should be read in sections to avoid:
+    - Context window exhaustion
+    - Slow response times
+    - Memory issues
+
+    <Tip>
+    For files over 500 lines, always use line ranges with `file_read` to maintain optimal performance.
+    </Tip>
+
+    ---
+
+    ### Tool Timeout Defaults
+
+    **Tool Limits:**
+    - **Bash timeout:** 120 seconds (2 minutes) maximum
+    - **File operations:** No size limits (large files automatically read in batches)
+    - **Large file handling:** Files >256KB return only first 256KB of content
+    - **Search results:** No limits on `glob` or `grep_content` results
+    - **Concurrent subagents:** No limits on parallel execution
+
+    **Timeout Configuration:**
+    - Set explicit timeouts for long-running operations
+    - Monitor for hanging processes
+    - Commands exceeding 2-minute timeout will be terminated
+
+    ---
+
+    ### Concurrent Operations
+
+    **Parallel Execution:**
+    Multiple subagents can run in parallel for faster complex operations. The main agent automatically handles coordination.
+
+    **Performance Benefits:**
+    - Reduced total execution time for multi-step tasks
+    - Efficient resource utilization
+    - Automatic task orchestration
+    - No limits on number of concurrent subagents
+  </Tab>
+</Tabs>
+
+---
+
+## FAQs
+
+<Accordion title="What file formats can Verdent work with?">
+**Supported:** All text-based file formats including:
+- Source code (JavaScript, Python, TypeScript, Java, Go, etc.)
+- Configuration files (JSON, YAML, TOML, XML, ENV)
+- Documentation (Markdown, HTML, LaTeX)
+- Build files (package.json, Makefile, requirements.txt)
+
+**Not supported:** Binary files (images, videos, PDFs, compiled binaries, Office documents)
+
+**Workaround:** Reference binary files in code but modifications require external tools.
+</Accordion>
+
+<Accordion title="What programming languages does Verdent support best?">
+**Excellent support:**
+- JavaScript, TypeScript, Python, React, Vue, Angular
+- Node.js, Go, Java/Spring, C#/.NET
+- Swift, Kotlin, Flutter
+
+**Very good support:** Rust, C/C++, Ruby, R
+
+**Good support:** PHP, Assembly, Julia
+
+Common languages have stronger support due to extensive training data.
+</Accordion>
+
+<Accordion title="How long can bash commands run?">
+**Maximum timeout:** 120 seconds (2 minutes)
+
+Commands exceeding 2 minutes will be automatically terminated.
+
+**Alternatives for long operations:**
+- Break into smaller commands
+- Run in background and check results separately
+- Execute manually in your terminal
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Subagent Management" icon="users" href="/verdent/agents-rules/subagent-management">
+    Learn about specialized agents
+  </Card>
+  <Card title="Execution Modes" icon="sliders" href="/verdent/execution-modes/overview">
+    Control tool execution with modes
+  </Card>
+</CardGroup>

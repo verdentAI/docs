@@ -1,0 +1,317 @@
+---
+title: Writing New Code
+description: "Using Verdent to write and generate code effectively"
+---
+
+Learn how to write effective prompts, use @-mentions for context, and select the right model preset for code generation.
+
+## What You'll Learn
+
+- Compose effective prompts for code generation
+- Use @-mentions to provide context
+- Leverage Desktop-specific features for parallel development
+- Review generated code with Code Review
+
+---
+
+## Prompt Composition
+
+### Effective Prompt Structure
+
+<Tabs>
+  <Tab title="Simple Tasks">
+    For straightforward code generation:
+
+    ```
+    Create a function that [does X]
+    ```
+
+    **Example:**
+    ```
+    Create a function that validates email addresses using regex
+    ```
+  </Tab>
+  <Tab title="Complex Tasks">
+    For multi-step or complex code:
+
+    ```
+    I need to [goal]. The context is [background].
+    Requirements:
+    - [Requirement 1]
+    - [Requirement 2]
+
+    Consider [constraints or preferences]
+    ```
+
+    **Example:**
+    ```
+    I need to build a user authentication system. We're using Express.js with PostgreSQL.
+    Requirements:
+    - JWT-based authentication
+    - Refresh token support
+    - Password hashing with bcrypt
+
+    Follow the existing patterns in our auth middleware
+    ```
+  </Tab>
+  <Tab title="Best Practices">
+    **Do:**
+    - Be specific about desired behavior
+    - Mention relevant files or patterns
+    - Specify error handling expectations
+    - Include edge cases to handle
+
+    **Don't:**
+    - Use vague language ("make it better")
+    - Assume context from previous sessions
+    - Leave out important constraints
+    - Request multiple unrelated changes
+  </Tab>
+</Tabs>
+
+### Iterative Development
+
+Build features incrementally:
+
+<Steps>
+  <Step title="Start Simple">
+    Request the basic structure or core functionality first
+  </Step>
+  <Step title="Review and Refine">
+    Review generated code, request specific improvements
+  </Step>
+  <Step title="Add Complexity">
+    Layer in error handling, edge cases, validation
+  </Step>
+  <Step title="Test and Polish">
+    Request tests, documentation, or final polish
+  </Step>
+</Steps>
+
+---
+
+## Using @-Mentions
+
+@-mentions provide context by referencing specific files, folders, or symbols.
+
+### Syntax
+
+| Mention | Scope | Example |
+|---------|-------|---------|
+| `@filename` | Single file | `@userService.ts` |
+| `@folder/` | Directory | `@src/components/` |
+
+### When to Use @-Mentions
+
+<Tabs>
+  <Tab title="Explicit Context">
+    ```
+    Look at @authMiddleware.ts and create a similar middleware for rate limiting
+    ```
+  </Tab>
+  <Tab title="Multiple Files">
+    ```
+    Refactor @userController.ts to use the patterns from @productController.ts
+    ```
+  </Tab>
+  <Tab title="Folder Scope">
+    ```
+    Search @src/utils/ for any duplicate utility functions
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Desktop-Specific Code Writing
+
+### Parallel Feature Development
+
+<Tabs>
+  <Tab title="Independent Features">
+    Build unrelated features simultaneously in separate workspaces:
+
+    <Steps>
+      <Step title="Create First Workspace">
+        Click **New Workspace** in the Top Bar to create an isolated workspace for your first feature
+      </Step>
+      <Step title="Name the Workspace">
+        Give the workspace a descriptive name (e.g., "feature-auth")
+      </Step>
+      <Step title="Start a Task">
+        In the input box, describe what you want to build and send your message to start a new task
+      </Step>
+      <Step title="Create Additional Workspaces">
+        Repeat the above steps for each additional feature you want to work on
+      </Step>
+      <Step title="Work in Parallel">
+        Each agent works independently in its own workspace without conflicts
+      </Step>
+      <Step title="Review Changes">
+        When a feature is complete, review changes
+      </Step>
+      <Step title="Rebase to Master">
+        Click **Workspace Actions → Rebase to master** to apply changes
+      </Step>
+    </Steps>
+
+    **Example:** Build an authentication system in one workspace while another agent builds the dashboard UI in a separate workspace.
+  </Tab>
+  <Tab title="Bug Fix + Feature">
+    Fix urgent bugs without interrupting ongoing feature development:
+
+    <Steps>
+      <Step title="Continue Feature Work">
+        Keep your current feature work running in its workspace
+      </Step>
+      <Step title="Create Bug Fix Workspace">
+        Click **New Workspace** in the Top Bar to create a separate workspace for the bug fix
+      </Step>
+      <Step title="Name the Workspace">
+        Name the workspace descriptively (e.g., "fix-login-error")
+      </Step>
+      <Step title="Describe the Bug">
+        In the input box, describe the bug and how to fix it to start a new task
+      </Step>
+      <Step title="Parallel Work">
+        The bug fix agent works independently while your feature agent continues
+      </Step>
+      <Step title="Ship the Fix">
+        When the fix is ready, click **Workspace Actions → Rebase to master** to ship the fix
+      </Step>
+      <Step title="Resume Feature Work">
+        Your feature workspace continues uninterrupted with the fix now in master
+      </Step>
+    </Steps>
+
+    **Benefit:** Ship critical fixes immediately without pausing feature development or losing context.
+  </Tab>
+  <Tab title="Experimental">
+    Try risky refactors or experimental approaches without affecting stable code:
+
+    <Steps>
+      <Step title="Create Experiment Workspace">
+        Click **New Workspace** in the Top Bar to create an isolated workspace for your experiment
+      </Step>
+      <Step title="Name the Workspace">
+        Name it clearly (e.g., "experiment-new-architecture")
+      </Step>
+      <Step title="Describe the Experiment">
+        In the input box, describe the experimental approach you want to try to start a new task
+      </Step>
+      <Step title="Let Agent Explore">
+        Let the agent explore and implement the changes freely
+      </Step>
+      <Step title="Review Results">
+        Review the results to see all modifications
+      </Step>
+      <Step title="Keep or Discard">
+        If successful, click **Workspace Actions → Rebase to master** to keep changes. If failed, click **Delete Workspace** in the Workspace Bar to discard all changes.
+      </Step>
+    </Steps>
+
+    **Benefit:** Your base workspace remains stable and unchanged regardless of experimental outcomes.
+  </Tab>
+</Tabs>
+
+### Plan Mode for Complex Features
+
+For complex code generation:
+
+1. Press `Shift+Tab` or `Ctrl+.` to switch to **Plan Mode**
+2. Describe the feature you want to build
+3. Review the plan Verdent creates
+4. Refine with follow-up questions
+5. Switch to **Agent Mode** to execute the plan
+
+**Benefit:** Review approach before consuming credits on execution.
+
+### Reviewing Generated Code
+
+After Verdent generates code, use Code Review for quality assurance:
+
+<Steps>
+  <Step title="View Code Review">
+    After Verdent completes changes, the Code Review panel appears inline within the chat
+  </Step>
+  <Step title="Address Critical Issues">
+    Review **Must Fix** items first, these are security, performance, or stability issues
+  </Step>
+  <Step title="Consider Suggestions">
+    Review **Suggestions** for recommended improvements you may want to apply
+  </Step>
+  <Step title="Request Fixes">
+    Ask Verdent to fix any issues by describing what needs to change in the input box
+  </Step>
+  <Step title="View Diff">
+    Click **Task Changes** in the middle panel to see all file modifications
+  </Step>
+</Steps>
+
+**Code Review analyzes:**
+
+| Category | Focus |
+|----------|-------|
+| **Security** | Vulnerability scanning, injection risks, credential exposure |
+| **Accessibility** | Accessibility compliance and best practices |
+| **Performance** | Algorithmic complexity, resource usage |
+| **Call-chain Impact** | Downstream effects on dependent code |
+
+<Tip>
+Enable **Auto Generate Code Review** in Settings → Chat to automatically generate reviews after every change.
+</Tip>
+
+---
+
+## FAQs
+
+<Accordion title="How do I get more accurate code generation?">
+1. **Be specific** - Include exact requirements
+2. **Provide context** - Use @-mentions for relevant files
+3. **Specify patterns** - Reference existing code as examples
+4. **Iterate** - Build incrementally rather than all at once
+</Accordion>
+
+<Accordion title="Should I use Plan Mode for all code writing?">
+Use Plan Mode for:
+- Complex multi-file changes
+- Unfamiliar patterns or codebases
+- When you want to review approach first
+
+Skip Plan Mode for:
+- Simple, straightforward tasks
+- Well-understood changes
+- Quick iterations
+</Accordion>
+
+<Accordion title="Can I work on multiple features at the same time?">
+Yes. Create separate workspaces for each feature by clicking **New Workspace** in the Top Bar. Each workspace has its own agent working in isolation.
+</Accordion>
+
+<Accordion title="How do I undo changes Verdent made?">
+Delete the workspace to discard all changes. Click **Delete Workspace** in the Workspace Bar to remove the workspace and all its modifications. Your base workspace remains unaffected.
+</Accordion>
+
+<Accordion title="Does Code Review use credits?">
+Yes. Code reviews consume credits based on the amount of code analyzed. Disable auto-review in Settings → Chat if you want to save credits.
+</Accordion>
+
+<Accordion title="Can Verdent generate tests for my code?">
+Yes. Ask Verdent to write tests by describing what to test and referencing files with @-mentions (e.g., "Write tests for @userService.ts").
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Code Review" icon="magnifying-glass" href="/verdent/core-features/code-review">
+    Auto-generated quality assessment
+  </Card>
+  <Card title="Refactoring" icon="code" href="/verdent/task-based-guides/refactoring">
+    Safe refactoring workflows
+  </Card>
+  <Card title="Best Practices: Prompts" icon="lightbulb" href="/verdent/best-practices/prompts">
+    Prompt engineering tips
+  </Card>
+</CardGroup>

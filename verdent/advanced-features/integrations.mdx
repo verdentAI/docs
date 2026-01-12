@@ -1,0 +1,284 @@
+---
+title: Integration Workflows
+description: "Practical patterns for integrating Verdent with external tools and services"
+---
+
+## What You'll Learn
+
+Practical integration workflows combining MCP servers and rules for real-world development scenarios.
+
+---
+
+## Integration Methods
+
+| Method | Best For | Configuration |
+|--------|----------|---------------|
+| **MCP Servers** | External tools, databases, APIs | Settings → MCP Servers |
+| **Rules (AGENTS.md)** | Team standards and behavior | Project root `AGENTS.md` |
+| **User Rules** | Personal preferences | Settings → User Rules |
+
+**Philosophy:** Combine methods to create comprehensive workflows tailored to your needs.
+
+---
+
+## MCP Configuration
+
+### Understanding MCP
+
+**Model Context Protocol (MCP)** is an open protocol that standardizes how applications provide context to LLMs. MCP servers are executables that implement the protocol—they're not database connections or API endpoints, but programs that run and communicate via JSON-RPC 2.0.
+
+**Key Concepts:**
+- **MCP Servers**: Executables (Node.js packages, Python scripts, etc.) that implement the MCP protocol
+- **Configuration**: Settings → MCP Servers defines how to start each server
+- **@-Mentions**: Custom MCP servers can be invoked using @-mentions (e.g., `@migration-reviewer`)
+
+### Basic Setup
+
+**Location:** Settings → MCP Servers
+
+Configure MCP servers with:
+- **Command**: Executable to run (typically `npx` for Node.js packages)
+- **Args**: Arguments passed to the command (package name, connection strings, etc.)
+- **Env**: Environment variables for authentication/configuration
+
+**Common MCP Servers:**
+
+| Server | Purpose |
+|--------|---------|
+| `@modelcontextprotocol/server-postgres` | PostgreSQL database access |
+| `@modelcontextprotocol/server-github` | GitHub repository integration |
+| `@modelcontextprotocol/server-filesystem` | File system operations |
+
+<Tip>
+**Learn More About MCP:**
+- [Model Context Protocol Specification](https://modelcontextprotocol.io/specification)
+- [MCP Server Registry](https://mcp.so/servers) - Browse available MCP servers
+- [Official MCP Servers](https://github.com/modelcontextprotocol) - PostgreSQL, GitHub, Filesystem, and more
+</Tip>
+
+---
+
+## Common Integration Patterns
+
+### Database Development Workflow
+
+**Stack:** Migration Reviewer MCP + AGENTS.md Standards + PostgreSQL MCP Server
+
+**Custom MCP Server:**
+Create an MCP server for migration review that checks:
+- Destructive operations
+- Reversibility
+- Indexing requirements
+- Blocking operations
+
+**AGENTS.md:**
+```markdown
+## Database Standards
+- All migrations reviewed by @migration-reviewer
+- Test on staging before production
+- Include rollback procedures
+```
+
+**Workflow:** Write migration → @migration-reviewer validates → PostgreSQL MCP tests on staging → PR documentation
+
+---
+
+### API Development with Security
+
+**Stack:** Security Auditor MCP + AGENTS.md Rules + API Testing MCP
+
+**Components:**
+- **MCP Server:** `@api-security-auditor` - Input validation, SQL injection, auth, rate limiting
+- **Rules:** All endpoints require security review, rate limiting on public APIs
+
+**Result:** Automatic security review before PR approval.
+
+---
+
+### Frontend Accessibility
+
+**Stack:** Accessibility Auditor MCP + WCAG Rules
+
+**Workflow:**
+```
+Create component → @a11y-auditor reviews → Rules enforce accessibility standards
+```
+
+---
+
+## Multi-Environment Configuration
+
+Configure multiple MCP servers for different environments in Settings → MCP Servers:
+
+| Server Name | Purpose |
+|-------------|---------|
+| `postgres-dev` | Development database |
+| `postgres-staging` | Staging environment |
+| `postgres-prod` | Production (read-only recommended) |
+
+**Best Practice:** Use environment variables for connection strings to keep credentials secure.
+
+---
+
+## Workspace Integration
+
+### Per-Workspace Configuration
+
+Each workspace can use the same MCP servers configured in Settings:
+
+| Configuration | Behavior |
+|---------------|----------|
+| **Global MCP servers** | Available across all workspaces |
+| **Project-specific rules** | AGENTS.md in project root |
+
+### Multi-Project Integration
+
+When working with multiple projects:
+
+- Global MCP servers (Settings → MCP Servers) available across all projects
+- Each project can have its own AGENTS.md for project-specific rules
+- Switch between projects while maintaining MCP access
+
+---
+
+## Team Collaboration
+
+### Shared AGENTS.md Standards
+
+Commit to version control for team-wide consistency:
+
+```markdown
+# AGENTS.md
+
+## Code Review Process
+- Run Code Review before PR (Settings → Auto Generate Code Review)
+- Address all security warnings
+- Minimum 80% test coverage
+
+## Integration Requirements
+- @migration-reviewer for database changes
+- @api-security-auditor for new endpoints
+- @a11y-auditor for UI components
+
+## MCP Server Usage
+- Use postgres-staging for queries
+- Never use postgres-prod for exploratory queries
+```
+
+**Benefits:** Consistent behavior, enforced standards, automatic quality gates.
+
+---
+
+## Multi-Agent Coordination
+
+### Complex Feature Workflow
+
+**Example:** New payment endpoint
+
+```
+1. Developer request → 2. Main agent generates code →
+3. @api-security-auditor reviews security →
+4. @migration-reviewer validates schema →
+5. MCP tests on staging →
+6. Main agent generates tests and PR
+```
+
+**Result:** Fully reviewed endpoint with security and database best practices applied.
+
+---
+
+## Integration Best Practices
+
+### Progressive Adoption
+
+**Phase 1:** Basic rules
+```markdown
+## Code Standards
+- Use TypeScript strict mode
+- Run tests before commit
+```
+
+**Phase 2:** Add specialized MCP servers
+```markdown
+## Code Review
+- Run @security-reviewer before PR
+```
+
+**Phase 3:** Integrate more MCP servers
+```markdown
+## Database Access
+- Use postgres-staging MCP for queries
+```
+
+### Strategic Combinations
+
+| Combination | Purpose | Example |
+|-------------|---------|---------|
+| Rules + MCP | Rules define *when*, MCP *executes* | AGENTS.md: "Review with @security-reviewer" |
+| Multiple MCPs | Different servers for different concerns | Security + Database + API testing |
+
+### Team Documentation Best Practices
+
+When documenting integrations for your team, include:
+
+- **MCP Servers**: Describe each server's purpose, access level, and when to use it
+- **AGENTS.md Rules**: Document rules with rationale explaining the "why" behind each standard
+- **Integration Workflows**: Provide example workflows showing how components work together
+- **Troubleshooting**: Document common issues specific to your setup and their solutions
+
+<Tip>
+Commit integration documentation alongside your AGENTS.md file so new team members can quickly understand your setup.
+</Tip>
+
+---
+
+## Troubleshooting
+
+<Tabs>
+  <Tab title="AGENTS.md Issues">
+    **Problem:** AGENTS.md rules not being applied
+
+    **Check:**
+    - **Location:** File is in project root directory
+    - **Syntax:** Valid Markdown with no parsing errors
+    - **Directive Style:** Use specific commands ("Always use..." not "Try to...")
+    - **Session:** Start new conversation to test fresh rule application
+  </Tab>
+
+  <Tab title="MCP Server Issues">
+    **Problem:** MCP server fails to start or connect
+
+    **Check:**
+    - **Configuration:** Server configured correctly in Settings → MCP Servers
+    - **Command:** Executable path is correct
+    - **Args:** Arguments are properly formatted
+    - **Environment:** Required environment variables are set
+
+    **Debug Steps:**
+    1. Test command manually in terminal: `npx -y @modelcontextprotocol/server-postgres "postgresql://..."`
+    2. Check environment variables are set
+    3. Review Verdent logs for specific error messages
+  </Tab>
+
+  <Tab title="@-Mention Issues">
+    **Problem:** Custom MCP server not responding to @-mentions
+
+    **Check:**
+    - **Server Running:** MCP server is active in Settings → MCP Servers
+    - **Name Match:** @-mention matches the configured server name
+    - **Restart:** Try restarting Verdent to reload MCP configurations
+  </Tab>
+</Tabs>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Extensibility Guide" icon="puzzle-piece" href="/verdent/advanced-features/extensibility">
+    Complete extension methods overview
+  </Card>
+  <Card title="MCP Integration" icon="plug" href="/verdent/core-features/mcp-integration">
+    Model Context Protocol details
+  </Card>
+</CardGroup>

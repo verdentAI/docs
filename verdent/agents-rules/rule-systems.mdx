@@ -1,0 +1,152 @@
+---
+title: Rule Systems
+description: Controlling Verdent's behavior through rule files
+---
+
+Rule files are Markdown documents that define how Verdent behaves during coding sessions. They guide the AI agent's behavior, output formatting, and adherence to project standards.
+
+### What You'll Learn
+
+- Understanding user rules and project rules
+- When to use each rule type
+- Writing effective rules
+
+---
+
+## Rule Types
+
+| Rule Type | File | Scope | Purpose |
+|-----------|------|-------|---------|
+| **User Rules** | user_rules.md | Global (all projects) | Personal coding preferences |
+| **Project Rules** | AGENTS.md | Current project | Team conventions, project standards |
+
+**Precedence:** AGENTS.md (highest) → user_rules.md (medium) → defaults (lowest)
+
+---
+
+## User Rules (user_rules.md)
+
+User rules define global preferences that apply across all projects.
+
+**Access:** Settings → User Rules
+
+<Tabs>
+  <Tab title="Use Cases">
+    - **Coding style:** Indentation, naming conventions
+    - **Language:** Response language preferences
+    - **Comments:** Comment style and detail level
+    - **Communication:** Tone and verbosity
+  </Tab>
+  <Tab title="Example">
+    ```markdown
+    # User Rules
+
+    ## Code Style
+    - Use TypeScript strict mode
+    - Prefer functional components in React
+    - Use 2-space indentation
+
+    ## Communication
+    - Provide brief explanations
+    - Show code first, explain after
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Project Rules (AGENTS.md)
+
+Project rules define standards specific to the current project. Store in the project root and commit to version control for team-wide sharing.
+
+<Tabs>
+  <Tab title="Use Cases">
+    - **Team conventions:** Shared coding standards
+    - **Architecture:** Design patterns, state management
+    - **Testing:** Coverage requirements, frameworks
+    - **Workflows:** Build commands, PR guidelines
+  </Tab>
+  <Tab title="Example">
+    ```markdown
+    # AGENTS.md
+
+    ## Dev Environment
+    - Run `pnpm install` to set up
+    - Use `pnpm dev` for local development
+
+    ## Testing
+    - Run `pnpm test` before committing
+    - Minimum 80% coverage required
+
+    ## PR Guidelines
+    - Use conventional commit format
+    - Include tests for new features
+    ```
+  </Tab>
+</Tabs>
+
+<Tip>
+Share AGENTS.md with your team via version control to ensure consistent AI behavior across all team members.
+</Tip>
+
+---
+
+## Rule Precedence
+
+When rules conflict, project rules override user rules:
+
+```
+user_rules.md: "Use 2-space indentation"
+AGENTS.md: "Use 4-space indentation for this project"
+→ Result: 4-space indentation (project rules win)
+```
+
+---
+
+## Writing Effective Rules
+
+**Be Specific:**
+```markdown
+# Good
+- Use async/await for asynchronous operations
+- Include JSDoc comments for exported functions
+
+# Avoid
+- Try to use modern JavaScript features
+- Add comments when necessary
+```
+
+**Best Practices:**
+- Use clear, directive language ("Always...", "Never...", "Prefer...")
+- Group related rules under section headers
+- Keep rules concise (one concept per bullet)
+- Review and update rules as project evolves
+
+---
+
+## FAQs
+
+<Accordion title="How do I create rule files?">
+Create `user_rules.md` for personal preferences and `AGENTS.md` in your project root for project-specific rules. Use plain Markdown with bullet points.
+</Accordion>
+
+<Accordion title="When do rule changes take effect?">
+Rule changes apply immediately in new conversations and influence current conversation responses.
+</Accordion>
+
+<Accordion title="Can I override project rules temporarily?">
+Project rules take precedence, but you can provide specific instructions in your prompt to override for a single request.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Subagent Management" icon="robot" href="/verdent/agents-rules/subagent-management">
+    Manage specialized subagents
+  </Card>
+  <Card title="Prompt Engineering" icon="message" href="/verdent/best-practices/prompts">
+    Writing effective prompts
+  </Card>
+</CardGroup>

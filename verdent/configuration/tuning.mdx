@@ -1,0 +1,254 @@
+---
+title: Configuration Optimization
+description: "Optimize Verdent for speed, cost, and thoroughness"
+---
+
+Optimize Verdent to balance speed, cost, and thoroughness based on your workflow requirements.
+
+### Optimization Areas
+
+- Model selection for cost and performance balance
+- Execution mode configuration for workflow efficiency
+- Context management for large codebases
+- Per-project and workspace-level customization
+
+---
+
+## Speed vs Thoroughness Tradeoffs
+
+Balance execution speed against analysis depth based on task requirements.
+
+<Tabs>
+  <Tab title="Speed-Critical">
+    **Configuration:**
+    - **Model:** Claude Haiku 4.5 (fast, cost-efficient)
+    - **Execution Mode:** Agent Mode for direct execution
+    - **Use Cases:** Quick fixes, routine operations, simple tasks
+
+    **Benefits:**
+    - Fastest response times
+    - Minimal interruptions
+    - Lower credit consumption
+  </Tab>
+  <Tab title="Thoroughness-Critical">
+    **Configuration:**
+    - **Model:** Claude Sonnet 4.5 1M (extended context)
+    - **Execution Mode:** Plan Mode for strategic review
+    - **Use Cases:** Complex features, production code, architectural decisions
+
+    **Benefits:**
+    - Maximum context window (1M tokens)
+    - Complete visibility and control
+    - Review before execution
+  </Tab>
+  <Tab title="Hybrid Approach">
+    Most users benefit from context-switching between configurations:
+
+    - **Quick fixes:** Haiku + Agent Mode
+    - **Complex features:** Sonnet + Plan Mode
+    - **Exploration:** Plan Mode for strategy, then Agent Mode for execution
+
+    **Strategy:** Adapt configuration to task type instead of using one-size-fits-all approach.
+  </Tab>
+</Tabs>
+
+---
+
+## Project-Specific Configuration
+
+### Project Rules (AGENTS.md)
+
+- **Location:** Project root directory or workspace folder
+- **Scope:** Applied only to the current project
+- **Version Control:** Commit to git for team-wide standards
+- **Content:** Coding standards, testing requirements, architectural patterns
+
+**Example:**
+
+```markdown filename="AGENTS.md"
+# Project Rules
+
+## Code Standards
+- Use TypeScript strict mode
+- Generate unit tests for all new functions
+- Follow MVC pattern
+
+## Testing
+- All endpoints require input validation
+- Run tests before committing
+```
+
+### Configuration Priority
+
+When configurations conflict, Verdent applies this priority order:
+
+1. **Project Rules (AGENTS.md)** - Highest priority (project-specific)
+2. **Workspace Settings** - Application workspace-level settings
+3. **User Rules** - Global user preferences (Settings → User Rules)
+4. **Default Settings** - Verdent's built-in defaults
+
+## Context Management for Large Projects
+
+<Tabs>
+  <Tab title="Subagents">
+    - Delegate complex operations to subagents with separate context windows
+    - Only subagent results consume main context, not entire process
+    - Prevents main context from filling with implementation details
+  </Tab>
+  <Tab title="File Selection">
+    - Explicitly add only relevant files using `@filename`
+    - Avoid loading entire project into context unnecessarily
+    - Target specific components for focused analysis
+  </Tab>
+  <Tab title="Task Chunking">
+    - Break large tasks into smaller, completable chunks
+    - Start new sessions for distinct features or components
+    - Natural breakpoints prevent context depletion
+  </Tab>
+  <Tab title="Plan Mode">
+    - Review approach before consuming execution context
+    - Reduces wasted context on incorrect implementations
+    - Plan Mode has separate context management
+  </Tab>
+</Tabs>
+
+<Note>
+Multi-workspace scenarios automatically apply appropriate project rules when switching workspaces. No manual configuration switching required.
+</Note>
+
+---
+
+## Desktop-Specific Optimization
+
+### Parallel Agent Efficiency
+
+Verdent's parallel execution capability requires optimization consideration:
+
+<Tabs>
+  <Tab title="Resource Allocation">
+    **When Running Multiple Agents:**
+    - Each agent maintains independent context
+    - CPU and memory usage scales with active agents
+    - Network requests parallelize for faster completion
+
+    **Optimization:**
+    - Limit concurrent agents on resource-constrained machines
+    - Use Claude Haiku 4.5 for routine parallel tasks
+    - Reserve Claude Sonnet 4.5 for complex individual tasks
+  </Tab>
+  <Tab title="Workspace Distribution">
+    **Git Workspace Strategy:**
+    - Each workspace provides full file isolation
+    - Agents in separate workspaces never conflict
+    - Base workspace serves as reference
+
+    **Optimization:**
+    - Group related tasks in the same workspace
+    - Create dedicated workspaces for long-running features
+    - Clean up completed workspaces to free resources
+  </Tab>
+</Tabs>
+
+## Performance Optimization
+
+### Model Selection Strategy
+
+| Task Type | Recommended Model | Reason |
+|-----------|-------------------|--------|
+| Quick fixes | Claude Haiku 4.5 | Speed and cost |
+| General development | Claude Sonnet 4.5 | Best tradeoff |
+| Complex architecture | Claude Sonnet 4.5 1M | Extended context |
+| Parallel routine tasks | Claude Haiku 4.5 | Resource efficiency |
+
+### Execution Mode Strategy
+
+| Scenario | Recommended Mode | Reason |
+|----------|------------------|--------|
+| Learning new codebase | Plan Mode | Safe exploration |
+| Active development | Agent Mode | Full capabilities |
+| Production changes | Plan Mode first | Review before execution |
+
+---
+
+## Cost Optimization
+
+### Credit Efficiency
+
+Balance credit consumption against productivity:
+
+<Tabs>
+  <Tab title="Cost Reduction">
+    **Strategies:**
+    - Use Claude Haiku 4.5 for routine tasks (lower credit consumption)
+    - Use `@Verifier` for quick validation (separate context)
+    - Break large tasks into smaller sessions
+    - Use Plan Mode to avoid wasted execution context
+
+    **Impact:** Significant credit reduction for typical workflows
+  </Tab>
+  <Tab title="Value Maximization">
+    **Strategies:**
+    - Reserve Claude Sonnet 4.5 1M for high-value complex tasks
+    - Use parallel agents for time-sensitive work
+    - Invest credits in thorough planning for production code
+
+    **Impact:** Higher per-credit productivity for complex work
+  </Tab>
+</Tabs>
+
+### Monitoring Credit Usage
+
+Track consumption in the User Center:
+
+- **Credit balance:** Current credits remaining
+- **Subscription details:** Plan information
+- **Top-up options:** Purchase additional credits
+
+---
+
+## FAQs
+
+<Accordion title="How do I optimize for large codebases?">
+Large codebase optimization strategies:
+
+1. **Use subagents strategically:** `@Verifier` and `@Code-reviewer` preserve main context
+2. **Read files selectively:** Use `@filename` for specific files only
+3. **Chunk large tasks:** Break features into smaller, focused sessions
+4. **Use Plan Mode first:** Plan approach before consuming execution context
+</Accordion>
+
+<Accordion title="What's the best configuration for team collaboration?">
+**Recommended team configuration:**
+
+- **Project Rules (AGENTS.md):** Commit shared coding standards
+- **Plan Mode for changes:** Review approach before execution
+- **Auto Generate Code Review:** Enable for quality assurance
+
+This balances productivity with code review needs.
+</Accordion>
+
+<Accordion title="How do parallel agents affect performance?">
+**Resource impact:**
+
+- **CPU:** Linear scaling with active agents
+- **Memory:** Each agent maintains separate context
+- **Network:** Parallel API requests
+
+**Optimization:**
+- 2-3 concurrent agents optimal for most machines
+- Use Claude Haiku 4.5 for parallel tasks
+- Monitor system resources during heavy parallel work
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Settings Overview" icon="gear" href="/verdent/configuration/settings">
+    Complete configuration options
+  </Card>
+  <Card title="Resource Monitoring" icon="chart-line" href="/verdent/resource-management/monitoring">
+    Monitor usage and optimize consumption
+  </Card>
+</CardGroup>

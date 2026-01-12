@@ -1,0 +1,164 @@
+---
+title: Overview
+description: Verdent is **an AI-native desktop app for building software**. It helps you turn ideas into executable plans, run work reliably, and stay in flow—while it handles the busywork and parallel tasks.
+
+---
+
+## What you can do with Verdent
+
+- **Build from scratch:** describe your idea and iterate to a working result.
+- **Work on real codebases:** ship features, refactor, and optimize inside existing repos.
+- **Debug & fix bugs:** reproduce issues, pinpoint root causes, and fix until tests pass.
+- **Go beyond coding:** research, documentation, data analysis, and chart generation.
+
+Verdent is your work partner. Start with the tasks above, then keep exploring—if you can describe the goal, Verdent can help you move it forward.
+
+## Getting Started
+1.	Download Verdent from the website and install it.
+2.	Open Verdent and create or open a project folder.
+<Frame caption="Open an existing project or create a new one">
+  <img src="/images/get-started1.png" alt="Open project" />
+</Frame>
+3.	Describe what you want (you can attach context via files/logs when needed).
+<Frame caption="Describe your first task here">
+  <img src="/images/get-started2.png" alt="Describe task" />
+</Frame>
+4.	Send it, and Verdent will execute your task and ultimately provide the result.
+<Frame caption="Send, Get Result">
+  <img src="/images/get-started3.png" alt="Get result" />
+</Frame>
+
+## Core Concepts
+
+- **Agent Mode — "Just do it."**  
+  Give a goal, and Verdent breaks it into steps, executes, and delivers clear outputs.
+
+- **Plan Mode — "Think together, then execute."**  
+  Start with a vague idea; Verdent helps clarify requirements, identify risks, and produce an executable plan.
+
+- **Tasks — Parallelize non-coding work.**  
+  Run multiple threads of thinking/research/analysis without waiting or losing context.
+
+- **Workspaces — Parallelize code changes safely.**  
+  Each workspace is an isolated code environment with its own change history, so multiple implementations can run in parallel without interfering.
+
+---
+
+## Why Developers Choose Verdent
+
+- **Stronger results you can trust by default**
+  - Verdent pairs a **world-class coding agent** with **multiple frontier models**, then makes every run transparent with structured steps and clear code-change summaries.
+
+- **Fast delivery without losing quality**
+  - Minimal, distraction-free UI built for high-efficiency AI collaboration.
+  - "Send a task, it runs" — with clear progress, clear outputs, and built-in review/quality checks.
+
+- **Turns vague ideas into executable plans**
+  - **Plan Mode** helps users clarify goals, surface gaps/risks, and turn incomplete thoughts into structured, step-by-step plans.
+  - Users stay in control: accept/modify/skip suggestions, then execute with full visibility.
+
+- **Built for parallel work—--stay in flow under interruptions.**
+  - Use **Tasks** to parallelize “thinking work” (research, clarification, comparisons, code reading) with instant switching—no idle time.
+  - Use **Workspaces** to parallelize “code-changing work” safely in isolated environments (separate change state, commits, branches).
+  - When urgent work interrupts, spin up a new Workspace, keep the original intact, then merge or discard confidently.
+
+- **More than coding: a single tool for end-to-end work**
+  - Beyond code: documentation/PRDs, data analysis + charts, and industry/competitor research.
+  - Helps one person cross boundaries (frontend/backend/deploy/testing) and deliver end-to-end outcomes.
+
+## Pricing Plans
+
+Verdent uses a credit-based pricing model with four tiers:
+
+| Plan | Price | Monthly Credits* | Best For |
+|------|-------|------------------|----------|
+| **Free Trial** | $0 | 100 (7 days) | One-time offer per new user |
+| **Starter** | $19/month | 320 | Light users & first-time explorers |
+| **Pro** | $59/month | 1,000 | Regular users & mid-sized projects |
+| **Max** | $179/month | 3,000 | Heavy users & demanding tasks |
+
+<Note>
+*Limited-time 2× bonus active: All plans currently include double credits (320 becomes 640, 1,000 becomes 2,000, 3,000 becomes 6,000). Verdent will provide 15+ days advance notice before this bonus ends. All plans include access to Claude Sonnet 4.5, GPT-5, and GPT-5-Codex.
+</Note>
+
+<Tip>
+  Credits are shared across both Verdent for Visual Studio Code and the Verdent desktop app, enabling seamless workflow integration between platforms.
+</Tip>
+
+---
+
+## Use Cases at a Glance
+
+<CardGroup cols={2}>
+  <Card title="Writing New Code" icon="code">
+    Autonomous planning and implementation of new features, components, and functions across multiple files with intelligent task breakdown.
+  </Card>
+  <Card title="Code Understanding" icon="book">
+    Deep codebase analysis, explaining complex functions, identifying patterns, and performing safe refactoring while preserving functionality.
+  </Card>
+  <Card title="Testing & Debugging" icon="bug">
+    Comprehensive test generation, bug diagnosis from error messages, and multipass repair cycles until code passes verification.
+  </Card>
+  <Card title="Multi-File Operations" icon="folder-tree">
+    Coordinated changes across multiple files with understanding of project structure, dependencies, and architectural improvements.
+  </Card>
+  <Card title="Parallel Feature Development" icon="layer-group">
+    Run multiple agents simultaneously with Workspaces. Build features in parallel and merge completed work without conflicts.
+  </Card>
+  <Card title="Multi-Project Management" icon="folder-tree">
+    Switch between projects instantly while maintaining session context. Perfect for developers managing multiple codebases.
+  </Card>
+  <Card title="Plan & Clarify Together" icon="messages-square">
+    Turn vague ideas into an executable plan with Plan Mode. Verdent proactively clarifies requirements, surfaces risks, and structures next steps before execution.
+  </Card>
+  <Card title="Solution Comparison & Decision-Making" icon="git-compare">
+    Explore multiple approaches, compare trade-offs (complexity, scope, risk), and converge on a clear direction—then execute with full transparency.
+  </Card>
+  <Card title="Documentation & PRD Drafting" icon="file-text">
+    Draft PRDs, specs, and technical docs from scattered notes. Iterate with clarification, organize scope, and produce review-ready documents.
+  </Card>
+  <Card title="Data Analysis & Charts" icon="bar-chart">
+    Import CSV/Excel/logs and ask questions in natural language. Verdent runs the analysis and outputs clear charts and actionable conclusions.
+  </Card>
+  <Card title="Industry & Competitor Research" icon="search">
+    Gather information across sources, synthesize insights into structured conclusions, and keep digging with follow-up questions.
+  </Card>
+  <Card title="From Idea to Demo" icon="rocket">
+    Turn an idea into a working prototype quickly—generate key flows, wire up core logic, and produce a demo you can share.
+  </Card>
+</CardGroup>
+
+---
+
+## FAQs
+
+<Accordion title="What is Plan Mode?">
+Plan Mode is a read-only execution mode where Verdent analyzes code, conducts research, and creates detailed implementation plans without modifying files or executing commands. After generating a plan, Verdent presents two options: **Edit** (to request modifications and refine the plan) or **Start Building** (to switch to Agent Mode and begin execution). The agent can ask clarifying questions to remove uncertainty before execution. This mode is ideal for complex tasks where you want to review the approach before committing to changes, ensuring alignment between your expectations and Verdent's proposed solution.
+</Accordion>
+
+<Accordion title="What is a git worktree?">
+A git worktree is an isolated working directory linked to the same repository. Verdent uses worktrees to enable parallel development without file conflicts. Each worktree has its own working files but shares git history with the main repository.
+</Accordion>
+
+<Accordion title="How is Verdent different from the VS Code extension?">
+Verdent is a standalone application with features designed for parallel development:
+
+- **Parallel agents** - Run multiple agents in separate worktrees simultaneously
+- **Project management** - Switch between projects while maintaining session state
+- **Native performance** - Not constrained by extension or browser limitations
+
+Both share the same credit pool.
+</Accordion>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/verdent/getting-started/quick-start">
+    Complete your first task with Verdent
+  </Card>
+  <Card title="Core Concepts" icon="lightbulb" href="/verdent/getting-started/core-concepts">
+    Understand projects, workspaces, and parallel execution
+  </Card>
+</CardGroup>

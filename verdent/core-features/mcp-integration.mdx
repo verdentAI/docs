@@ -1,0 +1,416 @@
+---
+title: MCP Integration
+description: "Extend Verdent with Model Context Protocol servers and plugins"
+---
+
+### What You'll Learn
+
+Overview of Model Context Protocol (MCP) integration in Verdent, including setup, configuration, and extensibility options.
+
+<Info>
+Comprehensive MCP documentation is currently being developed. This page provides an overview of MCP capabilities with detailed guides coming soon. Contact support@verdent.ai for specific integration questions.
+</Info>
+
+---
+
+## What is MCP (Model Context Protocol)?
+
+Model Context Protocol (MCP) is an integration system that extends Verdent's capabilities by connecting to external tools, data sources, and services.
+
+**Core Concept:**
+MCP enables Verdent to interact with systems beyond its built-in tool set, allowing seamless integration with:
+- External APIs and web services
+- Database systems
+- Cloud platforms (AWS, Azure, GCP)
+- Project management tools
+- CI/CD pipelines
+- Custom internal tools
+
+**Architecture:**
+MCP servers act as bridges between Verdent and external systems. Each MCP server exposes specific capabilities that Verdent can invoke during coding sessions, similar to built-in tools like `file_read` or `bash`.
+
+**Configuration Storage:**
+MCP server configurations are stored in `~/.verdent/mcp.json` and managed through the Settings menu.
+
+---
+
+## Benefits of MCP Integration
+
+### Extended Capabilities
+
+**Access External Systems:**
+Connect Verdent to tools and services not available through built-in functionality. Query databases, interact with cloud services, or integrate project-specific APIs without leaving your coding workflow.
+
+**Custom Tool Development:**
+Create MCP servers tailored to your project's unique requirements. Build specialized integrations for internal tools, proprietary APIs, or domain-specific systems.
+
+### Interoperability
+
+**Ecosystem Leverage:**
+Tap into the growing MCP ecosystem. Community-developed MCP servers provide pre-built integrations for popular tools and services.
+
+**Standardized Protocol:**
+MCP provides a consistent interface for tool integration, ensuring new capabilities integrate smoothly with Verdent's existing tool system.
+
+### Workflow Automation
+
+**Seamless Integration:**
+MCP servers become part of Verdent's tool set. The agent automatically uses MCP tools when appropriate, or you can explicitly invoke them for specific tasks.
+
+**Context-Aware Operations:**
+MCP integrations understand your codebase context, enabling intelligent interactions with external systems based on current development state.
+
+---
+
+## Setting Up MCP Servers
+
+### Configuration Process
+
+**Access MCP Settings:**
+1. Open Settings menu in Verdent
+2. Navigate to **MCP Servers** section
+3. View or modify `~/.verdent/mcp.json` configuration
+
+**Configuration File:**
+MCP servers are configured through the `~/.verdent/mcp.json` file, which defines server connections, authentication, and integration parameters.
+
+<Note>
+Detailed MCP configuration schema and setup instructions are being finalized. For immediate assistance with MCP server setup, consult the MCP protocol specification or contact Verdent support.
+</Note>
+
+### Configuration Management
+
+**Adding Servers:**
+Configure new MCP servers by adding entries to `mcp.json` with connection details and authentication credentials.
+
+**Multiple Servers:**
+Verdent supports multiple concurrent MCP servers, allowing integration with several external systems simultaneously.
+
+**Testing Connections:**
+Validate MCP server configurations to ensure successful connections before using them in development workflows.
+
+---
+
+## MCP Configuration
+
+### Understanding MCP
+
+**Model Context Protocol (MCP)** is an open protocol that standardizes how applications provide context to LLMs. MCP servers are executables that implement the protocol—they're not database connections or API endpoints, but programs that run and communicate via JSON-RPC 2.0.
+
+**Key Concepts:**
+- **MCP Servers**: Executables (Node.js packages, Python scripts, etc.) that implement the MCP protocol
+- **Configuration**: Tells Verdent how to start the server (`command` + `args`)
+- **Communication**: Servers handle their own business logic (queries, API calls, etc.)
+
+### Basic Setup
+
+**Location:** `.mcp.json` in project root or `~/.verdent/mcp.json` (global)
+
+<CodeGroup>
+```json PostgreSQL Server
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://localhost:5432/myapp_dev"
+      ]
+    }
+  }
+}
+```
+
+```json GitHub Server
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+```json Multiple Servers
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://localhost:5432/myapp_dev"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+```
+</CodeGroup>
+
+**Configuration Keys:**
+- `mcpServers` - Required top-level key for MCP configuration
+- `command` - Executable to run (typically `npx` for Node.js packages)
+- `args` - Arguments passed to the command (package name, connection strings, etc.)
+- `env` - Environment variables for authentication/configuration
+
+<Tip>
+**Learn More About MCP:**
+- [Model Context Protocol Specification](https://modelcontextprotocol.io/specification)
+- [MCP Server Registry](https://mcp.so/servers) - Browse available MCP servers
+- [Official MCP Servers](https://github.com/modelcontextprotocol) - PostgreSQL, GitHub, Filesystem, and more
+</Tip>
+
+---
+
+## MCP Plugins and Extensions
+
+### Available Plugins
+
+MCP plugins provide pre-built integrations for common tools and services.
+
+<Info>
+A curated list of available MCP plugins is being compiled. Check MCP ecosystem resources for current plugin availability.
+</Info>
+
+**Expected Plugin Categories:**
+- **Database Integrations:** PostgreSQL, MySQL, MongoDB query tools
+- **Cloud Services:** AWS, Azure, GCP API interactions
+- **Developer Tools:** GitHub, GitLab, Jira, Linear integrations
+- **CI/CD Platforms:** Jenkins, GitHub Actions, CircleCI
+- **Monitoring Services:** Datadog, New Relic, Sentry
+- **Communication:** Slack, Discord, Microsoft Teams notifications
+
+### Plugin Installation
+
+**Installation Methods:**
+Plugins are installed and configured through the MCP Settings interface, typically requiring:
+- Plugin identifier or source
+- Configuration parameters
+- Authentication credentials (if applicable)
+
+**Dependency Management:**
+MCP plugins may have dependencies on external services or libraries. Installation processes handle dependency resolution automatically when possible.
+
+---
+
+## Custom MCP Server Development
+
+### Creating Custom Servers
+
+Advanced users can create custom MCP servers to integrate proprietary tools or domain-specific systems.
+
+**Development Approach:**
+Custom MCP servers implement the MCP protocol specification, exposing tool capabilities that Verdent can invoke.
+
+**Use Cases for Custom Servers:**
+- **Internal API Integration:** Connect to company-specific APIs and services
+- **Legacy System Bridges:** Enable Verdent to interact with legacy infrastructure
+- **Specialized Data Sources:** Access proprietary databases or data warehouses
+- **Workflow Automation:** Trigger custom build, deployment, or testing pipelines
+
+<Note>
+Comprehensive custom MCP server development guides, including protocol implementation requirements, SDK documentation, and testing tools, are in development. For immediate custom integration needs, refer to the MCP protocol specification.
+</Note>
+
+### Integration Patterns
+
+**Workspace-Level Configuration:**
+MCP servers can be configured at workspace level for project-specific integrations, enabling teams to share MCP configurations through version control.
+
+**Tool Interoperability:**
+MCP-provided tools integrate seamlessly with Verdent's built-in tools (`file_read`, `bash`, `spawn_subagent`), enabling complex workflows combining multiple tool types.
+
+---
+
+## Desktop-Specific MCP Features
+
+### Per-Project Configuration
+
+| Configuration Level | Location | Scope |
+|---------------------|----------|-------|
+| **Global** | `~/.verdent/mcp.json` | All projects |
+| **Project** | `.mcp.json` in project root | Single project |
+| **Worktree** | Inherits from project | Inherits project config |
+
+### Multi-Worktree MCP
+
+MCP servers work across worktrees:
+
+- **Shared Servers:** Base workspace MCP config shared by all worktrees
+- **Isolated Operations:** Each worktree maintains separate MCP session state
+- **Parallel Access:** Multiple worktrees can use same MCP servers concurrently
+
+### Project Switching
+
+When switching projects:
+- Current project's MCP servers are loaded
+- Global MCP servers remain available
+- Previous project's MCP connections are maintained in background
+
+---
+
+## MCP Workflow Examples
+
+### Database Query Integration
+
+**Scenario:** Query production database for debugging data issues.
+
+**MCP Approach:**
+```
+User: "Check the orders table for customer ID 12345"
+Verdent: [Uses MCP database server to execute safe read-only query]
+        Results: 3 orders found for customer 12345
+        [Displays formatted results]
+```
+
+The MCP database server handles authentication, query validation, and result formatting.
+
+### Cloud Service Interaction
+
+**Scenario:** Check AWS Lambda function logs for errors.
+
+**MCP Approach:**
+```
+User: "Show me recent errors from the payment-processor Lambda function"
+Verdent: [Invokes MCP AWS integration]
+        [Retrieves CloudWatch logs for specified function]
+        [Filters for ERROR level entries]
+        [Presents formatted error summaries]
+```
+
+MCP AWS server manages authentication, API calls, and log parsing.
+
+### CI/CD Pipeline Monitoring
+
+**Scenario:** Check build status before deploying changes.
+
+**MCP Approach:**
+```
+User: "Is the master branch build passing?"
+Verdent: [Queries MCP CI/CD integration]
+        Build #245: ✓ Passed (2 minutes ago)
+        All tests passed, ready for deployment
+```
+
+MCP CI/CD server tracks pipeline status and provides real-time feedback.
+
+---
+
+## Security Considerations
+
+### Authentication & Authorization
+
+**Credential Management:**
+MCP servers handle authentication to external services. Credentials are stored securely in MCP configuration and never exposed in chat history or code.
+
+**Permission Scoping:**
+Configure MCP servers with minimal necessary permissions. Use read-only access where possible, and restrict destructive operations.
+
+### Safe Operations
+
+**Command Review:**
+Operations involving MCP tools appear in the conversation history, providing visibility and control.
+
+**Audit Logging:**
+MCP server operations appear in Verdent's chat history, creating an audit trail of external system interactions.
+
+---
+
+## Troubleshooting MCP Integration
+
+### Common Issues
+
+**Connection Failures:**
+- Verify network connectivity to MCP server
+- Check authentication credentials in `mcp.json`
+- Ensure MCP server is running and accessible
+- Validate configuration file syntax
+
+**Permission Errors:**
+- Confirm API keys or credentials have required permissions
+- Check service quotas or rate limits
+- Verify firewall rules allow MCP traffic
+
+**Tool Invocation Issues:**
+- Ensure MCP server exposes expected tools correctly
+- Check tool parameter formats match server expectations
+- Review MCP server logs for error details
+
+### Getting Help
+
+**Support Channels:**
+- Verdent support: support@verdent.ai
+- [MCP protocol documentation](https://modelcontextprotocol.io)
+- [Verdent Discord community](https://discord.com/invite/NGjXEZcbJq)
+
+**Diagnostic Information:**
+When reporting MCP issues, provide:
+- MCP server type and version
+- Configuration details (sanitized of credentials)
+- Error messages from chat history
+- MCP server logs (if accessible)
+
+---
+
+## FAQs
+
+<Accordion title="Do MCP servers use credits?">
+MCP server operations consume credits based on the model processing the results. The MCP server itself doesn't use credits directly.
+</Accordion>
+
+<Accordion title="Can I use different MCP servers per project?">
+Yes. Use `.mcp.json` in project root for project-specific servers, or `~/.verdent/mcp.json` for global servers available across all projects.
+</Accordion>
+
+<Accordion title="Are my credentials safe in mcp.json?">
+Credentials in mcp.json are stored locally on your machine and never sent to Verdent servers. Use environment variables (`${VAR_NAME}`) for sensitive values.
+</Accordion>
+
+<Accordion title="Do MCP servers run continuously?">
+MCP servers start when needed and run during your session. They don't consume resources when Verdent is closed.
+</Accordion>
+
+<Accordion title="Can MCP servers modify my files?">
+MCP servers have the permissions you configure. Use read-only access where possible and restrict destructive operations.
+</Accordion>
+
+<Accordion title="How do I know if my MCP server is working?">
+Ask Verdent to use a tool from the MCP server. Successful responses indicate the connection is working. Check Troubleshooting section if issues occur.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Tool Reference" icon="wrench" href="/verdent/advanced-features/tool-reference">
+    Built-in tool capabilities
+  </Card>
+  <Card title="Extensibility" icon="puzzle-piece" href="/verdent/advanced-features/extensibility">
+    Other extension methods
+  </Card>
+  <Card title="Integrations" icon="plug" href="/verdent/advanced-features/integrations">
+    Integration workflow patterns
+  </Card>
+  <Card title="Settings" icon="gear" href="/verdent/configuration/settings">
+    Configuration and preferences
+  </Card>
+</CardGroup>

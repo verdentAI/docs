@@ -1,0 +1,98 @@
+---
+title: System Requirements & Compatibility
+description: "Supported platforms, system requirements, and compatibility information for Verdent"
+---
+
+Verdent is a desktop application. The requirements below help ensure smooth performance.
+
+---
+
+## Supported Operating Systems
+
+| Operating System | Supported Versions | Architecture |
+|-----------------|-------------------|--------------|
+| **macOS** | macOS 11 (Big Sur) and later | Intel and Apple Silicon |
+| **Windows** | Windows 10, Windows 11 | 64-bit only |
+
+<Note>
+32-bit operating systems are not supported. Windows 7 and 8.x are not supported. Linux is not currently supported.
+</Note>
+
+---
+
+## Hardware Requirements
+
+### Minimum
+
+| Component | Specification |
+|-----------|---------------|
+| **RAM** | 4 GB |
+| **Disk Space** | ~900 MB for the application |
+| **CPU** | Any 64-bit processor |
+
+### Recommended
+
+* **RAM**: 8 GB or more  
+* **CPU**: Multi-core processor  
+* **Disk Space**: 2 GB+ (app + project files + caching)
+
+---
+
+## Disk Space Notes
+
+Verdent may create additional copies of your project files when using multiple workspaces.
+
+| Component | Space Required |
+|----------|----------------|
+| **Application** | ~900 MB |
+| **Per workspace** | Depends on project size |
+| **Session History** | ~50 MB per project (typical) |
+| **Caching** | ~100 MB (typical) |
+
+<Note>
+If you work with large projects and many workspaces, disk usage can grow quickly.
+</Note>
+
+---
+
+## Network Requirements
+
+Verdent requires an **active internet connection** to communicate with AI services. The application does not work offline.
+
+---
+
+## Advanced
+
+<Accordion title="Git dependency (managed by Verdent)">
+Verdent uses Git worktrees for workspace isolation.
+
+You don’t need to install Git ahead of time. If Git is missing or incompatible, Verdent will prompt you after launch and guide you through installation.
+
+See: [Git Installation Guide](/verdent/getting-started/git-installation)
+</Accordion>
+
+<Accordion title="Node.js (optional)">
+Node.js is optional, and only needed if you use MCP servers that run on Node.js.
+
+**Minimum version:** Node.js 18+
+</Accordion>
+
+<Accordion title="Firewall / proxy considerations (enterprise)">
+In corporate environments, outbound HTTPS access must be allowed for Verdent service endpoints.  
+Proxy servers should pass through API requests. SSL/TLS inspection may require exceptions.
+
+If you continue to see connection failures after network configuration, contact Verdent support for endpoint details.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/verdent/getting-started/installation">
+    Install Verdent
+  </Card>
+  <Card title="Git Installation" icon="git" href="/verdent/getting-started/git-installation">
+    Manual Git setup (if needed)
+  </Card>
+</CardGroup>

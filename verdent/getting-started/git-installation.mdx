@@ -1,0 +1,182 @@
+---
+title: Git Installation
+description: "Installing Git for Verdent"
+---
+
+Verdent uses **Git worktrees** to create isolated workspaces. Git is a required dependency, but you **don’t need to install it ahead of time**.
+
+<Note>
+On first launch, Verdent checks whether Git is available and compatible.  
+If Git is missing or outdated, Verdent will prompt you and guide you through installation.  
+This page provides manual installation options if you prefer to set it up yourself.
+</Note>
+
+---
+
+## Why Verdent Uses Git
+
+Verdent relies on Git worktrees to manage isolated workspaces safely:
+
+| Feature | What Git Enables |
+|---------|------------------|
+| **Workspace Isolation** | Separate working directories via worktrees |
+| **Independent Changes** | Each workspace can have its own branch and state |
+| **Git Workflow Compatibility** | Works with standard Git tools and workflows |
+
+**Minimum Version:** Git 2.20+  
+**Recommended Version:** Git 2.30+
+
+---
+
+## macOS Installation
+
+<Tabs>
+<Tab title="Homebrew (Recommended)">
+If you already use Homebrew:
+
+~~~bash
+brew install git
+~~~
+</Tab>
+
+<Tab title="Xcode Command Line Tools">
+A common option on macOS:
+
+~~~bash
+xcode-select --install
+~~~
+
+A dialog will appear asking to install the command line developer tools. Click **Install**.
+</Tab>
+
+<Tab title="Official Installer">
+Download from [git-scm.com/download/mac](https://git-scm.com/download/mac) and run the installer.
+</Tab>
+</Tabs>
+
+---
+
+## Windows Installation
+
+<Tabs>
+<Tab title="Git for Windows (Recommended)">
+<Steps>
+<Step title="Download">
+Download from [git-scm.com/download/win](https://git-scm.com/download/win)
+</Step>
+
+<Step title="Run Installer">
+Run the downloaded `.exe` file
+</Step>
+
+<Step title="Installation Options">
+You can accept defaults. If prompted, ensure Git is available from your terminal (recommended).
+</Step>
+
+<Step title="Complete">
+Click Install and wait for completion
+</Step>
+</Steps>
+</Tab>
+
+<Tab title="Winget">
+If you have Windows Package Manager:
+
+~~~powershell
+winget install Git.Git
+~~~
+</Tab>
+
+<Tab title="Scoop">
+If you have Scoop:
+
+~~~powershell
+scoop install git
+~~~
+</Tab>
+</Tabs>
+
+---
+
+## Verifying Installation
+
+After installation, verify Git is properly installed:
+
+~~~bash
+git --version
+~~~
+
+**Expected output:**
+
+~~~text
+git version 2.39.0
+~~~
+
+Your version number may differ. Verdent requires **Git 2.20+**.
+
+---
+
+## Upgrading Git
+
+If your Git version is older than required, upgrade it:
+
+<Tabs>
+<Tab title="macOS">
+~~~bash
+# With Homebrew
+brew upgrade git
+~~~
+</Tab>
+
+<Tab title="Windows">
+Download the latest version from [git-scm.com/download/win](https://git-scm.com/download/win) and run the installer. It will upgrade your existing installation.
+</Tab>
+</Tabs>
+
+---
+
+## Optional: Initial Configuration (for commits)
+
+If you plan to create commits, Git may require an author name and email:
+
+~~~bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+~~~
+
+<Note>
+If you don’t commit changes, you may not need to set these values. Verdent or Git will prompt you when required.
+</Note>
+
+---
+
+## FAQs
+
+<Accordion title="What is Git?">
+Git is a free, open-source version control system that tracks changes to your files. Verdent uses Git worktrees to create isolated workspaces.
+</Accordion>
+
+<Accordion title="Can I use Verdent without Git?">
+No. Git worktrees are fundamental to Verdent’s workspace isolation. Without Git, Verdent cannot create or manage isolated workspaces.
+</Accordion>
+
+<Accordion title="What if my project isn't a Git repository?">
+Verdent can still work with folders that are not Git repositories. If Git initialization is required for workspace isolation, Verdent will prompt you and guide you through the next step.
+</Accordion>
+
+<Accordion title="Why do I need Git 2.20+?">
+Verdent requires Git 2.20+ for compatibility with worktree-based workflows. We recommend Git 2.30+ for smoother worktree operations.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="System Requirements" icon="gear" href="/verdent/getting-started/system-requirements">
+    Full system requirements
+  </Card>
+  <Card title="Installation" icon="download" href="/verdent/getting-started/installation">
+    Install Verdent
+  </Card>
+</CardGroup>

@@ -1,0 +1,306 @@
+---
+title: Extensibility & Customization
+description: "Extend Verdent's capabilities through rules, permissions, and MCP integration"
+---
+
+Verdent provides multiple ways to customize behavior and extend capabilities to match your workflow and security requirements.
+
+### What You'll Learn
+
+- Configure permissions and deny rules
+- Customize behavior through rule systems
+- Extend capabilities with MCP integration
+- Combine methods for comprehensive workflows
+
+---
+
+## Extensibility Overview
+
+| Method | Best For | Configuration |
+|--------|----------|---------------|
+| **Permissions** | Block dangerous commands | Settings → Permissions |
+| **User Rules** | Personal coding preferences | Settings → User Rules |
+| **Project Rules** | Team conventions | AGENTS.md in project root |
+| **MCP Integration** | External tools and services | Settings → MCP Servers |
+
+---
+
+## Permissions
+
+Configure command permissions and security rules in **Settings → Permissions**.
+
+### Deny Rules
+
+Deny rules prevent potentially dangerous commands from being executed. Verdent blocks most dangerous commands by default, but you can add additional rules.
+
+**Access:** Settings → Permissions → Deny Rules
+
+Enter one rule per line. Deny rules take precedence over allow rules.
+
+**Rule Syntax:**
+- Use `*` as a wildcard to match any characters
+- Rules are case-sensitive
+- Each line represents a separate rule
+- Empty lines are ignored
+
+**Common Patterns:**
+
+| Pattern | Purpose |
+|---------|---------|
+| `rm -rf /*` | Prevent recursive deletion from root |
+| `curl * \| *sh*` | Block piping downloaded scripts to shell |
+| `dd * of=/dev/sd*` | Prevent disk overwrite operations |
+
+<Warning>
+When Verdent attempts to execute a command that matches a deny rule, it will be blocked for your safety.
+</Warning>
+
+---
+
+## Rules System
+
+Rule files guide Verdent's behavior, output formatting, and adherence to project standards.
+
+| Rule Type | Scope | Access |
+|-----------|-------|--------|
+| **User Rules** | Global (all projects) | Settings → User Rules |
+| **Project Rules** | Current project | AGENTS.md in project root |
+
+**Precedence:** AGENTS.md (highest) → user_rules.md (medium) → defaults (lowest)
+
+### User Rules
+
+Personal preferences applied across all projects.
+
+**Access:** Settings → User Rules
+
+**Example:**
+```markdown
+# User Rules
+
+## TypeScript Preferences
+- Use strict mode in tsconfig.json
+- Prefer interfaces over type aliases
+- Include return types on all functions
+
+## Code Organization
+- One component per file
+- Named exports instead of default exports
+
+## Communication
+- Provide explanations before showing code
+- Highlight breaking changes explicitly
+```
+
+### Project Rules (AGENTS.md)
+
+Team standards for the current project. Store in project root and commit to version control.
+
+**Example:**
+```markdown
+# AGENTS.md
+
+## Dev Environment
+- Run `pnpm install` to set up
+- Use `pnpm dev` for local development
+
+## Testing
+- Run `pnpm test` before committing
+- Minimum 80% coverage required
+
+## PR Guidelines
+- Use conventional commit format
+- Include tests for new features
+```
+
+### Rule Precedence
+
+When conflicts occur, project rules override user rules:
+
+```
+user_rules.md: "Use 2-space indentation"
+AGENTS.md: "Use 4-space indentation for this project"
+→ Result: 4-space indentation (project rules win)
+```
+
+### Rule Writing Best Practices
+
+**Be Specific and Directive:**
+```
+✓ Good: "Always use async/await for asynchronous operations"
+✗ Vague: "Try to use modern JavaScript"
+```
+
+**Tips:**
+- Group related rules under section headers
+- Use emphasis for critical rules: `**NEVER** commit credentials`
+- Start new conversation to verify rule application
+- Refine rules based on actual agent behavior
+
+<Tip>
+Commit AGENTS.md to version control to share rules across your team.
+</Tip>
+
+---
+
+## MCP Integration
+
+Model Context Protocol (MCP) extends Verdent by connecting external tools and services.
+
+**Configuration:** Settings → MCP Servers
+
+### Capabilities
+
+| Category | Examples |
+|----------|----------|
+| **Databases** | PostgreSQL, MySQL, MongoDB |
+| **Cloud Services** | AWS, Azure, GCP |
+| **Project Management** | Jira, Linear, Asana |
+| **CI/CD** | GitHub Actions, Jenkins |
+
+### @-Mentionable MCP Servers
+
+Custom MCP servers can be invoked using @-mentions, enabling specialized workflows:
+
+```
+@migration-reviewer check this database migration
+@api-security-auditor review this endpoint
+@a11y-auditor validate accessibility
+```
+
+**Learn More:**
+- [Model Context Protocol Specification](https://modelcontextprotocol.io/specification)
+- [MCP Server Registry](https://mcp.so/servers)
+
+---
+
+## Combining Methods
+
+### Example: Compliance Workflow
+
+**AGENTS.md (Project Rules):**
+```markdown
+## Security Standards
+- All API endpoints must validate inputs
+- Never log PII or credentials
+
+## Compliance
+- Run @compliance-auditor before all PRs
+- Document data retention policies
+```
+
+**MCP Integration:**
+- **Compliance database MCP:** Check operations against compliance rules
+- **Audit log MCP:** Record sensitive data access
+
+**Workflow:**
+```
+User: "Create endpoint for user profile updates"
+Verdent: [Applies AGENTS.md rules]
+         [Generates secure endpoint with validation]
+         [Uses @compliance-auditor MCP for review]
+         Result: Compliant, secure endpoint
+```
+
+### Progressive Adoption
+
+**Phase 1:** Start with basic rules (AGENTS.md)
+**Phase 2:** Add MCP servers for external integrations
+**Phase 3:** Create custom MCP servers for specialized tasks
+
+---
+
+## Choosing the Right Method
+
+| Need | Method |
+|------|--------|
+| Block dangerous commands | Permissions (Deny Rules) |
+| Personal coding preferences | User Rules |
+| Team conventions | Project Rules (AGENTS.md) |
+| External service access | MCP Integration |
+| Specialized AI review | Custom MCP Server (@-mentionable) |
+
+---
+
+## Troubleshooting
+
+<Tabs>
+  <Tab title="Rule Issues">
+    **Problem:** Rules not being applied
+
+    **Check:**
+    - **Location:** AGENTS.md in project root, User Rules in Settings
+    - **Syntax:** Valid Markdown with no parsing errors
+    - **Directive Style:** Use specific commands ("Always use..." not "Try to...")
+    - **Session:** Start new conversation to test fresh rule application
+
+    **Common Causes:**
+    - AGENTS.md in wrong directory
+    - Vague instructions
+    - Rules applied but results not as expected (refine wording)
+  </Tab>
+
+  <Tab title="Permission Issues">
+    **Problem:** Command unexpectedly blocked
+
+    **Check:**
+    - Review deny rules in Settings → Permissions
+    - Check if pattern matches unintended commands
+    - Verify wildcard usage is correct
+
+    **Solution:** Refine deny rule pattern to be more specific
+  </Tab>
+
+  <Tab title="MCP Issues">
+    **Problem:** MCP server fails to connect
+
+    **Check:**
+    - **Configuration:** Server set up correctly in Settings → MCP Servers
+    - **Command:** Executable path is correct
+    - **Environment:** Required variables are set
+
+    **Debug Steps:**
+    1. Test command manually in terminal
+    2. Check environment variables
+    3. Review Verdent logs for errors
+  </Tab>
+</Tabs>
+
+---
+
+## FAQs
+
+<Accordion title="How do I add a deny rule?">
+Go to **Settings → Permissions → Deny Rules**. Enter one pattern per line using `*` as a wildcard.
+</Accordion>
+
+<Accordion title="Do deny rules override allow rules?">
+Yes. Deny rules always take precedence over allow rules.
+</Accordion>
+
+<Accordion title="Where do I configure user rules?">
+Go to **Settings → User Rules** to define personal preferences that apply across all projects.
+</Accordion>
+
+<Accordion title="Can MCP servers be @-mentioned?">
+Yes. Custom MCP servers can be invoked using @-mentions (e.g., `@migration-reviewer`).
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Rule Systems" icon="book" href="/verdent/agents-rules/rule-systems">
+    Complete rules documentation
+  </Card>
+  <Card title="Integration Workflows" icon="plug" href="/verdent/advanced-features/integrations">
+    MCP integration patterns
+  </Card>
+  <Card title="Settings" icon="gear" href="/verdent/configuration/settings">
+    All configuration options
+  </Card>
+  <Card title="Tool Reference" icon="wrench" href="/verdent/advanced-features/tool-reference">
+    Built-in tool capabilities
+  </Card>
+</CardGroup>

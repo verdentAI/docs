@@ -1,0 +1,162 @@
+---
+title: Context Management
+description: Managing context effectively for better results
+---
+
+Effective context management ensures Verdent has the right information at the right time while avoiding performance degradation from context overload.
+
+### What You'll Learn
+
+- Understanding context windows and their limits
+- Selecting files strategically for optimal context
+- Recognizing and responding to context overload
+- When to reset context for better performance
+
+---
+
+## Understanding Context Windows
+
+Verdent's context window size depends on the model being used.
+
+<Tabs>
+  <Tab title="Standard (200K)">
+    Most models use standard 200K context windows:
+    - **Claude Sonnet 4.5** - Balanced for complex tasks
+    - **Claude Haiku** - Fast and efficient
+    - **GPT-5** - Reasoning tasks (Beta)
+    - **GPT-5-Codex** - Code generation (Beta)
+
+    **Capacity:**
+    - ~200,000 tokens of total memory
+    - Sufficient for most development tasks
+
+    **What's Included:**
+    - All messages in conversation
+    - File contents loaded into context
+    - Tool outputs and responses
+    - System prompts and instructions
+  </Tab>
+
+  <Tab title="Extended (1M)">
+    Claude Sonnet 4.5 1M offers extended context when input exceeds 200K tokens.
+
+    **Capacity:**
+    - 1,000,000 tokens of total memory
+    - 5x larger than standard models
+
+    **When to Use:**
+    - Large codebases with 1000+ files
+    - Complex multi-file refactoring
+    - Long development sessions
+    - When you want to minimize context management overhead
+  </Tab>
+</Tabs>
+
+---
+
+## Strategic File Selection
+
+Be strategic about file selection to optimize context usage.
+
+<Tip>
+Start with fewer files and add more only when needed—Verdent can always read additional files during the conversation.
+</Tip>
+
+<Tabs>
+  <Tab title="@-Mentions">
+    Use @-mentions for explicit file inclusion:
+
+    ```
+    @filename.js
+    ```
+
+    Verdent auto-loads related files, but @-mentions ensure precise control. Only include files directly relevant to the current task.
+  </Tab>
+  <Tab title="Best Practices">
+    - Include only files that need to be modified or referenced
+    - Reference existing patterns instead of loading example files
+    - For large codebases, work on one module at a time
+    - Let Verdent read files as needed rather than preloading
+  </Tab>
+</Tabs>
+
+---
+
+## Recognizing Context Overload
+
+<Tabs>
+  <Tab title="Response Quality">
+    **Signs:**
+    - Less accurate or incomplete responses
+    - Missing important details from earlier in conversation
+    - Confused about recent changes or context
+
+    **Action:** Start a fresh task when quality degrades
+  </Tab>
+
+  <Tab title="Speed Issues">
+    **Signs:**
+    - Noticeably slower response times
+    - Longer processing delays
+
+    **Action:** Consider starting a new task
+  </Tab>
+
+  <Tab title="Behavioral Changes">
+    **Signs:**
+    - Requests to clarify information already provided
+    - Forgetting patterns established earlier
+    - Redundant questions about project structure
+
+    **Action:** Reset context by starting a new task
+  </Tab>
+</Tabs>
+
+<Warning>
+If Verdent's responses become vague or repetitive, context overload may be occurring. Start a new task to restore full performance.
+</Warning>
+
+---
+
+## When to Reset Context
+
+<Tabs>
+  <Tab title="Performance Issues">
+    - Noticeably slower response times
+    - Less accurate or inconsistent responses
+    - Verdent forgetting earlier context
+
+    **Action:** Start fresh task when quality degrades
+  </Tab>
+
+  <Tab title="Task Transitions">
+    - Switching between unrelated features
+    - After completing one task and moving to next
+    - After memory-intensive tasks (large refactorings)
+
+    **Action:** New task for new major work
+  </Tab>
+
+  <Tab title="After Commits">
+    - After committing completed features
+    - Between logical checkpoints
+    - Following test-verify-commit cycles
+
+    **Action:** Commit → test → new task
+  </Tab>
+</Tabs>
+
+**Best Practice:** Complete atomic unit of work → test → commit → start fresh task.
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Prompt Engineering" href="/verdent/best-practices/prompts" icon="message">
+    Best practices for writing effective prompts
+  </Card>
+  <Card title="Resource Management" href="/verdent/resource-management/monitoring" icon="chart-line">
+    Monitor token usage and credits
+  </Card>
+</CardGroup>

@@ -1,0 +1,160 @@
+---
+title: Error Handling & Recovery
+description: "Interpreting and recovering from errors"
+---
+
+When things don't go as expected, Verdent provides tools to diagnose issues and recover.
+
+## What You'll Learn
+
+- Interpret common error messages
+- Use session controls for recovery
+- Workspace-specific recovery strategies
+
+---
+
+## Common Error Categories
+
+<Tabs>
+  <Tab title="Connection">
+    Requests fail or timeout.
+
+    **Solutions:**
+    1. Check internet connectivity
+    2. Verify firewall allows Verdent API access
+    3. Wait a few minutes and retry
+  </Tab>
+
+  <Tab title="Credit/Quota">
+    Operations stop due to insufficient credits.
+
+    **Solutions:**
+    1. Check credit balance in User Center
+    2. Wait for credit refresh at billing cycle
+    3. Purchase credit top-up
+  </Tab>
+
+  <Tab title="Workspace">
+    Cannot create or access workspace.
+
+    **Solutions:**
+    1. Commit or stash uncommitted changes
+    2. Choose a different branch name
+    3. Free disk space
+  </Tab>
+
+  <Tab title="Tool Execution">
+    Commands or file operations fail.
+
+    **Solutions:**
+    1. Check command output for specific error
+    2. Verify paths and file existence
+    3. Check file permissions
+  </Tab>
+</Tabs>
+
+---
+
+## Session Controls
+
+| Action | Effect | Use When |
+|--------|--------|----------|
+| **New Task** | Clear context, start fresh | Context polluted, starting new task |
+| **Stop** | Halt current operation | Operation taking too long, wrong direction |
+
+### Recovery Steps
+
+<Steps>
+  <Step title="Stop if Needed">
+    Click **Stop** to halt operations going in the wrong direction
+  </Step>
+  <Step title="Assess Changes">
+    Click **Task Changes** to review what was modified
+  </Step>
+  <Step title="Decide on Approach">
+    - **Continue:** Rephrase and continue
+    - **Rollback:** Use Source Control to revert unwanted changes
+    - **Fresh Start:** Create new task if context is polluted
+  </Step>
+</Steps>
+
+---
+
+## Reverting Changes
+
+Use **Source Control** (`Ctrl+Shift+G` / `Cmd+Shift+G`) to:
+- View changed files
+- See diffs for individual files
+- Revert specific changes
+- Discard all uncommitted changes
+
+---
+
+## Workspace Recovery
+
+| Issue | Recovery |
+|-------|----------|
+| **Stuck workspace** | Stop agent, review changes |
+| **Wrong changes** | Stop immediately, revert with Source Control |
+| **Can't create workspace** | Commit changes first, check disk space |
+
+### Parallel Agent Issues
+
+| Scenario | Approach |
+|----------|----------|
+| **One agent stuck** | Stop and restart that agent only |
+| **All agents stuck** | Check connectivity, restart app |
+| **Conflicting changes** | Review each workspace, rebase carefully |
+
+---
+
+## Reporting Issues
+
+| Channel | Use For |
+|---------|---------|
+| **Feedback Button** | Bug reports, feature requests (top bar of Verdent panel) |
+| **Discord** | Quick questions, community help, urgent troubleshooting |
+
+**Discord:** [discord.com/invite/NGjXEZcbJq](https://discord.com/invite/NGjXEZcbJq)
+
+**When reporting, include:**
+- Exact error message
+- Steps to reproduce
+- What you expected vs what happened
+
+---
+
+## FAQs
+
+<Accordion title="How do I roll back changes from a failed task?">
+Use **Source Control** (`Ctrl+Shift+G` / `Cmd+Shift+G`) to view changed files and revert specific changes.
+
+To rollback the conversation, hover over any message in the chat and click **Rollback to this point**.
+</Accordion>
+
+<Accordion title="What if I accidentally delete important files?">
+Use **Source Control** (`Ctrl+Shift+G`) to see deleted files and revert them.
+
+**Prevention:** Always use git for projects in Verdent.
+</Accordion>
+
+<Accordion title="Agent making wrong changes?">
+1. Click **Stop** immediately
+2. Review changes in Source Control
+3. Revert with Source Control if needed
+4. Rephrase request with more specific instructions
+5. Consider using Plan Mode first
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Common Issues" icon="question" href="/verdent/help-support/common-issues">
+    Frequently encountered problems
+  </Card>
+  <Card title="Execution Modes" icon="sliders" href="/verdent/execution-modes/overview">
+    Mode settings for different workflows
+  </Card>
+</CardGroup>

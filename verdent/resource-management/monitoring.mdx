@@ -1,0 +1,110 @@
+---
+title: Resource Management
+description: "Monitor credit usage and manage resources in Verdent"
+---
+
+Verdent uses a credit-based system to manage computational resources. Understanding credit usage and monitoring helps you optimize costs effectively.
+
+---
+
+## Credit Monitoring
+
+### In Verdent
+
+Monitor your credit balance through the **User Center**:
+- Click the User Center button in the Top Bar
+- View account name, current plan, and credit balance
+- See total credits (subscription + top-ups) and remaining credits
+- Credit balance updates in real-time
+
+### Website Dashboard
+
+For detailed analytics, visit the [Verdent Dashboard](https://verdent.ai/dashboard):
+
+- Detailed token consumption across sessions
+- Usage patterns and trends
+- Model selection impact
+- Cost optimization opportunities
+
+<Info>
+**Credit balance** (in User Center) shows remaining credits. **Token usage details** (on website Dashboard) show granular consumption analytics.
+</Info>
+
+---
+
+## Subscription Plans & Quotas
+
+| Plan | Price | Credits/Month | Best For |
+|------|-------|---------------|----------|
+| **Free Trial** | Free | 100 (7 days) | New users |
+| **Starter** | $19/month | 320 | Light users |
+| **Pro** | $59/month | 1,000 | Regular users |
+| **Max** | $179/month | 3,000 | Heavy users |
+
+**Credit System:**
+- Credits refresh monthly per billing cycle
+- Consumption varies by model type
+- Frontier models consume more credits
+
+**Flexible Top-ups:** 240 ($20), 720 ($60), 960 ($80), 1,200 ($100), or 2,400 credits ($200)
+
+<Tip>
+Credits are shared across Verdent VS Code and Desktop, enabling seamless workflow between platforms.
+</Tip>
+
+---
+
+## Parallel Agent Usage
+
+Each workspace with an active task consumes credits independently:
+
+| Active Workspaces | Credit Usage |
+|-------------------|--------------|
+| 1 workspace | 1x baseline |
+| 2 workspaces | 2x baseline |
+| 3 workspaces | 3x baseline |
+
+**To optimize parallel usage:**
+- Complete and rebase workspaces promptly
+- Delete workspaces when done
+- Idle workspaces (no active conversation) don't consume credits
+
+---
+
+## Managing Long-Running Tasks
+
+**Quick Tips:**
+- Use Plan Mode to understand scope before execution
+- Start fresh tasks between major work to reset context
+- Complete atomic work units (feature → test → commit)
+- Watch for slower responses as sessions grow longer
+
+---
+
+## FAQs
+
+<Accordion title="Why are my credits depleting faster than expected?">
+Common causes:
+- **Multiple parallel workspaces** - Each active workspace uses credits independently
+- **Large context** - Long conversations use more tokens
+- **Frontier models** - Higher cost than efficient models
+
+Check your active workspace count in **All Workspaces**.
+</Accordion>
+
+<Accordion title="Do idle workspaces consume credits?">
+No. Workspaces with no active conversation don't consume credits. Credits are only used when making AI requests.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Pricing Overview" icon="credit-card" href="/verdent/pricing/overview">
+    Understanding pricing and plans
+  </Card>
+  <Card title="Settings" icon="gear" href="/verdent/configuration/settings">
+    Configure model preferences
+  </Card>
+</CardGroup>

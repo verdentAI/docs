@@ -1,0 +1,215 @@
+---
+title: Plan-First Workflows
+description: "Using Plan Mode for strategic planning before execution"
+---
+
+Plan-first workflows leverage **Plan Mode**, a read-only execution mode where Verdent analyzes code, conducts research, and creates detailed plans before executing any changes. This workflow separates strategic planning from implementation, enabling review and refinement before committing to code modifications.
+
+## What You'll Learn
+
+- When and how to use Plan Mode effectively
+- Review, iterate, and approve generated plans
+- Transition smoothly from planning to execution
+
+---
+
+## Plan Mode Overview
+
+Plan Mode is a read-only execution mode where Verdent analyzes code, conducts research, and creates detailed plans before executing any changes. This workflow separates strategic planning from implementation.
+
+### When to Use Plan Mode
+
+- Complex multi-file changes requiring coordination
+- Uncertainty about the best implementation approach
+- High-stakes changes to production-critical code
+- Tasks in unfamiliar codebases where exploration is needed
+- Strategic planning needs requiring approval before execution
+
+---
+
+## AI-Assisted Task Breakdown
+
+Verdent automatically decomposes complex requests into manageable, sequential steps.
+
+### Breakdown Process
+
+<Steps>
+  <Step title="Request Analysis">
+    Verdent analyzes your natural language request to identify:
+    - Primary objective and desired outcome
+    - Affected files, components, or systems
+    - Required technical operations and dependencies
+    - Potential complexity factors
+  </Step>
+  <Step title="Codebase Context">
+    Verdent examines your project structure to understand:
+    - Existing architecture and established patterns
+    - File organization and technology stack
+    - Current implementations requiring modification
+  </Step>
+  <Step title="Task Decomposition">
+    Verdent breaks the request into logical subtasks:
+    - Identifies natural breakpoints and implementation phases
+    - Orders tasks by dependency (prerequisite tasks first)
+    - Groups related operations together
+    - Estimates scope and complexity of each subtask
+  </Step>
+  <Step title="Interactive Clarification">
+    Verdent may ask questions to refine the breakdown:
+    - "Should I modify the existing validation or create a new validator?"
+    - "Do you want to update tests for all affected components?"
+    - "Should this change apply to both web and mobile components?"
+  </Step>
+</Steps>
+
+### Breakdown Characteristics
+
+<Tabs>
+  <Tab title="Granularity">
+    - Tasks sized for 15-45 minutes of focused work
+    - Natural breakpoints for testing and validation
+    - Complex enough to be meaningful, simple enough to execute
+  </Tab>
+  <Tab title="Sequencing">
+    - Dependencies respected (setup before implementation)
+    - Logical progression (data layer to business logic to UI)
+    - Verification steps after major phases
+  </Tab>
+</Tabs>
+
+---
+
+## Plan Review and Approval
+
+### Plan Interaction Options
+
+After reviewing the generated plan, Verdent presents two options:
+
+**Edit:**
+
+Choose this option to:
+- Request specific changes to the plan approach
+- Ask clarifying questions about implementation details
+- Add missing elements or considerations
+- Simplify or expand certain steps
+- Explore alternative approaches
+
+**Start Building:**
+
+Choose this option to:
+- Switch to Agent Mode and begin execution
+- Implement the approved plan with full autonomy
+- Make file modifications and execute commands as planned
+
+<Tip>
+Use **Edit** to iterate on the plan as many times as needed. Only choose **Start Building** when you're confident the approach is correct.
+</Tip>
+
+---
+
+## Iterative Planning
+
+Plan rejection is a natural part of the iterative planning process:
+
+- Verdent generates a new plan based on your feedback
+- Previous plan versions remain in chat history for reference
+- No code changes occur (Plan Mode is read-only)
+- You can iterate unlimited times until satisfied
+
+<Note>
+Plan Mode cannot accidentally modify your code. It's designed for safe exploration and strategy development.
+</Note>
+
+---
+
+## Incremental Execution
+
+Execute plans in phases rather than all at once:
+
+### Incremental Approval Pattern
+
+```
+Let's start with Phase 1 first, then we'll review before continuing
+Implement steps 1-3, then stop for review
+Do the database migration first, I'll review before the API changes
+```
+
+### Incremental Workflow
+
+<Steps>
+  <Step title="Approve Initial Phase">
+    Choose **Start Building** for a specific phase of the plan
+  </Step>
+  <Step title="Verdent Executes">
+    Implements the specified steps only
+  </Step>
+  <Step title="Review Checkpoint">
+    Verdent pauses for your review of completed work
+  </Step>
+  <Step title="Continue or Adjust">
+    Approve next phase or modify approach based on results
+  </Step>
+  <Step title="Repeat Until Complete">
+    Continue through all phases with checkpoints
+  </Step>
+</Steps>
+
+**Best for:** High-risk changes, unfamiliar patterns, production-critical code where phased rollout reduces risk.
+
+<Tip>
+Incremental execution lets you approve parts of a plan while deferring others, useful when priorities shift mid-task.
+</Tip>
+
+---
+
+## FAQs
+
+<Accordion title="Does Plan Mode actually write any code to my files?">
+**No.** Plan Mode is strictly read-only:
+
+- Verdent can read files, search code, and analyze your codebase
+- **No file writes, edits, or deletions** occur during Plan Mode
+- Plans are displayed in the chat view only
+- Code execution begins only after you explicitly approve and switch to Agent Mode
+
+**Safety guarantee:** Plan Mode cannot accidentally modify your code.
+</Accordion>
+
+<Accordion title="Can I use Plan Mode for multiple projects simultaneously?">
+**Yes.** In Desktop, each project maintains independent Plan Mode state:
+
+- Plans are project-specific
+- Switching projects preserves each project's planning context
+- You can have different plans in progress across projects
+</Accordion>
+
+<Accordion title="What happens if Verdent asks clarifying questions during planning?">
+**Clarifying questions improve plan quality:**
+
+**Why questions are asked:**
+- Ambiguous requirements need clarification
+- Multiple valid approaches exist
+- Edge cases or constraints not specified
+- Preferences not clear from initial request
+
+**How to respond:**
+- Answer directly in conversational language
+- Provide examples if helpful
+- Say "your choice" if you trust Verdent's judgment
+- Ask counter-questions if you're unsure
+
+Questions help Verdent generate accurate, relevant plans tailored to your needs.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Plan Mode" icon="sitemap" href="/verdent/core-features/plan-mode">
+    Deep dive into Plan Mode capabilities
+  </Card>
+  <Card title="Execution Modes" icon="sliders" href="/verdent/execution-modes/overview">
+    Compare all execution modes
+  </Card>
+</CardGroup>

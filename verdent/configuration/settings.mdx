@@ -1,0 +1,411 @@
+---
+title: Configuration & Customization
+description: "Configure Verdent through the Settings panel"
+---
+
+Verdent provides comprehensive configuration through a dedicated Settings panel organized into 12 categories.
+
+### What You'll Learn
+
+- Navigate the 12 settings categories
+- Configure models, thinking levels, and automation
+- Create rules, subagents, and custom commands
+- Customize editor, terminal, and diff settings
+
+---
+
+## Accessing Settings
+
+**Keyboard Shortcut:**
+- **macOS:** `Cmd+,`
+- **Windows:** `Ctrl+,`
+
+**Alternative:** Click the Settings icon in the interface.
+
+Settings changes apply immediately without requiring restart.
+
+---
+
+## Settings Categories
+
+The settings panel is organized into **11 categories**:
+
+| Category | Purpose |
+|----------|---------|
+| **General** | Theme, updates, proxy, shell environment |
+| **Chat** | Default models, thinking levels, automation |
+| **Models** | Enable/disable models, set reasoning levels |
+| **User Rules** | User Rules, Project Rules |
+| **Permissions** | Deny rules for command safety |
+| **Subagent** | Create and manage custom subagents |
+| **Command** | Custom slash commands |
+| **MCP** | Model Context Protocol servers |
+| **Terminal** | Font, cursor, shell settings |
+| **Editor** | Font, tabs, auto-save, visual preferences |
+| **Diff** | Diff viewer configuration |
+
+---
+
+## General Settings
+
+| Setting | Options |
+|---------|---------|
+| **Theme** | Light, Dark, System |
+| **Update Mode** | Automatic, At Startup, Manual |
+| **HTTP Proxy** | Proxy URL for HTTP |
+| **HTTPS Proxy** | Proxy URL for HTTPS |
+| **Full Shell Environment** | Enable to inherit shell environment variables and aliases |
+
+---
+
+## Chat Settings
+
+### Automation
+
+| Setting | Description |
+|---------|-------------|
+| **Auto Generate Code Review** | Automatically generate code review analysis after assistant messages |
+
+### Model Selection
+
+| Setting | Description |
+|---------|-------------|
+| **Code Review Model** | Choose the AI model for code review generation |
+| **Default Agent Model** | Choose the default AI model for Agent mode |
+| **Default Plan Model** | Choose the default AI model for Plan mode |
+
+### Notifications
+
+| Setting | Description |
+|---------|-------------|
+| **System Notification** | Show system notification when task is finished |
+| **In-app Notification** | Show in-app notification when task is finished |
+
+---
+
+## Models Settings
+
+### Available Models (9)
+
+| Provider | Models |
+|----------|--------|
+| **Anthropic** | Claude Opus 4.5, Claude Sonnet 4.5, Claude Haiku 4.5 |
+| **OpenAI** | GPT-5, GPT-5.1, GPT-5-Codex |
+| **Google** | Gemini 3 Pro, Gemini 2.5 Pro |
+| **Moonshot** | Kimi K2 Series |
+
+### Model Management
+
+- **Enable/Disable:** Toggle models to show/hide in selection
+- **Reasoning Level:** Set per-model default reasoning level
+- **View Details:** See context window sizes and capabilities
+
+---
+
+## User Rules Settings
+
+Rules are Markdown files that guide Verdent's behavior.
+
+### Rule Types
+
+| Rule Type | Location | Scope |
+|-----------|----------|-------|
+| **User Rules** | `~/.verdent/user_rules.md` | All projects (global) |
+| **Project Rules** | `<project>/AGENTS.md` | Current project |
+
+**Access:** Settings → User Rules
+
+**Precedence:** AGENTS.md (highest) → User Rules → defaults
+
+### Example User Rules
+
+```markdown
+# User Rules
+
+## Code Style
+- Always use TypeScript
+- Prefer functional components in React
+- Use async/await over promises
+
+## Documentation
+- Include JSDoc comments for exported functions
+- Add usage examples in documentation
+```
+
+<Tip>
+Commit AGENTS.md to version control to share project-specific standards with your team.
+</Tip>
+
+---
+
+## Permissions Settings
+
+Configure deny rules to block dangerous commands.
+
+**Storage:** `~/.verdent/permission.json`
+
+### Deny Rule Patterns
+
+| Pattern | Purpose |
+|---------|---------|
+| `rm -rf /` | Block recursive root deletion |
+| `sudo *` | Block sudo commands |
+| `git push --force` | Block force push |
+| `DROP TABLE` | Block dangerous SQL |
+| `npm publish` | Block publishing |
+
+**Pattern Matching:**
+- Use `*` for wildcards
+- Exact match by default
+- Case-sensitive
+
+---
+
+## Subagent Settings
+
+### Built-in Subagent
+
+**@Verifier** - Quick code verification and validation checks.
+
+```
+@Verifier Check this function for potential issues
+@Verifier Validate my authentication implementation
+```
+
+### Creating Custom Subagents
+
+**Access:** Settings → Subagent → Add Subagent
+
+| Field | Description |
+|-------|-------------|
+| **Name** | Identifier for @-mention invocation |
+| **Description** | Brief explanation of purpose |
+| **Prompt** | System instructions defining behavior |
+| **Model** | Sonnet 4.5, GPT-5, GPT-5-Codex, or Haiku 4.5 |
+
+### Example Custom Subagent
+
+```
+Name: security-reviewer
+Description: Security-focused code review specialist
+Prompt: You are a security-focused code reviewer. When analyzing code:
+- Prioritize security vulnerabilities (SQL injection, XSS, auth flaws)
+- Reference OWASP Top 10
+- Provide specific remediation with code examples
+Model: Sonnet 4.5
+```
+
+### Management Actions
+
+- **Add:** Create new custom subagent
+- **Edit:** Modify existing configuration
+- **Enable/Disable:** Toggle availability
+- **Duplicate:** Copy as template
+- **Delete:** Remove permanently
+
+---
+
+## Command Settings
+
+Create custom slash commands for repetitive tasks.
+
+**Access:** Settings → Command
+
+| Field | Description |
+|-------|-------------|
+| **Name** | Command name (invoked with `/`) |
+| **Description** | What the command does |
+| **Type** | Prompt or action |
+| **Content** | The prompt or action to execute |
+
+### Example Commands
+
+```
+Name: fix-lint
+Description: Fix all linting errors in current file
+Type: prompt
+Content: Review and fix all linting errors in this file. Explain each fix.
+```
+
+**Usage:** Type `/fix-lint` in the Input Box.
+
+---
+
+## MCP Settings
+
+Configure Model Context Protocol servers for external tool integration.
+
+**Access:** Settings → MCP
+
+**Storage:** `~/.verdent/mcp.json`
+
+| Field | Description |
+|-------|-------------|
+| **Name** | Server identifier |
+| **Command** | Executable command |
+| **Args** | Command arguments |
+| **Enabled** | Toggle on/off |
+
+### Server Status
+
+| Status | Description |
+|--------|-------------|
+| **Success** | Connected, tools available |
+| **Failed** | Connection error |
+| **Loading** | Initializing |
+
+---
+
+## Terminal Settings
+
+**Access:** Settings → Terminal
+
+### Font Settings
+
+| Setting | Range/Options |
+|---------|---------------|
+| **Font Size** | 8-32px |
+| **Font Family** | System fonts |
+| **Line Height** | Numeric multiplier |
+| **Letter Spacing** | Numeric |
+
+### Cursor Settings
+
+| Setting | Options |
+|---------|---------|
+| **Cursor Style** | Block, Underline, Bar |
+| **Cursor Blink** | On/Off |
+| **Cursor Width** | 1-10px (bar style only) |
+
+**Shortcuts:**
+- New Terminal: `Ctrl+Shift+``
+- Toggle Terminal: `Cmd+J` / `Ctrl+J`
+
+---
+
+## Editor Settings
+
+**Access:** Settings → Editor
+
+### Font & Display
+
+| Setting | Range/Options |
+|---------|---------------|
+| **Font Size** | 8-32px |
+| **Tab Size** | 1-8 spaces |
+| **Word Wrap** | On/Off |
+| **Line Numbers** | On/Off |
+| **Minimap** | On/Off |
+
+### Editing Behavior
+
+| Setting | Description |
+|---------|-------------|
+| **Auto Save** | Automatically save changes |
+| **Auto Save Delay** | 100-5000ms |
+| **Format on Paste** | Format code when pasting |
+| **Format on Type** | Format code while typing |
+
+### Visual Enhancements
+
+| Setting | Options |
+|---------|---------|
+| **Render Whitespace** | None, Boundary, Selection, Trailing, All |
+| **Line Highlight** | None, Gutter, Line, All |
+| **Cursor Style** | Line, Block, Underline |
+| **Bracket Pair Colorization** | On/Off |
+| **Sticky Scroll** | On/Off |
+| **Folding** | On/Off |
+
+---
+
+## Diff Settings
+
+**Access:** Settings → Diff
+
+### View Mode
+
+| Mode | Description |
+|------|-------------|
+| **Side-by-side** | Original and modified in parallel columns |
+| **Inline** | Changes within single column |
+
+---
+
+## Open in External Editor
+
+Open workspace in your preferred external editor.
+
+**Shortcut:** `Cmd+E` (macOS) / `Ctrl+E` (Windows)
+
+### Supported Editors (10)
+
+| Editor | Platform |
+|--------|----------|
+| VS Code | All |
+| Cursor | All |
+| Windsurf | All |
+| IntelliJ IDEA | All |
+| WebStorm | All |
+| Goland | All |
+| Sublime Text | All |
+| Zed | All |
+| Vim/Neovim | All |
+| Emacs | All |
+
+**macOS System Tools:** Finder, Terminal
+
+---
+
+## Keyboard Shortcuts
+
+### Essential Shortcuts
+
+| Action | macOS | Windows |
+|--------|-------|---------------|
+| **Open Settings** | `Cmd+,` | `Ctrl+,` |
+| **Switch Model** | `Cmd+/` | `Ctrl+/` |
+| **New Task** | `Cmd+N` | `Ctrl+N` |
+| **Focus Chat** | `Cmd+L` | `Ctrl+L` |
+| **New Workspace** | `Cmd+Shift+N` | `Ctrl+Shift+N` |
+| **Toggle Sidebar** | `Cmd+B` | `Ctrl+B` |
+| **Open in IDE** | `Cmd+E` | `Ctrl+E` |
+| **Toggle Terminal** | `Cmd+J` | `Ctrl+J` |
+
+### Customizing Shortcuts
+
+Settings → Keyboard Shortcuts → find command → edit shortcut
+
+---
+
+## FAQs
+
+<Accordion title="When do settings changes take effect?">
+Most settings apply immediately:
+- Theme, models, thinking levels: Instant
+- Rules: Apply to new conversations after save
+- Subagents: Available immediately after creation
+
+**Exception:** Some terminal and MCP settings may require session restart.
+</Accordion>
+
+<Accordion title="How do I reset settings to defaults?">
+1. Open Settings
+2. Click **Reset to Defaults** in the category header
+3. Confirm the reset
+
+To reset all: Settings → General → **Reset All Settings**
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Execution Modes" icon="toggle-on" href="/verdent/execution-modes/overview">
+    Agent Mode and Plan Mode details
+  </Card>
+  <Card title="Extensibility" icon="puzzle-piece" href="/verdent/advanced-features/extensibility">
+    Rules, permissions, and MCP integration
+  </Card>
+</CardGroup>

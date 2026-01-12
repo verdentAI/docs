@@ -1,0 +1,246 @@
+---
+title: Overview
+description: "Discover Verdent's parallel multi-agent execution with isolated workspaces"
+---
+
+Verdent is an AI-powered development environment designed for real development workflows where you're rarely working on a single task. Run multiple AI agents simultaneously across isolated workspaces, delivering production-ready code even when you're away.
+
+### What You'll Learn
+
+- Core workflow capabilities (Parallel Agents, Workspace Isolation, Plan Mode)
+- Context awareness and specialized sub-agents
+- Collaboration modes and extensibility
+
+---
+
+Verdent's workflow is built around three core phases:
+
+- **Execute** - Run multiple agents in parallel across isolated workspaces
+- **Isolate** - Each agent works in its own workspace with full file isolation
+- **Review** - Compare and rebase results
+
+These features work together to enable parallel development with full control.
+
+---
+
+## Core Workflow Features
+
+<CardGroup cols={2}>
+  <Card title="Parallel Execution" icon="users" href="/verdent/core-features/parallel-execution">
+    Run multiple AI agents simultaneously across different tasks, reducing turnaround time
+  </Card>
+  <Card title="Workspace Isolation" icon="shield-halved" href="/verdent/core-features/workspace-isolation">
+    Each workspace is a completely isolated environment using git worktrees
+  </Card>
+  <Card title="Multitasking" icon="list-check" href="/verdent/core-features/multitasking">
+    Handle multiple tasks within the same workspace with quick switching
+  </Card>
+  <Card title="Project Switching" icon="folder-open" href="/verdent/core-features/project-switching">
+    Jump between projects instantly while keeping all workspace states alive
+  </Card>
+  <Card title="Plan Mode" icon="clipboard-list" href="/verdent/core-features/plan-mode">
+    Capture requirements and break down tasks with AI before generating code
+  </Card>
+  <Card title="Code Review" icon="magnifying-glass-chart" href="/verdent/core-features/code-review">
+    Receive structured, contextual feedback and improvement suggestions
+  </Card>
+</CardGroup>
+
+---
+
+## Additional Capabilities
+
+### Context Awareness: Deep Codebase Understanding
+
+Verdent's context management system enables comprehensive project comprehension:
+
+#### Massive Context Window
+
+- **Up to 1M Token Capacity** - Standard models support 200K tokens; Claude Sonnet 4.5 1M extends to 1M for larger codebases
+- **Smart Context Loading** - Automatically prioritizes relevant files based on task context
+- **Sub-Agent Context Optimization** - Delegates specialized tasks to focused sub-agents
+
+#### Adaptive Learning
+
+- **Convention Detection** - Learns project-specific patterns (naming, file organization, error handling)
+- **Style Mimicry** - Generates code matching existing style (indentation, brace placement, comments)
+- **Library Awareness** - Recognizes frameworks in use, preferring them over new dependencies
+
+#### Cross-File Coherence
+
+- **Dependency Tracking** - Understands imports, exports, and module relationships
+- **Impact Prediction** - Identifies components affected by proposed changes
+- **Consistency Enforcement** - Ensures modifications align with existing architecture
+
+---
+
+### Specialized Sub-Agents: Division of Labor
+
+Verdent orchestrates specialized AI agents optimized for specific development tasks:
+
+<Tabs>
+  <Tab title="Verifier Agent">
+    **Purpose:** Rapid code quality checks and validation
+
+    **Capabilities:**
+
+    - **Lint Checks** - ESLint, Pylint, Rubocop, etc.
+    - **Type Validation** - TypeScript, mypy, Flow type checking
+    - **Fast Test Execution** - Targeted unit tests with under 30s budget
+    - **Diff-Focused Verification** - Validate only changed code for efficiency
+
+    **Fail-Fast Philosophy:** Returns structured error reports on first real issue, avoiding time waste
+
+    **Use Cases:** Pre-commit checks, post-fix validation, quick sanity tests
+  </Tab>
+  <Tab title="Code Reviewer Agent">
+    **Purpose:** Comprehensive code quality, security, and maintainability audits
+
+    **Capabilities:**
+
+    - **Security Analysis** - Vulnerability scanning, credential exposure detection, injection risk assessment
+    - **Architecture Review** - Design pattern validation, SOLID principle adherence, anti-pattern detection
+    - **Performance Analysis** - Algorithmic complexity, resource leaks, optimization opportunities
+    - **Documentation Completeness** - Comment quality, API documentation, README accuracy
+
+    **Review Depth:** More thorough than Verifier, suitable for pre-merge PR reviews
+
+    **Use Cases:** Feature completion review, security audit, refactoring validation
+  </Tab>
+</Tabs>
+
+---
+
+### Flexible Collaboration Modes
+
+Choose the level of autonomy that fits your workflow:
+
+- **Agent Mode** - Executes tasks autonomously with full file modifications and command execution
+- **Plan Mode** - Read-only mode for analysis and planning without file modifications
+
+See [Execution Modes & Permissions](/verdent/execution-modes/overview) for detailed mode documentation.
+
+---
+
+### MCP (Model Context Protocol) Integration
+
+Enables interoperability with external tools and services:
+
+- Extends functionality through existing toolchains and custom plugins
+- Works seamlessly with sub-agents to support distributed task execution
+- Supports integration with external APIs, databases, and development tools
+
+See [MCP Integration](/verdent/core-features/mcp-integration) for setup and configuration.
+
+---
+
+### Additional Features
+
+<Tabs>
+  <Tab title="Context Referencing">
+    **Precise Context Control:**
+
+    Attach specific files, folders, or code sections directly in chat using `@` mentions to provide targeted context for AI assistance.
+
+    **How It Works:**
+
+    - Type `@` in chat to see a list of available files and folders
+    - Select specific files to include in the conversation context
+    - Reference entire directories for broader context
+    - Mention specific code sections or documentation pages
+
+    **Use Cases:**
+
+    - Focus AI on specific modules when debugging
+    - Include configuration files when discussing setup
+    - Reference related components when implementing features
+    - Provide documentation context for accurate guidance
+  </Tab>
+  <Tab title="Visual Support">
+    **Multi-Modal Input:**
+
+    Upload or paste images directly into chat to communicate visual requirements, UI designs, or debugging scenarios.
+
+    **Supported Use Cases:**
+
+    - **UI/UX Design** - Upload mockups, wireframes, or design screenshots for pixel-perfect implementation
+    - **Bug Reports** - Share error screenshots or visual glitches for faster diagnosis
+    - **Frontend Development** - Provide design references for accurate styling and layout
+    - **Documentation** - Include diagrams, flowcharts, or architecture visualizations
+
+    **Technical Specifications:**
+
+    - **Supported Formats:** PNG, JPG, JPEG, GIF, BMP, WebP
+    - **Maximum Resolution:** 2000×2000 pixels
+    - **File Size Limit:** 5MB (automatically compressed if exceeded; error if still \>5MB after compression)
+
+    **Benefits:** Eliminates ambiguity in visual requirements and accelerates frontend development workflows.
+  </Tab>
+  <Tab title="Project History">
+    **Session Management:**
+
+    Access and manage your conversation history to review past interactions, decisions, and implementation details.
+
+    **Features:**
+
+    - **Session Logs** - Complete record of all conversations and AI responses
+    - **Repository Storage** - Logs saved alongside your project for easy access and version control
+    - **Session Clearing** - Clear history when starting fresh or switching contexts
+    - **Decision Trail** - Review reasoning behind past implementation choices
+
+    **Benefits:** Maintain continuity across sessions, audit AI recommendations, and track project evolution over time.
+  </Tab>
+  <Tab title="User Center">
+    **Account Management:**
+
+    Centralized hub for managing your Verdent account, credits, and settings.
+
+    **Available Controls:**
+
+    - **Credit Tracking** - Monitor daily credit usage and remaining balance
+    - **Account Information** - View current subscription plan and profile details
+    - **Sign-Out Management** - Securely log out or switch accounts
+    - **Usage Monitoring** - Track credit consumption patterns
+
+    **Access:** Available through the User Center in the top bar.
+  </Tab>
+  <Tab title="Feedback">
+    **Product Improvement:**
+
+    Submit feedback, bug reports, and feature requests directly from Verdent to help improve the product.
+
+    **Feedback Options:**
+
+    - **Text Notes** - Describe issues, suggestions, or experiences in a simple text box
+    - **Direct Submission** - Send feedback without leaving your development environment
+    - **Email Responses** - Receive follow-up communication via email
+
+    **What to Report:**
+
+    - Bugs or unexpected behavior
+    - Feature requests or workflow improvements
+    - Documentation gaps or unclear instructions
+    - Performance issues or errors
+
+    **Impact:** Your feedback directly influences Verdent's development roadmap and helps create a better experience for all users.
+  </Tab>
+</Tabs>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Getting Started" icon="rocket" href="/verdent/getting-started/quick-start">
+    Start using Verdent in minutes
+  </Card>
+  <Card title="Subagent Management" icon="users" href="/verdent/agents-rules/subagent-management">
+    Configure specialized sub-agents
+  </Card>
+  <Card title="User Interface Overview" icon="display" href="/verdent/getting-started/interface">
+    Learn the Verdent interface
+  </Card>
+  <Card title="Parallel Execution" icon="layer-group" href="/verdent/core-features/parallel-execution">
+    Deep dive into parallel execution
+  </Card>
+</CardGroup>

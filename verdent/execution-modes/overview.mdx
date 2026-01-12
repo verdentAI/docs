@@ -1,0 +1,242 @@
+---
+title: Execution Modes
+description: "Agent Mode and Plan Mode in Verdent"
+---
+
+Verdent provides two execution modes that control how the AI agent interacts with your codebase: Agent Mode for full autonomous execution and Plan Mode for read-only planning.
+
+## What You'll Learn
+
+- How Agent Mode and Plan Mode work
+- When to use each mode
+- Desktop-specific considerations for parallel agents
+
+### Key Modes
+
+<CardGroup cols={2}>
+  <Card title="Agent Mode" icon="play">
+    Default mode with full autonomous execution. Read, write, and execute commands to implement changes.
+  </Card>
+  <Card title="Plan Mode" icon="clipboard-list">
+    Read-only planning mode. Analyze codebase and create detailed plans before any execution.
+  </Card>
+</CardGroup>
+
+---
+
+## Execution Modes Overview
+
+| Mode | Description | File Access | Best For |
+|------|-------------|-------------|----------|
+| **Agent Mode** | Full autonomous execution | Read/Write | Implementation, coding tasks |
+| **Plan Mode** | Read-only planning | Read-only | Complex planning, analysis |
+
+---
+
+## Agent Mode
+
+Agent Mode is the default execution mode where Verdent has full capability to read, write, and execute commands autonomously.
+
+### How It Works
+
+<Tabs>
+  <Tab title="Capabilities">
+    **File Operations:**
+    - Read files and analyze code
+    - Create, modify, and delete files
+    - Organize and rename files
+
+    **Execution:**
+    - Run terminal commands
+    - Execute tests and builds
+    - Install packages
+  </Tab>
+  <Tab title="When to Use">
+    - Active development and coding
+    - Implementing features
+    - Bug fixes and refactoring
+    - Running tests and builds
+    - File organization and cleanup
+  </Tab>
+</Tabs>
+
+### Activation
+
+Agent Mode is the default. Press `Shift+Tab` or `Ctrl+.` to switch between modes.
+
+### Safety in Agent Mode
+
+Agent Mode includes built-in protections:
+
+| Protection | Description |
+|------------|-------------|
+| **Dangerous Command Detection** | Warns before destructive commands |
+| **Git Safety Net** | Version control provides rollback capability |
+| **Workspace Isolation** | Changes scoped to current workspace |
+
+<Tip>
+Always use version control (Git) when working in Agent Mode. This provides a safety net for reverting unintended changes.
+</Tip>
+
+---
+
+## Plan Mode
+
+Plan Mode is a read-only mode where Verdent analyzes your codebase and creates detailed plans without making any changes.
+
+### How It Works
+
+<Steps>
+  <Step title="Analysis">
+    Verdent reads files and analyzes your codebase
+  </Step>
+  <Step title="Planning">
+    Creates a structured plan with steps and file changes
+  </Step>
+  <Step title="Clarification">
+    Asks questions to refine the plan if needed
+  </Step>
+  <Step title="Review">
+    You review the complete plan
+  </Step>
+  <Step title="Execute">
+    Switch to **Agent Mode** to execute the plan
+  </Step>
+</Steps>
+
+### What Plan Mode Can Do
+
+| Can Do | Cannot Do |
+|--------|-----------|
+| Read files | Write or edit files |
+| Analyze code | Execute commands |
+| Search codebase | Make commits |
+| Create plans | Run tests |
+| Ask questions | Modify settings |
+
+### When to Use Plan Mode
+
+| Scenario | Why Plan Mode |
+|----------|---------------|
+| Complex multi-file changes | See full scope before execution |
+| Unfamiliar codebase | Safe exploration without risk |
+| Architectural decisions | Thoughtful analysis first |
+| Production code changes | Review approach before committing |
+| Team alignment | Share plan before implementation |
+
+### Activation
+
+Press `Shift+Tab` or `Ctrl+.` to switch to Plan Mode.
+
+---
+
+## Desktop-Specific Considerations
+
+### Parallel Agents and Modes
+
+Each workspace can have its own agent with independent mode settings:
+
+| Workspace | Recommended Mode |
+|-----------|------------------|
+| **Base workspace** | Plan Mode for major changes |
+| **Feature workspaces** | Agent Mode for implementation |
+| **Review workspaces** | Plan Mode for analysis |
+
+### Mode Independence
+
+Each agent operates independently:
+
+- Mode settings don't affect other agents
+- File operations are workspace-scoped
+- No cross-workspace conflicts
+- Agents can use different modes simultaneously
+
+### Recommended Workflow
+
+<Steps>
+  <Step title="Plan in Base">
+    Use Plan Mode in base workspace to design approach
+  </Step>
+  <Step title="Create Workspace">
+    Click **New Workspace** in the Top Bar for implementation
+  </Step>
+  <Step title="Implement in Agent Mode">
+    Use Agent Mode in the workspace to execute
+  </Step>
+  <Step title="Review Changes">
+    Click **Task Changes** to review changes
+  </Step>
+  <Step title="Rebase to Master">
+    Click **Workspace Actions → Rebase to master**
+  </Step>
+</Steps>
+
+---
+
+## Choosing the Right Mode
+
+| Task | Recommended Mode |
+|------|------------------|
+| Learning Verdent | Start with Plan Mode |
+| Unfamiliar codebase | Plan Mode first |
+| Active development | Agent Mode |
+| Complex planning | Plan Mode |
+| Multi-file refactoring | Plan Mode → Agent Mode |
+| Quick fixes | Agent Mode |
+| Architectural decisions | Plan Mode |
+| Critical production changes | Plan Mode |
+
+---
+
+## Safety Best Practices
+
+### General Guidelines
+
+1. **Use Version Control** - Git provides rollback safety
+2. **Start with Plan Mode** - For unfamiliar or complex work
+3. **Review Before Committing** - Check all diffs after operations
+4. **Use Workspace Isolation** - Keep experimental work separate
+
+### Parallel Safety
+
+Each agent only modifies its own workspace:
+
+- Base workspace remains stable
+- Conflicts resolved during rebase
+- Review each workspace's changes before rebasing
+
+---
+
+## FAQs
+
+<Accordion title="Can I switch modes mid-task?">
+Yes. Press `Shift+Tab` or `Ctrl+.` to switch. Switching to Plan Mode stops execution and enters read-only analysis. Switching to Agent Mode enables execution.
+</Accordion>
+
+<Accordion title="Can parallel agents have different modes?">
+Yes. Each agent in each workspace has independent mode settings. One workspace can use Plan Mode while another uses Agent Mode simultaneously.
+</Accordion>
+
+<Accordion title="Does Plan Mode use credits?">
+Yes. Plan Mode uses credits for AI analysis and planning, though typically less than Agent Mode since no execution occurs.
+</Accordion>
+
+<Accordion title="Can I execute a plan later?">
+Yes. After creating a plan in Plan Mode, switch to Agent Mode to execute it. The plan guides the execution.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Plan Mode" icon="sitemap" href="/verdent/core-features/plan-mode">
+    Deep dive into Plan Mode capabilities
+  </Card>
+  <Card title="Parallel Execution" icon="users" href="/verdent/core-features/parallel-execution">
+    Running multiple agents in workspaces
+  </Card>
+  <Card title="Settings" icon="gear" href="/verdent/configuration/settings">
+    Configure mode defaults
+  </Card>
+</CardGroup>

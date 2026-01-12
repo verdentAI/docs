@@ -1,0 +1,104 @@
+---
+title: Code Review
+description: "Auto-generated code review for structured feedback and quality assurance"
+---
+
+Code Review in Verdent provides structured, contextual feedback and improvement suggestions based on the changes Verdent generates. Receive instant quality assessment with security, maintainability, and performance checks.
+
+---
+
+## What You'll Learn
+
+- How auto-generated code reviews work
+- Types of analysis performed
+- Interpreting review results
+
+---
+
+## Code Review Analysis
+
+Code Review analyzes changes across multiple dimensions:
+
+| Category | Focus |
+|----------|-------|
+| **Security** | Vulnerability scanning, injection risks, credential exposure |
+| **Accessibility** | Accessibility compliance and best practices |
+| **Performance** | Algorithmic complexity, resource usage, scalability |
+| **Call-chain Impact** | Downstream effects on dependent code |
+
+**Review Output:**
+
+| Type | Description |
+|------|-------------|
+| **Must Fix** | Critical issues that should be addressed |
+| **Suggestions** | Recommended improvements |
+
+---
+
+## Auto-Generate Settings
+
+Configure automatic generation in Settings → Chat:
+
+| Setting | Behavior |
+|---------|----------|
+| **Auto Generate Code Review** | Generates quality review after changes |
+
+---
+
+## Review Results
+
+Code review results appear in the Review Changes component.
+
+**Result Structure:**
+
+| Section | Content |
+|---------|---------|
+| **Summary** | Overall assessment of changes |
+| **Issues Found** | Specific problems identified |
+| **Suggestions** | Recommended improvements |
+| **File Breakdown** | Per-file analysis |
+
+---
+
+## Best Practices
+
+| Practice | Why |
+|----------|-----|
+| **Enable auto-review** | Catch issues immediately |
+| **Address critical issues first** | Security and stability priority |
+
+---
+
+## FAQs
+
+<Accordion title="Does code review slow down the workflow?">
+Slightly. Reviews add processing time after task completion. For quick iterations, you can disable auto-review in Settings → Chat.
+</Accordion>
+
+<Accordion title="Do reviews use credits?">
+Yes. Code reviews consume credits based on the model used and the amount of code analyzed.
+</Accordion>
+
+<Accordion title="Can I disagree with review findings?">
+Yes. Review findings are suggestions, not requirements. Use your judgment about what to address.
+</Accordion>
+
+<Accordion title="What languages are supported?">
+Code Review supports all major programming languages. Analysis quality may vary by language.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Settings" icon="gear" href="/verdent/configuration/settings">
+    Configure Code Review settings
+  </Card>
+  <Card title="Debugging" icon="bug" href="/verdent/task-based-guides/debugging">
+    Fixing issues found in reviews
+  </Card>
+  <Card title="Plan Mode" icon="clipboard-list" href="/verdent/core-features/plan-mode">
+    Plan before implementing
+  </Card>
+</CardGroup>

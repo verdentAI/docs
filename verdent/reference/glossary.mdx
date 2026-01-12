@@ -1,0 +1,211 @@
+---
+title: Glossary of Terms
+description: Technical terminology and definitions for Verdent features and concepts
+---
+
+Alphabetized reference of Verdent-specific terms and technical concepts.
+
+---
+
+## Core Concepts
+
+<Accordion title="Agent">
+The main AI assistant that processes requests and executes tools
+</Accordion>
+
+<Accordion title="Context Exhaustion">
+When conversation history fills context window, limiting the ability to reference earlier content
+</Accordion>
+
+<Accordion title="Context Remaining">
+Indicator in the middle panel showing how much model context is left for the current conversation
+</Accordion>
+
+<Accordion title="Context Window">
+Amount of conversation history the AI can reference
+</Accordion>
+
+<Accordion title="MCP (Model Context Protocol)">
+System for extending Verdent with external tools
+</Accordion>
+
+<Accordion title="Project">
+A git repository you're actively working on. Projects maintain independent session history and configuration.
+</Accordion>
+
+<Accordion title="Subagent">
+Specialized AI agent with isolated context for specific tasks (Explorer, Verifier, Code-reviewer)
+</Accordion>
+
+<Accordion title="Task">
+A specific piece of work within a workspace. Tasks represent individual conversation threads and share the workspace file state.
+</Accordion>
+
+<Accordion title="Tool">
+Function the agent can execute (file_read, bash, glob, etc.)
+</Accordion>
+
+---
+
+## Execution Modes
+
+<Accordion title="Agent Mode">
+Full autonomous execution mode where Verdent can read, write, and execute commands without additional approval steps. Default mode for active development.
+</Accordion>
+
+<Accordion title="Plan Mode">
+Read-only planning mode where Verdent analyzes and creates implementation plans without making file modifications. Best for complex changes and unfamiliar codebases.
+</Accordion>
+
+---
+
+## Desktop-Specific Terms
+
+<Accordion title="Base Workspace">
+The primary working directory on your chosen branch. Reference point for creating new worktrees, where rebased work ends up.
+</Accordion>
+
+<Accordion title="Git Worktree">
+Isolated working directory linked to the same repository, enabling parallel development without file conflicts
+</Accordion>
+
+<Accordion title="Parallel Agents">
+Multiple AI agents working simultaneously in separate worktrees, each with isolated context
+</Accordion>
+
+<Accordion title="Project Switching">
+Rapid navigation between different projects while maintaining session state
+</Accordion>
+
+<Accordion title="Rebase to Master">
+Process of applying changes from a workspace back into the master branch
+</Accordion>
+
+<Accordion title="Sync with Master">
+Pull latest changes from master into the current workspace
+</Accordion>
+
+<Accordion title="Task Worktree">
+Isolated directory for a specific task with a complete copy of repository files and a separate branch
+</Accordion>
+
+---
+
+## Files & Configuration
+
+<Accordion title="AGENTS.md">
+Project-specific team standards file (project root, version controlled)
+</Accordion>
+
+<Accordion title="mcp.json">
+MCP server configuration (`~/.verdent/mcp.json`)
+</Accordion>
+
+<Accordion title="user_rules.md">
+Global personal preferences file (`~/.verdent/user_rules.md`)
+</Accordion>
+
+<Accordion title="Workspace">
+A git worktree - an isolated working directory linked to the same repository, enabling parallel development
+</Accordion>
+
+---
+
+## Tool-Specific Terms
+
+<Accordion title="Glob Pattern">
+File search pattern using wildcards (`**/*.ts`, `src/**/*.js`)
+</Accordion>
+
+<Accordion title="Line Range">
+Specific lines to read from large files (start_line, max_lines)
+</Accordion>
+
+<Accordion title="Regex">
+Regular expression for advanced text searching
+</Accordion>
+
+<Accordion title="Replace All">
+file_edit flag to replace multiple identical strings
+</Accordion>
+
+<Accordion title="Timeout">
+Maximum time for bash commands: 120 seconds (2 minutes, hard limit)
+</Accordion>
+
+---
+
+## Subagent Terms
+
+<Accordion title="Flexible Policy">
+Subagent can activate automatically based on request patterns
+</Accordion>
+
+<Accordion title="Invocation Policy">
+Rules for when subagent activates (strict vs flexible)
+</Accordion>
+
+<Accordion title="Isolated Context">
+Subagent's separate context window (doesn't consume main context)
+</Accordion>
+
+<Accordion title="Strict Policy">
+Subagent only runs when explicitly @-mentioned
+</Accordion>
+
+<Accordion title="System Prompt">
+Instructions defining subagent's behavior and expertise
+</Accordion>
+
+---
+
+## MCP Terms
+
+<Accordion title="Global Config">
+User-wide MCP configuration (`~/.verdent/mcp.json`)
+</Accordion>
+
+<Accordion title="MCP Server">
+External tool/service integrated via Model Context Protocol
+</Accordion>
+
+<Accordion title="Plugin">
+Pre-built MCP integration for specific tools or services
+</Accordion>
+
+<Accordion title="Workspace Config">
+Project-specific MCP configuration (`.verdent/mcp.json`)
+</Accordion>
+
+---
+
+## Performance Terms
+
+<Accordion title="Delegation">
+Routing tasks to subagents to preserve main context
+</Accordion>
+
+<Accordion title="Parallel Execution">
+Multiple subagents running simultaneously
+</Accordion>
+
+<Accordion title="Strategic Reading">
+Using line ranges and search to minimize context usage
+</Accordion>
+
+<Accordion title="Task Coordination">
+Main agent managing multiple subagent operations
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Core Concepts" icon="lightbulb" href="/verdent/getting-started/core-concepts">
+    Fundamental Verdent concepts
+  </Card>
+  <Card title="Tool Reference" icon="wrench" href="/verdent/advanced-features/tool-reference">
+    Complete tool capabilities
+  </Card>
+</CardGroup>

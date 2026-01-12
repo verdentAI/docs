@@ -1,0 +1,90 @@
+---
+title: Opening Projects
+description: "How to open and manage projects in Verdent"
+---
+
+Open projects from the Home screen or switch between them using **Current Project** in the Top Bar.
+
+---
+
+## What You'll Learn
+
+- Opening projects from Home screen
+- Switching between projects
+- How Verdent handles git setup
+
+---
+
+## Opening a Project
+
+From the **Home** screen, select a project directory to open.
+
+If your project isn't already a git repository, Verdent creates one automatically for tracking changes and enabling workspace isolation.
+
+<Note>
+Git 2.20+ is required for worktree support. See [Git Installation](/verdent/getting-started/git-installation) for setup help.
+</Note>
+
+---
+
+## Switching Projects
+
+Click **Current Project** in the Top Bar to:
+- Switch to another open project
+- Access recent projects
+
+When switching projects, all workspace states, task conversations, and running agents are preserved.
+
+---
+
+## Base Workspace
+
+Each project has a **Base** workspace (your original checkout on the main branch) and optional worktree workspaces for isolated work.
+
+| Workspace Type | Description |
+|----------------|-------------|
+| **Base** | Original git checkout, typically on master branch |
+| **Worktree** | Isolated workspace created for specific tasks |
+
+---
+
+## FAQs
+
+<Accordion title="Can I open the same project twice?">
+No. Each project can only be open once. Use workspaces within the project for different branches or tasks.
+</Accordion>
+
+<Accordion title="What happens to my project when I close Verdent?">
+Git state (commits, branches) is preserved as normal. Task history persists between sessions.
+</Accordion>
+
+<Accordion title="Does my project need to be a git repository?">
+No. Verdent creates a git repository automatically if your project doesn't have one.
+</Accordion>
+
+<Accordion title="What happens to running agents when I switch projects?">
+They continue running. All workspace states, task conversations, and agent progress are preserved.
+</Accordion>
+
+<Accordion title="How do I access recent projects?">
+Click **Current Project** in the Top Bar to see and switch to recent projects.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Project Switching" icon="folder-open" href="/verdent/core-features/project-switching">
+    Fast switching between projects
+  </Card>
+  <Card title="Git Installation" icon="code-branch" href="/verdent/getting-started/git-installation">
+    Setting up Git
+  </Card>
+  <Card title="Managing Tasks" icon="list-check" href="/verdent/task-based-guides/managing-tasks">
+    Working with tasks
+  </Card>
+  <Card title="Workspace Isolation" icon="shield-halved" href="/verdent/core-features/workspace-isolation">
+    Creating isolated workspaces
+  </Card>
+</CardGroup>

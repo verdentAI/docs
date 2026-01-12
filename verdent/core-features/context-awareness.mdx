@@ -1,0 +1,203 @@
+---
+title: Context Awareness
+description: "Intelligent tracking of code, task, and conversation context"
+---
+
+Context Awareness is Verdent's ability to keep track of code, tasks, and conversation context while understanding dependencies across your project. With up to 1M token capacity, Verdent comprehends entire medium-sized codebases.
+
+---
+
+## What You'll Learn
+
+- Understanding context windows (200K vs 1M)
+- How Verdent tracks dependencies
+- Context isolation across parallel tasks
+- Recognizing and resetting context overload
+
+---
+
+## Understanding Context Windows
+
+Verdent's context window size depends on the model being used.
+
+<Tabs>
+  <Tab title="Standard Models (200K)">
+    Most models use standard `200K` context windows:
+    - **Claude Sonnet 4.5** - Balanced for complex tasks
+    - **Claude Haiku 4.5** - Fast and efficient
+    - **GPT-5 (Beta)** - Excellent for reasoning
+    - **GPT-5-Codex (Beta)** - Optimized for coding
+    - **Gemini 3 Pro** - Advanced reasoning and multimodal
+    - **Kimi K2 Series** - Lightning-fast for coding
+
+    **Capacity:**
+    - ~`200,000` tokens of total memory capacity
+    - Sufficient for most development tasks and medium-sized projects
+
+    **What's Included:**
+    - All messages in conversation
+    - File contents loaded into context
+    - Tool outputs and responses
+    - System prompts and instructions
+    - MCP server definitions
+
+    **Performance:**
+    - Degrades significantly when approaching limits
+    - Watch for signs of context overload (slower responses, less accurate outputs)
+    - Reset context more frequently for optimal performance
+  </Tab>
+
+  <Tab title="Extended Context (1M)">
+    Claude Sonnet 4.5 1M offers extended context (`1M` tokens) for long or complex tasks exceeding `200K` input.
+
+    **Capacity:**
+    - `1,000,000` tokens of total memory
+    - 5x larger than standard models
+
+    **Benefits:**
+    - Perfect for loading entire large codebases without chunking
+    - Eliminates most context management concerns for big projects
+    - Work longer before hitting context limits
+    - Fewer session resets needed
+
+    **When to Use:**
+    - Large codebases with 1000+ files
+    - Complex multi-file refactoring across entire projects
+    - Long development sessions spanning multiple related tasks
+    - When you want to minimize context management overhead
+  </Tab>
+</Tabs>
+
+---
+
+## What Verdent Tracks
+
+| Context Type | What's Preserved |
+|--------------|------------------|
+| **Code Context** | File contents, structure, coding patterns, file relationships |
+| **Task Context** | Current goals, progress, decisions made, conversation history |
+| **Dependency Context** | Imports, exports, function calls, configuration references |
+
+---
+
+## Understanding Dependencies
+
+### How Verdent Tracks Dependencies
+
+Verdent understands how files in your project relate to each other:
+
+| Relationship | Example |
+|--------------|---------|
+| **Imports** | `import { UserService } from './services'` |
+| **Exports** | `export class UserController` |
+| **References** | Function calls, class instantiation |
+| **Configuration** | Config files referenced by multiple modules |
+
+---
+
+## Context Across Parallel Tasks
+
+### How Context Works in Parallel Execution
+
+When running multiple agents in parallel, each maintains independent context:
+
+| Aspect | Behavior |
+|--------|----------|
+| **Per-Workspace Context** | Each workspace has separate context |
+| **Per-Task Context** | Each task has its own conversation context |
+| **No Cross-Contamination** | Parallel agents don't share context |
+| **Project-Level Awareness** | All agents can understand project structure |
+
+### Switching Tasks
+
+When you switch between tasks:
+
+| What Happens | Description |
+|--------------|-------------|
+| **Context Preserved** | Each task's context remains intact |
+| **No Confusion** | Contexts don't mix between tasks |
+
+---
+
+## Recognizing Context Overload
+
+| Symptom | Signs |
+|---------|-------|
+| **Response Quality** | Less accurate responses, missing details, inconsistent outputs |
+| **Speed Issues** | Slower responses, longer processing delays |
+| **Behavioral Changes** | Forgetting earlier context, redundant questions |
+| **Technical** | Sessions running for several hours, or 20+ large files (>1000 lines each) loaded |
+
+<Warning>
+If Verdent's responses become vague or repetitive, context overload may be occurring. Reset the conversation to restore full performance.
+</Warning>
+
+---
+
+## When to Reset Context
+
+| Scenario | Action |
+|----------|--------|
+| **Performance degrades** | Start fresh session when quality drops |
+| **Task transitions** | New session for unrelated features or modules |
+| **After commits** | Commit → test → new session |
+| **Long sessions** | Proactively reset before context degrades |
+
+**Best Practice:** Complete atomic unit of work → test → commit → clear context → start fresh.
+
+---
+
+## Best Practices
+
+| Practice | Benefit |
+|----------|---------|
+| **Use @-mentions** | Direct Verdent to specific files (`@filename`, `@folder/`) |
+| **Be specific about scope** | Limits context to relevant areas |
+| **Focus on specific modules** | Better performance on large codebases |
+
+---
+
+## FAQs
+
+<Accordion title="Which model should I choose for my project?">
+For most projects, Claude Sonnet 4.5 (200K) is sufficient. For large codebases or long development sessions, use Claude Sonnet 4.5 1M for extended context.
+</Accordion>
+
+<Accordion title="Does 1M context cost more credits?">
+Yes. Extended context models have higher credit consumption than standard 200K models.
+</Accordion>
+
+<Accordion title="How do I reset context?">
+Start a new task to reset context. Your previous task remains accessible in the task list.
+</Accordion>
+
+<Accordion title="Will I lose my work if I reset context?">
+No. File changes are saved to your workspace. Only conversation context resets.
+</Accordion>
+
+<Accordion title="Can I see how much context I've used?">
+Yes. The Context Remaining indicator in the middle panel shows remaining capacity for the current conversation.
+</Accordion>
+
+<Accordion title="Does context persist between sessions?">
+Yes. Task history persists between sessions. You can resume tasks where you left off when you reopen Verdent.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Parallel Execution" icon="users" href="/verdent/core-features/parallel-execution">
+    Context in parallel execution
+  </Card>
+  <Card title="Multitasking" icon="list-check" href="/verdent/core-features/multitasking">
+    Context across tasks
+  </Card>
+  <Card title="Context Best Practices" icon="book" href="/verdent/best-practices/context">
+    Effective context management
+  </Card>
+  <Card title="Prompts Guide" icon="message" href="/verdent/best-practices/prompts">
+    Writing effective prompts
+  </Card>
+</CardGroup>

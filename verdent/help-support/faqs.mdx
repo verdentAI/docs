@@ -1,0 +1,782 @@
+---
+title: Frequently Asked Questions
+description: "Common questions about Verdent"
+---
+
+Answers to frequently asked questions about Verdent, organized by topic.
+
+---
+
+## General Questions
+
+<Accordion title="What is the difference between Verdent and the VS Code extension?">
+**Verdent** is a standalone application with features designed for parallel development:
+
+| Feature | Desktop | VS Code Extension |
+|---------|---------|-------------------|
+| **Parallel agents** | Multiple agents in separate workspaces | Single agent per window |
+| **Workspace isolation** | Git worktrees for isolation | VS Code workspace |
+| **Project management** | Multi-project with instant switching | Per-workspace |
+| **Environment** | Standalone app | VS Code extension |
+
+**Both share:**
+- Same credit pool
+- Same account
+- Same AI capabilities
+- Same rule systems (user_rules.md, AGENTS.md)
+</Accordion>
+
+<Accordion title="Can I use both Desktop and VS Code extension?">
+Yes. They're independent applications that share your credit pool and account. Use whichever fits your workflow:
+
+- **Desktop** for parallel development, multi-project work
+- **VS Code extension** for integration with existing VS Code workflow
+
+Don't work on the same files simultaneously in both tools.
+</Accordion>
+
+<Accordion title="Does Verdent work offline?">
+No. Verdent requires an active internet connection. All AI processing happens in the cloud through Verdent's API.
+</Accordion>
+
+<Accordion title="What operating systems are supported?">
+| OS | Versions | Architecture | Status |
+|----|----------|--------------|--------|
+| **macOS** | 11 (Big Sur) and later | Intel and Apple Silicon | Full support |
+| **Windows** | Windows 10, Windows 11 | 64-bit only | Beta |
+
+**Note:** 32-bit operating systems are not supported. Windows 7/8.x are not supported. Linux is not currently supported.
+</Accordion>
+
+<Accordion title="What are the system requirements?">
+**Minimum requirements:**
+- Active Verdent subscription
+- Internet connection
+- Git 2.20+ (2.35+ recommended)
+
+**Platform support:** macOS (full), Windows (beta)
+</Accordion>
+
+---
+
+## Installation & Git
+
+<Accordion title="Can I install Verdent alongside the VS Code extension?">
+Yes. Verdent and the VS Code extension are independent applications. You can use both, and they share the same credit pool and account.
+</Accordion>
+
+<Accordion title="How do I update Verdent?">
+Verdent checks for updates automatically on launch. When an update is available:
+1. A notification appears
+2. Click **Update** to download and install
+3. Restart the application
+
+You can also check manually: **Help → Check for Updates**
+</Accordion>
+
+<Accordion title="How do I uninstall Verdent?">
+**macOS:** Drag Verdent from Applications to Trash
+
+**Windows:** Use **Settings → Apps → Verdent → Uninstall** or **Control Panel → Programs and Features**
+</Accordion>
+
+<Accordion title="What is Git?">
+Git is a free, open-source version control system that tracks changes to your code. It allows you to save snapshots of your project, collaborate with others, and manage different versions of your work. Verdent uses Git's worktree feature to create isolated workspaces for parallel agent execution.
+</Accordion>
+
+<Accordion title="Why does Verdent require such a recent Git version?">
+Git worktree functionality has improved significantly in recent versions:
+
+- **Git 2.20+**: Basic worktree support stability
+- **Git 2.30+**: Improved worktree management commands
+- **Git 2.35+**: Better worktree repair and move operations
+
+Older versions may work but could have issues with worktree management.
+</Accordion>
+
+<Accordion title="Can I use Verdent without Git?">
+No. Git worktrees are fundamental to Verdent's parallel execution architecture. Without Git, the application cannot:
+
+- Create isolated workspaces
+- Run parallel agents
+- Manage branches for tasks
+- Rebase completed work
+</Accordion>
+
+<Accordion title="What if my project isn't a Git repository?">
+Verdent handles this automatically. If your project doesn't have Git initialized, Verdent creates its own Git repository for tracking changes and enabling workspace isolation.
+</Accordion>
+
+<Accordion title="How do I check if Git is properly installed?">
+Run `git --version` in your terminal. You should see a version number 2.20 or higher. If not installed, see the [Git Installation](/verdent/getting-started/git-installation) guide.
+</Accordion>
+
+---
+
+## Interface & Navigation
+
+<Accordion title="How do I resize the panels?">
+Drag the borders between panels to resize. Your layout preferences are saved automatically.
+</Accordion>
+
+<Accordion title="Can I detach panels into separate windows?">
+Currently, all panels remain within the main window. This helps maintain context between chat, editor, and terminal.
+</Accordion>
+
+<Accordion title="What's the difference between a workspace and a task?">
+A workspace is an isolated git worktree for parallel work. A task is a conversation thread within a workspace. Multiple tasks can run in the same workspace and share the workspace file state.
+</Accordion>
+
+<Accordion title="How do I switch between workspaces?">
+Click **All Workspaces** in the top bar to see and switch between active workspaces.
+</Accordion>
+
+<Accordion title="How do I see what files changed in my current task?">
+Click **Task Changes** in the middle panel to view all files changed within the current task.
+</Accordion>
+
+<Accordion title="What does 'Context Remaining' mean?">
+Context Remaining shows how much model context is left for the current conversation. When context runs low, consider starting a new task.
+</Accordion>
+
+<Accordion title="How do I revert changes made by Verdent?">
+Use Source Control (`Ctrl+Shift+G` / `Cmd+Shift+G`) to discard or revert specific file changes.
+</Accordion>
+
+<Accordion title="How do I rollback a conversation?">
+Hover over any message in the chat and click **Rollback to this point** to revert the conversation to that point in time.
+</Accordion>
+
+<Accordion title="Can I use Verdent alongside VS Code?">
+Yes. Click **Open in VS Code** (`Ctrl+E` / `Cmd+E`) in the workspace bar to open the current workspace in VS Code.
+</Accordion>
+
+---
+
+## Projects
+
+<Accordion title="Can I open the same project twice?">
+No. Each project can only be open once. Use workspaces within the project for different branches or tasks.
+</Accordion>
+
+<Accordion title="What happens to my project when I close Verdent?">
+Git state (commits, branches) is preserved as normal. Task history persists between sessions.
+</Accordion>
+
+<Accordion title="Does my project need to be a git repository?">
+No. Verdent creates a git repository automatically if your project doesn't have one.
+</Accordion>
+
+<Accordion title="What happens to running agents when I switch projects?">
+They continue running. All workspace states, task conversations, and agent progress are preserved.
+</Accordion>
+
+<Accordion title="How do I access recent projects?">
+Click **Current Project** in the Top Bar to see and switch to recent projects.
+</Accordion>
+
+<Accordion title="Can I open nested projects?">
+No. Verdent does not support opening a project that is inside another open project. Each project must be a separate, non-nested directory.
+</Accordion>
+
+---
+
+## Workspaces
+
+<Accordion title="What is the difference between base workspace and worktrees?">
+**Base Workspace:**
+- Your main working directory (usually `master` branch)
+- Reference point for creating worktrees
+- Where rebased work ends up
+- Should stay clean and stable
+
+**Worktrees:**
+- Isolated directories for specific tasks
+- Each has its own branch
+- Complete copy of working files
+- Can be deleted after rebasing
+</Accordion>
+
+<Accordion title="How do I rebase changes from a worktree back to master?">
+<Steps>
+  <Step title="Complete Work">
+    Finish and commit all changes in the worktree
+  </Step>
+  <Step title="Review">
+    Review changes
+  </Step>
+  <Step title="Rebase">
+    Use **Workspace → Rebase to Master** to integrate changes
+  </Step>
+  <Step title="Clean Up">
+    Optionally delete the worktree after rebasing
+  </Step>
+</Steps>
+
+Alternatively, use standard git commands:
+```bash
+# From feature branch
+git rebase master
+```
+</Accordion>
+
+<Accordion title="Do worktrees share dependencies (node_modules, etc.)?">
+No. Each worktree is a complete copy of working files. You need to install dependencies in each worktree:
+
+```bash
+# After creating worktree
+npm install  # or pip install, etc.
+```
+
+Some package managers support shared caches to speed up installation.
+</Accordion>
+
+<Accordion title="What happens to worktrees when I close Verdent?">
+Worktrees persist on disk as git worktrees. When you reopen the project:
+- Verdent detects existing worktrees
+- Restores their state in the interface
+- You can continue where you left off
+</Accordion>
+
+<Accordion title="How much disk space does each workspace use?">
+Each workspace is a git worktree that shares git objects with the base. Storage is approximately the size of your working files (excluding .git), plus any workspace-specific dependencies.
+</Accordion>
+
+<Accordion title="Can I delete a workspace?">
+Yes. Right-click the workspace and select **Delete Workspace**, or use **Workspace → Delete**. Committed changes remain in git history; uncommitted changes are lost.
+</Accordion>
+
+<Accordion title="What happens to uncommitted changes if I delete a workspace?">
+Uncommitted changes are permanently lost. Always commit or stash important changes before deleting a workspace.
+</Accordion>
+
+---
+
+## Tasks
+
+<Accordion title="Can I run multiple tasks in the same workspace?">
+Yes. Tasks share the workspace file state, and context is preserved when switching between tasks.
+</Accordion>
+
+<Accordion title="Do tasks share memory?">
+No. Each task has its own conversation context. They share file state if in the same workspace, but not conversation memory.
+</Accordion>
+
+<Accordion title="What happens to tasks when I close Verdent?">
+Task history persists between sessions. You can resume tasks where you left off when you reopen Verdent.
+</Accordion>
+
+<Accordion title="Can I reference work from other tasks?">
+Tasks don't automatically know about other tasks. Reference files that were modified, summarize previous decisions, or use @-mentions to include specific files.
+</Accordion>
+
+<Accordion title="Can I use different models for different tasks?">
+Yes. Each task has its own agent configuration including model selection.
+</Accordion>
+
+<Accordion title="How do I delete a task?">
+Hover over the task in the task list and click the Delete button.
+</Accordion>
+
+<Accordion title="Do tasks in parallel workspaces share anything?">
+No. Tasks in different workspaces are fully isolated with no shared files or context.
+</Accordion>
+
+<Accordion title="How many tasks can I have in one workspace?">
+There's no hard limit. Practically, keep active tasks focused—archive completed tasks to maintain organization.
+</Accordion>
+
+---
+
+## Parallel Execution
+
+<Accordion title="How many parallel agents can I run?">
+Verdent doesn't impose a hard limit. Practical limits depend on:
+
+- **System resources:** Memory and CPU
+- **Credits:** Each agent consumes credits
+- **Git worktrees:** Git handles many efficiently
+
+**Recommendation:** 2-4 parallel agents work well for most users and machines.
+</Accordion>
+
+<Accordion title="Do parallel agents share credits?">
+Yes. All agents draw from your shared credit pool. Running multiple agents simultaneously consumes credits faster.
+
+**Tip:** Use Claude Haiku 4.5 for routine parallel tasks to conserve credits.
+</Accordion>
+
+<Accordion title="Can parallel agents access each other's files?">
+No. Each agent works in its own worktree with isolated files. Agents cannot:
+- Read other agents' uncommitted changes
+- Modify files in other worktrees
+- Interfere with each other's operations
+
+This isolation prevents conflicts during parallel work.
+</Accordion>
+
+<Accordion title="What happens if two agents work on related code?">
+Since each agent works in a separate worktree:
+- No conflicts during development
+- Conflicts only appear during rebase
+- Standard git rebase conflict resolution applies
+
+**Best practice:** Assign independent tasks to parallel agents to minimize rebase conflicts.
+</Accordion>
+
+<Accordion title="Do parallel agents share context?">
+No. Each agent has completely isolated context. Results from one agent don't automatically transfer to another.
+</Accordion>
+
+<Accordion title="What happens if two tasks in separate workspaces modify the same file?">
+Each workspace has its own copy. Conflicts are resolved during rebase, not during development. Use standard git conflict resolution.
+</Accordion>
+
+---
+
+## Execution Modes
+
+<Accordion title="What is Plan Mode?">
+Plan Mode is a read-only execution mode where Verdent analyzes code, conducts research, and creates detailed implementation plans without modifying files or executing commands. After generating a plan, Verdent presents options to edit the plan or start building. The agent can ask clarifying questions to remove uncertainty before execution. This mode is ideal for complex tasks where you want to review the approach before committing to changes.
+</Accordion>
+
+<Accordion title="Does Plan Mode actually write any code to my files?">
+**No.** Plan Mode is strictly read-only:
+
+- Verdent can read files, search code, and analyze your codebase
+- **No file writes, edits, or deletions** occur during Plan Mode
+- Plans are displayed in the Chat View only
+- Code execution begins only after you explicitly approve and switch to Agent Mode
+
+**Safety guarantee:** Plan Mode cannot accidentally modify your code. It's designed for safe exploration and strategy development.
+</Accordion>
+
+<Accordion title="Can I switch modes mid-task?">
+Yes. Press `Shift+Tab` or `Ctrl+.` to switch. Switching to Plan Mode stops execution and enters read-only analysis. Switching to Agent Mode enables execution.
+</Accordion>
+
+<Accordion title="How do I switch to Plan Mode?">
+Press `Shift+Tab` or `Ctrl+.` to toggle between Plan Mode and Agent Mode. You can also click the Switch Mode button in the input box.
+</Accordion>
+
+<Accordion title="When should I use Plan Mode instead of Agent Mode?">
+Use Plan Mode for:
+- Large refactorings or architectural changes
+- Multi-file modifications where you want to review scope before execution
+- Complex tasks where you're uncertain about requirements
+- When you want Verdent to interview you with clarifying questions before implementation
+
+Skip Plan Mode for:
+- Simple, well-defined tasks
+- Quick bug fixes
+- Routine operations
+</Accordion>
+
+<Accordion title="Can parallel agents have different modes?">
+Yes. Each agent in each workspace has independent mode settings. One workspace can use Plan Mode while another uses Agent Mode simultaneously.
+</Accordion>
+
+<Accordion title="Does Plan Mode use credits?">
+Yes. Plan Mode operations consume credits based on the model used and tokens processed, similar to Agent Mode, though typically less since no execution occurs.
+</Accordion>
+
+<Accordion title="Can I execute a plan later?">
+Yes. After creating a plan in Plan Mode, switch to Agent Mode to execute it. The plan guides the execution.
+</Accordion>
+
+<Accordion title="Can I skip the clarification questions?">
+Yes. Use the Skip Clarifications option to proceed with Verdent's best judgment when requirements are clear enough.
+</Accordion>
+
+<Accordion title="Will my plan be saved?">
+Ask Verdent to save the plan as a markdown file for future reference.
+</Accordion>
+
+<Accordion title="Can I modify a plan before executing?">
+You can ask Verdent to revise the plan in Plan Mode. Once satisfied, switch to Agent Mode to execute.
+</Accordion>
+
+---
+
+## Context & Models
+
+<Accordion title="What is a token?">
+The unit of measurement for context windows. Tokens represent pieces of text (words, parts of words, or characters) that the AI model processes. Context limits are measured in tokens rather than characters or words, with typical conversations consuming thousands of tokens.
+</Accordion>
+
+<Accordion title="What's the difference between 200K and 1M context windows?">
+Standard models have 200K token context windows sufficient for most tasks. Extended context (1M tokens, 5x larger) is available for large codebases with 1000+ files, complex multi-file refactoring, or long development sessions.
+</Accordion>
+
+<Accordion title="How do I avoid context window exhaustion?">
+**Strategies:**
+1. **Strategic file reading:** Use line ranges for large files
+2. **Delegate to subagents:** For background research
+3. **Search before reading:** Use grep to identify relevant files
+4. **Break operations:** Use todo lists to track multi-step tasks
+
+**Rule of thumb:** Files over 500 lines should use line ranges.
+</Accordion>
+
+<Accordion title="Should I manually reset context or will Verdent do it automatically?">
+You must manually start a new session to reset context—Verdent does not automatically clear context. Best practice: reset after completing an atomic unit of work, testing, and committing to version control.
+</Accordion>
+
+<Accordion title="Does 1M context cost more credits?">
+Yes. Extended context models process more tokens, which increases credit consumption. Use standard context for routine tasks.
+</Accordion>
+
+<Accordion title="How do I reset context?">
+Start a new task. Each task begins with fresh context.
+</Accordion>
+
+<Accordion title="Does context persist between sessions?">
+Task conversation history persists, but the active context window is rebuilt when you resume a task.
+</Accordion>
+
+---
+
+## Subagents
+
+<Accordion title="When should I use a subagent instead of the main agent?">
+Use subagents for quick, focused tasks like validation or code review. Use the main agent for complex investigations requiring full context.
+</Accordion>
+
+<Accordion title="Do subagents share context with the main agent?">
+No. Subagents have isolated context windows. Only the final results are returned to the main agent.
+</Accordion>
+
+<Accordion title="Can I configure subagent models?">
+Yes, when customizing subagents, you can configure which model to use.
+</Accordion>
+
+---
+
+## Code Operations
+
+<Accordion title="How do I get more accurate code generation?">
+- Provide clear, specific requirements
+- Include relevant code context with @-mentions
+- Use Plan Mode for complex features
+- Review and iterate on generated code
+</Accordion>
+
+<Accordion title="Can Verdent generate tests for my code?">
+Yes. Ask Verdent to write tests for specific functions or modules. It can generate unit tests, integration tests, and test fixtures.
+</Accordion>
+
+<Accordion title="What if refactoring breaks something?">
+Use Plan Mode to preview changes, ensure test coverage before refactoring, and commit frequently. If issues occur, use git to revert to a working state.
+</Accordion>
+
+<Accordion title="Does code review slow down the workflow?">
+Automated code review adds minimal time while catching issues early. Enable **Auto Generate Code Review** in Settings → Chat for automatic reviews.
+</Accordion>
+
+<Accordion title="Do code reviews use credits?">
+Yes. Code review generation uses credits based on the model and code size analyzed.
+</Accordion>
+
+<Accordion title="What languages are supported for code review?">
+All common programming languages are supported. Review quality is highest for popular languages with extensive training data.
+</Accordion>
+
+<Accordion title="What file formats can Verdent work with?">
+**Supported:** All text-based file formats including:
+- Source code (JavaScript, Python, TypeScript, Java, Go, etc.)
+- Configuration files (JSON, YAML, TOML, XML, ENV)
+- Documentation (Markdown, HTML, LaTeX)
+- Build files (package.json, Makefile, requirements.txt)
+
+**Not supported:** Binary files (images, videos, PDFs, compiled binaries, Office documents)
+
+**Workaround:** Reference binary files in code but modifications require external tools.
+</Accordion>
+
+<Accordion title="How long can bash commands run?">
+**Maximum timeout:** 120 seconds (2 minutes)
+
+Commands exceeding 2 minutes will be automatically terminated.
+
+**Alternatives for long operations:**
+- Break into smaller commands
+- Run in background and check results separately
+- Execute manually in your terminal
+</Accordion>
+
+---
+
+## MCP Integration
+
+<Accordion title="Do MCP servers use credits?">
+MCP server operations consume credits based on the model processing the results. The MCP server itself doesn't use credits directly.
+</Accordion>
+
+<Accordion title="Can I use different MCP servers per project?">
+Yes. Configure MCP servers in Settings → MCP for global availability, or use project-specific configuration.
+</Accordion>
+
+<Accordion title="Are my credentials safe?">
+Credentials in MCP configuration are stored locally on your machine and never sent to Verdent servers. Use environment variables for sensitive values.
+</Accordion>
+
+<Accordion title="Do MCP servers run continuously?">
+MCP servers start when needed and run during your session. They don't consume resources when Verdent is closed.
+</Accordion>
+
+<Accordion title="Can MCP servers modify my files?">
+MCP servers have the permissions you configure. Use read-only access where possible and restrict destructive operations.
+</Accordion>
+
+<Accordion title="How do I know if my MCP server is working?">
+Ask Verdent to use a tool from the MCP server. Successful responses indicate the connection is working. Check Settings → MCP for server status.
+</Accordion>
+
+---
+
+## Configuration & Rules
+
+<Accordion title="How do I reset all settings to defaults?">
+1. Open **Settings** (`Cmd+,` / `Ctrl+,`)
+2. Go to **General**
+3. Click **Reset All Settings**
+4. Confirm the reset
+
+This resets application settings but doesn't affect:
+- User rules (user_rules.md)
+- Custom subagents
+- Session history
+</Accordion>
+
+<Accordion title="Where are settings stored?">
+Verdent stores configuration in multiple locations:
+
+| Location | Contents |
+|----------|----------|
+| **Settings panel** | Application preferences, models, subagents |
+| `~/.verdent/user_rules.md` | Global user rules |
+| `~/.verdent/mcp.json` | Global MCP server config |
+| `<project>/AGENTS.md` | Project-specific rules |
+
+Access settings via `Cmd+,` (macOS) or `Ctrl+,` (Windows).
+</Accordion>
+
+<Accordion title="Can I sync settings across machines?">
+Copy the `~/.verdent/` directory to sync settings.
+
+**Options:**
+- Manual copy between machines
+- Cloud sync (Dropbox, OneDrive, etc.) for the `.verdent` folder
+- Git repository for rule and subagent files
+
+**Note:** Project rules (AGENTS.md) sync via version control automatically.
+</Accordion>
+
+<Accordion title="When do settings changes take effect?">
+Most settings apply immediately:
+- Theme, models: Instant
+- Rules: Apply to new conversations after save
+- Subagents: Available immediately after creation
+
+**Exception:** Some MCP settings may require session restart.
+</Accordion>
+
+---
+
+## Version Control
+
+<Accordion title="Why does Verdent use rebase instead of merge?">
+Rebase creates a cleaner, linear history that's easier to understand and bisect. Each feature branch is rebased onto master before integration.
+</Accordion>
+
+<Accordion title="How do I resolve conflicts when rebasing?">
+Verdent may assist with conflict resolution. For manual resolution:
+1. Open conflicting files in the editor
+2. Choose which changes to keep
+3. Mark conflicts as resolved
+4. Continue the rebase
+</Accordion>
+
+<Accordion title="What happens to uncommitted changes when switching workspaces?">
+Uncommitted changes remain in the workspace you're leaving. Each workspace maintains its own working state independently.
+</Accordion>
+
+---
+
+## Pricing & Credits
+
+<Accordion title="How does pricing work?">
+Verdent uses a credit-based model:
+
+| Plan | Price | Monthly Credits |
+|------|-------|-----------------|
+| **Starter** | $19/month | 320 |
+| **Pro** | $59/month | 1,000 |
+| **Max** | $179/month | 3,000 |
+
+Credits are shared between Desktop and VS Code extension.
+
+**Note:** 2× bonus currently active - all plans include double credits.
+</Accordion>
+
+<Accordion title="What affects credit consumption?">
+| Factor | Impact |
+|--------|--------|
+| **Model choice** | Claude Sonnet 4.5 1M costs more than Claude Haiku 4.5 |
+| **Parallel agents** | Multiple agents use credits faster |
+| **Context size** | Larger context = more tokens = more cost |
+| **Request complexity** | Complex tasks require more processing |
+</Accordion>
+
+<Accordion title="What happens when I run out of credits?">
+- New requests will fail with "credit limit reached"
+- You can:
+  - Wait for monthly refresh
+  - Purchase one-time top-up
+  - Upgrade to higher plan
+- Existing work in worktrees is preserved
+</Accordion>
+
+<Accordion title="Do unused credits roll over to the next month?">
+Subscription credits expire monthly based on the subscription cycle, while Pay-As-You-Go credits remain valid permanently.
+</Accordion>
+
+<Accordion title="Can I share credits across different Verdent products?">
+Yes. Desktop and VS Code extension share the same credit pool from your account.
+</Accordion>
+
+<Accordion title="How do I track credit usage?">
+Open User Center from the top bar to view:
+- Current credit balance
+- Usage history
+- Subscription details
+- Top-up options
+</Accordion>
+
+---
+
+## Troubleshooting
+
+<Accordion title="How do I recover from a failed task?">
+<Steps>
+  <Step title="Stop">
+    Click **Stop** to halt the operation
+  </Step>
+  <Step title="Review">
+    Check `git status` for changes made
+  </Step>
+  <Step title="Decide">
+    - Keep changes: Continue from where stopped
+    - Rollback: Use `git checkout -- .` to discard changes
+    - Fresh start: Create new session
+  </Step>
+</Steps>
+</Accordion>
+
+<Accordion title="What if I accidentally delete important files?">
+If using git (recommended):
+```bash
+# Check deleted files
+git status
+
+# Restore deleted files
+git checkout HEAD -- path/to/file
+```
+
+If not in git:
+- Check system trash/recycle bin
+- Use file recovery tools
+- Restore from backup
+
+**Prevention:** Always use git repositories with Verdent.
+</Accordion>
+
+<Accordion title="How do I report a bug?">
+1. Use **Help → Report Issue** in the app
+2. Join [Discord](https://discord.com/invite/NGjXEZcbJq) for community support
+3. Email support@verdent.ai
+
+**Include in your report:**
+- Exact error message
+- Steps to reproduce
+- App version (Help → About)
+- Operating system
+</Accordion>
+
+<Accordion title="Agent making wrong changes?">
+- Use **Stop** to halt immediately
+- Review changes in Source Control
+- Use git to revert if needed
+- Provide clearer instructions and retry
+</Accordion>
+
+<Accordion title="How do I troubleshoot firewall or connection issues?">
+Ensure these domains are accessible:
+- `api.verdent.ai` - API endpoint
+- `app.verdent.ai` - Application updates
+
+Check proxy settings in Settings → General if behind a corporate firewall.
+</Accordion>
+
+---
+
+## Images
+
+<Accordion title="What image file size limits apply?">
+**Maximum file size:** 5MB (automatically compressed if exceeded; error if still >5MB after compression)
+
+**Maximum resolution:** 2000×2000 pixels
+
+**Supported formats:** PNG, JPG, JPEG, GIF, BMP, WebP
+
+**Best practice:** Use images under 3MB with resolutions up to 2000×2000 for optimal performance and accurate analysis.
+</Accordion>
+
+<Accordion title="Can Verdent analyze multiple images in a single conversation?">
+Yes. You can paste multiple images sequentially or reference multiple file paths in one prompt. Verdent maintains context across all images for comparison and analysis. Example: "Compare these three mockups and identify the differences."
+</Accordion>
+
+<Accordion title="Can Verdent generate production-ready code from mockups?">
+Verdent generates functional starter code that implements the visual structure, layout, and styling from your mockup. You'll typically need to refine by adding business logic, data integration, accessibility features, error handling, and production optimizations.
+</Accordion>
+
+---
+
+## Multi-Step Tasks
+
+<Accordion title="What is the Multipass Generate-Test-Repair Cycle?">
+An iterative verification process where code is generated, tested, and repaired until it passes comprehensive testing. Verdent automatically runs tests, analyzes failures, fixes issues, and retests in multiple passes until the code works correctly. This delivers production-ready code, not just suggestions. Each result includes detailed summaries and code diffs showing exactly what changed.
+</Accordion>
+
+<Accordion title="What if I disagree with how Verdent broke down my task?">
+Use Plan Mode to review and adjust the breakdown before execution. In Plan Mode, you can provide feedback like "Split the frontend work into separate components" or "Combine those two steps." Verdent will revise the plan based on your input before any code is written.
+</Accordion>
+
+<Accordion title="Should I use Plan Mode for every multi-step task?">
+Not necessarily. Use Plan Mode for complex features affecting many files, large refactorings, or when you want to review the approach first. For familiar, straightforward tasks, Verdent can execute directly with real-time todo list visibility. Plan Mode adds a review step for higher-risk changes.
+</Accordion>
+
+<Accordion title="Can I modify Verdent's plan after execution has started?">
+You can provide corrective guidance as Verdent works. Say "Actually, use a different approach for the API integration" and Verdent will adjust remaining steps. For major plan changes, it's better to stop, commit what's done, and start a new session with the revised approach.
+</Accordion>
+
+<Accordion title="Is it safe to let Verdent modify dozens of files at once?">
+Yes, when used properly. Always use Plan Mode to review the complete scope first, ensure you have comprehensive test coverage, and commit frequently between phases. This allows you to verify changes incrementally and rollback easily if needed.
+</Accordion>
+
+<Accordion title="Which model is best for large codebase work?">
+Use **Claude Sonnet 4.5 1M** for complex multi-file operations and refactoring—its extended context window handles large codebases. Use **Claude Haiku 4.5** for simple searches and discovery tasks. Sonnet 1M provides more reasoning capability for coordinated changes, while Haiku is faster and more cost-effective for exploration.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Common Issues" icon="wrench" href="/verdent/help-support/common-issues">
+    Quick fixes for common problems
+  </Card>
+  <Card title="Limitations" icon="ban" href="/verdent/help-support/limitations">
+    Known limitations and workarounds
+  </Card>
+</CardGroup>

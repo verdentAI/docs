@@ -3,111 +3,89 @@ title: "Welcome to Verdent"
 description: "AI-powered coding assistant documentation"
 ---
 
-User-directed plan execution with automated verification for transparent, controllable development. From "what if…" to "here's how." Traditional AI tools guess your intent. Verdent turns your idea into structured steps and verifies every outcome as it builds.
-
 **Plan First, Verify Early, Deliver Reliable Code**
+
+Traditional AI coding tools guess your intent. Verdent captures requirements upfront, breaks them into clear actionable tasks, and verifies the code works before delivery, reducing rework from the start.
 
 ---
 
-## Getting Started
-
-Get up and running with Verdent in minutes.
-
-<Card title="Start here" icon="rocket" horizontal href="/verdent-for-vscode/getting-started/quick-start">
-  Install Verdent and complete your first task.
-</Card>
-
-<Columns cols={2}>
-  <Card title="Overview" icon="book-open" href="/verdent-for-vscode/getting-started/overview">
-    Learn what Verdent is and its key use cases.
-  </Card>
-  <Card title="Installation" icon="download" href="/verdent-for-vscode/getting-started/installation">
-    Step-by-step installation and setup guide.
-  </Card>
-  <Card title="Core Concepts" icon="lightbulb" href="/verdent-for-vscode/getting-started/core-concepts">
-    Understand Verdent's architecture and terminology.
-  </Card>
-  <Card title="User Interface" icon="desktop" href="/verdent-for-vscode/getting-started/interface">
-    Navigate Verdent's interface with confidence.
-  </Card>
-</Columns>
-
-## Core Features
-
-Explore Verdent's key capabilities for AI-powered development.
-
-<Card title="Plan-Code-Verify loop" icon="sparkles" href="verdent-for-vscode/core-features/plan-code-verify-loop">
-  Precise control over requirements, implementation, and validation through professional plan.
-</Card>
+## Choose Your Platform
 
 <CardGroup cols={2}>
-  <Card title="Professional Plan" icon="crosshairs" href="/verdent-for-vscode/core-features/professional-plan">
-    Transform ideas into robust implementation plans with intelligent requirement clarification.
+  <Card title="Verdent Desktop" icon="desktop" href="/verdent/getting-started/overview">
+    Standalone application with parallel agent execution and workspace isolation via git worktrees.
   </Card>
-  <Card title="Clarification Loop" icon="diagram-project" href="/verdent-for-vscode/core-features/clarification-loop">
-    Smarter planning through continuous discussion and refinement of requirements.
-  </Card>
-  <Card title="Code Diff" icon="code-compare" href="/verdent-for-vscode/core-features/code-diff">
-    Enterprise-grade code review with natural language summaries and senior engineer-level analysis.
-  </Card>
-  <Card title="Plan Rules" icon="circle-check" href="/verdent-for-vscode/core-features/plan-rules">
-    Customize how clarifications and plans are presented based on your role and professional background.
+  <Card title="Verdent for VS Code" icon="code" href="/verdent-for-vscode/getting-started/overview">
+    VS Code extension with Plan-Verify-Code workflow and production-ready verification.
   </Card>
 </CardGroup>
 
-## User Guide
+---
 
-Learn how to use Verdent for your daily coding tasks.
+## Why Verdent
 
-<Columns cols={2}>
-  <Card title="Writing New Code" icon="code" href="/verdent-for-vscode/task-based-guides/writing-code">
-    Create new features and functionality with AI assistance.
+<CardGroup cols={2}>
+  <Card title="Plan-Verify-Code Workflow" icon="list-check">
+    Define requirements the way you think, refine through clarification, and lock in a visual plan, so agents execute with accuracy from the first step.
   </Card>
-  <Card title="Understanding Code" icon="magnifying-glass" href="/verdent-for-vscode/task-based-guides/understanding-code">
-    Navigate and comprehend existing codebases.
+  <Card title="Clarification Loop" icon="message-dots">
+    Smarter planning through continuous discussion and refinement of requirements.
   </Card>
-  <Card title="Testing & Debugging" icon="bug" href="/verdent-for-vscode/task-based-guides/testing-debugging">
-    Write tests and debug issues efficiently.
+  <Card title="Build from Descriptions" icon="wand-magic-sparkles">
+    Tell Verdent what you want to build in plain English. It will make a plan, write the code, and ensure it works through comprehensive verification.
   </Card>
-  <Card title="Improving & Refactoring Code" icon="sliders" href="/verdent-for-vscode/task-based-guides/refactoring">
-    Choose the right execution mode for your workflow.
+  <Card title="Multi-Provider Intelligence" icon="brain">
+    Orchestrates models from Claude, GPT-5, Gemini, and Kimi within a single workflow. Each specialized agent leverages the optimal model for its task.
   </Card>
-</Columns>
+  <Card title="Specialized Subagents" icon="robot">
+    Explorer, Verifier, and Code Reviewer agents handle different workflow phases with isolated context for peak performance.
+  </Card>
+  <Card title="Production-Ready Verification" icon="shield-check">
+    Iterative testing cycles ensure code passes comprehensive testing before delivery. Verdent automatically generates, tests, and repairs code until it works correctly.
+  </Card>
+  <Card title="Adaptive Learning" icon="graduation-cap">
+    Analyzes existing code to learn project-specific patterns. Generates new code that matches existing style and prefers existing libraries over introducing new dependencies.
+  </Card>
+  <Card title="Flexible Autonomy" icon="sliders">
+    Choose your level of control: Auto Run, Manual Accept, or Skip Permissions modes.
+  </Card>
+  <Card title="Team Collaboration" icon="users">
+    Share project rules and subagent configurations through version control. Ensure consistent AI behavior across your team.
+  </Card>
+  <Card title="1M Token Context" icon="database">
+    Ingest entire codebases with smart context loading that prioritizes relevant files based on task context.
+  </Card>
+</CardGroup>
 
-## Advanced Topics
+---
 
-Customize and extend Verdent for your workflow.
+## FAQs
 
-<Columns cols={2}>
-  <Card title="Configuration" icon="gear" href="/verdent-for-vscode/configuration/settings">
-    Customize Verdent to fit your preferences.
-  </Card>
-  <Card title="Subagent Management" icon="robot" href="/verdent-for-vscode/agents-rules/subagent-management">
-    Create and manage custom subagents.
-  </Card>
-  <Card title="Rule Systems" icon="list-check" href="/verdent-for-vscode/agents-rules/rule-systems">
-    Control behavior with user and project rules.
-  </Card>
-  <Card title="Integration & Extensions" icon="plug" href="/verdent-for-vscode/advanced-features/mcp">
-    Extend Verdent with MCP servers and integrations.
-  </Card>
-</Columns>
+<Accordion title="What's the difference between Verdent Desktop and Verdent for VS Code?">
+Verdent Desktop is a standalone application with parallel agent execution—run multiple AI agents simultaneously across git worktrees. Verdent for VS Code is an extension that integrates into your existing VS Code workflow with the Plan-Verify-Code approach. Both share the same credit pool.
+</Accordion>
 
-## Reference & Support
+<Accordion title="Which platform should I choose?">
+Choose **Verdent Desktop** if you want to work on multiple features in parallel with isolated workspaces, or manage multiple projects with instant switching. Choose **Verdent for VS Code** if you prefer working within VS Code and want tight integration with your existing workflow.
+</Accordion>
 
-Find solutions and get help.
+<Accordion title="How does pricing work?">
+Verdent uses a credit-based model starting at $19/month. Credits are shared across both Desktop and VS Code, so one subscription works everywhere. All plans include access to Claude Sonnet 4.5, GPT-5, and GPT-5-Codex.
+</Accordion>
 
-<Columns cols={2}>
-  <Card title="Troubleshooting" icon="wrench" href="/verdent-for-vscode/help-support/common-issues">
-    Resolve common issues and errors.
+<Accordion title="Can I use both Desktop and VS Code?">
+Yes. They're independent applications that share your credit pool and account. Use whichever fits your workflow.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Verdent Desktop" icon="desktop" href="/verdent/getting-started/overview">
+    Standalone application with parallel execution and workspace isolation
   </Card>
-  <Card title="FAQs" icon="circle-question" href="/verdent-for-vscode/help-support/faqs">
-    Answers to frequently asked questions.
+  <Card title="Verdent for VS Code" icon="code" href="/verdent-for-vscode/getting-started/overview">
+    VS Code extension with Plan-Verify-Code workflow
   </Card>
-  <Card title="Security & Compliance" icon="shield" href="/verdent-for-vscode/reference/security">
-    Learn about data privacy and security practices.
-  </Card>
-  <Card title="Support" icon="life-ring" href="/verdent-for-vscode/reference/resources">
-    Contact support and access additional resources.
-  </Card>
-</Columns>
+</CardGroup>

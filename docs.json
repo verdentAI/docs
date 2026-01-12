@@ -11,12 +11,135 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "Verdent",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "verdent/getting-started/overview",
+              "verdent/getting-started/core-concepts",
+              "verdent/getting-started/system-requirements",
+              "verdent/getting-started/git-installation",
+              "verdent/getting-started/installation",
+              "verdent/getting-started/quick-start",
+              "verdent/getting-started/interface"
+            ]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "verdent/core-features/overview",
+              "verdent/core-features/parallel-execution",
+              "verdent/core-features/workspace-isolation",
+              "verdent/core-features/multitasking",
+              "verdent/core-features/project-switching",
+              "verdent/core-features/plan-mode",
+              "verdent/core-features/code-review",
+              "verdent/core-features/context-awareness",
+              "verdent/core-features/mcp-integration"
+            ]
+          },
+          {
+            "group": "Task-Based Guides",
+            "pages": [
+              "verdent/task-based-guides/opening-projects",
+              "verdent/task-based-guides/managing-tasks",
+              "verdent/task-based-guides/writing-code",
+              "verdent/task-based-guides/debugging",
+              "verdent/task-based-guides/refactoring",
+              "verdent/task-based-guides/version-control"
+            ]
+          },
+          {
+            "group": "Common Workflows",
+            "pages": [
+              "verdent/common-workflows/parallel-development",
+              "verdent/common-workflows/workspace-management"
+            ]
+          },
+          {
+            "group": "Pricing",
+            "pages": [
+              "verdent/pricing/overview",
+              "verdent/pricing/plans"
+            ]
+          },
+          {
+            "group": "Execution Modes & Permissions",
+            "pages": [
+              "verdent/execution-modes/overview"
+            ]
+          },
+          {
+            "group": "Resource Management",
+            "pages": [
+              "verdent/resource-management/monitoring"
+            ]
+          },
+          {
+            "group": "Error Handling & Recovery",
+            "pages": [
+              "verdent/error-handling/recovery"
+            ]
+          },
+          {
+            "group": "Best Practices",
+            "pages": [
+              "verdent/best-practices/prompts",
+              "verdent/best-practices/context"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "verdent/configuration/settings",
+              "verdent/configuration/plan-workflows",
+              "verdent/configuration/tuning"
+            ]
+          },
+          {
+            "group": "Agents & Rules",
+            "pages": [
+              "verdent/agents-rules/subagent-management",
+              "verdent/agents-rules/rule-systems"
+            ]
+          },
+          {
+            "group": "Advanced Features",
+            "pages": [
+              "verdent/advanced-features/overview",
+              "verdent/advanced-features/tool-reference",
+              "verdent/advanced-features/integrations",
+              "verdent/advanced-features/extensibility"
+            ]
+          },
+          {
+            "group": "Troubleshooting",
+            "pages": [
+              "verdent/help-support/common-issues",
+              "verdent/help-support/faqs",
+              "verdent/help-support/limitations"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "verdent/reference/commands",
+              "verdent/reference/shortcuts",
+              "verdent/reference/glossary",
+              "verdent/reference/changelog",
+              "verdent/reference/security",
+              "verdent/reference/resources"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Verdent for VSCode",
         "groups": [
           {
             "group": "Getting Started",
             "pages": [
-              "index",
               "verdent-for-vscode/getting-started/overview",
               "verdent-for-vscode/getting-started/core-concepts",
               "verdent-for-vscode/getting-started/system-requirements",
@@ -34,7 +157,8 @@
               "verdent-for-vscode/core-features/clarification-loop",
               "verdent-for-vscode/core-features/plan-rules",
               "verdent-for-vscode/core-features/code-diff",
-               "verdent-for-vscode/core-features/browser-tool"
+              "verdent-for-vscode/core-features/verify-loop",
+              "verdent-for-vscode/core-features/browser-tool"
             ]
           },
           {
@@ -123,6 +247,7 @@
             "group": "Reference",
             "pages": [
               "verdent-for-vscode/reference/commands",
+              "verdent-for-vscode/reference/shortcuts",
               "verdent-for-vscode/reference/glossary",
               "verdent-for-vscode/reference/changelog",
               "verdent-for-vscode/reference/security",

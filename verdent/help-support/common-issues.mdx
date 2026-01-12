@@ -1,0 +1,634 @@
+---
+title: Troubleshooting
+description: Common issues, diagnostics, and solutions
+---
+
+## What You'll Learn
+
+Common troubleshooting procedures, diagnostic steps, and known issue workarounds for Verdent.
+
+<Info>
+Detailed troubleshooting for top user-reported issues is being compiled from support data. This page provides general diagnostic procedures. Contact support@verdent.ai for specific issues not covered here.
+</Info>
+
+---
+
+## Quick Diagnostics
+
+<Tabs>
+  <Tab title="Service Errors (Most Common)">
+    ### "Service is experiencing high traffic. Please try again later!"
+
+    **This is the #1 most common error** users encounter. It indicates the Verdent service is temporarily overloaded.
+
+    **When it happens:**
+    - During peak usage times
+    - When backend services are under heavy load
+    - Temporary service degradation
+
+    **Recovery steps (in order):**
+
+    <Steps>
+      <Step title="Wait and Retry">
+        Wait 30-60 seconds and try your request again. Most service issues resolve quickly.
+      </Step>
+
+      <Step title="Roll Back Message">
+        If the error persists, roll back the most recent message using the undo button in the chat interface.
+      </Step>
+
+      <Step title="Start New Task">
+        If errors continue, start a fresh task:
+        - Click **New Task** to create a new conversation
+        - The new task starts with fresh context
+        - Resubmit your request in the new task
+        - Delete the old task if no longer needed
+      </Step>
+    </Steps>
+
+    <Warning>
+    If the issue persists for more than 5-10 minutes across multiple tasks, check the [Verdent status page](https://verdent.ai/status) or contact support@verdent.ai.
+    </Warning>
+  </Tab>
+
+  <Tab title="Installation & Setup">
+    ### Installation & Setup Issues
+
+    **System Requirements:**
+    - **Operating System:** macOS 11+, Windows 10+
+    - **Git:** Required for all projects
+    - **Internet connection:** Active connection required
+    - **Subscription:** Active Verdent subscription
+
+    **Basic diagnostic checklist:**
+    1. **Verify installation:** Application launches without errors
+    2. **Check internet connection:** Verdent requires an active connection
+    3. **Verify subscription:** Ensure Verdent subscription is active
+    4. **Check Git:** Run `git --version` to verify Git is installed
+
+    **Clean Reinstall Procedure:**
+    <Steps>
+      <Step title="Uninstall Verdent">
+        Remove the application using your OS standard uninstall process
+      </Step>
+
+      <Step title="Remove Configuration">
+        Delete `~/.verdent/` directory to clear all settings
+      </Step>
+
+      <Step title="Reinstall">
+        Download fresh installer from verdent.ai and install
+      </Step>
+    </Steps>
+
+    <Info>
+    Most installation issues resolve with a clean reinstall. If issues persist, check logs and contact support with log details.
+    </Info>
+  </Tab>
+
+  <Tab title="Authentication & Account">
+    ### Cannot Log In to Verdent
+
+    **Most common cause:** Proxy configuration issue
+
+    **Solution:**
+    <Steps>
+      <Step title="Open Settings">
+        Press `Cmd+,` (macOS) or `Ctrl+,` (Windows)
+      </Step>
+
+      <Step title="Find Proxy Setting">
+        Navigate to network or proxy settings
+      </Step>
+
+      <Step title="Toggle Proxy Status">
+        Toggle the proxy setting on/off (opposite of current state)
+      </Step>
+
+      <Step title="Retry Login">
+        Try logging in to Verdent again
+      </Step>
+    </Steps>
+
+    <Info>
+    If you're behind a corporate firewall, you may need to enable the proxy setting. If you're on a home network, try disabling it.
+    </Info>
+
+    ---
+
+    ### Authentication Failures
+
+    **Symptoms:** Sign-in doesn't work, or session expires frequently
+
+    **Solutions:**
+    1. Sign out and sign in again
+    2. Clear authentication cache: Settings → Account → Sign Out
+    3. Check that browser can complete OAuth flow
+    4. Verify account status at [verdent.ai/account](https://verdent.ai/account)
+
+    ---
+
+    ### Requests Fail Behind Corporate Firewall
+
+    **Symptoms:** Works on home network but not at work
+
+    **Solutions:**
+    1. Contact IT to whitelist Verdent API endpoints
+    2. Configure proxy settings if required
+    3. Check if SSL inspection is blocking connections
+    4. Try using a VPN if permitted
+
+    ---
+
+    ### Free Trial Credits Not Received
+
+    **Error:** Free trial credits were not received or free trial access denied
+
+    **Reason:** Terms of service violation detected during registration
+
+    **Resolution:** Contact support@verdent.ai for assistance with your free trial access. The support team will review your account and help resolve the issue.
+
+    ---
+
+    ### Registration Failed
+
+    **Error:** Account registration was rejected or restricted
+
+    **Reason:** The registration violated Verdent's terms of service, resulting in access restriction
+
+    **Resolution:** Contact support@verdent.ai for assistance. The support team can review your registration and provide guidance on resolving the issue.
+
+    ---
+
+    ### Missing Models (Claude, GPT, Gemini)
+
+    **Issue:** Cannot find Claude, GPT, or Gemini models in model selection
+
+    **Reason:** Location-based restrictions from model providers
+
+    **Explanation:** Some AI model providers have regional restrictions that prevent certain models from being available in specific geographic locations. When this happens:
+    - Restricted models will not appear in your model selection menu
+    - You can still use all other available models without interruption
+    - No impact on your subscription or credits
+
+    **Check Available Models:** Visit https://www.verdent.ai/regions to see which models are available in your region
+
+    <Note>
+    Regional restrictions are set by the AI model providers (Anthropic, OpenAI, Google), not by Verdent. Verdent cannot override these restrictions.
+    </Note>
+  </Tab>
+
+  <Tab title="Performance">
+    ### Performance Issues
+
+    **Symptoms:**
+    - Slow response times
+    - High memory usage
+    - Tool execution timeouts
+
+    **Common causes & fixes:**
+
+    | Issue | Cause | Solution |
+    |-------|-------|----------|
+    | Slow responses | Large context | Start new task to clear context |
+    | High memory | Multiple parallel agents | Reduce to 2-3 concurrent agents |
+    | Timeouts | Network latency | Check connection, retry request |
+    | System slow | Too many workspaces | Close unused workspaces |
+
+    <Tip>
+    Use Claude Haiku 4.5 for routine tasks to reduce resource consumption.
+    </Tip>
+  </Tab>
+
+  <Tab title="Credits & Billing">
+    ### Credit Limit Reached
+
+    **Symptoms:** Operations fail with quota error
+
+    **Solutions:**
+    1. Check balance in User Center
+    2. Switch to Claude Haiku 4.5 to conserve credits
+    3. Wait for monthly refresh
+    4. Purchase one-time top-up
+    5. Reduce parallel agent usage
+
+    ---
+
+    ### Credits Depleting Quickly
+
+    **Causes:**
+    - Multiple parallel agents
+    - Using extended context models (Claude Sonnet 4.5 1M)
+    - Large context in requests
+
+    **Solutions:**
+    1. Use Claude Haiku 4.5 for routine tasks
+    2. Limit parallel agents (2-3 recommended)
+    3. Start fresh tasks to reduce context size
+  </Tab>
+
+  <Tab title="Image Errors">
+    ### Image-Related Error Messages
+
+    **Quick reference for common image processing errors:**
+
+    | Error Message | Cause | Solution |
+    |--------------|-------|----------|
+    | **Unsupported Image Type** | Only JPEG, PNG, GIF, or WebP images are supported | Roll back and change the image type to a supported format |
+    | **Image Dimensions Too Large** | Image width or height cannot exceed 8000 pixels | Roll back and adjust image dimensions to 8000×8000 or smaller |
+    | **Input Too Long** | The input exceeds the model's maximum allowed length | Simplify your input or reduce image size |
+    | **File Too Large** | Image size cannot exceed 5 MB | Roll back and send a compressed image (max 5 MB) |
+    | **Unreadable Image** | Could not process the image, file may be corrupted or unsupported format | Roll back and replace the image with a valid file |
+  </Tab>
+</Tabs>
+
+---
+
+## Desktop-Specific Issues
+
+<Tabs>
+  <Tab title="Workspace Issues">
+    ### Cannot create new workspace
+
+    **Causes:**
+    - Uncommitted changes in current workspace
+    - Insufficient disk space
+
+    **Solutions:**
+    1. Commit or discard changes in Source Control panel before creating new workspace
+    2. Delete unused workspaces to free disk space
+    3. Restart Verdent and try again
+
+    ---
+
+    ### Workspace appears stuck or unresponsive
+
+    **Solutions:**
+    1. Switch to a different workspace using **All Workspaces**
+    2. Delete the stuck workspace from the Workspace Bar
+    3. Restart Verdent
+
+    ---
+
+    ### Workspace not appearing in list
+
+    **Solutions:**
+    1. Click **All Workspaces** to refresh the workspace list
+    2. Check if the workspace was deleted
+    3. Restart Verdent to reload workspace state
+  </Tab>
+
+  <Tab title="Workspace Isolation">
+    ### Changes appearing in wrong workspace
+
+    **Causes:**
+    - Working in wrong workspace
+    - Switched workspaces without noticing
+
+    **Solutions:**
+    1. Check current workspace name in the Workspace Bar
+    2. Use **All Workspaces** to switch to the correct workspace
+    3. Review changes to confirm which workspace has your work
+
+    ---
+
+    ### Rebase conflicts when combining workspaces
+
+    **When rebasing to master shows conflicts:**
+    1. Verdent will display the conflicting files
+    2. Review and resolve conflicts in the editor
+    3. Use **Rebase to Master** again after resolving
+
+    **Prevention:**
+    - Assign different files/directories to each parallel agent
+    - Use **Sync with Master** regularly to reduce drift
+    - Use Plan Mode to review changes before rebase
+
+    ---
+
+    ### Dependencies not installed in new workspace
+
+    **Cause:** Each workspace has its own dependencies
+
+    **Solution:** Install dependencies when creating a new workspace:
+    - Verdent may prompt to run dependency installation
+    - Or manually run install commands in the terminal
+  </Tab>
+
+  <Tab title="Project Issues">
+    ### Project won't open
+
+    **Causes:**
+    - Directory doesn't exist or was moved
+    - Permissions issues
+    - Not a git repository
+
+    **Solutions:**
+    1. Use **Current Project → New Project** to browse and select the directory
+    2. Check that the project directory exists and is accessible
+    3. For non-git projects, Verdent will initialize git automatically
+
+    ---
+
+    ### Recent projects missing
+
+    **Causes:**
+    - Project moved or deleted
+    - Signed in with different account
+
+    **Solutions:**
+    1. Use **Current Project → New Project** to manually browse
+    2. Check if project directory still exists
+    3. Verify signed in with correct account in User Center
+  </Tab>
+
+  <Tab title="Parallel Agents">
+    ### Parallel agent not starting
+
+    **Causes:**
+    - Maximum agent limit reached
+    - Insufficient credits
+    - Resource constraints
+
+    **Solutions:**
+    1. Check current agent count in sidebar
+    2. Close unused agents to free slots
+    3. Verify credit balance
+    4. Restart application if agents appear stuck
+
+    ---
+
+    ### Agent coordination issues
+
+    **Symptoms:** Agents working on same files, conflicts
+
+    **Prevention:**
+    1. Use Plan Mode to coordinate work assignments
+    2. Assign different files/directories to each agent
+    3. Review agent tasks before starting parallel work
+    4. Use workspace isolation for complex parallel tasks
+  </Tab>
+</Tabs>
+
+---
+
+## Tool-Specific Issues
+
+<Tabs>
+  <Tab title="file_edit Failures">
+    ### file_edit Failures
+
+    **Error:** "Failed to find exact match"
+
+    **Causes:**
+    - Text changed since last file_read
+    - Whitespace differences (tabs vs spaces)
+    - String not unique in file
+
+    **Solutions:**
+    ```bash
+    # 1. Read file again to get current state
+    file_read("file.js")
+
+    # 2. Use larger context string for uniqueness
+    file_edit("file.js",
+      old_string="function foo() {\n  return 42;\n}",
+      new_string="...")
+
+    # 3. For multiple identical strings, use replace_all
+    file_edit("file.js", old_string="TODO", new_string="DONE", replace_all=true)
+    ```
+
+    <Warning>
+    Always read the file immediately before editing to ensure you have the current state.
+    </Warning>
+  </Tab>
+
+  <Tab title="bash Failures">
+    ### bash Command Failures
+
+    **Error:** Command timeout or execution failure
+
+    **Maximum Timeout:** 120 seconds (2 minutes, hard limit)
+
+    **Solution:** Break long commands into smaller operations:
+    ```bash
+    # Instead of one long command, break into steps
+    bash("step1")  # Completes in < 2min
+    bash("step2")  # Completes in < 2min
+    ```
+
+    **Command not found:**
+    - Check if command exists: `bash("which command-name")`
+    - Ensure correct path or activate environment first
+    - Use full paths for executables
+
+    **Permission errors:**
+    - Commands execute with user permissions
+    - Check file/directory permissions
+  </Tab>
+
+  <Tab title="Search Issues">
+    ### Search Returning No Results
+
+    **Issue:** grep_file or glob not finding expected files
+
+    **Check pattern syntax:**
+    ```bash
+    # Wrong
+    grep_file("*.ts")  # Missing ** for recursive
+
+    # Correct
+    grep_file("**/*.ts")  # Recursive search
+    ```
+
+    **Check exclusions:**
+    ```bash
+    # Ensure not accidentally excluding target files
+    glob("**/*.js", exclude=["**/dist/**", "**/node_modules/**"])
+    ```
+
+    **Case sensitivity:**
+    ```bash
+    # Use case-insensitive search if needed
+    grep_content("pattern", case_insensitive=true)
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Configuration Issues
+
+<Tabs>
+  <Tab title="AGENTS.md Rules">
+    ### AGENTS.md Not Applied
+
+    **Problem:** Project rules not affecting Verdent behavior
+
+    **Diagnostic:**
+    1. **Location:** File must be in project root directory
+    2. **Syntax:** Valid Markdown (check for syntax errors)
+    3. **Specificity:** Rules must be directive: "Always use X" not "Try to use X"
+    4. **Testing:** Start new conversation to test fresh application
+
+    **Precedence check:**
+    ```markdown
+    # In AGENTS.md (highest priority)
+    - Use 4-space indentation
+
+    # In user_rules.md (lower priority)
+    - Use 2-space indentation
+
+    # Result: 4-space indentation (AGENTS.md wins)
+    ```
+  </Tab>
+
+  <Tab title="MCP Connection">
+    ### MCP Connection Failures
+
+    **Error:** Cannot connect to MCP server
+
+    **Diagnostic steps:**
+    1. **Check mcp.json:** Valid JSON syntax in `~/.verdent/mcp.json`
+    2. **Server running:** Ensure MCP server process is active
+    3. **Network:** Verify connectivity to server endpoint
+    4. **Authentication:** Confirm credentials are correct
+    5. **Logs:** Check MCP server logs for error details
+
+    **Common fixes:**
+    - Restart MCP server
+    - Verify connection string format
+    - Check firewall rules allowing MCP traffic
+    - Validate API keys or tokens
+  </Tab>
+
+  <Tab title="Subagent Issues">
+    ### Subagent Not Invoking
+
+    **Problem:** Custom subagent doesn't activate automatically
+
+    **Checklist:**
+    - [ ] File location: `~/.verdent/subagents/[name].md`
+    - [ ] Valid YAML frontmatter with `name` and `description`
+    - [ ] Invocation policy matches usage (strict requires @-mention)
+    - [ ] "When to use" guidelines match request pattern
+    - [ ] No syntax errors in markdown file
+
+    **Test manually:**
+    ```
+    @subagent-name perform task
+    ```
+
+    <Tip>
+    Use explicit @-mention to verify the subagent works before troubleshooting automatic invocation.
+    </Tip>
+  </Tab>
+
+  <Tab title="Built-in Subagents">
+    ### Built-in Subagent Behavior
+
+    **Issue:** @Explorer, @Verifier, or @Code-reviewer not behaving as expected
+
+    **Common causes:**
+    - Request does not match subagent's specialization
+    - Subagent context full (rare)
+    - Main conversation context affecting routing
+
+    **Solution:**
+    - Use explicit @-mention to force specific subagent
+    - Rephrase request to match subagent expertise
+    - Start fresh conversation if context is an issue
+  </Tab>
+</Tabs>
+
+---
+
+## Known Issues & Workarounds
+
+<Tabs>
+  <Tab title="Binary Files">
+    ### Binary File Limitations
+
+    **Issue:** Cannot edit images, PDFs, compiled binaries
+
+    **Workaround:**
+    ```bash
+    # Use bash to call external tools
+    bash("convert input.png -resize 50% output.png")
+    bash("pdftotext document.pdf output.txt")
+    ```
+
+    <Info>
+    Binary file modifications require external tools invoked via bash commands.
+    </Info>
+  </Tab>
+
+  <Tab title="Large Files">
+    ### Large File Handling
+
+    **Issue:** Files over 10,000 lines cause context issues
+
+    **Workaround:**
+    ```bash
+    # Always use line ranges for large files
+    file_read("large.log", start_line=1000, max_lines=100)
+
+    # Search first to find relevant sections
+    grep_content("ERROR", glob="large.log")
+    ```
+
+    <Tip>
+    Search with grep_content first to locate relevant line numbers, then read only those specific ranges.
+    </Tip>
+  </Tab>
+
+  <Tab title="Platform Differences">
+    ### Cross-Platform Command Differences
+
+    **Issue:** bash commands differ between Windows and Unix
+
+    **Workaround:**
+    ```bash
+    # Use cross-platform tools when possible
+    bash("npm run build")  # Works everywhere
+
+    # Or conditional execution
+    bash("if [[ \"$OSTYPE\" == \"linux-gnu\"* ]]; then ...; fi")
+    ```
+
+    **Best practice:** Use npm scripts for cross-platform compatibility.
+  </Tab>
+</Tabs>
+
+---
+
+## Getting Additional Help
+
+### Support Channels
+
+**For specific issues not covered here:**
+- **Email:** support@verdent.ai
+- **Discord:** [Join the Verdent community](https://discord.com/invite/NGjXEZcbJq) for real-time support
+- **In-app:** Help → Report Issue
+
+**When reporting issues, include:**
+1. Verdent version (Help → About)
+2. Operating system and version
+3. Error messages (exact text)
+4. Steps to reproduce
+5. Workspace state (if relevant)
+6. Expected vs actual behavior
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Error Recovery" icon="life-ring" href="/verdent/error-handling/recovery">
+    Detailed recovery procedures
+  </Card>
+  <Card title="FAQs" icon="circle-question" href="/verdent/help-support/faqs">
+    Frequently asked questions
+  </Card>
+</CardGroup>

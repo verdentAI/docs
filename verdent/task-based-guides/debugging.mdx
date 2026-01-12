@@ -1,0 +1,353 @@
+---
+title: Debugging
+description: "Debug code with Verdent's AI-powered debugging workflows"
+---
+
+Use Verdent to identify and fix bugs through natural language descriptions. Verdent analyzes your code, identifies root causes, and implements fixes automatically.
+
+## What You'll Learn
+
+- Debug issues by describing them to Verdent
+- Leverage the @Verifier subagent for quick checks
+- Apply systematic debugging workflows
+- Use Desktop features for parallel debugging
+
+---
+
+## Debugging with Verdent
+
+### Basic Debugging Workflow
+
+<Steps>
+  <Step title="Describe the Bug">
+    In the input box, describe the issue and symptoms you're seeing
+  </Step>
+  <Step title="Verdent Investigates">
+    Verdent reads relevant files and analyzes the code to find the root cause
+  </Step>
+  <Step title="Review the Fix">
+    Verdent proposes and implements the fix, then shows the changes
+  </Step>
+  <Step title="Verify">
+    Verdent runs tests to confirm the fix works
+  </Step>
+</Steps>
+
+### Terminal (Optional)
+
+For manual debugging or when you need direct command access:
+
+- Press `Ctrl+J` or `` Ctrl+` `` to toggle the terminal panel
+- Terminal opens in the current workspace's root directory
+
+<Accordion title="Common terminal debugging commands">
+```bash
+# Run tests
+npm test
+pytest
+go test ./...
+
+# Run tests with verbose output
+npm test -- --verbose
+pytest -v
+
+# Run specific test file
+npm test -- src/auth.test.ts
+pytest tests/test_auth.py
+
+# Run with coverage
+npm test -- --coverage
+pytest --cov=src
+```
+</Accordion>
+
+---
+
+## Using @Verifier
+
+The `@Verifier` subagent specializes in rapid validation and verification tasks.
+
+### When to Use @Verifier
+
+| Task | Example |
+|------|---------|
+| **Quick checks** | `@Verifier check if auth middleware handles expired tokens` |
+| **Validation** | `@Verifier validate the error handling in @userService.ts` |
+| **Syntax verification** | `@Verifier check this SQL query for syntax errors` |
+| **Pre-commit checks** | `@Verifier verify the changes are ready for commit` |
+
+### @Verifier Examples
+
+**Check specific functionality:**
+```
+@Verifier verify that the login function properly handles:
+- Invalid credentials
+- Locked accounts
+- Missing required fields
+```
+
+**Validate after changes:**
+```
+@Verifier run the tests for the auth module and summarize any failures
+```
+
+**Quick sanity check:**
+```
+@Verifier is the database connection being properly closed in @dbClient.ts?
+```
+
+### @Verifier vs Main Agent
+
+| Aspect | @Verifier | Main Agent |
+|--------|-----------|------------|
+| **Context** | Isolated, focused | Full conversation context |
+| **Speed** | Faster for quick checks | Better for complex analysis |
+| **Best for** | Validation, verification | Investigation, fixing |
+| **Cost** | Separate context (efficient) | Main context usage |
+
+<Tip>
+@Verifier can be configured to use a different model in Settings. Use a smaller, cheaper model for simple verification tasks to reduce credit usage.
+</Tip>
+
+---
+
+## Debugging Workflows
+
+<Tabs>
+  <Tab title="Error Messages">
+    Investigate error messages systematically:
+
+    **Prompt template:**
+    ```
+    I'm seeing this error: [paste error message]
+    It occurs when [describe when/how it happens]
+
+    Help me understand what's causing it and how to fix it.
+    ```
+
+    **Verdent will:**
+    1. Analyze the error message
+    2. Search for relevant code
+    3. Identify the root cause
+    4. Propose a fix
+  </Tab>
+  <Tab title="Test Failures">
+    Debug failing tests:
+
+    **Prompt template:**
+    ```
+    The test @tests/auth.test.ts is failing on line 45.
+    The test expects [expected behavior] but gets [actual behavior].
+    ```
+
+    **Verdent will:**
+    1. Read the test file
+    2. Analyze what's being tested
+    3. Check the implementation
+    4. Identify the discrepancy
+    5. Propose fix (to test or implementation)
+  </Tab>
+  <Tab title="Performance">
+    Profile and optimize slow code:
+
+    **Prompt template:**
+    ```
+    The @processOrders function is running slowly.
+    Profile and suggest optimizations.
+    ```
+
+    **Verdent may:**
+    - Add timing logs
+    - Run profiling commands
+    - Identify bottlenecks
+    - Suggest optimizations
+  </Tab>
+</Tabs>
+
+---
+
+## Desktop Debugging Features
+
+### Parallel Debugging
+
+Debug multiple issues simultaneously in separate workspaces:
+
+<Tabs>
+  <Tab title="Multiple Bugs">
+    Debug unrelated bugs in parallel without interference:
+
+    <Steps>
+      <Step title="Create Debug Workspace">
+        Click **New Workspace** in the Top Bar for your first bug
+      </Step>
+      <Step title="Name the Workspace">
+        Give it a descriptive name (e.g., "debug-auth-bug")
+      </Step>
+      <Step title="Describe the Bug">
+        In the input box, describe the bug and ask Verdent to investigate
+      </Step>
+      <Step title="Create Additional Workspaces">
+        Repeat for each additional bug you want to debug
+      </Step>
+      <Step title="Compare Results">
+        Switch between workspaces using **All Workspaces** to compare behavior
+      </Step>
+      <Step title="Apply Fixes">
+        When a fix is ready, click **Workspace Actions → Rebase to master**
+      </Step>
+    </Steps>
+
+    **Benefit:** Each debug effort is isolated with no interference between sessions.
+  </Tab>
+  <Tab title="Compare Against Stable">
+    Debug while keeping a stable reference:
+
+    <Steps>
+      <Step title="Keep Base Workspace Stable">
+        Your base workspace stays on master with working code
+      </Step>
+      <Step title="Create Debug Workspace">
+        Click **New Workspace** for your debug investigation
+      </Step>
+      <Step title="Investigate the Bug">
+        Let Verdent add logging, make changes, and test fixes
+      </Step>
+      <Step title="Compare Behavior">
+        Run tests in both workspaces to compare results
+      </Step>
+      <Step title="Apply or Discard">
+        Rebase the fix if successful, or delete the workspace to discard
+      </Step>
+    </Steps>
+
+    **Benefit:** Always have stable code to compare against during investigation.
+  </Tab>
+</Tabs>
+
+### Reviewing Bug Fixes
+
+After Verdent makes a fix:
+
+1. Click **Task Changes** in the middle panel to review changes
+2. Verify the fix addresses the root cause
+3. Check for unintended side effects
+4. Request modifications in the input box if needed
+
+### Plan Mode for Complex Bugs
+
+For difficult-to-understand bugs:
+
+<Steps>
+  <Step title="Switch to Plan Mode">
+    Press `Shift+Tab` or `Ctrl+.` to switch to Plan Mode
+  </Step>
+  <Step title="Describe the Bug">
+    In the input box, describe the bug in detail:
+    ```
+    I have a race condition in the order processing system.
+    Sometimes orders are processed twice.
+    Help me understand what's happening and plan a fix.
+    ```
+  </Step>
+  <Step title="Review Analysis">
+    Verdent analyzes code and creates an investigation plan
+  </Step>
+  <Step title="Execute Investigation">
+    Switch to **Agent Mode** to investigate systematically
+  </Step>
+</Steps>
+
+---
+
+## Debugging Prompts
+
+<Tabs>
+  <Tab title="Bug Report">
+    Structured format for reporting bugs:
+
+    ```
+    Bug: [Brief description]
+
+    Steps to reproduce:
+    1. [Step 1]
+    2. [Step 2]
+    3. [Step 3]
+
+    Expected: [What should happen]
+    Actual: [What actually happens]
+
+    Relevant files: @file1.ts @file2.ts
+    ```
+  </Tab>
+  <Tab title="Investigation">
+    Request deep investigation of an issue:
+
+    ```
+    Help me debug why @userService.createUser fails silently when
+    the database connection is lost. I need to understand:
+    1. Where the error is being swallowed
+    2. Why no error is logged
+    3. How to add proper error handling
+    ```
+  </Tab>
+  <Tab title="Regression Tests">
+    Generate tests after fixing a bug:
+
+    ```
+    The bug in @paymentProcessor.ts was fixed.
+    Generate regression tests to prevent this from happening again.
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## FAQs
+
+<Accordion title="How do I debug intermittent bugs?">
+1. Add logging to capture state when bug occurs
+2. Request Verdent to add strategic log statements
+3. Reproduce multiple times to find pattern
+4. Use `@Verifier` to validate fixes don't introduce regressions
+</Accordion>
+
+<Accordion title="Should I use a separate workspace for debugging?">
+**Yes, for:**
+- Bugs that might require significant changes
+- When you want to compare against master
+- Long debugging sessions
+
+**No, for:**
+- Quick fixes
+- Obvious bugs with simple solutions
+- When already in a feature workspace
+</Accordion>
+
+<Accordion title="How do I debug production issues safely?">
+1. Create a workspace for the debug effort
+2. Add logging/diagnostics without deployment
+3. Test fixes thoroughly
+4. Review changes before rebasing
+5. Deploy after full test verification
+</Accordion>
+
+<Accordion title="When should I use @Verifier instead of the main agent?">
+Use @Verifier for quick validation checks, syntax verification, and pre-commit checks. Use the main agent for complex investigations requiring full context.
+</Accordion>
+
+<Accordion title="Can Verdent debug code it didn't write?">
+Yes. Describe the bug and use @-mentions to point Verdent to relevant files. Verdent analyzes the code regardless of who wrote it.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Subagent Management" icon="users" href="/verdent/agents-rules/subagent-management">
+    Learn about @Verifier and other subagents
+  </Card>
+  <Card title="Error Recovery" icon="life-ring" href="/verdent/error-handling/recovery">
+    Handling errors and recovery strategies
+  </Card>
+</CardGroup>

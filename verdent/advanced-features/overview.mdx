@@ -1,0 +1,148 @@
+---
+title: Advanced Features
+description: "Complex features, multi-agent coordination, and extensibility in Verdent"
+---
+
+## What You'll Learn
+
+This section covers Verdent's power-user capabilities including subagent management, rule systems, tool integration, parallel execution, and advanced extensibility options.
+
+---
+
+## Complex Feature Explanations
+
+Verdent provides sophisticated features that enable advanced development workflows beyond basic code generation.
+
+### Subagent System
+
+**Specialized AI Agents:**
+Verdent includes built-in subagents: `@Verifier` for code verification and quick checks, and `@Code-reviewer` for code quality assessment. Subagents operate with isolated context windows and custom system prompts, specializing in specific tasks.
+
+**Manual Invocation:**
+Use @-mentions to invoke subagents (e.g., `@Verifier check this function` or `@Code-reviewer review this authentication flow`). This delegation preserves main context while handling specialized operations efficiently.
+
+[Learn more about subagent management](/verdent/agents-rules/subagent-management)
+
+### Rule Systems
+
+**Behavior Customization:**
+Rule files guide Verdent's behavior, output formatting, and decision-making through plain Markdown documents. Two rule types control different scopes:
+
+- **user_rules.md** - Global personal preferences across all projects (Settings → User Rules)
+- **AGENTS.md** - Project-specific team standards (version controlled)
+
+**Rule Precedence:**
+When conflicts occur, project rules (`AGENTS.md`) override user rules, ensuring team consistency while preserving personal preferences for solo projects.
+
+[Learn more about rule systems](/verdent/agents-rules/rule-systems)
+
+### Tool System & MCP
+
+**Built-in Tools:**
+Verdent provides comprehensive tools for file operations, search (`glob`/`grep`), command execution (`bash`), web access, and agent delegation. Tools enable all code manipulation, navigation, and external interaction.
+
+**Model Context Protocol (MCP):**
+MCP extends Verdent's capabilities by connecting to external tools, data sources, and services. Configure MCP servers through Settings → MCP Servers to integrate project-specific APIs and custom functionality.
+
+[View tool reference](/verdent/advanced-features/tool-reference)
+[Learn about MCP integration](/verdent/core-features/mcp-integration)
+
+---
+
+## Multi-Agent Coordination
+
+Verdent's multi-subagent architecture enables parallel task execution with automatic routing and coordination.
+
+**Main Agent (Orchestrator):**
+The primary agent analyzes requests, breaks down complex tasks, and delegates specialized work to subagents while maintaining conversation context and consolidating results.
+
+**Parallel Execution:**
+Multiple agents can run concurrently in separate workspaces. Each workspace has its own isolated environment, enabling true parallel development without conflicts.
+
+**Context Isolation:**
+Each agent operates with its own context window. This isolation prevents context exhaustion during multi-step operations and ensures parallel work doesn't interfere.
+
+**Subagent Usage:**
+Built-in subagents can be invoked for specialized tasks:
+- Validation checks → `@Verifier`
+- Code quality review → `@Code-reviewer`
+
+---
+
+## Desktop-Specific Advanced Features
+
+### Parallel Agents in Workspaces
+
+Verdent uniquely supports running multiple AI agents simultaneously across git workspaces (worktrees):
+
+| Feature | Capability |
+|---------|------------|
+| **Independent Agents** | Each workspace can have its own active agent |
+| **Isolated Contexts** | Agents don't share context between workspaces |
+| **Parallel Execution** | Work on multiple features simultaneously |
+| **Coordinated Rebasing** | Review and rebase parallel work to master |
+
+### Advanced Context Management
+
+Desktop-specific context optimization:
+
+<Tabs>
+  <Tab title="Workspace Strategy">
+    - Use separate workspaces for independent features
+    - Each workspace maintains isolated context
+    - Rebase to master when features are complete
+    - Clean up workspaces to free resources
+  </Tab>
+  <Tab title="Subagent Delegation">
+    - Use `@Verifier` for quick validation and code checks
+    - Use `@Code-reviewer` for security and quality review
+    - Reserve main context for active development
+    - Subagent results consume minimal main context
+  </Tab>
+  <Tab title="Task Management">
+    - Start fresh tasks for new features
+    - Complete task → review → rebase → new task
+    - Clear stale context by starting new tasks
+  </Tab>
+</Tabs>
+
+---
+
+## Custom Workflow Creation
+
+Advanced users can customize Verdent's behavior to match team processes and project requirements.
+
+**Rule-Based Customization:**
+Define coding standards, testing requirements, and output preferences through rule files:
+- Enforce team conventions (indentation, naming, patterns)
+- Specify documentation styles and comment detail levels
+- Configure user preferences globally or per-project
+
+**Extensibility Through MCP:**
+Integrate external tools and services:
+- Database query tools
+- Cloud service APIs (AWS, Azure, GCP)
+- Project management integrations (Jira, Linear)
+- CI/CD pipeline connections
+
+[Learn about subagents](/verdent/agents-rules/subagent-management)
+[Explore extensibility options](/verdent/advanced-features/extensibility)
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Tool Reference" icon="wrench" href="/verdent/advanced-features/tool-reference">
+    Complete tool capabilities guide
+  </Card>
+  <Card title="Extensibility" icon="puzzle-piece" href="/verdent/advanced-features/extensibility">
+    Rules, permissions, and MCP integration
+  </Card>
+  <Card title="Parallel Execution" icon="layer-group" href="/verdent/core-features/parallel-execution">
+    Multi-agent parallel execution
+  </Card>
+  <Card title="Workspace Isolation" icon="code-branch" href="/verdent/core-features/workspace-isolation">
+    Git worktree architecture
+  </Card>
+</CardGroup>

@@ -1,0 +1,234 @@
+---
+title: Prompt Engineering
+description: Best practices for writing effective prompts
+---
+
+Effective prompts are the foundation of successful AI-assisted development. Clear, specific requests with appropriate context enable Verdent to deliver accurate, relevant results.
+
+### What You'll Learn
+
+- Best practices for writing effective prompts
+- How to provide context and avoid common mistakes
+- Advanced techniques like @-mentions and subagent delegation
+- Examples of well-structured prompts
+
+---
+
+## What Makes an Effective Prompt
+
+Effective prompts are clear, specific, and provide necessary context for Verdent to understand your intent and deliver accurate results.
+
+**Key Principles:**
+- **Be Specific** - State exactly what you need, not vague requests
+- **Include Details** - Provide technical specs when you have preferences
+- **Specify Scope** - Clarify which files/components are involved
+- **Provide Context** - Help Verdent understand your architecture
+- **State Outcomes** - Describe what success looks like
+
+**Example transformations:**
+
+| Bad | Good |
+|-----|------|
+| Fix the code | Add input validation to the email field in ContactForm.js to reject invalid email formats |
+| Add authentication | Add JWT authentication using the same middleware pattern as auth.js, store tokens in httpOnly cookies |
+
+---
+
+## Common Prompting Mistakes
+
+<Tabs>
+  <Tab title="Being Too Vague">
+    ```
+    Make the app better
+    ```
+
+    **Problem:** Verdent doesn't know what improvements you want.
+
+    **Solution:** Specify exactly what needs improvement.
+  </Tab>
+
+  <Tab title="Omitting Context">
+    ```
+    Add authentication
+    ```
+
+    **Problem:** Verdent might implement JWT when you use OAuth, or vice versa.
+
+    **Solution:** Specify implementation approach and existing patterns.
+  </Tab>
+
+  <Tab title="Too Much at Once">
+    ```
+    Build the entire user management system with authentication, authorization, profiles, settings, and admin dashboard
+    ```
+
+    **Problem:** Complex multi-system requests are harder to execute correctly.
+
+    **Solution:** Break into smaller tasks - start with authentication, then authorization, then profiles.
+  </Tab>
+
+  <Tab title="Missing Scope">
+    ```
+    Update the validation logic
+    ```
+
+    **Problem:** Unclear which files or validation to modify.
+
+    **Solution:** Specify scope: "Update validation in UserController.js to require strong passwords"
+  </Tab>
+</Tabs>
+
+<Tip>
+Press `Shift+Tab` or `Ctrl+.` to switch to Plan Mode for complex changes.
+</Tip>
+
+---
+
+## Well-Structured Prompt Examples
+
+<Tabs>
+  <Tab title="Feature Implementation">
+    ```
+    Create a POST /api/tasks endpoint that:
+    - Accepts task title (required), description (optional), and category_id (required)
+    - Validates that the category exists in the database
+    - Returns 400 if validation fails with descriptive error messages
+    - Saves the task to the database and returns the created task with 201 status
+    - Add this to the existing tasks router in routes/tasks.js
+    ```
+
+    **What makes this effective:**
+    - Clear requirements for inputs and validation
+    - Specific file locations for implementation
+    - Expected HTTP status codes and error handling
+  </Tab>
+
+  <Tab title="Bug Fix">
+    ```
+    Fix the race condition in payment processing at checkout. When multiple users submit payments simultaneously, some transactions fail with "duplicate order ID" errors. The issue appears to be in PaymentController.js around line 45. Implement proper locking or use UUID generation.
+    ```
+
+    **What makes this effective:**
+    - Clear problem description with symptoms
+    - Specific location of issue (file and line number)
+    - Suggested solution approaches
+  </Tab>
+
+  <Tab title="Refactoring">
+    ```
+    Refactor the authentication middleware in middleware/auth.js to use JWT tokens instead of session cookies:
+    - Replace session validation with JWT verification
+    - Store tokens in httpOnly cookies
+    - Maintain the existing user object structure that routes expect
+    - Don't change authorization rules
+    ```
+
+    **What makes this effective:**
+    - Clear goal (JWT instead of sessions)
+    - Specific file to refactor
+    - Explicit constraints (what should NOT change)
+  </Tab>
+
+  <Tab title="Testing">
+    ```
+    Write unit tests for the UserService class in services/UserService.js. Cover:
+    - User creation with valid and invalid data
+    - Email validation edge cases
+    - Password hashing verification
+    - Error handling for database failures
+    Use Jest and follow the testing patterns in existing service tests
+    ```
+
+    **What makes this effective:**
+    - Specific class/file to test
+    - Complete list of scenarios to cover
+    - Testing framework specified
+  </Tab>
+</Tabs>
+
+---
+
+## Advanced Prompting Techniques
+
+<Tabs>
+  <Tab title="@-Mentions">
+    Reference specific files or subagents:
+
+    ```
+    @auth.js @UserController.js Refactor authentication to use the same validation pattern
+    ```
+
+    **Benefits:**
+    - Ensures Verdent has exact context
+    - Prevents ambiguity in large codebases
+    - Essential when referencing patterns from one file to apply in another
+  </Tab>
+
+  <Tab title="Plan Mode">
+    Press `Shift+Tab` or `Ctrl+.` to switch to Plan Mode before large changes:
+
+    ```
+    Refactor the entire API layer to use TypeScript
+    ```
+
+    **Benefits:**
+    - Review approach before any files are modified
+    - Prevents costly mistakes in large refactorings
+    - Iterate on the plan before execution begins
+  </Tab>
+
+  <Tab title="Subagent Delegation">
+    Delegate specialized tasks to subagents:
+
+    ```
+    @Code-reviewer Review the security vulnerabilities in authentication flow
+    @Verifier Validate the authentication logic in the middleware
+    ```
+
+    **Built-in Subagents:**
+    - `@Verifier` - Quick code checks and validation
+    - `@Code-reviewer` - Code quality assessment
+  </Tab>
+
+  <Tab title="Iterative Refinement">
+    Build on previous responses progressively:
+
+    ```
+    Initial: "Create a dashboard component"
+    Follow-up: "Add real-time data updates using WebSockets"
+    Follow-up: "Now add filtering and sorting capabilities"
+    ```
+
+    **Benefits:**
+    - Incremental development with testing at each step
+    - Reduces risk by validating each layer before adding complexity
+  </Tab>
+
+  <Tab title="Constraint-Based">
+    Specify what NOT to change:
+
+    ```
+    Add caching to the API endpoints, but:
+    - Don't modify the authentication middleware
+    - Keep the existing error handling unchanged
+    - Maintain backward compatibility with mobile clients
+    ```
+
+    **Benefits:**
+    - Prevents modifying critical systems
+    - Avoids costly rework from breaking stable functionality
+  </Tab>
+</Tabs>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Context Management" href="/verdent/best-practices/context" icon="layer-group">
+    Managing context windows and optimization strategies
+  </Card>
+  <Card title="Execution Modes" href="/verdent/execution-modes/overview" icon="toggle-on">
+    Understanding execution modes for different scenarios
+  </Card>
+</CardGroup>

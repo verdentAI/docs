@@ -1,0 +1,210 @@
+---
+title: Workspace Isolation
+description: "Git worktree-based isolation for parallel experimentation without conflicts"
+---
+
+Workspace Isolation is Verdent's system for ensuring parallel work never interferes with itself. Each workspace is a completely separate working environment, isolated at the filesystem level using git worktrees.
+
+---
+
+## What You'll Learn
+
+- How workspace isolation prevents conflicts
+- How git worktrees enable isolation
+- Difference between Base Workspace and Workspaces
+- Creating, switching, and managing workspaces
+- Best practices for workspace management
+
+---
+
+## What is Workspace Isolation?
+
+Workspace Isolation ensures that changes from one task never affect another. Try different approaches in parallel, compare results, and selectively rebase only the changes you want back into master.
+
+### How It Works
+
+| Layer | How It Works |
+|-------|--------------|
+| **Directory** | Each workspace is an isolated directory |
+| **Branch** | Each workspace has its own branch checkout |
+| **Files** | File changes in one workspace don't affect others |
+| **Staging** | Each workspace has its own staging area |
+
+### Benefits
+
+<CardGroup cols={2}>
+  <Card title="Zero Interference" icon="shield-halved">
+    Parallel agents can't conflict, physically impossible
+  </Card>
+  <Card title="Safe Experimentation" icon="flask">
+    Try risky changes without affecting stable code
+  </Card>
+  <Card title="Clear Comparison" icon="code-compare">
+    Use git diff to compare approaches across workspaces
+  </Card>
+  <Card title="Selective Rebasing" icon="code-merge">
+    Only rebase results you trust
+  </Card>
+</CardGroup>
+
+---
+
+## Base Workspace vs Workspaces
+
+### Base Workspace
+
+The Base workspace is your original repository checkout, serving as the default starting point.
+
+| Characteristic | Description |
+|----------------|-------------|
+| **Location** | Your original git clone or init location |
+| **Primary Branch** | Typically on master or development branch |
+| **Reference Point** | Source for comparing experimental work |
+
+**When to Use Base:**
+- Quick changes that don't need isolation
+- Reference point for comparing experimental work
+- When you want changes to go directly to master
+- Simple tasks where parallel execution isn't needed
+
+### Workspace
+
+A Workspace is an isolated working environment created using git worktrees, with its own independent branch checkout and file state.
+
+**When to Use a Workspace:**
+- Parallel feature development
+- Experimenting with risky changes
+- Working on multiple tasks simultaneously
+- When you want isolation before rebasing
+
+---
+
+## Creating and Managing Workspaces
+
+### Creating a New Workspace
+
+| Platform | Shortcut |
+|----------|----------|
+| **macOS** | `Cmd+Shift+N` |
+| **Windows** | `Ctrl+Shift+N` |
+
+**What Happens:**
+1. Verdent creates an isolated git worktree directory
+2. A new branch is created (or existing branch checked out)
+3. The workspace is fully isolated from other workspaces
+4. Workspace appears in **All Workspaces** in the top bar
+
+### Switching Between Workspaces
+
+| Action | macOS | Windows |
+|--------|-------|---------------|
+| **Next Workspace** | `Ctrl+Tab` | `Ctrl+Tab` |
+| **Previous Workspace** | `Ctrl+Shift+Tab` | `Ctrl+Shift+Tab` |
+| **Select Workspace** | Click **All Workspaces** in the top bar | Click **All Workspaces** in the top bar |
+
+**State Preservation:**
+- Verdent keeps all workspace states alive
+- Switch instantly without setup delay
+- Full context preserved when switching
+
+---
+
+## Rebasing Workspace Changes
+
+When you're ready to integrate workspace changes back to master:
+
+### Using Verdent UI
+
+<Steps>
+  <Step title="Complete Work">
+    Complete work in the workspace
+  </Step>
+  <Step title="Review Changes">
+    Click **Task Changes** in the middle panel to review all modifications
+  </Step>
+  <Step title="Rebase to Master">
+    Click **Workspace Actions → Rebase to master** in the Workspace Bar
+  </Step>
+  <Step title="Resolve Conflicts">
+    Resolve any conflicts if prompted
+  </Step>
+  <Step title="Verify">
+    Review changes before confirming
+  </Step>
+</Steps>
+
+### Keeping Workspaces Updated
+
+Use **Workspace Actions → Sync with master** to pull the latest changes from master into your workspace. This helps prevent large conflicts when rebasing.
+
+---
+
+## Best Practices
+
+### Naming Conventions
+
+| Practice | Example |
+|----------|---------|
+| Descriptive names | `feature-auth`, `bugfix-123`, `experiment-caching` |
+| Include ticket numbers | `JIRA-456-user-login` |
+| Keep names short | Avoid overly long names |
+
+### Workspace Maintenance
+
+| Practice | Why |
+|----------|-----|
+| **Delete rebased workspaces** | Free up disk space |
+| **Remove abandoned experiments** | Keep workspace list manageable |
+| **Keep workspace count reasonable** | System resources are finite |
+
+### Git Hygiene
+
+| Practice | Why |
+|----------|-----|
+| **Commit frequently** | Commit work in progress before switching |
+| **Small commits** | Smaller commits are easier to cherry-pick |
+| **Sync with master regularly** | Don't let workspaces diverge too far from master |
+| **Reduce conflict complexity** | Regular integration prevents large conflicts |
+
+---
+
+## FAQs
+
+<Accordion title="How much disk space does each workspace use?">
+Each workspace duplicates working files but shares the `.git` directory. Space usage roughly equals your project size per workspace. Large projects with many parallel workspaces will use significant disk space.
+</Accordion>
+
+<Accordion title="Can I delete a workspace?">
+Yes. Delete the workspace through Verdent. This removes the directory but preserves any committed work on the branch.
+</Accordion>
+
+<Accordion title="What happens to uncommitted changes if I delete a workspace?">
+Uncommitted changes are lost when a workspace is deleted. Always commit or stash changes before removing a workspace.
+</Accordion>
+
+<Accordion title="Can I convert a workspace to the base workspace?">
+No direct conversion, but you can rebase all changes from the workspace to master, then delete the workspace. The branch history is preserved.
+</Accordion>
+
+<Accordion title="Do worktrees work with all git hosting services?">
+Yes. Git worktrees are a standard git feature. They work with GitHub, GitLab, Bitbucket, and any other git hosting service.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Parallel Execution" icon="users" href="/verdent/core-features/parallel-execution">
+    Running multiple agents simultaneously
+  </Card>
+  <Card title="Git Installation" icon="code-branch" href="/verdent/getting-started/git-installation">
+    Installing Git for workspace features
+  </Card>
+  <Card title="Workspace Management Workflow" icon="folder-tree" href="/verdent/common-workflows/workspace-management">
+    Step-by-step workspace workflows
+  </Card>
+  <Card title="Version Control" icon="timeline" href="/verdent/task-based-guides/version-control">
+    Git operations in Verdent
+  </Card>
+</CardGroup>
