@@ -14,7 +14,7 @@ Verdent is available in two versions:
 
 Key features include running multiple AI agents in parallel, code review capabilities, DiffLens for explaining code changes with context, and full control over AI subagents.
 
-Learn more at [verdent.ai](https://verdent.ai)
+Learn more at [verdent.ai](https://verdent.ai?ots=verdentdoc)
 
 ## Contributing
 

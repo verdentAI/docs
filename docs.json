@@ -259,7 +259,7 @@
       "anchors": [
         {
           "anchor": "Website",
-          "href": "https://verdent.ai",
+          "href": "https://verdent.ai?ots=verdentdoc",
           "icon": "globe"
         },
         {
@@ -284,7 +284,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://verdent.ai/dashboard"
+      "href": "https://verdent.ai/dashboard?ots=verdentdoc"
     }
   },
   "contextual": {
