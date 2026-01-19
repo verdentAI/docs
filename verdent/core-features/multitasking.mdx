@@ -128,9 +128,16 @@ Understanding when to use multitasking vs parallel execution is key to effective
 
 ### Key Distinction
 
-**Multitasking = Multiple conversation threads, shared workspace**
+**Tasks = Parallelize "non-coding work"**
+- Solution discussion and comparison
+- Requirement clarification and problem breakdown
+- Technical research and risk assessment
+- Code reading and understanding
 
-**Parallel Execution = Multiple agents, isolated workspaces**
+**Workspaces = Parallelize "code-changing work"**
+- Multiple implementations running in parallel
+- Each workspace is fully isolated (own branch, commit history, file state)
+- Changes don't interfere; conflicts are visible and manageable
 
 ### Decision Guide
 

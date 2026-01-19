@@ -16,41 +16,44 @@ Effective context management ensures Verdent has the right information at the ri
 
 ## Understanding Context Windows
 
-Verdent's context window size depends on the model being used.
+Verdent's context window size depends on the model being used. Extended context (1M) is handled automatically when needed.
 
-<Tabs>
-  <Tab title="Standard (200K)">
-    Most models use standard 200K context windows:
-    - **Claude Sonnet 4.5** - Balanced for complex tasks
-    - **Claude Haiku** - Fast and efficient
-    - **GPT-5** - Reasoning tasks (Beta)
-    - **GPT-5-Codex** - Code generation (Beta)
+**Available Models:**
 
-    **Capacity:**
-    - ~200,000 tokens of total memory
-    - Sufficient for most development tasks
+| Provider  | Model                  | Context |
+| --------- | ---------------------- | ------- |
+| Anthropic | claude-opus-4.5        | 200K    |
+| Anthropic | claude-sonnet-4.5      | 200K    |
+| Anthropic | claude-haiku-4.5       | 200K    |
+| Google    | gemini-3-pro-preview   | 1M      |
+| Google    | gemini-3-flash-preview | 1M      |
+| OpenAI    | gpt-5                  | 272K    |
+| OpenAI    | gpt-5-codex (Beta)     | 272K    |
+| Zhipu AI  | GLM 4.7                | 200K    |
+| Moonshot  | kimi-k2-turbo          | 262K    |
 
-    **What's Included:**
-    - All messages in conversation
-    - File contents loaded into context
-    - Tool outputs and responses
-    - System prompts and instructions
-  </Tab>
+**What's Included in Context:**
+- All messages in conversation
+- File contents loaded into context
+- Tool outputs and responses
+- System prompts and instructions
 
-  <Tab title="Extended (1M)">
-    Claude Sonnet 4.5 1M offers extended context when input exceeds 200K tokens.
+---
 
-    **Capacity:**
-    - 1,000,000 tokens of total memory
-    - 5x larger than standard models
+## Viewing Context Usage
 
-    **When to Use:**
-    - Large codebases with 1000+ files
-    - Complex multi-file refactoring
-    - Long development sessions
-    - When you want to minimize context management overhead
-  </Tab>
-</Tabs>
+Monitor your current context window usage through the **Context Remaining** indicator in the middle panel. This shows how much context space remains for the current conversation.
+
+**Context Commands:**
+
+| Command | Description |
+|---------|-------------|
+| `/compact` | Compress conversation history to free up context space |
+| `/clear` | Clear conversation and start fresh |
+
+<Tip>
+Use `/compact` when context is running low but you want to continue the same task. Use `/clear` or start a new task when switching to unrelated work.
+</Tip>
 
 ---
 
@@ -59,7 +62,7 @@ Verdent's context window size depends on the model being used.
 Be strategic about file selection to optimize context usage.
 
 <Tip>
-Start with fewer files and add more only when needed—Verdent can always read additional files during the conversation.
+Start with fewer files and add more only when needed. Verdent can always read additional files during the conversation.
 </Tip>
 
 <Tabs>

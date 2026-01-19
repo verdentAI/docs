@@ -12,7 +12,7 @@ Complete reference for application commands, built-in tool syntax, and subagent 
 | Command | Location | Description |
 |---------|----------|-------------|
 | Open Project | Current Project → New Project | Open a new project |
-| Recent Projects | Current Project → Recent | Quick access to recent projects |
+| Recent Projects | Current Project → All Projects | Quick access to recent projects |
 
 ---
 
@@ -22,16 +22,17 @@ Complete reference for application commands, built-in tool syntax, and subagent 
 |---------|----------|-------------|
 | New Workspace | New Workspace button (top bar) | Create new workspace for parallel work |
 | Switch Workspace | All Workspaces (top bar) | Navigate between workspaces |
-| Rebase to Master | Workspace Actions dropdown | Apply workspace changes to master branch |
-| Sync with Master | Workspace Actions dropdown | Pull latest changes from master into workspace |
-| Delete Workspace | Workspace Bar | Remove completed workspace |
+| Rebase to main branch | Workspace Actions dropdown | Apply workspace changes to main branch |
+| Sync with main branch | Workspace Actions dropdown | Pull latest changes from main branch into workspace |
+| Delete Workspace and Branch | Workspace Bar | Remove workspace and its git branch |
+| Delete Workspace Only | Workspace Bar | Remove workspace but keep the git branch |
 
 ### Workspace Bar Controls
 
 | Control | Shortcut | Description |
 |---------|----------|-------------|
-| Open in VS Code | `Ctrl+E` / `Cmd+E` | Open workspace in VS Code |
-| Toggle Right Panel | `Ctrl+B` / `Cmd+B` | Show/hide Explorer and Source Control |
+| Open In | `Ctrl+E` / `Cmd+E` | Open workspace in editor (VS Code, Cursor, Windsurf, Antigravity), Finder/Explorer, or Terminal |
+| Toggle Sidebar | `Ctrl+B` / `Cmd+B` | Show/hide Explorer and Source Control |
 | Terminal Panel | `Ctrl+J` / `Cmd+J` | Toggle terminal panel |
 | Editor | `Ctrl+L` / `Cmd+L` | Focus the editor |
 
@@ -93,52 +94,13 @@ Access through the Switch Mode button in the input box, or use `Shift+Tab` / `Ct
 
 ---
 
-## Tool Commands
-
-### File Operations
-
-**Built-in Tools:**
-| Tool | Command Syntax | Purpose |
-|------|----------------|---------|
-| `file_read` | `file_read("path/to/file.js")` | Read file contents |
-| `file_read` (range) | `file_read("file.js", start_line=100, max_lines=50)` | Read specific line range |
-| `file_edit` | `file_edit("file.js", old_string="...", new_string="...")` | Replace exact text match |
-| `file_write` | `file_write("path/to/new-file.js", content="...")` | Create or overwrite file |
-
----
-
-### Search & Navigation
-
-| Tool | Command Syntax | Purpose |
-|------|----------------|---------|
-| `glob` | `glob("**/*.ts")` | Find files by pattern |
-| `glob` (filtered) | `glob("**/*.js", exclude=["**/node_modules/**"])` | Find files with exclusions |
-| `grep_file` | `grep_file("pattern", glob="**/*.ts")` | List files containing pattern |
-| `grep_content` | `grep_content("pattern", context_before=2, context_after=2)` | Search with context lines |
-| `list_dir` | `list_dir("path/to/dir", max_depth=2)` | Display directory structure |
-
----
-
-### Execution & Integration
-
-| Tool | Command Syntax | Purpose |
-|------|----------------|---------|
-| `bash` | `bash("npm test")` | Execute shell command |
-| `bash` (timeout) | `bash("long-task", timeout=600000)` | Command with custom timeout |
-| `spawn_subagent` | `@Verifier check validation logic` | Delegate to specialized agent |
-| `todo_update` | `todo_update([{task: "...", status: "pending"}])` | Manage task list |
-| `web_search` | `web_search("query", max_results=5)` | Search internet |
-| `web_fetch` | `web_fetch("https://example.com")` | Fetch web page content |
-
----
-
 ## Subagent Commands
 
 ### Built-in Subagent
 
 | Subagent | Invocation | Purpose |
 |----------|------------|---------|
-| **@Verifier** | `@Verifier check if tests pass` | Quick validation and verification |
+| **@verifier** | `@verifier check if tests pass` | Quick validation and verification |
 
 ---
 

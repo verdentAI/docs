@@ -8,7 +8,8 @@ Subagents are specialized AI agents that operate with their own custom system pr
 ### What You'll Learn
 
 - Understanding default subagents
-- When to use each subagent
+- Creating custom subagents
+- Managing subagent configurations
 - Manual invocation with @-mentions
 
 ---
@@ -17,54 +18,67 @@ Subagents are specialized AI agents that operate with their own custom system pr
 
 - **Isolated Context:** Each subagent maintains its own separate context window
 - **Custom System Prompts:** Every subagent has a dedicated system prompt defining its behavior
-- **Manual Invocation:** Users can explicitly reference subagents using @-mentions (`@Verifier`, `@Code-reviewer`)
+- **Manual Invocation:** Users can explicitly reference subagents using @-mentions (e.g., `@verifier`)
 
 ---
 
 ## Default Subagents
 
-Verdent includes two built-in subagents that are pre-configured and immediately available.
+Verdent includes a built-in subagent that is pre-configured and immediately available.
 
-<Tabs>
-  <Tab title="@Verifier">
-    **Specialization:** Quick code checks and validation
+### @verifier
 
-    **Capabilities:**
-    - Validates code logic
-    - Checks syntax correctness
-    - Verifies implementation against requirements
+**Specialization:** Quick code checks and validation
 
-    **Usage:**
-    ```
-    @Verifier check this authentication logic
-    ```
+**Capabilities:**
+- Validates code logic
+- Checks syntax correctness
+- Verifies implementation against requirements
 
-    **Best For:** Rapid validation without full code review overhead
+**Usage:**
+```
+@verifier check this authentication logic
+```
 
-    <Tip>
-    @Verifier can be configured to use a different model in Settings. Use a smaller, cheaper model for simple verification tasks.
-    </Tip>
-  </Tab>
+**Best For:** Rapid validation without full code review overhead
 
-  <Tab title="@Code-reviewer">
-    **Specialization:** Code quality assessment
+<Tip>
+@verifier can be configured to use a different model in Settings. Use a smaller, cheaper model for simple verification tasks.
+</Tip>
 
-    **Capabilities:**
-    - Scans code for security vulnerabilities
-    - Identifies maintainability issues
-    - Detects performance problems
+---
 
-    **Usage:**
-    ```
-    @Code-reviewer review this authentication flow
-    ```
+## Creating Custom Subagents
 
-    **Best For:**
-    - Pre-commit reviews
-    - Identifying issues before integration
-    - Security analysis
-  </Tab>
-</Tabs>
+Create specialized subagents tailored to your workflow.
+
+<Steps>
+  <Step title="Navigate to Settings">
+    Open Settings → Subagents
+  </Step>
+  <Step title="Add Subagent">
+    Click **Add Subagent**
+  </Step>
+  <Step title="Configure">
+    | Field | Description |
+    |-------|-------------|
+    | **Name** | Identifier for @-mention invocation |
+    | **Description** | Brief explanation of purpose |
+    | **Prompt** | Custom system instructions |
+    | **Model** | Sonnet 4.5, GPT-5, GPT-5-Codex, or Haiku 4.5 |
+  </Step>
+</Steps>
+
+---
+
+## Managing Subagents
+
+| Action | Description |
+|--------|-------------|
+| **Enable/Disable** | Toggle subagent availability |
+| **Duplicate** | Create a copy with existing settings |
+| **Edit** | Modify any configuration |
+| **Delete** | Remove the subagent |
 
 ---
 
@@ -75,8 +89,7 @@ Verdent includes two built-in subagents that are pre-configured and immediately 
 Use @-mentions to explicitly invoke a subagent:
 
 ```
-@Code-reviewer review the security of login flow
-@Verifier check validation logic in middleware
+@verifier check validation logic in middleware
 ```
 
 **Benefits of Manual Invocation:**
@@ -84,14 +97,13 @@ Use @-mentions to explicitly invoke a subagent:
 - **Control:** Choose specific subagent when multiple could apply
 - **Consistency:** Repeat tasks with same subagent for consistent results
 
-### When to Use Each Subagent
+### When to Use @verifier
 
-| Task Type | Subagent | Example |
-|-----------|----------|---------|
-| Quick validation | @Verifier | `@Verifier check this logic` |
-| Security review | @Code-reviewer | `@Code-reviewer review auth flow` |
-| Code quality | @Code-reviewer | `@Code-reviewer identify issues` |
-| Syntax check | @Verifier | `@Verifier validate this function` |
+| Task Type | Example |
+|-----------|---------|
+| Quick validation | `@verifier check this logic` |
+| Syntax check | `@verifier validate this function` |
+| Implementation check | `@verifier verify this matches requirements` |
 
 ---
 
@@ -116,7 +128,7 @@ No. Subagents have isolated context windows. Only the final results are returned
 </Accordion>
 
 <Accordion title="Can I configure subagent models?">
-Yes. @Verifier can be configured to use a different model in Settings for cost optimization.
+Yes. @verifier can be configured to use a different model in Settings for cost optimization.
 </Accordion>
 
 ---
@@ -125,7 +137,7 @@ Yes. @Verifier can be configured to use a different model in Settings for cost o
 
 <CardGroup cols={2}>
   <Card title="Debugging" icon="bug" href="/verdent/task-based-guides/debugging">
-    Using @Verifier for debugging workflows
+    Using @verifier for debugging workflows
   </Card>
   <Card title="Settings" icon="gear" href="/verdent/configuration/settings">
     Configure subagent models

@@ -47,7 +47,7 @@ Detailed troubleshooting for top user-reported issues is being compiled from sup
     </Steps>
 
     <Warning>
-    If the issue persists for more than 5-10 minutes across multiple tasks, check the [Verdent status page](https://verdent.ai/status?ots=verdentdoc) or contact support@verdent.ai.
+    If the issue persists for more than 5-10 minutes across multiple tasks, check the [Verdent status page](https://verdent.ai/status) or contact support@verdent.ai.
     </Warning>
   </Tab>
 
@@ -124,7 +124,7 @@ Detailed troubleshooting for top user-reported issues is being compiled from sup
     1. Sign out and sign in again
     2. Clear authentication cache: Settings → Account → Sign Out
     3. Check that browser can complete OAuth flow
-    4. Verify account status at [verdent.ai/account](https://verdent.ai/account?ots=verdentdoc)
+    4. Verify account status at [verdent.ai/account](https://verdent.ai/account)
 
     ---
 
@@ -206,7 +206,7 @@ Detailed troubleshooting for top user-reported issues is being compiled from sup
     **Symptoms:** Operations fail with quota error
 
     **Solutions:**
-    1. Check balance in User Center
+    1. Check balance in User Menu
     2. Switch to Claude Haiku 4.5 to conserve credits
     3. Wait for monthly refresh
     4. Purchase one-time top-up
@@ -297,11 +297,11 @@ Detailed troubleshooting for top user-reported issues is being compiled from sup
     **When rebasing to master shows conflicts:**
     1. Verdent will display the conflicting files
     2. Review and resolve conflicts in the editor
-    3. Use **Rebase to Master** again after resolving
+    3. Use **Rebase to main branch** again after resolving
 
     **Prevention:**
     - Assign different files/directories to each parallel agent
-    - Use **Sync with Master** regularly to reduce drift
+    - Use **Sync with main branch** regularly to reduce drift
     - Use Plan Mode to review changes before rebase
 
     ---
@@ -330,6 +330,14 @@ Detailed troubleshooting for top user-reported issues is being compiled from sup
 
     ---
 
+    ### Nested Git repository issues
+
+    **Cause:** The selected directory's parent folder or subfolder is already a Git repository
+
+    **Solution:** Select a single Git repository as the project root. Support for nested Git repositories is currently limited.
+
+    ---
+
     ### Recent projects missing
 
     **Causes:**
@@ -339,7 +347,7 @@ Detailed troubleshooting for top user-reported issues is being compiled from sup
     **Solutions:**
     1. Use **Current Project → New Project** to manually browse
     2. Check if project directory still exists
-    3. Verify signed in with correct account in User Center
+    3. Verify signed in with correct account in User Menu
   </Tab>
 
   <Tab title="Parallel Agents">
@@ -477,7 +485,7 @@ Detailed troubleshooting for top user-reported issues is being compiled from sup
     # In AGENTS.md (highest priority)
     - Use 4-space indentation
 
-    # In user_rules.md (lower priority)
+    # In VERDENT.md (lower priority)
     - Use 2-space indentation
 
     # Result: 4-space indentation (AGENTS.md wins)
@@ -528,7 +536,7 @@ Detailed troubleshooting for top user-reported issues is being compiled from sup
   <Tab title="Built-in Subagents">
     ### Built-in Subagent Behavior
 
-    **Issue:** @Explorer, @Verifier, or @Code-reviewer not behaving as expected
+    **Issue:** @verifier not behaving as expected
 
     **Common causes:**
     - Request does not match subagent's specialization

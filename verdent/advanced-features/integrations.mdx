@@ -1,23 +1,52 @@
 ---
-title: Integration Workflows
-description: "Practical patterns for integrating Verdent with external tools and services"
+title: Extensibility & Integration
+description: "Extend Verdent's capabilities through permissions, rules, and MCP integration"
 ---
 
-## What You'll Learn
-
-Practical integration workflows combining MCP servers and rules for real-world development scenarios.
+Verdent provides multiple ways to customize behavior and extend capabilities to match your workflow and security requirements.
 
 ---
 
-## Integration Methods
+## Extensibility Overview
 
 | Method | Best For | Configuration |
 |--------|----------|---------------|
+| **Permissions** | Block dangerous commands | Settings → Permissions |
+| **User Rules** | Personal coding preferences | Settings → User Rules |
+| **Project Rules** | Team conventions | AGENTS.md in project root |
 | **MCP Servers** | External tools, databases, APIs | Settings → MCP Servers |
-| **Rules (AGENTS.md)** | Team standards and behavior | Project root `AGENTS.md` |
-| **User Rules** | Personal preferences | Settings → User Rules |
 
-**Philosophy:** Combine methods to create comprehensive workflows tailored to your needs.
+---
+
+## Permissions
+
+Configure command permissions and security rules in **Settings → Permissions**.
+
+### Deny Rules
+
+Deny rules prevent potentially dangerous commands from being executed. Verdent blocks most dangerous commands by default, but you can add additional rules.
+
+**Access:** Settings → Permissions → Deny Rules
+
+Enter one rule per line. Deny rules take precedence over allow rules.
+
+**Rule Syntax:**
+- Use `*` as a wildcard to match any characters
+- Rules are case-sensitive
+- Each line represents a separate rule
+- Empty lines are ignored
+
+**Common Patterns:**
+
+| Pattern | Purpose |
+|---------|---------|
+| `rm -rf /*` | Prevent recursive deletion from root |
+| `curl * \| *sh*` | Block piping downloaded scripts to shell |
+| `dd * of=/dev/sd*` | Prevent disk overwrite operations |
+
+<Warning>
+When Verdent attempts to execute a command that matches a deny rule, it will be blocked for your safety.
+</Warning>
 
 ---
 
@@ -25,12 +54,12 @@ Practical integration workflows combining MCP servers and rules for real-world d
 
 ### Understanding MCP
 
-**Model Context Protocol (MCP)** is an open protocol that standardizes how applications provide context to LLMs. MCP servers are executables that implement the protocol—they're not database connections or API endpoints, but programs that run and communicate via JSON-RPC 2.0.
+**Model Context Protocol (MCP)** is an open protocol that standardizes how applications provide context to LLMs. MCP servers are executables that implement the protocol. They're not database connections or API endpoints, but programs that run and communicate via JSON-RPC 2.0.
 
 **Key Concepts:**
 - **MCP Servers**: Executables (Node.js packages, Python scripts, etc.) that implement the MCP protocol
 - **Configuration**: Settings → MCP Servers defines how to start each server
-- **@-Mentions**: Custom MCP servers can be invoked using @-mentions (e.g., `@migration-reviewer`)
+- **Tools**: MCP servers provide tools that Verdent can use during conversations
 
 ### Basic Setup
 
@@ -62,47 +91,17 @@ Configure MCP servers with:
 
 ### Database Development Workflow
 
-**Stack:** Migration Reviewer MCP + AGENTS.md Standards + PostgreSQL MCP Server
-
-**Custom MCP Server:**
-Create an MCP server for migration review that checks:
-- Destructive operations
-- Reversibility
-- Indexing requirements
-- Blocking operations
+**Stack:** PostgreSQL MCP Server + AGENTS.md Standards
 
 **AGENTS.md:**
 ```markdown
 ## Database Standards
-- All migrations reviewed by @migration-reviewer
+- Review migrations for destructive operations
 - Test on staging before production
 - Include rollback procedures
 ```
 
-**Workflow:** Write migration → @migration-reviewer validates → PostgreSQL MCP tests on staging → PR documentation
-
----
-
-### API Development with Security
-
-**Stack:** Security Auditor MCP + AGENTS.md Rules + API Testing MCP
-
-**Components:**
-- **MCP Server:** `@api-security-auditor` - Input validation, SQL injection, auth, rate limiting
-- **Rules:** All endpoints require security review, rate limiting on public APIs
-
-**Result:** Automatic security review before PR approval.
-
----
-
-### Frontend Accessibility
-
-**Stack:** Accessibility Auditor MCP + WCAG Rules
-
-**Workflow:**
-```
-Create component → @a11y-auditor reviews → Rules enforce accessibility standards
-```
+**Workflow:** Write migration → Verdent validates using MCP tools → Test on staging → PR documentation
 
 ---
 
@@ -155,10 +154,9 @@ Commit to version control for team-wide consistency:
 - Address all security warnings
 - Minimum 80% test coverage
 
-## Integration Requirements
-- @migration-reviewer for database changes
-- @api-security-auditor for new endpoints
-- @a11y-auditor for UI components
+## Database Changes
+- Review migrations for destructive operations
+- Test on staging before production
 
 ## MCP Server Usage
 - Use postgres-staging for queries
@@ -169,72 +167,78 @@ Commit to version control for team-wide consistency:
 
 ---
 
-## Multi-Agent Coordination
+## Complex Feature Workflow
 
-### Complex Feature Workflow
-
-**Example:** New payment endpoint
+**Example:** New database feature
 
 ```
-1. Developer request → 2. Main agent generates code →
-3. @api-security-auditor reviews security →
-4. @migration-reviewer validates schema →
-5. MCP tests on staging →
-6. Main agent generates tests and PR
+1. Developer request → 2. Verdent generates code →
+3. Database schema validation using PostgreSQL MCP →
+4. Test on staging →
+5. Verdent generates tests and PR
 ```
 
-**Result:** Fully reviewed endpoint with security and database best practices applied.
+**Result:** Fully reviewed feature with database best practices applied.
 
 ---
 
-## Integration Best Practices
+## Best Practices
 
 ### Progressive Adoption
 
-**Phase 1:** Basic rules
+**Phase 1:** Start with basic rules in AGENTS.md
 ```markdown
 ## Code Standards
 - Use TypeScript strict mode
 - Run tests before commit
 ```
 
-**Phase 2:** Add specialized MCP servers
-```markdown
-## Code Review
-- Run @security-reviewer before PR
+**Phase 2:** Add MCP servers (Settings → MCP Servers)
+```json
+{
+  "mcpServers": {
+    "postgres-staging": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://user:password@staging-db:5432/myapp"
+      ]
+    }
+  }
+}
 ```
 
-**Phase 3:** Integrate more MCP servers
+**Phase 3:** Define MCP usage guidelines in AGENTS.md
 ```markdown
-## Database Access
-- Use postgres-staging MCP for queries
+## MCP Usage
+- Use postgres-staging for queries
+- Never use postgres-prod for exploratory queries
 ```
 
 ### Strategic Combinations
 
 | Combination | Purpose | Example |
 |-------------|---------|---------|
-| Rules + MCP | Rules define *when*, MCP *executes* | AGENTS.md: "Review with @security-reviewer" |
+| Rules + MCP | Rules define *when*, MCP provides *tools* | AGENTS.md defines standards, MCP executes checks |
 | Multiple MCPs | Different servers for different concerns | Security + Database + API testing |
-
-### Team Documentation Best Practices
-
-When documenting integrations for your team, include:
-
-- **MCP Servers**: Describe each server's purpose, access level, and when to use it
-- **AGENTS.md Rules**: Document rules with rationale explaining the "why" behind each standard
-- **Integration Workflows**: Provide example workflows showing how components work together
-- **Troubleshooting**: Document common issues specific to your setup and their solutions
-
-<Tip>
-Commit integration documentation alongside your AGENTS.md file so new team members can quickly understand your setup.
-</Tip>
 
 ---
 
 ## Troubleshooting
 
 <Tabs>
+  <Tab title="Permission Issues">
+    **Problem:** Command unexpectedly blocked
+
+    **Check:**
+    - Review deny rules in Settings → Permissions
+    - Check if pattern matches unintended commands
+    - Verify wildcard usage is correct
+
+    **Solution:** Refine deny rule pattern to be more specific
+  </Tab>
+
   <Tab title="AGENTS.md Issues">
     **Problem:** AGENTS.md rules not being applied
 
@@ -259,15 +263,6 @@ Commit integration documentation alongside your AGENTS.md file so new team membe
     2. Check environment variables are set
     3. Review Verdent logs for specific error messages
   </Tab>
-
-  <Tab title="@-Mention Issues">
-    **Problem:** Custom MCP server not responding to @-mentions
-
-    **Check:**
-    - **Server Running:** MCP server is active in Settings → MCP Servers
-    - **Name Match:** @-mention matches the configured server name
-    - **Restart:** Try restarting Verdent to reload MCP configurations
-  </Tab>
 </Tabs>
 
 ---
@@ -275,10 +270,10 @@ Commit integration documentation alongside your AGENTS.md file so new team membe
 ## See Also
 
 <CardGroup cols={2}>
-  <Card title="Extensibility Guide" icon="puzzle-piece" href="/verdent/advanced-features/extensibility">
-    Complete extension methods overview
+  <Card title="Rule Systems" icon="book" href="/verdent/agents-rules/rule-systems">
+    Complete rules documentation
   </Card>
-  <Card title="MCP Integration" icon="plug" href="/verdent/core-features/mcp-integration">
-    Model Context Protocol details
+  <Card title="Settings" icon="gear" href="/verdent/configuration/settings">
+    All configuration options
   </Card>
 </CardGroup>

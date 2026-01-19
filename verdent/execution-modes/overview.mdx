@@ -82,7 +82,15 @@ Always use version control (Git) when working in Agent Mode. This provides a saf
 
 ## Plan Mode
 
-Plan Mode is a read-only mode where Verdent analyzes your codebase and creates detailed plans without making any changes.
+Plan Mode ensures you and Verdent understand and align on requirements before any code changes occur. Instead of jumping into implementation, Verdent works with you to clarify scope, surface edge cases, and document the approach in a `plan.md` file.
+
+### Core Purpose
+
+Plan Mode solves a common AI development problem: the agent starts writing code before fully understanding what you want. By separating planning from execution:
+
+- **Requirements become explicit** - Verdent asks clarifying questions until scope is clear
+- **Assumptions get surfaced** - Edge cases and design decisions are discussed upfront
+- **You control the direction** - Review and edit the plan before any code is written
 
 ### How It Works
 
@@ -90,14 +98,14 @@ Plan Mode is a read-only mode where Verdent analyzes your codebase and creates d
   <Step title="Analysis">
     Verdent reads files and analyzes your codebase
   </Step>
-  <Step title="Planning">
-    Creates a structured plan with steps and file changes
-  </Step>
   <Step title="Clarification">
-    Asks questions to refine the plan if needed
+    Asks questions to understand your requirements and align on the goal
+  </Step>
+  <Step title="Planning">
+    Creates a `plan.md` file with implementation steps and file changes
   </Step>
   <Step title="Review">
-    You review the complete plan
+    You review and optionally edit `plan.md` before execution
   </Step>
   <Step title="Execute">
     Switch to **Agent Mode** to execute the plan
@@ -113,6 +121,8 @@ Plan Mode is a read-only mode where Verdent analyzes your codebase and creates d
 | Search codebase | Make commits |
 | Create plans | Run tests |
 | Ask questions | Modify settings |
+| Documentation design | - |
+| Visual diagrams | - |
 
 ### When to Use Plan Mode
 
@@ -126,7 +136,7 @@ Plan Mode is a read-only mode where Verdent analyzes your codebase and creates d
 
 ### Activation
 
-Press `Shift+Tab` or `Ctrl+.` to switch to Plan Mode.
+Use **Switch Mode** in the Chat Input Box or press `Shift+Tab` / `Ctrl+.` (`Cmd+.` on macOS) to switch to Plan Mode.
 
 ---
 
@@ -166,8 +176,8 @@ Each agent operates independently:
   <Step title="Review Changes">
     Click **Task Changes** to review changes
   </Step>
-  <Step title="Rebase to Master">
-    Click **Workspace Actions → Rebase to master**
+  <Step title="Rebase to main branch">
+    Click **Workspace Actions → Rebase to main branch**
   </Step>
 </Steps>
 

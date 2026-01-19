@@ -27,7 +27,7 @@ A task is a conversation thread within a workspace. Each task:
 |----------|-------------|
 | **Conversation** | Has its own message history |
 | **Context** | Maintains its own AI context |
-| **Agent** | Has its own agent with custom configuration (model, rules) |
+| **Agent** | Has its own agent with custom configuration (model) |
 | **Workspace** | Belongs to a specific workspace |
 | **File Access** | Shares file state with other tasks in the same workspace |
 
@@ -69,7 +69,7 @@ A new task is automatically created when you:
 
 | Step | Description |
 |------|-------------|
-| **Task Created** | New conversation thread initialized |
+| **Task Created** | New conversation initialized |
 | **Context Set** | Fresh AI context starts |
 | **Listed** | Task appears in task list |
 | **Ready** | You can begin interacting |
@@ -85,7 +85,7 @@ The task list in the Left Panel shows all tasks in the current workspace:
 | Element | Description |
 |---------|-------------|
 | **Task list** | All tasks in current workspace |
-| **Current task** | Highlighted or marked |
+| **Current task** | Highlighted |
 | **Task preview** | First message or task name |
 
 ### Switching Methods
@@ -103,7 +103,7 @@ When you switch tasks:
   <Tab title="What's Preserved">
     - Full conversation history
     - AI context for the task
-    - Model and agent configuration
+    - Model configuration
     - Where you left off
   </Tab>
   <Tab title="What's Shared">
@@ -164,13 +164,15 @@ Your main task's context is preserved.
 
 ### Iterative Development
 
+**Recommended workflow pattern:**
+
 | Task | Purpose |
 |------|---------|
 | Task 1 | Initial implementation |
 | Task 2 | Refinements and fixes |
 | Task 3 | Final polish |
 
-Each task builds on previous work since they share file state.
+Tasks share file state but have independent conversational context. You can return to any task later to review, refine, or continue work without its context being affected by other tasks.
 
 ---
 

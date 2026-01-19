@@ -16,7 +16,7 @@ How to customize and extend Verdent for VS Code using three powerful extensibili
 Verdent for VS Code provides three primary methods to extend its capabilities and customize behavior:
 
 1. **Custom Subagents** - Create specialized AI agents for domain-specific tasks
-2. **Rules System** - Guide behavior through user_rules.md, AGENTS.md, and plan_rules.md
+2. **Rules System** - Guide behavior through VERDENT.md, AGENTS.md, and plan_rules.md
 3. **MCP Integration** - Connect external tools and services via Model Context Protocol
 
 Each method serves different customization needs and can be combined for comprehensive workflow optimization.
@@ -187,7 +187,7 @@ Rule files are Markdown documents that guide Verdent's behavior, output formatti
 
 | Rule Type | Scope | Priority | Storage |
 |-----------|-------|----------|---------|
-| **user_rules.md** | Global across all projects | Medium | `~/.verdent/user_rules.md` |
+| **VERDENT.md** | Global across all projects | Medium | `~/.verdent/VERDENT.md` |
 | **AGENTS.md** | Project-specific (team) | Highest | Project root directory |
 | **plan_rules.md** | Plan Mode formatting | Independent | `~/.verdent/plan_rules.md` |
 
@@ -195,17 +195,17 @@ Rule files are Markdown documents that guide Verdent's behavior, output formatti
 
 When conflicts occur:
 1. **AGENTS.md** (highest) - Project rules override user preferences
-2. **user_rules.md** (medium) - Applied when no project conflict
+2. **VERDENT.md** (medium) - Applied when no project conflict
 3. **Default behavior** (lowest) - Verdent's built-in defaults
 
 **Example Conflict:**
 ```
-user_rules.md: "Use 2-space indentation"
+VERDENT.md: "Use 2-space indentation"
 AGENTS.md: "Use 4-space indentation for this project"
 → Result: 4-space indentation (project rules win)
 ```
 
-### user_rules.md (Global Preferences)
+### VERDENT.md (Global Preferences)
 
 **Purpose:** Personal coding style and preferences across all projects
 
@@ -343,7 +343,7 @@ Create MCP servers for proprietary systems:
 | Specialized AI analysis | Custom Subagent | Requires AI reasoning with custom context |
 | Coding standards enforcement | Rules (AGENTS.md) | Simple behavior guidance |
 | External database access | MCP Integration | Requires connection to external system |
-| Personal coding preferences | Rules (user_rules.md) | Global behavior customization |
+| Personal coding preferences | Rules (VERDENT.md) | Global behavior customization |
 | Team conventions | Rules (AGENTS.md) | Shared project standards |
 | API integration | MCP Integration | External service interaction |
 | Plan format customization | Rules (plan_rules.md) | Plan Mode output control |
@@ -396,7 +396,7 @@ Verdent: [Applies AGENTS.md rules]
 ### Start Simple, Scale Up
 
 **Progressive Adoption:**
-1. **Phase 1:** Start with basic rules (user_rules.md or AGENTS.md)
+1. **Phase 1:** Start with basic rules (VERDENT.md or AGENTS.md)
 2. **Phase 2:** Add custom subagents for repeated specialized tasks
 3. **Phase 3:** Integrate MCP for external system connections
 
@@ -426,7 +426,7 @@ For custom subagents and project rules (AGENTS.md):
 - Version control alongside code
 
 **Personal Documentation:**
-For user_rules.md and personal subagents:
+For VERDENT.md and personal subagents:
 - Comment complex rules with reasoning
 - Keep rules organized and updated
 - Remove obsolete rules promptly
@@ -467,7 +467,7 @@ For user_rules.md and personal subagents:
 ### Rule Conflicts
 
 **Rule Not Being Applied:**
-- Check rule precedence (AGENTS.md > user_rules.md)
+- Check rule precedence (AGENTS.md > VERDENT.md)
 - Verify file is in correct location
 - Start new conversation to test fresh application
 - Make rules more specific and directive

@@ -23,7 +23,7 @@ Answers to frequently asked questions about Verdent, organized by topic.
 - Same credit pool
 - Same account
 - Same AI capabilities
-- Same rule systems (user_rules.md, AGENTS.md)
+- Same rule systems (VERDENT.md, AGENTS.md)
 </Accordion>
 
 <Accordion title="Can I use both Desktop and VS Code extension?">
@@ -132,7 +132,7 @@ Click **All Workspaces** in the top bar to see and switch between active workspa
 </Accordion>
 
 <Accordion title="How do I see what files changed in my current task?">
-Click **Task Changes** in the middle panel to view all files changed within the current task.
+Click **Task Changes** in the middle panel to view all files changed within the current task. This shows modifications for the current workspace only, not across different workspaces.
 </Accordion>
 
 <Accordion title="What does 'Context Remaining' mean?">
@@ -197,7 +197,7 @@ No. Verdent does not support opening a project that is inside another open proje
 - Can be deleted after rebasing
 </Accordion>
 
-<Accordion title="How do I rebase changes from a worktree back to master?">
+<Accordion title="How do I rebase changes from a worktree back to the main branch?">
 <Steps>
   <Step title="Complete Work">
     Finish and commit all changes in the worktree
@@ -206,7 +206,7 @@ No. Verdent does not support opening a project that is inside another open proje
     Review changes
   </Step>
   <Step title="Rebase">
-    Use **Workspace → Rebase to Master** to integrate changes
+    Use **Workspace → Rebase to main branch** to integrate changes
   </Step>
   <Step title="Clean Up">
     Optionally delete the worktree after rebasing
@@ -283,7 +283,7 @@ No. Tasks in different workspaces are fully isolated with no shared files or con
 </Accordion>
 
 <Accordion title="How many tasks can I have in one workspace?">
-There's no hard limit. Practically, keep active tasks focused—archive completed tasks to maintain organization.
+There's no hard limit. Practically, keep active tasks focused; archive completed tasks to maintain organization.
 </Accordion>
 
 ---
@@ -419,7 +419,7 @@ Standard models have 200K token context windows sufficient for most tasks. Exten
 </Accordion>
 
 <Accordion title="Should I manually reset context or will Verdent do it automatically?">
-You must manually start a new session to reset context—Verdent does not automatically clear context. Best practice: reset after completing an atomic unit of work, testing, and committing to version control.
+You must manually start a new session to reset context. Verdent does not automatically clear context. Best practice: reset after completing an atomic unit of work, testing, and committing to version control.
 </Accordion>
 
 <Accordion title="Does 1M context cost more credits?">
@@ -512,8 +512,8 @@ Commands exceeding 2 minutes will be automatically terminated.
 MCP server operations consume credits based on the model processing the results. The MCP server itself doesn't use credits directly.
 </Accordion>
 
-<Accordion title="Can I use different MCP servers per project?">
-Yes. Configure MCP servers in Settings → MCP for global availability, or use project-specific configuration.
+<Accordion title="Are MCP servers project-specific?">
+No. MCP servers are configured at the user level and available across all your projects.
 </Accordion>
 
 <Accordion title="Are my credentials safe?">
@@ -543,7 +543,7 @@ Ask Verdent to use a tool from the MCP server. Successful responses indicate the
 4. Confirm the reset
 
 This resets application settings but doesn't affect:
-- User rules (user_rules.md)
+- User rules (VERDENT.md)
 - Custom subagents
 - Session history
 </Accordion>
@@ -554,7 +554,7 @@ Verdent stores configuration in multiple locations:
 | Location | Contents |
 |----------|----------|
 | **Settings panel** | Application preferences, models, subagents |
-| `~/.verdent/user_rules.md` | Global user rules |
+| `~/.verdent/VERDENT.md` | Global user rules |
 | `~/.verdent/mcp.json` | Global MCP server config |
 | `<project>/AGENTS.md` | Project-specific rules |
 
@@ -586,7 +586,7 @@ Most settings apply immediately:
 ## Version Control
 
 <Accordion title="Why does Verdent use rebase instead of merge?">
-Rebase creates a cleaner, linear history that's easier to understand and bisect. Each feature branch is rebased onto master before integration.
+Rebase creates a cleaner, linear history that's easier to understand and bisect. Each feature branch is rebased onto the main branch before integration.
 </Accordion>
 
 <Accordion title="How do I resolve conflicts when rebasing?">
@@ -646,7 +646,7 @@ Yes. Desktop and VS Code extension share the same credit pool from your account.
 </Accordion>
 
 <Accordion title="How do I track credit usage?">
-Open User Center from the top bar to view:
+Open User Menu from the top bar to view:
 - Current credit balance
 - Usage history
 - Subscription details
@@ -765,7 +765,7 @@ Yes, when used properly. Always use Plan Mode to review the complete scope first
 </Accordion>
 
 <Accordion title="Which model is best for large codebase work?">
-Use **Claude Sonnet 4.5 1M** for complex multi-file operations and refactoring—its extended context window handles large codebases. Use **Claude Haiku 4.5** for simple searches and discovery tasks. Sonnet 1M provides more reasoning capability for coordinated changes, while Haiku is faster and more cost-effective for exploration.
+Use **Claude Sonnet 4.5 1M** for complex multi-file operations and refactoring. Its extended context window handles large codebases. Use **Claude Haiku 4.5** for simple searches and discovery tasks. Sonnet 1M provides more reasoning capability for coordinated changes, while Haiku is faster and more cost-effective for exploration.
 </Accordion>
 
 ---

@@ -1,0 +1,312 @@
+---
+title: Mintlify Styling Demo
+description: Explore the available styling and component options in Mintlify documentation
+---
+
+# Mintlify Styling Demo
+
+This page demonstrates various Mintlify components and styling options available for documentation.
+
+## Typography
+
+### Headings
+
+Headings from H1 through H6 are available. Use H1 for page titles (defined in frontmatter), H2 for main sections, and H3-H6 for subsections.
+
+### Text Formatting
+
+You can use **bold text**, *italic text*, ~~strikethrough~~, and `inline code` for emphasis.
+
+> This is a blockquote. Use it for important callouts or quotes.
+
+## Lists
+
+### Unordered Lists
+
+- First item
+- Second item
+  - Nested item
+  - Another nested item
+- Third item
+
+### Ordered Lists
+
+1. First step
+2. Second step
+3. Third step
+
+### Task Lists
+
+- [x] Completed task
+- [ ] Incomplete task
+- [ ] Another task
+
+## Code Blocks
+
+### Basic Code Block
+
+```javascript
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+greet('World');
+```
+
+### Code Block with Line Highlighting
+
+```python {2,4-5}
+def calculate_sum(a, b):
+    result = a + b  # This line is highlighted
+    print(f"The sum is: {result}")
+    # These lines are also highlighted
+    return result
+
+total = calculate_sum(10, 20)
+```
+
+### Code Block with Filename
+
+```typescript filename="config.ts"
+export const config = {
+  apiUrl: 'https://api.example.com',
+  timeout: 5000,
+  retries: 3
+};
+```
+
+## Callouts (Admonitions)
+
+<Note>
+This is a Note callout. Use it for helpful information that users should be aware of.
+</Note>
+
+<Tip>
+This is a Tip callout. Use it for best practices and helpful suggestions.
+</Tip>
+
+<Info>
+This is an Info callout. Use it for general information that provides context.
+</Info>
+
+<Warning>
+This is a Warning callout. Use it to highlight potential issues or important cautions.
+</Warning>
+
+<Check>
+This is a Check callout. Use it to confirm successful completion or correct usage.
+</Check>
+
+## Tabs
+
+<Tabs>
+  <Tab title="macOS">
+    Installation instructions for macOS:
+
+    ```bash
+    brew install verdent
+    ```
+  </Tab>
+  <Tab title="Windows">
+    Installation instructions for Windows:
+
+    ```powershell
+    winget install Verdent
+    ```
+  </Tab>
+  <Tab title="Linux">
+    Installation instructions for Linux:
+
+    ```bash
+    curl -fsSL https://verdent.ai/install.sh | bash
+    ```
+  </Tab>
+</Tabs>
+
+## Accordion
+
+<Accordion title="What is an accordion?">
+  An accordion is a collapsible section that can hide or reveal content. It's useful for FAQ sections or detailed information that doesn't need to be immediately visible.
+</Accordion>
+
+<Accordion title="When should I use accordions?">
+  Use accordions when you have:
+  - Detailed explanations that might overwhelm new users
+  - FAQ sections
+  - Optional advanced information
+  - Long lists of configurations or options
+</Accordion>
+
+## Card Groups
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/verdent-for-vscode/getting-started/quick-start">
+    Get started with Verdent in minutes
+  </Card>
+  <Card title="Core Concepts" icon="lightbulb" href="/verdent-for-vscode/getting-started/core-concepts">
+    Understand the fundamental concepts
+  </Card>
+  <Card title="Installation" icon="download" href="/verdent-for-vscode/getting-started/installation">
+    Install Verdent on your system
+  </Card>
+  <Card title="Configuration" icon="gear" href="/verdent-for-vscode/configuration/settings">
+    Configure Verdent for your workflow
+  </Card>
+</CardGroup>
+
+## Tables
+
+### Basic Table
+
+| Feature | Description | Available |
+| --- | --- | --- |
+| Code Generation | AI-powered code generation | ✅ |
+| Code Explanation | Detailed code explanations | ✅ |
+| Refactoring | Automated refactoring suggestions | ✅ |
+| Testing | Test generation and validation | 🚧 |
+
+### Configuration Table
+
+| Setting | Type | Default | Description |
+| --- | --- | --- | --- |
+| `apiKey` | string | `null` | Your Verdent API key |
+| `timeout` | number | `30000` | Request timeout in milliseconds |
+| `maxRetries` | number | `3` | Maximum number of retry attempts |
+| `enableLogging` | boolean | `false` | Enable debug logging |
+
+## Steps
+
+<Steps>
+  <Step title="Install Verdent">
+    Download and install Verdent from the VS Code marketplace or use the command line installer.
+  </Step>
+  <Step title="Configure API Key">
+    Set up your API key in the Verdent settings to authenticate with the service.
+
+    ```json
+    {
+      "verdent.apiKey": "your-api-key-here"
+    }
+    ```
+  </Step>
+  <Step title="Start Using Verdent">
+    Open any code file and start using Verdent's AI-powered features by pressing `Ctrl+Shift+V`.
+  </Step>
+</Steps>
+
+## Links
+
+### Internal Links
+
+- [Quick Start Guide](/verdent-for-vscode/getting-started/quick-start)
+- [Configuration Settings](/verdent-for-vscode/configuration/settings)
+
+### External Links
+
+- [Verdent Website](https://verdent.ai)
+- [GitHub Repository](https://github.com/verdent)
+
+## Images
+
+Images can be included with standard Markdown syntax:
+
+```markdown
+![Alt text](/images/screenshot.png)
+```
+
+<Tip>
+Always provide descriptive alt text for images to improve accessibility and SEO.
+</Tip>
+
+## Horizontal Rules
+
+Use horizontal rules to separate major sections:
+
+---
+
+## Icons
+
+Mintlify supports Font Awesome icons in Card components and other elements. Common icons include:
+
+- <Icon icon="rocket" /> `rocket` - Quick starts
+- <Icon icon="lightbulb" /> `lightbulb` - Concepts
+- <Icon icon="download" /> `download` - Downloads
+- <Icon icon="gear" /> `gear` - Configuration
+- <Icon icon="code" /> `code` - Code examples
+- <Icon icon="book" /> `book` - Documentation
+
+## ParamField
+
+<ParamField path="username" type="string" required>
+  The user's username for authentication
+</ParamField>
+
+<ParamField path="password" type="string" required>
+  The user's password (minimum 8 characters)
+</ParamField>
+
+<ParamField path="rememberMe" type="boolean" default="false">
+  Whether to persist the user's session
+</ParamField>
+
+## ResponseField
+
+<ResponseField name="status" type="string">
+  The status of the request: `success`, `error`, or `pending`
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  The response data payload
+
+  <Expandable title="data properties">
+    <ResponseField name="id" type="number">
+      Unique identifier for the resource
+    </ResponseField>
+    <ResponseField name="name" type="string">
+      Name of the resource
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Code Groups
+
+<CodeGroup>
+```bash npm
+npm install @verdent/cli
+```
+
+```bash yarn
+yarn add @verdent/cli
+```
+
+```bash pnpm
+pnpm add @verdent/cli
+```
+</CodeGroup>
+
+## Best Practices
+
+<Check>
+**Do:** Use appropriate components for your content type
+</Check>
+
+<Warning>
+**Don't:** Overuse callouts - they lose impact when too frequent
+</Warning>
+
+<Tip>
+Mix text, code examples, and visual elements to create engaging documentation that serves different learning styles.
+</Tip>
+
+## Summary
+
+This page showcases the main Mintlify components available for documentation:
+
+- **Typography**: Headings, bold, italic, code
+- **Callouts**: Note, Tip, Info, Warning, Check
+- **Interactive**: Tabs, Accordions, Steps
+- **Navigation**: Cards, Links
+- **Reference**: Tables, ParamField, ResponseField
+- **Code**: Code blocks, CodeGroups, syntax highlighting
+
+Refer to [Mintlify documentation](https://mintlify.com/docs) for more advanced features and customization options.

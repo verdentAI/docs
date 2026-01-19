@@ -249,7 +249,7 @@ Rules define how Verdent behaves and responds during coding sessions. Rules are 
 
 #### Three Types of Rules
 
-**1. User Rules (user_rules.md):**
+**1. User Rules (VERDENT.md):**
 
 - **Location:** `~/.verdent/` (global configuration directory)
 - **Scope:** Applied to all conversations across all projects
@@ -312,7 +312,7 @@ Rules define how Verdent behaves and responds during coding sessions. Rules are 
 
 | Rule Type     | Location                   | Scope                    | Version Control                       |
 | ------------- | -------------------------- | ------------------------ | ------------------------------------- |
-| User Rules    | `~/.verdent/user_rules.md` | All projects             | Personal, not shared                  |
+| User Rules    | `~/.verdent/VERDENT.md` | All projects             | Personal, not shared                  |
 | Project Rules | `<project>/AGENTS.md`      | Current project          | Can be committed for team consistency |
 | Plan Rules    | `~/.verdent/plan_rules.md` | All projects (Plan Mode) | Personal, not shared                  |
 
@@ -321,11 +321,11 @@ Rules define how Verdent behaves and responds during coding sessions. Rules are 
 When rules conflict, Verdent applies this priority order:
 
 1. **Project Rules (AGENTS.md)** - Highest priority (project-specific)
-2. **User Rules (user_rules.md)** - Global user preferences
+2. **User Rules (VERDENT.md)** - Global user preferences
 3. **Default Behavior** - Verdent's built-in defaults
 
 <Tip>
-  Commit AGENTS.md to version control to share project-specific coding standards with your entire team. Each team member's workspace automatically follows the project rules while maintaining individual preferences through user_rules.md.
+  Commit AGENTS.md to version control to share project-specific coding standards with your entire team. Each team member's workspace automatically follows the project rules while maintaining individual preferences through VERDENT.md.
 </Tip>
 
 ---
@@ -466,7 +466,7 @@ Access through **Settings → Subagents** to:
 
   - Continuous application to all conversations
   - Coding standards, communication style, preferences
-  - Stored in markdown files (user_rules.md, AGENTS.md, plan_rules.md)
+  - Stored in markdown files (VERDENT.md, AGENTS.md, plan_rules.md)
   - Always active in background
 
   **Subagents** define WHO handles specific tasks and HOW:

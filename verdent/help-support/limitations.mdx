@@ -66,10 +66,9 @@ Known limitations of Verdent, including file format restrictions, tool constrain
     During long sessions or complex operations, the AI's context window can fill up, limiting the ability to reference earlier conversation.
 
     **Mitigation Strategies:**
-    - Use subagents for exploratory research (results only consume main context)
+    - Use subagents for focused tasks (results only consume main context)
     - Read files strategically with line ranges
     - Use `grep_file` before reading full contents
-    - Delegate background tasks to Explorer subagent
 
     <Tip>
     For files over 500 lines, always use line ranges to preserve context space.
@@ -99,6 +98,14 @@ Known limitations of Verdent, including file format restrictions, tool constrain
     git add .
     git commit -m "Initial commit"
     ```
+
+    ---
+
+    ### Nested Git Repositories
+
+    If the selected directory's parent folder or subfolder is already a Git repository, support for this scenario is currently limited.
+
+    **Recommendation:** Select a single Git repository as the project root.
   </Tab>
 
   <Tab title="Language Support">
@@ -188,7 +195,6 @@ Known limitations of Verdent, including file format restrictions, tool constrain
 |----------|-------|-------|
 | **macOS** | bash/zsh | Full bash functionality |
 | **Windows** | PowerShell | Some bash commands unavailable, use PowerShell equivalents |
-| **WSL** | bash | Linux commands work in WSL environment |
 
 **Path Handling:**
 - Windows uses backslashes (`\`), Unix uses forward slashes (`/`)
@@ -265,7 +271,7 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name
     **Limitation:** Long conversations fill the context window
 
     **Workarounds:**
-    - Delegate to @Verifier subagent for isolated validation tasks
+    - Delegate to @verifier subagent for isolated validation tasks
     - Start new conversation for distinct tasks
     - Use worktrees to isolate different task contexts
     - Close unused worktrees to reduce cognitive load

@@ -94,7 +94,7 @@ Choose this option to:
 - Simplify or expand certain steps
 - Explore alternative approaches
 
-**Start Building:**
+**Build:**
 
 Choose this option to:
 - Switch to Agent Mode and begin execution
@@ -102,7 +102,7 @@ Choose this option to:
 - Make file modifications and execute commands as planned
 
 <Tip>
-Use **Edit** to iterate on the plan as many times as needed. Only choose **Start Building** when you're confident the approach is correct.
+Use **Edit** to iterate on the plan as many times as needed. Only choose **Build** when you're confident the approach is correct.
 </Tip>
 
 ---
@@ -124,9 +124,11 @@ Plan Mode cannot accidentally modify your code. It's designed for safe explorati
 
 ## Incremental Execution
 
-Execute plans in phases rather than all at once:
+Execute plans in phases rather than all at once by manually controlling execution through chat instructions.
 
-### Incremental Approval Pattern
+### Manual Phase Control
+
+After reviewing a plan, exit Plan Mode and instruct Verdent to execute specific phases:
 
 ```
 Let's start with Phase 1 first, then we'll review before continuing
@@ -137,28 +139,24 @@ Do the database migration first, I'll review before the API changes
 ### Incremental Workflow
 
 <Steps>
-  <Step title="Approve Initial Phase">
-    Choose **Start Building** for a specific phase of the plan
+  <Step title="Review Plan">
+    Review the generated plan in Plan Mode
   </Step>
-  <Step title="Verdent Executes">
-    Implements the specified steps only
+  <Step title="Exit Plan Mode">
+    Switch to Agent Mode using **Switch Mode** or keyboard shortcut
   </Step>
-  <Step title="Review Checkpoint">
-    Verdent pauses for your review of completed work
+  <Step title="Instruct Phase Execution">
+    Tell Verdent which phase or steps to execute first
+  </Step>
+  <Step title="Review Results">
+    Check completed work before continuing
   </Step>
   <Step title="Continue or Adjust">
-    Approve next phase or modify approach based on results
-  </Step>
-  <Step title="Repeat Until Complete">
-    Continue through all phases with checkpoints
+    Instruct Verdent to proceed with next phase or modify approach
   </Step>
 </Steps>
 
 **Best for:** High-risk changes, unfamiliar patterns, production-critical code where phased rollout reduces risk.
-
-<Tip>
-Incremental execution lets you approve parts of a plan while deferring others, useful when priorities shift mid-task.
-</Tip>
 
 ---
 

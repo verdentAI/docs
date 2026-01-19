@@ -19,7 +19,7 @@ Workspace Isolation is Verdent's system for ensuring parallel work never interfe
 
 ## What is Workspace Isolation?
 
-Workspace Isolation ensures that changes from one task never affect another. Try different approaches in parallel, compare results, and selectively rebase only the changes you want back into master.
+Workspace Isolation ensures that changes from one task never affect another. Try different approaches in parallel, compare results, and selectively rebase only the changes you want back into the main branch.
 
 ### How It Works
 
@@ -64,7 +64,7 @@ The Base workspace is your original repository checkout, serving as the default 
 **When to Use Base:**
 - Quick changes that don't need isolation
 - Reference point for comparing experimental work
-- When you want changes to go directly to master
+- When you want changes to go directly to the main branch
 - Simple tasks where parallel execution isn't needed
 
 ### Workspace
@@ -111,7 +111,7 @@ A Workspace is an isolated working environment created using git worktrees, with
 
 ## Rebasing Workspace Changes
 
-When you're ready to integrate workspace changes back to master:
+When you're ready to integrate workspace changes back to the main branch:
 
 ### Using Verdent UI
 
@@ -122,8 +122,8 @@ When you're ready to integrate workspace changes back to master:
   <Step title="Review Changes">
     Click **Task Changes** in the middle panel to review all modifications
   </Step>
-  <Step title="Rebase to Master">
-    Click **Workspace Actions → Rebase to master** in the Workspace Bar
+  <Step title="Rebase to main branch">
+    Click **Workspace Actions → Rebase to main branch** in the Workspace Bar
   </Step>
   <Step title="Resolve Conflicts">
     Resolve any conflicts if prompted
@@ -135,7 +135,7 @@ When you're ready to integrate workspace changes back to master:
 
 ### Keeping Workspaces Updated
 
-Use **Workspace Actions → Sync with master** to pull the latest changes from master into your workspace. This helps prevent large conflicts when rebasing.
+Use **Workspace Actions → Sync with main branch** to pull the latest changes from the main branch into your workspace. This helps prevent large conflicts when rebasing.
 
 ---
 
@@ -163,7 +163,7 @@ Use **Workspace Actions → Sync with master** to pull the latest changes from m
 |----------|-----|
 | **Commit frequently** | Commit work in progress before switching |
 | **Small commits** | Smaller commits are easier to cherry-pick |
-| **Sync with master regularly** | Don't let workspaces diverge too far from master |
+| **Sync with base regularly** | Don't let workspaces diverge too far from the main branch |
 | **Reduce conflict complexity** | Regular integration prevents large conflicts |
 
 ---
@@ -183,7 +183,7 @@ Uncommitted changes are lost when a workspace is deleted. Always commit or stash
 </Accordion>
 
 <Accordion title="Can I convert a workspace to the base workspace?">
-No direct conversion, but you can rebase all changes from the workspace to master, then delete the workspace. The branch history is preserved.
+No direct conversion, but you can rebase all changes from the workspace to the main branch, then delete the workspace. The branch history is preserved.
 </Accordion>
 
 <Accordion title="Do worktrees work with all git hosting services?">

@@ -123,11 +123,11 @@ All tasks and their agents continue working regardless of which workspace you're
   <Step title="Commit Changes">
     Use Source Control (`Ctrl+Shift+G`) to commit with descriptive messages
   </Step>
-  <Step title="Rebase to Master">
-    Click **Workspace Actions → Rebase to master** for each completed workspace
+  <Step title="Rebase to main branch">
+    Click **Workspace Actions → Rebase to main branch** for each completed workspace
   </Step>
   <Step title="Clean Up">
-    Click **Delete Workspace** to remove completed workspaces
+    To delete a workspace, click the **trash icon** near the workspace name in the Workspace Bar, or right-click the workspace in the top bar and select **Delete**.
   </Step>
 </Steps>
 
@@ -162,6 +162,14 @@ If tasks need shared code, they may not be good candidates for parallelization. 
 
 <Accordion title="Do tasks stop when I switch workspaces?">
 No. Tasks and their agents continue working in the background when you switch to another workspace.
+</Accordion>
+
+<Accordion title="What is Task Changes?">
+Task Changes shows the total set of code changes made across the entire task so far. It reflects everything that has been modified since the task started.
+</Accordion>
+
+<Accordion title="What is Step Changes?">
+Step Changes shows only the code changes introduced by the current prompt. It reflects what was added or modified in this specific execution step.
 </Accordion>
 
 ---

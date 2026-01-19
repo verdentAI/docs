@@ -21,7 +21,7 @@ Verdent uses a multi-panel layout with six main areas:
 - **Top Bar** - Project switching, workspace management, and user account
 - **Workspace Bar** - Current workspace, branch, workspace actions, and panel toggles
 - **Left Panel** - Task list and task creation
-- **Right Panel** - Source Control and Explorer tabs
+- **Sidebar** - Source Control and Explorer tabs
 - **Middle Panel** - Chat view, integrated editor, and terminal
 - **Chat Input Box** - Text input with context controls, mode selection, and send button
 
@@ -51,7 +51,7 @@ The top bar provides quick access to essential functions:
 | **All Workspaces** | Switch between active workspaces |
 | **Feedback** | Submit feedback or report issues |
 | **Settings** | Open settings modal |
-| **User Center** | Account info, credit balance |
+| **User Menu** | Account info, credit balance |
 
 **Key Actions:**
 - Click **Verdent** → Access About, Settings, Reload
@@ -61,7 +61,7 @@ The top bar provides quick access to essential functions:
 - Click **All Workspaces** → Switch between active workspaces
 - Click **Feedback** → Submit feedback or report issues
 - Click **Settings** → Configure Verdent preferences
-- Click **User Center** → View credits, account info
+- Click **User Menu** → View credits, account info
 
 ---
 
@@ -76,14 +76,14 @@ The workspace bar sits below the top bar and provides workspace-specific control
 | **Current Workspace** | Shows the active workspace name |
 | **Branch** | Indicates the current git branch (can change branch on base workspace) |
 | **Delete Workspace** | Remove the workspace (when available) |
-| **Workspace Actions** | Dropdown with Rebase to master, Sync with master |
+| **Workspace Actions** | Dropdown with Rebase to main branch, Sync with main branch |
 
 **Right Side:**
 
 | Component | Description |
 |-----------|-------------|
 | **Open in VS Code (Ctrl+E)** | Open workspace in VS Code |
-| **Toggle Explorer and Source Control (Ctrl+B)** | Show/hide right panel |
+| **Toggle Explorer and Source Control (Ctrl+B)** | Show/hide Sidebar |
 | **Terminal Panel (Ctrl+J or Ctrl+\`)** | Toggle terminal panel |
 | **Editor (Ctrl+L)** | Focus the editor |
 
@@ -111,9 +111,9 @@ Tasks share the workspace file state. Context is preserved when switching betwee
 
 ---
 
-## Right Panel: Source Control & Explorer
+## Sidebar: Source Control & Explorer
 
-The right panel provides file management and version control:
+The Sidebar provides file management and version control:
 
 <Tabs>
   <Tab title="Source Control">
@@ -142,7 +142,7 @@ The right panel provides file management and version control:
 | Control | Description |
 |---------|-------------|
 | **Refresh** | Refresh file list and status |
-| **Close** | Hide the right panel |
+| **Close** | Hide the Sidebar |
 
 ---
 
@@ -150,7 +150,7 @@ The right panel provides file management and version control:
 
 The middle panel displays your work and can show multiple views.
 
-**Task Changes** - Click to view all files changed within the current task.
+**Task Changes** - Click to view all files changed within the current task. Shows modifications for the current workspace only, not across different workspaces.
 
 **Context Remaining** - Indicates how much context remains within the model for the current conversation.
 
@@ -308,7 +308,7 @@ The integrated terminal provides command-line access:
 | **Switch Model** | `Ctrl+/` | `Cmd+/` |
 | **Open in VS Code** | `Ctrl+E` | `Cmd+E` |
 | **Open Explorer** | `Ctrl+Shift+E` | `Cmd+Shift+E` |
-| **Toggle Right Panel** | `Ctrl+B` | `Cmd+B` |
+| **Toggle Sidebar** | `Ctrl+B` | `Cmd+B` |
 | **Terminal Panel** | `Ctrl+J` or ``Ctrl+` `` | `Cmd+J` or ``Cmd+` `` |
 | **New Terminal** | ``Ctrl+Shift+` `` | ``Cmd+Shift+` `` |
 | **Open Source Control** | `Ctrl+Shift+G` | `Cmd+Shift+G` |
@@ -360,7 +360,7 @@ Yes. Tasks share the workspace file state, and context is preserved when switchi
 </Accordion>
 
 <Accordion title="How do I see what files changed in my current task?">
-Click **Task Changes** in the middle panel to view all files changed within the current task.
+Click **Task Changes** in the middle panel to view all files changed within the current task. This shows modifications for the current workspace only, not across different workspaces.
 </Accordion>
 
 <Accordion title="What does 'Context Remaining' mean?">

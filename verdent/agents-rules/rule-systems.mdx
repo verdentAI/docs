@@ -17,38 +17,42 @@ Rule files are Markdown documents that define how Verdent behaves during coding 
 
 | Rule Type | File | Scope | Purpose |
 |-----------|------|-------|---------|
-| **User Rules** | user_rules.md | Global (all projects) | Personal coding preferences |
+| **User Rules** | VERDENT.md | Global (all projects) | Personal coding preferences |
 | **Project Rules** | AGENTS.md | Current project | Team conventions, project standards |
 
-**Precedence:** AGENTS.md (highest) → user_rules.md (medium) → defaults (lowest)
+**Location:** `~/.verdent/VERDENT.md` (User Rules) | `<project>/AGENTS.md` (Project Rules)
 
 ---
 
-## User Rules (user_rules.md)
+## User Rules (VERDENT.md)
 
-User rules define global preferences that apply across all projects.
+User Rules let you customize how Verdent behaves across all projects.
 
 **Access:** Settings → User Rules
 
+**Auto-save:** Changes auto-save after 500ms
+
 <Tabs>
-  <Tab title="Use Cases">
-    - **Coding style:** Indentation, naming conventions
-    - **Language:** Response language preferences
-    - **Comments:** Comment style and detail level
-    - **Communication:** Tone and verbosity
+  <Tab title="Purpose">
+    - **Coding style preferences:** Indentation, naming conventions
+    - **Framework conventions:** React, Vue, language standards
+    - **Response formatting:** Verbosity, explanation style
+    - **Personal workflow preferences:** Tone, communication style
   </Tab>
   <Tab title="Example">
     ```markdown
     # User Rules
 
     ## Code Style
-    - Use TypeScript strict mode
-    - Prefer functional components in React
-    - Use 2-space indentation
+    - Always use TypeScript with strict mode
+    - Prefer functional components over class components
+    - Use Tailwind CSS for styling
+    - Follow the project's existing naming conventions
 
     ## Communication
     - Provide brief explanations
     - Show code first, explain after
+    - Write concise commit messages in conventional format
     ```
   </Tab>
 </Tabs>
@@ -57,7 +61,11 @@ User rules define global preferences that apply across all projects.
 
 ## Project Rules (AGENTS.md)
 
-Project rules define standards specific to the current project. Store in the project root and commit to version control for team-wide sharing.
+Project rules define standards specific to the current project. Commit to version control for team-wide sharing.
+
+**Access:** Project Settings panel
+
+**Location:** Project root (`<project>/AGENTS.md`)
 
 <Tabs>
   <Tab title="Use Cases">
@@ -91,18 +99,6 @@ Share AGENTS.md with your team via version control to ensure consistent AI behav
 
 ---
 
-## Rule Precedence
-
-When rules conflict, project rules override user rules:
-
-```
-user_rules.md: "Use 2-space indentation"
-AGENTS.md: "Use 4-space indentation for this project"
-→ Result: 4-space indentation (project rules win)
-```
-
----
-
 ## Writing Effective Rules
 
 **Be Specific:**
@@ -127,15 +123,15 @@ AGENTS.md: "Use 4-space indentation for this project"
 ## FAQs
 
 <Accordion title="How do I create rule files?">
-Create `user_rules.md` for personal preferences and `AGENTS.md` in your project root for project-specific rules. Use plain Markdown with bullet points.
+Navigate to Settings → User Rules to edit `VERDENT.md` for personal preferences. Create `AGENTS.md` in your project root for project-specific rules. Use plain Markdown with bullet points.
 </Accordion>
 
 <Accordion title="When do rule changes take effect?">
 Rule changes apply immediately in new conversations and influence current conversation responses.
 </Accordion>
 
-<Accordion title="Can I override project rules temporarily?">
-Project rules take precedence, but you can provide specific instructions in your prompt to override for a single request.
+<Accordion title="Can I override rules temporarily?">
+You can provide specific instructions in your prompt to override rules for a single request.
 </Accordion>
 
 ---

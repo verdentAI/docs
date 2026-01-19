@@ -8,7 +8,7 @@ Use Verdent to identify and fix bugs through natural language descriptions. Verd
 ## What You'll Learn
 
 - Debug issues by describing them to Verdent
-- Leverage the @Verifier subagent for quick checks
+- Leverage the @verifier subagent for quick checks
 - Apply systematic debugging workflows
 - Use Desktop features for parallel debugging
 
@@ -27,9 +27,6 @@ Use Verdent to identify and fix bugs through natural language descriptions. Verd
   </Step>
   <Step title="Review the Fix">
     Verdent proposes and implements the fix, then shows the changes
-  </Step>
-  <Step title="Verify">
-    Verdent runs tests to confirm the fix works
   </Step>
 </Steps>
 
@@ -63,24 +60,24 @@ pytest --cov=src
 
 ---
 
-## Using @Verifier
+## Using @verifier
 
-The `@Verifier` subagent specializes in rapid validation and verification tasks.
+The `@verifier` subagent specializes in rapid validation and verification tasks.
 
-### When to Use @Verifier
+### When to Use @verifier
 
 | Task | Example |
 |------|---------|
-| **Quick checks** | `@Verifier check if auth middleware handles expired tokens` |
-| **Validation** | `@Verifier validate the error handling in @userService.ts` |
-| **Syntax verification** | `@Verifier check this SQL query for syntax errors` |
-| **Pre-commit checks** | `@Verifier verify the changes are ready for commit` |
+| **Quick checks** | `@verifier check if auth middleware handles expired tokens` |
+| **Validation** | `@verifier validate the error handling in @userService.ts` |
+| **Syntax verification** | `@verifier check this SQL query for syntax errors` |
+| **Pre-commit checks** | `@verifier verify the changes are ready for commit` |
 
-### @Verifier Examples
+### @verifier Examples
 
 **Check specific functionality:**
 ```
-@Verifier verify that the login function properly handles:
+@verifier verify that the login function properly handles:
 - Invalid credentials
 - Locked accounts
 - Missing required fields
@@ -88,17 +85,17 @@ The `@Verifier` subagent specializes in rapid validation and verification tasks.
 
 **Validate after changes:**
 ```
-@Verifier run the tests for the auth module and summarize any failures
+@verifier run the tests for the auth module and summarize any failures
 ```
 
 **Quick sanity check:**
 ```
-@Verifier is the database connection being properly closed in @dbClient.ts?
+@verifier is the database connection being properly closed in @dbClient.ts?
 ```
 
-### @Verifier vs Main Agent
+### @verifier vs Main Agent
 
-| Aspect | @Verifier | Main Agent |
+| Aspect | @verifier | Main Agent |
 |--------|-----------|------------|
 | **Context** | Isolated, focused | Full conversation context |
 | **Speed** | Faster for quick checks | Better for complex analysis |
@@ -106,7 +103,7 @@ The `@Verifier` subagent specializes in rapid validation and verification tasks.
 | **Cost** | Separate context (efficient) | Main context usage |
 
 <Tip>
-@Verifier can be configured to use a different model in Settings. Use a smaller, cheaper model for simple verification tasks to reduce credit usage.
+@verifier can be configured to use a different model in Settings. Use a smaller, cheaper model for simple verification tasks to reduce credit usage.
 </Tip>
 
 ---
@@ -193,7 +190,7 @@ Debug multiple issues simultaneously in separate workspaces:
         Switch between workspaces using **All Workspaces** to compare behavior
       </Step>
       <Step title="Apply Fixes">
-        When a fix is ready, click **Workspace Actions → Rebase to master**
+        When a fix is ready, click **Workspace Actions → Rebase to main branch**
       </Step>
     </Steps>
 
@@ -308,7 +305,7 @@ For difficult-to-understand bugs:
 1. Add logging to capture state when bug occurs
 2. Request Verdent to add strategic log statements
 3. Reproduce multiple times to find pattern
-4. Use `@Verifier` to validate fixes don't introduce regressions
+4. Use `@verifier` to validate fixes don't introduce regressions
 </Accordion>
 
 <Accordion title="Should I use a separate workspace for debugging?">
@@ -331,8 +328,8 @@ For difficult-to-understand bugs:
 5. Deploy after full test verification
 </Accordion>
 
-<Accordion title="When should I use @Verifier instead of the main agent?">
-Use @Verifier for quick validation checks, syntax verification, and pre-commit checks. Use the main agent for complex investigations requiring full context.
+<Accordion title="When should I use @verifier instead of the main agent?">
+Use @verifier for quick validation checks, syntax verification, and pre-commit checks. Use the main agent for complex investigations requiring full context.
 </Accordion>
 
 <Accordion title="Can Verdent debug code it didn't write?">
@@ -345,7 +342,7 @@ Yes. Describe the bug and use @-mentions to point Verdent to relevant files. Ver
 
 <CardGroup cols={2}>
   <Card title="Subagent Management" icon="users" href="/verdent/agents-rules/subagent-management">
-    Learn about @Verifier and other subagents
+    Learn about @verifier and other subagents
   </Card>
   <Card title="Error Recovery" icon="life-ring" href="/verdent/error-handling/recovery">
     Handling errors and recovery strategies

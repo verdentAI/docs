@@ -3,8 +3,6 @@ title: Configuration Optimization
 description: "Optimize Verdent for speed, cost, and thoroughness"
 ---
 
-Optimize Verdent to balance speed, cost, and thoroughness based on your workflow requirements.
-
 ### Optimization Areas
 
 - Model selection for cost and performance balance
@@ -45,7 +43,7 @@ Balance execution speed against analysis depth based on task requirements.
     Most users benefit from context-switching between configurations:
 
     - **Quick fixes:** Haiku + Agent Mode
-    - **Complex features:** Sonnet + Plan Mode
+    - **Complex features:** Opus + Plan Mode
     - **Exploration:** Plan Mode for strategy, then Agent Mode for execution
 
     **Strategy:** Adapt configuration to task type instead of using one-size-fits-all approach.
@@ -180,7 +178,7 @@ Balance credit consumption against productivity:
   <Tab title="Cost Reduction">
     **Strategies:**
     - Use Claude Haiku 4.5 for routine tasks (lower credit consumption)
-    - Use `@Verifier` for quick validation (separate context)
+    - Use `@verifier` for quick validation (separate context)
     - Break large tasks into smaller sessions
     - Use Plan Mode to avoid wasted execution context
 
@@ -198,7 +196,7 @@ Balance credit consumption against productivity:
 
 ### Monitoring Credit Usage
 
-Track consumption in the User Center:
+Track consumption in the User Menu:
 
 - **Credit balance:** Current credits remaining
 - **Subscription details:** Plan information
@@ -211,7 +209,7 @@ Track consumption in the User Center:
 <Accordion title="How do I optimize for large codebases?">
 Large codebase optimization strategies:
 
-1. **Use subagents strategically:** `@Verifier` and `@Code-reviewer` preserve main context
+1. **Use subagents strategically:** `@verifier` preserves main context
 2. **Read files selectively:** Use `@filename` for specific files only
 3. **Chunk large tasks:** Break features into smaller, focused sessions
 4. **Use Plan Mode first:** Plan approach before consuming execution context

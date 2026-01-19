@@ -3,15 +3,15 @@ title: Core Concepts
 
 ---
 
-Verdent introduces a few core concepts that help you use AI more effectively. This page walks through the main building blocks of how work happens in Verdent—**Projects**, **Tasks**, **Execution Modes**, **Model Selection**, and **Workspaces**—and how they fit together.
+Verdent introduces a few core concepts that help you use AI more effectively. This page walks through the main building blocks of how work happens in Verdent: **Projects**, **Tasks**, **Execution Modes**, **Model Selection**, and **Workspaces**, and how they fit together.
 
 A typical flow looks like this:
 
 - You start by opening a **Project** — the local folder where your code and files live.
-- Inside a project, you create a **Task** — an isolated work session where context accumulates as you iterate.
+- Inside a project, you create a **Task** — running an agent to perform work within your codebase.
 - When running a task, you choose an **Execution Mode** — **Agent Mode** to execute with write permissions, or **Plan Mode** to analyze and plan without modifying files.
 - If needed, you can also choose a **Model** — different providers and models are better suited for different kinds of work.
-- When multiple tasks need to change code at the same time, you use **Workspaces** — isolated working environments that keep changes separated and reduce conflicts.
+- When multiple tasks need to change code in parallel, you use **Workspaces** — isolated working environments that keep changes separated and reduce conflicts.
 ---
 
 ## Projects
@@ -36,10 +36,9 @@ A **project** in Verdent is a local folder that you actively work in. It usually
 
 ## Tasks
 
-A **task** is a focused work session inside a project—think of it as a **chat session with llm**.
-A task typically contains multiple rounds of conversation. Within a task, the llm's **context is shared and accumulated**; across different tasks, **context is isolated**.
+A **task** in Verdent represents running an agent to perform work within your current codebase. Think of it as a **chat session with an agent**.
 
-This makes Tasks ideal for working on multiple threads in parallel without mixing discussions, assumptions, or decisions.
+Tasks run in the current workspace, not in isolated environments. Creating multiple tasks means running multiple agents within the same codebase and workspace. While each task maintains its own conversation context, tasks are not isolated from each other—they all operate on the same files.
 
 ### Task Lifecycle
 
@@ -59,7 +58,7 @@ This makes Tasks ideal for working on multiple threads in parallel without mixin
 
 | Action | Description |
 |--------|-------------|
-| **New Task** | Start a new isolated session for a new thread of work |
+| **New Task** | Start a new agent session for a new thread of work |
 | **Switch Task** | Jump between tasks while keeping each task’s context intact |
 | **Rollback** | Go back to an earlier checkpoint in the same task |
 | **Duplicate** | Fork the task at a chosen point to explore another direction |
@@ -118,23 +117,23 @@ To switch between modes, click the **Switch Mode** button in the input box, or p
 
 ## Model Selection
 
-In addition to choosing an execution mode, you can choose which model (or provider) a task should use—depending on what you’re trying to accomplish.
+In addition to choosing an execution mode, you can choose which model (or provider) a task should use, depending on what you're trying to accomplish.
 
 Verdent orchestrates models from multiple AI providers (Claude, GPT-5, Gemini) within a single workflow. Each specialized agent can leverage the optimal model for its specific task.
 
 **Available Models:**
 
-| Provider  | Model                 | Context | Best For |
-| --------- | --------------------- | ------- | -------- |
-| Anthropic | claude-opus-4.5       | 200K    | Great for deep coding tasks and problem-solving. |
-| Anthropic | claude-sonnet-4.5     | 200K    | Balanced complex tasks |
-| Anthropic | claude-haiku-4.5      | 200K    | Fast, simple tasks |
-| Google    | gemini-3-pro-preview  | 1M      | Advanced reasoning and multimodal |
-| Google    | gemini-3-flash-preview| 1M      | Pro-level reasoning with Flash-level latency and efficiency |
-| OpenAI    | gpt-5                 | 272K    | Reasoning and creativity |
-| OpenAI    | gpt-5-codex (Beta)    | 272K    | Coding and debugging |
-| Zhipu AI  | GLM 4.7               | 200K    | Fast, simple tasks |
-| Moonshot  | kimi-k2-turbo         | 262K    | Fast, simple tasks |
+| Provider  | Model                  | Context | Max Mode | Best For | Cost |
+| --------- | ---------------------- | ------- | -------- | -------- | ---- |
+| Anthropic | claude-opus-4.5        | 200K    | 200K     | Great for deep coding tasks and problem-solving. | 1.6x |
+| Anthropic | claude-sonnet-4.5      | 200K    | 1M       | Balanced complex tasks | 1x |
+| Anthropic | claude-haiku-4.5       | 200K    | -        | Fast, simple tasks | 0.3x |
+| Google    | gemini-3-pro-preview   | 200K    | 1M       | Advanced reasoning and multimodal | 0.45x |
+| Google    | gemini-3-flash-preview | 200K    | 1M       | Pro-level reasoning with Flash-level latency and efficiency | 0.18x |
+| OpenAI    | gpt-5                  | 272K    | -        | Reasoning and creativity | 0.75x |
+| OpenAI    | gpt-5-codex (Beta)     | 272K    | -        | Coding and debugging | 0.75x |
+| Zhipu AI  | GLM 4.7                | 200K    | -        | Agentic coding, complex reasoning, and tool-driven workflows | 0.43x |
+| Moonshot  | kimi-k2-turbo          | 262K    | -        | Lightning-fast model for coding | 0.35x |
 
 **Learn more:** [Configuration Settings](/verdent/configuration/settings)
 
@@ -143,8 +142,26 @@ Verdent orchestrates models from multiple AI providers (Claude, GPT-5, Gemini) w
 
 ## Workspaces
 
-A **workspace** in Verdent is an isolated working environment within a project.  
-It’s an advanced capability designed to solve a real problem: **when multiple tasks need to change code in parallel, changes can easily conflict.** Workspaces keep those changes separated, so you can move faster without making a mess.
+A **workspace** in Verdent is an isolated working environment within a project.
+It's an advanced capability designed to solve a real problem: **when multiple tasks need to change code in parallel, changes can easily conflict.** Workspaces keep those changes separated, so you can move faster without making a mess.
+
+<Tabs>
+  <Tab title="Base Workspace">
+    <Frame caption="Your main workspace with current project state">
+      <img src="/images/workspace-1-basic.png" alt="Base workspace" />
+    </Frame>
+  </Tab>
+  <Tab title="Create New Workspace">
+    <Frame caption="Click the + button to create a new isolated workspace">
+      <img src="/images/workspace-2-new-workspace-button.png" alt="New workspace button" />
+    </Frame>
+  </Tab>
+  <Tab title="Configure New Workspace">
+    <Frame caption="Configure your new workspace">
+      <img src="/images/workspace-3-new-workspace-ui.png" alt="New workspace UI" />
+    </Frame>
+  </Tab>
+</Tabs>
 
 ### Workspace Types
 
@@ -152,7 +169,7 @@ It’s an advanced capability designed to solve a real problem: **when multiple 
   Your primary working environment on the branch you choose. It’s typically kept clean and stable, and serves as the reference point for integrating completed work.
 
 - **Additional Workspaces**  
-  Create multiple workspaces from the Base Workspace. Each workspace is isolated, with its own set of code changes—so you can work on different tasks (or different solutions) in parallel without interfering with each other.
+  Create multiple workspaces from the Base Workspace. Each workspace is isolated, with its own set of code changes, so you can work on different tasks (or different solutions) in parallel without interfering with each other.
 
 ### Why Workspaces Matter
 
@@ -170,8 +187,8 @@ It’s an advanced capability designed to solve a real problem: **when multiple 
 |--------|-------------|
 | **Create Workspace** | Create a new isolated workspace from the Base Workspace |
 | **Switch Workspace** | Move between workspaces instantly without losing progress |
-| **Sync from Base** | Bring the latest changes from the Base Workspace into a workspace |
-| **Merge / Rebase to Base** | Integrate a workspace’s result back into the Base Workspace |
+| **Sync from main** | Bring the latest changes from the main branch into a workspace |
+| **Merge / Rebase to main branch** | Integrate a workspace's result back into the main branch |
 | **Delete Workspace** | Remove a workspace when it’s no longer needed |
 
 ---
@@ -219,7 +236,7 @@ Use parallel execution for independent work. For tasks with dependencies, work s
 ## Git Worktree Integration
 
 Verdent Workspaces are built on top of **Git worktree**.  
-You don’t need to understand Git worktree to use Workspaces—but if you want to know the underlying mechanism, this section explains the basics.
+You don't need to understand Git worktree to use Workspaces, but if you want to know the underlying mechanism, this section explains the basics.
 
 ### What is a Git Worktree?
 
@@ -231,7 +248,7 @@ In practice, this means:
 - **Branch-per-worktree**: a worktree is typically attached to its own branch
 - **Native Git feature**: supported by standard Git tooling and works with all Git hosts
 
-Verdent uses these properties to implement Workspace isolation—so parallel work can happen safely without mixing changes.
+Verdent uses these properties to implement Workspace isolation, so parallel work can happen safely without mixing changes.
 
 ### Prerequisites
 
@@ -243,7 +260,7 @@ See [Git Installation](/verdent/getting-started/git-installation) if you need to
 ## FAQs
 
 <Accordion title="What happens if two agents modify the same file?">
-If two agents run in the **same workspace** and edit the same file, the result is **not deterministic**—later writes may overwrite earlier ones. Verdent does not guarantee safe conflict handling inside a single workspace.
+If two agents run in the **same workspace** and edit the same file, the result is **not deterministic**; later writes may overwrite earlier ones. Verdent does not guarantee safe conflict handling inside a single workspace.
 
 If you expect two agents might touch the same file, run them in **separate workspaces** instead. Each workspace is isolated, so both sets of changes are preserved independently. You can then review the results and decide what to keep (for example, merge one workspace and discard the other, or manually combine them).
 </Accordion>
@@ -262,16 +279,14 @@ No, each workspace is a complete copy of the working directory. You may need to 
 </Accordion>
 
 <Accordion title="What's the difference between a task and a workspace?">
-- **Task**: The work you're doing (conceptual)
-- **workspace**: The isolated directory where the work happens (physical)
+- **Task**: Running an agent to perform work. Multiple tasks run in the same workspace and operate on the same files.
+- **Workspace**: An isolated working environment (Base Workspace or New Workspace) where code changes happen.
 
-One workspace can support multiple tasks sequentially, but for parallel work, each task needs its own workspace.
+For parallel code changes that shouldn't interfere, use separate workspaces.
 </Accordion>
 
 <Accordion title="Do tasks share context with each other?">
-No. Context is **shared and accumulated within a single task** as the conversation continues. But **different tasks are isolated**—they don’t share context with each other.
-
-This makes it easy to work on multiple threads without mixing assumptions, decisions, or discussion history.
+Tasks share the same codebase and files, but each task maintains its own conversation context. Changes made by one task are visible to other tasks in the same workspace.
 </Accordion>
 
 <Accordion title="Does Verdent work with non-git repositories?">
@@ -291,10 +306,10 @@ Use the Discard Changes feature in the Source Control tab, or delete files direc
 ## See Also
 
 <CardGroup cols={2}>
+  <Card title="Plan Mode" icon="clipboard-list" href="/verdent/core-features/plan-mode">
+    Capture requirements and plan before executing
+  </Card>
   <Card title="Parallel Execution" icon="layer-group" href="/verdent/core-features/parallel-execution">
     Deep dive into parallel execution
-  </Card>
-  <Card title="Workspace Isolation" icon="code-branch" href="/verdent/core-features/workspace-isolation">
-    Git worktree architecture details
   </Card>
 </CardGroup>

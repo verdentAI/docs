@@ -3,7 +3,7 @@ title: Version Control
 description: "Git integration and version control in Verdent"
 ---
 
-Verdent manages Git automatically through workspace isolation. Each workspace operates on its own branch, with changes rebased to master when complete.
+Verdent manages Git automatically through workspace isolation. Each workspace operates on its own branch, with changes rebased to the main branch when complete.
 
 ## What You'll Learn
 
@@ -60,7 +60,7 @@ Ask Verdent to handle Git operations naturally:
     ```
 
     ```
-    Sync this branch with the latest changes from master
+    Sync this branch with the latest changes from the main branch
     ```
   </Tab>
 </Tabs>
@@ -73,8 +73,9 @@ Each workspace has its own Git branch. Use **Workspace Actions** in the Top Bar:
 
 | Operation | Action |
 |-----------|--------|
-| **Sync with master** | Pull latest changes from master into workspace |
-| **Rebase to master** | Apply workspace changes to master |
+| **Sync from Main** | Pull latest changes from main branch into workspace |
+| **Rebase to Main** | Apply workspace changes to main branch |
+| **Create PR** | Create a pull request from the current workspace branch |
 
 ### Rebase Workflow
 
@@ -89,7 +90,7 @@ Each workspace has its own Git branch. Use **Workspace Actions** in the Top Bar:
     Run tests to ensure everything works
   </Step>
   <Step title="Rebase">
-    Click **Workspace Actions → Rebase to master**
+    Click **Workspace Actions → Rebase to Main**
   </Step>
   <Step title="Clean Up">
     Click **Delete Workspace** in the Workspace Bar
@@ -128,14 +129,14 @@ Each workspace maintains its own state. Uncommitted changes in one workspace don
 </Accordion>
 
 <Accordion title="How do I resolve conflicts when syncing?">
-1. Click **Workspace Actions → Sync with master**
+1. Click **Workspace Actions → Sync from Main**
 2. Conflicts appear in affected files
 3. Ask Verdent to help: `Help me resolve the conflicts in @userService.ts`
 4. Stage resolved files and complete the sync
 </Accordion>
 
 <Accordion title="Why does Verdent use rebase instead of merge?">
-Rebase creates cleaner linear history and easier code review. Each workspace produces a clean branch that rebases onto master when complete.
+Rebase creates cleaner linear history and easier code review. Each workspace produces a clean branch that rebases onto the main branch when complete.
 </Accordion>
 
 <Accordion title="Can I push workspace branches to remote?">

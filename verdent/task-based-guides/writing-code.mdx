@@ -150,8 +150,8 @@ Build features incrementally:
       <Step title="Review Changes">
         When a feature is complete, review changes
       </Step>
-      <Step title="Rebase to Master">
-        Click **Workspace Actions → Rebase to master** to apply changes
+      <Step title="Rebase to main branch">
+        Click **Workspace Actions → Rebase to main branch** to apply changes
       </Step>
     </Steps>
 
@@ -177,7 +177,7 @@ Build features incrementally:
         The bug fix agent works independently while your feature agent continues
       </Step>
       <Step title="Ship the Fix">
-        When the fix is ready, click **Workspace Actions → Rebase to master** to ship the fix
+        When the fix is ready, click **Workspace Actions → Rebase to main branch** to ship the fix
       </Step>
       <Step title="Resume Feature Work">
         Your feature workspace continues uninterrupted with the fix now in master
@@ -206,7 +206,7 @@ Build features incrementally:
         Review the results to see all modifications
       </Step>
       <Step title="Keep or Discard">
-        If successful, click **Workspace Actions → Rebase to master** to keep changes. If failed, click **Delete Workspace** in the Workspace Bar to discard all changes.
+        If successful, click **Workspace Actions → Rebase to main branch** to keep changes. If failed, click **Delete Workspace** in the Workspace Bar to discard all changes.
       </Step>
     </Steps>
 
@@ -289,7 +289,11 @@ Yes. Create separate workspaces for each feature by clicking **New Workspace** i
 </Accordion>
 
 <Accordion title="How do I undo changes Verdent made?">
-Delete the workspace to discard all changes. Click **Delete Workspace** in the Workspace Bar to remove the workspace and all its modifications. Your base workspace remains unaffected.
+You don't need to delete the entire workspace to undo changes. You have several options:
+
+- **Rollback:** Hover over any message in the chat and click **Rollback to this point** to revert to an earlier state.
+- **Use Source Control:** Open Source Control (`Ctrl+Shift+G` / `Cmd+Shift+G`) to view changed files and revert specific changes.
+- **Delete workspace:** Click **Delete Workspace** in the Workspace Bar to discard all changes in that workspace. Your base workspace remains unaffected.
 </Accordion>
 
 <Accordion title="Does Code Review use credits?">

@@ -61,7 +61,7 @@ Verdent requires an **active internet connection** to communicate with AI servic
 
 ---
 
-## Advanced
+## Optional Dependencies
 
 <Accordion title="Git dependency (managed by Verdent)">
 Verdent uses Git worktrees for workspace isolation.
@@ -83,6 +83,150 @@ Proxy servers should pass through API requests. SSL/TLS inspection may require e
 
 If you continue to see connection failures after network configuration, contact Verdent support for endpoint details.
 </Accordion>
+
+---
+
+## File Format Support
+
+Verdent works with all text-based file formats through its file operation tools.
+
+<Tabs>
+  <Tab title="Source Code">
+    | Category | Languages/Extensions |
+    |----------|---------------------|
+    | **Web** | JavaScript, TypeScript, HTML, CSS, SCSS, LESS |
+    | **Backend** | Python, Java, Go, Rust, C, C++, C#, Ruby, PHP, Perl |
+    | **Mobile** | Swift, Kotlin, Dart (Flutter), Objective-C |
+    | **Functional** | Haskell, Scala, Elixir, Clojure, F# |
+    | **Scripting** | Bash, PowerShell, Zsh, Fish |
+    | **Data** | SQL, R, Julia, MATLAB |
+  </Tab>
+
+  <Tab title="Configuration">
+    | Format | Common Examples |
+    |--------|----------------|
+    | **JSON** | package.json, tsconfig.json, settings.json |
+    | **YAML** | docker-compose.yml, GitHub Actions, Kubernetes configs |
+    | **TOML** | Cargo.toml, pyproject.toml |
+    | **XML** | pom.xml, web.xml, config files |
+    | **INI** | .gitconfig, .editorconfig |
+    | **ENV** | .env files, environment configuration |
+    | **HCL** | Terraform configuration |
+  </Tab>
+
+  <Tab title="Documentation">
+    | Format | Use Cases |
+    |--------|-----------|
+    | **Markdown** | README.md, documentation files |
+    | **HTML** | Templates, web pages |
+    | **LaTeX** | Scientific documents, academic papers |
+    | **reStructuredText** | Python documentation |
+    | **AsciiDoc** | Technical documentation |
+  </Tab>
+
+  <Tab title="Data & Build">
+    ### Data Formats
+
+    | Format | Description |
+    |--------|-------------|
+    | **CSV/TSV** | Tabular data files |
+    | **Text-based data** | Log files, data dumps |
+    | **JSON/YAML** | Structured data interchange |
+
+    ### Build & Package Files
+
+    | File | Purpose |
+    |------|---------|
+    | **Makefile** | Build automation |
+    | **package.json** | Node.js dependencies |
+    | **requirements.txt** | Python packages |
+    | **Gemfile** | Ruby gems |
+    | **Cargo.toml** | Rust packages |
+    | **build.gradle** | Gradle builds |
+  </Tab>
+
+  <Tab title="Binary Limitations">
+    | Format Type | Examples | Editability |
+    |-------------|----------|-------------|
+    | **Images** | PNG, JPG, GIF, SVG (binary) | Not directly editable |
+    | **Videos** | MP4, AVI, MOV | Not directly editable |
+    | **Compiled binaries** | EXE, DLL, SO | Not directly editable |
+    | **Archives** | ZIP, TAR, GZ | Not directly editable |
+    | **Office documents** | DOCX, XLSX, PPTX | Not directly editable |
+    | **PDFs** | PDF files | Not directly editable |
+
+    <Note>
+    Binary files may be referenced in code but cannot be modified through file tools.
+    </Note>
+  </Tab>
+</Tabs>
+
+---
+
+## Programming Language Support
+
+Verdent provides comprehensive support for all text-based programming languages and frameworks.
+
+<Tabs>
+  <Tab title="Web Development">
+    | Language/Framework | Support Level | Common Use Cases |
+    |-------------------|---------------|------------------|
+    | JavaScript | Excellent | Frontend logic, Node.js backends, tooling |
+    | TypeScript | Excellent | Type-safe web apps, large-scale projects |
+    | React | Excellent | Component-based UIs, hooks, state management |
+    | Vue | Excellent | Progressive web apps, single-file components |
+    | Angular | Excellent | Enterprise applications, TypeScript integration |
+    | Svelte | Very Good | Compiled components, reactive programming |
+    | HTML/CSS | Excellent | Markup, styling, responsive design |
+    | SCSS/LESS | Excellent | Advanced styling, variables, mixins |
+  </Tab>
+
+  <Tab title="Backend">
+    | Language/Framework | Support Level | Common Use Cases |
+    |-------------------|---------------|------------------|
+    | Python | Excellent | APIs, data processing, automation |
+    | Django/Flask/FastAPI | Excellent | Web frameworks, REST APIs |
+    | Node.js/Express | Excellent | JavaScript backends, microservices |
+    | Java/Spring | Excellent | Enterprise applications, Spring Boot |
+    | Go | Excellent | High-performance services, CLIs |
+    | Rust | Very Good | Systems programming, performance-critical code |
+    | C/C++ | Very Good | Systems, embedded, game engines |
+    | C# / .NET | Excellent | Windows apps, web services, Unity |
+    | Ruby/Rails | Very Good | Web applications, rapid development |
+    | PHP | Good | WordPress, Laravel, legacy apps |
+  </Tab>
+
+  <Tab title="Mobile">
+    | Language/Framework | Support Level | Common Use Cases |
+    |-------------------|---------------|------------------|
+    | Swift | Excellent | iOS/macOS native apps |
+    | Kotlin | Excellent | Android native apps |
+    | Dart/Flutter | Excellent | Cross-platform mobile apps |
+    | React Native | Excellent | JavaScript-based mobile apps |
+    | Objective-C | Good | Legacy iOS/macOS apps |
+  </Tab>
+
+  <Tab title="Data & Scientific">
+    | Language | Support Level | Common Use Cases |
+    |----------|---------------|------------------|
+    | Python | Excellent | NumPy, Pandas, scikit-learn, TensorFlow |
+    | R | Very Good | Statistical analysis, data visualization |
+    | SQL | Excellent | Database queries, schema design |
+    | Julia | Good | Scientific computing, numerical analysis |
+  </Tab>
+
+  <Tab title="Systems & Low-Level">
+    | Language | Support Level | Common Use Cases |
+    |----------|---------------|------------------|
+    | C | Very Good | Systems programming, embedded |
+    | C++ | Very Good | Performance-critical applications |
+    | Rust | Very Good | Memory-safe systems programming |
+    | Go | Excellent | Concurrent systems, cloud services |
+    | Assembly | Good | Low-level optimization, debugging |
+  </Tab>
+</Tabs>
+
+**Support Quality:** Common languages (JavaScript, Python, TypeScript) have stronger support due to extensive training data. Less common or domain-specific languages may have reduced support quality but remain functional.
 
 ---
 

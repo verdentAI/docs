@@ -119,12 +119,12 @@ Plan Mode is Verdent's read-only planning mode for complex tasks.
 
 **Switch to Plan Mode:**
 
-Press `Shift + Tab` or `Ctrl + .`, or click the **Switch Mode** button in the input box
+Press `Shift + Tab`, `Ctrl + .` (Windows), or `Cmd ⌘ + .` (macOS), or click the **Switch Mode** button in the input box
 
 **Try a planning task:**
 
 ```
-Suggest improvements to the project structure
+Identify issues in the current project and fix them
 ```
 
 **What happens:**
@@ -170,8 +170,8 @@ Workspaces provide isolation for parallel development. Each workspace is a separ
 |--------|-------------|
 | **Create Workspace** | Create a new isolated worktree |
 | **Switch Workspace** | Navigate between workspaces |
-| **Rebase to Master** | Apply workspace changes to the master branch |
-| **Sync with Master** | Pull latest changes from master into the workspace |
+| **Rebase to main branch** | Apply workspace changes to the main branch |
+| **Sync with main branch** | Pull latest changes from main branch into the workspace |
 
 ---
 
@@ -202,7 +202,11 @@ Verdent's unique feature is running multiple agents in parallel.
     Both agents work simultaneously without conflicts.
   </Step>
   <Step title="Rebase When Ready">
-    When work is complete, use **Workspace Actions** → **Rebase to Master** to apply changes
+    When work is complete, use **Workspace Actions** → **Rebase to main branch** to apply changes
+
+    <Warning>
+    Commit all changes before rebasing. Verdent does not automatically commit code, so use Source Control to stage and commit your changes first.
+    </Warning>
   </Step>
 </Steps>
 
@@ -216,7 +220,7 @@ flowchart LR
     W1 --> A1[Agent 1<br/>Build login form]
     W2 --> A2[Agent 2<br/>Create API endpoint]
 
-    A1 --> R[Rebase to Master]
+    A1 --> R[Rebase to main branch]
     A2 --> R
 ```
 
@@ -231,7 +235,7 @@ For your first projects, start with single-workspace workflows. Use parallel exe
 | Mode | Description | Best For |
 |------|-------------|----------|
 | **Agent Mode** | Full autonomous execution | Active development, implementation |
-| **Plan Mode** | Read-only planning | Complex features, code review |
+| **Plan Mode** | Read-only planning | Complex features |
 
 **Switch modes:** Press `Shift+Tab` / `Ctrl+.` or click **Switch Mode** in the input box.
 
@@ -310,7 +314,7 @@ Yes, but use different workspaces. Never have both tools modifying the same file
 <Accordion title="How do I rebase workspace changes?">
 1. Complete work in the workspace
 2. Review changes
-3. Use **Workspace Actions** → **Rebase to Master** to apply changes
+3. Use **Workspace Actions** → **Rebase to main branch** to apply changes
 4. Optionally delete the workspace after rebasing
 </Accordion>
 

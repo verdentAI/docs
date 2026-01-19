@@ -88,7 +88,7 @@ Lighthouse and other accessibility tools can be integrated through custom MCP se
 
 ### Understanding MCP
 
-**Model Context Protocol (MCP)** is an open protocol that standardizes how applications provide context to LLMs. MCP servers are executables that implement the protocol—they're not database connections or API endpoints, but programs that run and communicate via JSON-RPC 2.0.
+**Model Context Protocol (MCP)** is an open protocol that standardizes how applications provide context to LLMs. MCP servers are executables that implement the protocol. They're not database connections or API endpoints, but programs that run and communicate via JSON-RPC 2.0.
 
 **Key Concepts:**
 - **MCP Servers**: Executables (Node.js packages, Python scripts, etc.) that implement the MCP protocol
@@ -197,7 +197,7 @@ Lighthouse and other accessibility tools can be integrated through custom MCP se
 }
 ```
 
-**Best Practice:** Use environment variables for connection strings to keep credentials secure. MCP servers handle read-only behavior internally based on their implementation—consult specific server documentation for access control options.
+**Best Practice:** Use environment variables for connection strings to keep credentials secure. MCP servers handle read-only behavior internally based on their implementation. Consult specific server documentation for access control options.
 
 <Tip>
 **Learn More About MCP:**

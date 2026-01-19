@@ -3,11 +3,11 @@ title: Configuration & Customization
 description: "Configure Verdent through the Settings panel"
 ---
 
-Verdent provides comprehensive configuration through a dedicated Settings panel organized into 12 categories.
+Verdent provides comprehensive configuration through a dedicated Settings panel organized into multiple categories.
 
 ### What You'll Learn
 
-- Navigate the 12 settings categories
+- Navigate the settings categories
 - Configure models, thinking levels, and automation
 - Create rules, subagents, and custom commands
 - Customize editor, terminal, and diff settings
@@ -51,10 +51,20 @@ The settings panel is organized into **11 categories**:
 | Setting | Options |
 |---------|---------|
 | **Theme** | Light, Dark, System |
-| **Update Mode** | Automatic, At Startup, Manual |
+| **Language** | Interface language preference |
+| **Updates** | Auto Update, Check on Startup, Manually Check |
 | **HTTP Proxy** | Proxy URL for HTTP |
 | **HTTPS Proxy** | Proxy URL for HTTPS |
-| **Full Shell Environment** | Enable to inherit shell environment variables and aliases |
+
+### Update Mode
+
+Control how Verdent handles updates:
+
+| Option | Description |
+|--------|-------------|
+| **Auto** | Automatically downloads and installs updates |
+| **Startup** | Checks for updates on app launch |
+| **Manual** | Only updates when you explicitly request |
 
 ---
 
@@ -70,7 +80,6 @@ The settings panel is organized into **11 categories**:
 
 | Setting | Description |
 |---------|-------------|
-| **Code Review Model** | Choose the AI model for code review generation |
 | **Default Agent Model** | Choose the default AI model for Agent mode |
 | **Default Plan Model** | Choose the default AI model for Plan mode |
 
@@ -81,24 +90,34 @@ The settings panel is organized into **11 categories**:
 | **System Notification** | Show system notification when task is finished |
 | **In-app Notification** | Show in-app notification when task is finished |
 
+<Tip>
+For System Notifications to work, ensure notification permissions are enabled at the OS level. Check your system settings to allow Verdent to send notifications.
+</Tip>
+
 ---
 
 ## Models Settings
 
-### Available Models (9)
+Configure which models appear in the model selector.
 
-| Provider | Models |
-|----------|--------|
-| **Anthropic** | Claude Opus 4.5, Claude Sonnet 4.5, Claude Haiku 4.5 |
-| **OpenAI** | GPT-5, GPT-5.1, GPT-5-Codex |
-| **Google** | Gemini 3 Pro, Gemini 2.5 Pro |
-| **Moonshot** | Kimi K2 Series |
+### Preset Models
 
-### Model Management
+Presets combine an Agent model and a Plan model for different use cases.
 
-- **Enable/Disable:** Toggle models to show/hide in selection
-- **Reasoning Level:** Set per-model default reasoning level
-- **View Details:** See context window sizes and capabilities
+| Preset | Description | Agent Model | Plan Model |
+|--------|-------------|-------------|------------|
+| **Performance** | Maximum context, frontier models (1–2× credit usage) | Opus 4.5 | Opus 4.5 |
+| **Balance** | Optimal blend of performance and cost | Sonnet 4.5 | Sonnet 4.5 |
+
+### Creating Custom Models
+
+Create new models with custom model combinations:
+
+| Field | Description |
+|-------|-------------|
+| **Name** | Model name (up to 20 characters) |
+| **Agent Model** | Model used for Agent Mode execution |
+| **Plan Model** | Model used for Plan Mode analysis |
 
 ---
 
@@ -110,12 +129,14 @@ Rules are Markdown files that guide Verdent's behavior.
 
 | Rule Type | Location | Scope |
 |-----------|----------|-------|
-| **User Rules** | `~/.verdent/user_rules.md` | All projects (global) |
+| **User Rules** | `~/.verdent/VERDENT.md` | All projects (global) |
 | **Project Rules** | `<project>/AGENTS.md` | Current project |
 
 **Access:** Settings → User Rules
 
 **Precedence:** AGENTS.md (highest) → User Rules → defaults
+
+**Auto-save:** Changes auto-save after 500ms
 
 ### Example User Rules
 
@@ -140,11 +161,22 @@ Commit AGENTS.md to version control to share project-specific standards with you
 
 ## Permissions Settings
 
-Configure deny rules to block dangerous commands.
+Define security rules to block potentially dangerous commands.
+
+### Purpose
+
+Permission rules prevent accidental execution of destructive commands. Each rule is a pattern that, when matched, blocks the command.
 
 **Storage:** `~/.verdent/permission.json`
 
-### Deny Rule Patterns
+### Syntax
+
+- One rule per line
+- Supports `*` wildcards for pattern matching
+- Exact match by default
+- Case-sensitive
+
+### Example Deny Patterns
 
 | Pattern | Purpose |
 |---------|---------|
@@ -153,11 +185,8 @@ Configure deny rules to block dangerous commands.
 | `git push --force` | Block force push |
 | `DROP TABLE` | Block dangerous SQL |
 | `npm publish` | Block publishing |
-
-**Pattern Matching:**
-- Use `*` for wildcards
-- Exact match by default
-- Case-sensitive
+| `curl * \| *sh*` | Block piping scripts to shell |
+| `:(){ :\|:& };:` | Block fork bombs |
 
 ---
 
@@ -165,11 +194,11 @@ Configure deny rules to block dangerous commands.
 
 ### Built-in Subagent
 
-**@Verifier** - Quick code verification and validation checks.
+**@verifier** - Quick code verification and validation checks.
 
 ```
-@Verifier Check this function for potential issues
-@Verifier Validate my authentication implementation
+@verifier Check this function for potential issues
+@verifier Validate my authentication implementation
 ```
 
 ### Creating Custom Subagents
@@ -215,7 +244,6 @@ Create custom slash commands for repetitive tasks.
 |-------|-------------|
 | **Name** | Command name (invoked with `/`) |
 | **Description** | What the command does |
-| **Type** | Prompt or action |
 | **Content** | The prompt or action to execute |
 
 ### Example Commands
@@ -239,12 +267,29 @@ Configure Model Context Protocol servers for external tool integration.
 
 **Storage:** `~/.verdent/mcp.json`
 
-| Field | Description |
-|-------|-------------|
-| **Name** | Server identifier |
-| **Command** | Executable command |
-| **Args** | Command arguments |
-| **Enabled** | Toggle on/off |
+### Adding MCP Servers
+
+MCP servers are configured via JSON. Click **Add Server** and paste the configuration JSON from the MCP server's documentation.
+
+**Example Configuration:**
+
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    }
+  }
+}
+```
+
+<Tip>
+Use NPX or UVX configurations when available for easier setup. Popular MCP servers are available via Quick Add.
+</Tip>
 
 ### Server Status
 
@@ -278,7 +323,7 @@ Configure Model Context Protocol servers for external tool integration.
 | **Cursor Width** | 1-10px (bar style only) |
 
 **Shortcuts:**
-- New Terminal: `Ctrl+Shift+``
+- New Terminal: `` Ctrl+Shift+` ``
 - Toggle Terminal: `Cmd+J` / `Ctrl+J`
 
 ---
@@ -313,6 +358,7 @@ Configure Model Context Protocol servers for external tool integration.
 | **Render Whitespace** | None, Boundary, Selection, Trailing, All |
 | **Line Highlight** | None, Gutter, Line, All |
 | **Cursor Style** | Line, Block, Underline |
+| **Cursor Blinking** | Blink, Smooth, Phase, Expand, Solid |
 | **Bracket Pair Colorization** | On/Off |
 | **Sticky Scroll** | On/Off |
 | **Folding** | On/Off |
@@ -323,37 +369,50 @@ Configure Model Context Protocol servers for external tool integration.
 
 **Access:** Settings → Diff
 
-### View Mode
-
-| Mode | Description |
-|------|-------------|
-| **Side-by-side** | Original and modified in parallel columns |
-| **Inline** | Changes within single column |
+| Setting | Description |
+|---------|-------------|
+| **View Mode** | Choose diff display layout (Unified View) |
+| **Font Size** | Set the font size for diffs |
+| **Render Whitespace** | Render whitespace characters (Selection) |
+| **Show Line Numbers** | Display line numbers in diff editors |
+| **Show Minimap** | Display the code minimap |
+| **Word Wrap** | Wrap long lines in diff editors |
+| **Ignore Trim Whitespace** | Ignore leading/trailing whitespace in diffs |
+| **Hide Unchanged Regions** | Collapse unchanged code regions |
+| **Smooth Scrolling** | Enable smooth scrolling animations |
+| **Mouse Wheel Zoom** | Allow zooming with mouse wheel + Ctrl |
+| **Sticky Scroll** | Keep headers visible when scrolling |
+| **Bracket Pair Colorization** | Colorize matching bracket pairs in diffs |
 
 ---
 
-## Open in External Editor
+## Open in External Tools
 
-Open workspace in your preferred external editor.
+Quickly open your current workspace in external editors, file managers, or terminals. Verdent automatically detects available tools on your system.
 
-**Shortcut:** `Cmd+E` (macOS) / `Ctrl+E` (Windows)
+**Shortcut:** `Cmd+E` (macOS) / `Ctrl+E` (Windows/Linux)
 
-### Supported Editors (10)
+### Supported Editors
 
-| Editor | Platform |
-|--------|----------|
-| VS Code | All |
-| Cursor | All |
-| Windsurf | All |
-| IntelliJ IDEA | All |
-| WebStorm | All |
-| Goland | All |
-| Sublime Text | All |
-| Zed | All |
-| Vim/Neovim | All |
-| Emacs | All |
+| Editor | Command |
+|--------|---------|
+| VS Code | `code .` |
+| Cursor | `cursor .` |
+| Windsurf | `windsurf .` |
+| IntelliJ IDEA | `idea .` |
+| WebStorm | `webstorm .` |
+| Goland | `goland .` |
+| Sublime Text | `subl .` |
+| Zed | `zed .` |
+| Vim/Neovim | Opens in terminal |
+| Emacs | `emacs .` |
 
-**macOS System Tools:** Finder, Terminal
+### System Tools (macOS)
+
+| Tool | Description |
+|------|-------------|
+| Finder | Open workspace folder in Finder |
+| Terminal | Open workspace in Terminal.app |
 
 ---
 
@@ -361,20 +420,31 @@ Open workspace in your preferred external editor.
 
 ### Essential Shortcuts
 
-| Action | macOS | Windows |
+| Action | macOS | Windows/Linux |
 |--------|-------|---------------|
 | **Open Settings** | `Cmd+,` | `Ctrl+,` |
-| **Switch Model** | `Cmd+/` | `Ctrl+/` |
 | **New Task** | `Cmd+N` | `Ctrl+N` |
-| **Focus Chat** | `Cmd+L` | `Ctrl+L` |
 | **New Workspace** | `Cmd+Shift+N` | `Ctrl+Shift+N` |
+| **Switch Chat Mode** | `Cmd+.` | `Ctrl+.` |
+| **Switch Model** | `Cmd+/` | `Ctrl+/` |
+| **Toggle Detail Panel** | `Cmd+L` | `Ctrl+L` |
 | **Toggle Sidebar** | `Cmd+B` | `Ctrl+B` |
-| **Open in IDE** | `Cmd+E` | `Ctrl+E` |
 | **Toggle Terminal** | `Cmd+J` | `Ctrl+J` |
+| **Open in IDE** | `Cmd+E` | `Ctrl+E` |
 
-### Customizing Shortcuts
+---
 
-Settings → Keyboard Shortcuts → find command → edit shortcut
+## Data Storage
+
+Verdent stores configuration in these locations:
+
+| Data | Location |
+|------|----------|
+| **Configuration** | `~/.verdent/config.json` |
+| **Permissions** | `~/.verdent/permission.json` |
+| **MCP Configuration** | `~/.verdent/mcp.json` |
+| **Custom Commands** | Stored in Verdent directory |
+| **Worktrees** | `{project}/.worktrees/` |
 
 ---
 
@@ -389,12 +459,12 @@ Most settings apply immediately:
 **Exception:** Some terminal and MCP settings may require session restart.
 </Accordion>
 
-<Accordion title="How do I reset settings to defaults?">
-1. Open Settings
-2. Click **Reset to Defaults** in the category header
-3. Confirm the reset
+<Accordion title="What's the difference between Base and Worktree workspaces?">
+**Base** is your main project directory. **Worktree** creates an isolated git worktree with its own branch, allowing parallel development without conflicts.
+</Accordion>
 
-To reset all: Settings → General → **Reset All Settings**
+<Accordion title="Can workspaces share changes?">
+Yes. Since worktrees use the same git repository, you can merge changes between branches, cherry-pick commits, or rebase as needed.
 </Accordion>
 
 ---
@@ -405,7 +475,7 @@ To reset all: Settings → General → **Reset All Settings**
   <Card title="Execution Modes" icon="toggle-on" href="/verdent/execution-modes/overview">
     Agent Mode and Plan Mode details
   </Card>
-  <Card title="Extensibility" icon="puzzle-piece" href="/verdent/advanced-features/extensibility">
-    Rules, permissions, and MCP integration
+  <Card title="Extensibility & Integration" icon="plug" href="/verdent/advanced-features/integrations">
+    Permissions, rules, and MCP integration
   </Card>
 </CardGroup>

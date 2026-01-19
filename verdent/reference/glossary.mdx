@@ -34,7 +34,7 @@ A git repository you're actively working on. Projects maintain independent sessi
 </Accordion>
 
 <Accordion title="Subagent">
-Specialized AI agent with isolated context for specific tasks (Explorer, Verifier, Code-reviewer)
+Specialized AI agent with isolated context for specific tasks (e.g., Verifier)
 </Accordion>
 
 <Accordion title="Task">
@@ -77,13 +77,17 @@ Multiple AI agents working simultaneously in separate worktrees, each with isola
 Rapid navigation between different projects while maintaining session state
 </Accordion>
 
-<Accordion title="Rebase to Master">
-Process of applying changes from a workspace back into the master branch
+<Accordion title="Rebase to main branch">
+Process of applying changes from a workspace back into the main branch (the branch the workspace was created from)
 </Accordion>
 
-<Accordion title="Sync with Master">
-Pull latest changes from master into the current workspace
+<Accordion title="Sync with main branch">
+Pull latest changes from the main branch into the current workspace
 </Accordion>
+
+<Note>
+In "Rebase to main" and "Sync from main," the branch name shown is actually the branch of the current Base Workspace, not necessarily `master`. If your Base Workspace is on a different branch (e.g., `develop`), the actions will target that branch instead.
+</Note>
 
 <Accordion title="Task Worktree">
 Isolated directory for a specific task with a complete copy of repository files and a separate branch
@@ -101,8 +105,8 @@ Project-specific team standards file (project root, version controlled)
 MCP server configuration (`~/.verdent/mcp.json`)
 </Accordion>
 
-<Accordion title="user_rules.md">
-Global personal preferences file (`~/.verdent/user_rules.md`)
+<Accordion title="VERDENT.md">
+Global personal preferences file (`~/.verdent/VERDENT.md`)
 </Accordion>
 
 <Accordion title="Workspace">
@@ -141,10 +145,6 @@ Maximum time for bash commands: 120 seconds (2 minutes, hard limit)
 Subagent can activate automatically based on request patterns
 </Accordion>
 
-<Accordion title="Invocation Policy">
-Rules for when subagent activates (strict vs flexible)
-</Accordion>
-
 <Accordion title="Isolated Context">
 Subagent's separate context window (doesn't consume main context)
 </Accordion>
@@ -171,10 +171,6 @@ External tool/service integrated via Model Context Protocol
 
 <Accordion title="Plugin">
 Pre-built MCP integration for specific tools or services
-</Accordion>
-
-<Accordion title="Workspace Config">
-Project-specific MCP configuration (`.verdent/mcp.json`)
 </Accordion>
 
 ---

@@ -11,28 +11,28 @@ Rule files are Markdown documents that define how Verdent behaves and responds d
 
 **Three Categories:**
 
-- **Global preferences** (user_rules.md) - Personal coding style, language preferences
+- **Global preferences** (VERDENT.md) - Personal coding style, language preferences
 - **Project-specific standards** (AGENTS.md) - Team conventions, architectural patterns
 - **Plan customization** (Plan.md) - Plan Mode output format and content
 
-**Rule Precedence:**When rules conflict, Verdent applies precedence: **AGENTS.md** (highest) → **user_rules.md** (medium) → **defaults** (lowest)
+**Rule Precedence:**When rules conflict, Verdent applies precedence: **AGENTS.md** (highest) → **VERDENT.md** (medium) → **defaults** (lowest)
 
 ---
 
-## User Rules (user_rules.md)
+## User Rules (VERDENT.md)
 
-user_rules.md defines global preferences that apply across all projects and sessions. It establishes personal coding style, preferred tools, communication preferences, and default behaviors.
+VERDENT.md defines global preferences that apply across all projects and sessions. It establishes personal coding style, preferred tools, communication preferences, and default behaviors.
 
 ### Location and Scope
 
-**File Location:** `~/.verdent/user_rules.md`
+**File Location:** `~/.verdent/VERDENT.md`
 
 **Scope:** Global to all projects
 
 **Access:**
 
 - Settings → Rules → User Rules
-- Direct file edit at `~/.verdent/user_rules.md`
+- Direct file edit at `~/.verdent/VERDENT.md`
 
 **Changes Take Effect:**Rules apply immediately in new conversations and influence current conversation responses.
 
@@ -88,7 +88,7 @@ user_rules.md defines global preferences that apply across all projects and sess
 
 ### Format and Syntax
 
-user_rules.md uses plain Markdown format with bullet points or numbered lists.
+VERDENT.md uses plain Markdown format with bullet points or numbered lists.
 
 **Structure:**
 
@@ -260,7 +260,7 @@ user_rules.md uses plain Markdown format with bullet points or numbered lists.
   <Tab title="Direct File Edit">
     **Recommended for advanced users**
 
-    1. Navigate to `~/.verdent/user_rules.md`
+    1. Navigate to `~/.verdent/VERDENT.md`
     2. Open in any text editor
     3. Edit Markdown content
     4. Save changes
@@ -360,7 +360,7 @@ AGENTS.md defines project-specific rules that control agent behavior for the cur
 
 ### Format and Syntax
 
-AGENTS.md uses Markdown format with structured sections and bullet points, similar to user_rules.md but focused on project-specific requirements.
+AGENTS.md uses Markdown format with structured sections and bullet points, similar to VERDENT.md but focused on project-specific requirements.
 
 **Structure:**
 
@@ -537,44 +537,44 @@ AGENTS.md uses Markdown format with structured sections and bullet points, simil
 
 ---
 
-### Differences from user_rules.md
+### Differences from VERDENT.md
 
 **Scope:**
 
-- **user_rules.md:** Personal preferences across all projects
+- **VERDENT.md:** Personal preferences across all projects
 - **AGENTS.md:** Team standards for specific project only
 
 **Priority:**
 
 - **AGENTS.md:** Higher precedence - overrides user_rules for project consistency
-- **user_rules.md:** Lower precedence - applies when no project rule conflicts
+- **VERDENT.md:** Lower precedence - applies when no project rule conflicts
 
 **Content Focus:**
 
-- **user_rules.md:** Individual coding style, communication preferences, personal tools
+- **VERDENT.md:** Individual coding style, communication preferences, personal tools
 - **AGENTS.md:** Team conventions, project architecture, shared workflows, technology stack
 
 **Version Control:**
 
-- **user_rules.md:** Not shared - stays on individual's machine
+- **VERDENT.md:** Not shared - stays on individual's machine
 - **AGENTS.md:** Committed to git - shared with entire team
 
 **Storage:**
 
-- **user_rules.md:** `~/.verdent/user_rules.md` (global)
+- **VERDENT.md:** `~/.verdent/VERDENT.md` (global)
 - **AGENTS.md:** Project root directory (project-specific)
 
 **Example Conflict Resolution:**
 
 ```
-user_rules.md: "I prefer 2-space indentation"
+VERDENT.md: "I prefer 2-space indentation"
 AGENTS.md: "This project uses 4-space indentation"
 → Result: 4-space indentation (team standard wins)
 ```
 
 **When to Use Which:**
 
-- **user_rules.md:** Personal preferences you want across all projects
+- **VERDENT.md:** Personal preferences you want across all projects
 - **AGENTS.md:** Standards the entire team must follow for this project
 
 ---
@@ -857,18 +857,18 @@ last_updated: 2025-11-26
 
 - **Timing:** Only applied during Plan Mode when generating plans
 - **Scope:** Controls plan format and content, not code generation
-- **Independence:** Doesn't conflict with user_rules.md or AGENTS.md
+- **Independence:** Doesn't conflict with VERDENT.md or AGENTS.md
 
 **Other Rule Types Application:**
 
-- **user_rules.md:** Continuously applied across all modes (Agent, Plan, Chat)
+- **VERDENT.md:** Continuously applied across all modes (Agent, Plan, Chat)
 - **AGENTS.md:** Continuously applied across all modes for project-specific behavior
 
 **Interaction Example:**
 
 ```
 Plan Mode activated:
-1. user_rules.md: "Use TypeScript" → Applied to code in plan
+1. VERDENT.md: "Use TypeScript" → Applied to code in plan
 2. AGENTS.md: "Follow project conventions" → Applied to approach
 3. plan_rules.md: "Include time estimates" → Applied to plan format
 → Result: Plan shows TypeScript code following project conventions with time estimates
@@ -876,9 +876,9 @@ Plan Mode activated:
 
 **Mode-Specific Behavior:**
 
-- **Agent Mode:** user_rules.md + AGENTS.md applied (no plan_rules.md)
-- **Plan Mode:** user_rules.md + AGENTS.md + Plan.md all applied
-- **Chat Mode:** user_rules.md + AGENTS.md applied (no Plan.md)
+- **Agent Mode:** VERDENT.md + AGENTS.md applied (no plan_rules.md)
+- **Plan Mode:** VERDENT.md + AGENTS.md + Plan.md all applied
+- **Chat Mode:** VERDENT.md + AGENTS.md applied (no Plan.md)
 
 ---
 
@@ -890,26 +890,26 @@ When rules conflict, Verdent applies precedence to ensure consistent behavior.
 
 **1. Project Rules (AGENTS.md) - Highest Priority**Project-specific rules override global preferences. Team standards take precedence over individual preferences for consistency.
 
-**2. User Rules (user_rules.md) - Medium Priority**Global preferences apply when no project-specific rule conflicts.
+**2. User Rules (VERDENT.md) - Medium Priority**Global preferences apply when no project-specific rule conflicts.
 
 **3. Default Behavior - Lowest Priority**Verdent's built-in defaults apply when no rules are specified.
 
 **Example Conflict Resolution:**
 
 ```
-user_rules.md: "Use 2-space indentation"
+VERDENT.md: "Use 2-space indentation"
 AGENTS.md: "Use 4-space indentation for this project"
 → Result: Verdent uses 4-space indentation (project rules win)
 ```
 
-**Plan Rules:** Plan.md applies independently during Plan Mode and doesn't conflict with user/project rules. It controls plan format, while user_rules.md and AGENTS.md control code style within the plan.
+**Plan Rules:** Plan.md applies independently during Plan Mode and doesn't conflict with user/project rules. It controls plan format, while VERDENT.md and AGENTS.md control code style within the plan.
 
 <Note>
-  Plan Rules only affect Plan Mode output format—they don't change how Verdent analyzes or implements solutions.
+  Plan Rules only affect Plan Mode output format. They don't change how Verdent analyzes or implements solutions.
 </Note>
 
 <Tip>
-  Remember precedence: AGENTS.md (highest) → user_rules.md (medium) → defaults (lowest). Project rules always win conflicts.
+  Remember precedence: AGENTS.md (highest) → VERDENT.md (medium) → defaults (lowest). Project rules always win conflicts.
 </Tip>
 
 <Info>
@@ -931,14 +931,14 @@ When you observe unexpected behavior that contradicts a rule, follow this debug 
 #### Step 2: Check Rule Precedence
 
 ```
-AGENTS.md (highest) → user_rules.md (medium) → defaults (lowest)
+AGENTS.md (highest) → VERDENT.md (medium) → defaults (lowest)
 ```
 
 Project rules override personal preferences.
 
 #### Step 3: Test in Isolation
 
-**Disable user_rules.md:**Temporarily rename or clear file, test if conflict resolves
+**Disable VERDENT.md:**Temporarily rename or clear file, test if conflict resolves
 
 **Test without AGENTS.md:**Work in project without AGENTS.md to isolate user_rules behavior
 
@@ -951,7 +951,7 @@ Project rules override personal preferences.
 #### Scenario 1: Formatting Conflict
 
 ```
-user_rules.md: "Use 2-space indentation"
+VERDENT.md: "Use 2-space indentation"
 AGENTS.md: "Use 4-space indentation"
 → Resolution: AGENTS.md wins (project standard)
 → Fix: Accept project standard or discuss with team
@@ -994,7 +994,7 @@ Example:
 ```
 You: "Which rule are you following for indentation?"
 Verdent: "I'm using 4-space indentation from AGENTS.md (line 12),
-which overrides your user_rules.md preference for 2-space indentation."
+which overrides your VERDENT.md preference for 2-space indentation."
 ```
 
 **2. Incremental Refinement:**Add specificity to ambiguous rules
