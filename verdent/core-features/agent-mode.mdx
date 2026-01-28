@@ -1,0 +1,139 @@
+---
+title: Agent Mode
+description: "Agentic task execution with full transparency into every action"
+---
+
+Agent Mode is Verdent's default execution mode where the agent takes direct action on your instructions. Rather than structured planning sessions, Agent Mode prioritizes quick execution while maintaining full transparency.
+
+### What You'll Learn
+
+- When Agent Mode is the right choice
+- How the execution workflow operates
+- Managing permissions and visibility
+
+---
+
+## When Agent Mode is Useful
+
+Agent Mode works best when you have clarity on what needs to be done:
+
+| Scenario | Situation | How Verdent Helps |
+|----------|-----------|-------------------|
+| **Clear Requirements** | You know exactly what you want implemented. The task is well-defined with a specific outcome. | Agent proceeds directly with implementation. No planning overhead, just results. |
+| **Quick Iterations** | You're in a rapid feedback loop, making incremental changes based on results. | Fast execution cycles let you see changes immediately and adjust course. |
+| **Straightforward Tasks** | Bug fixes, small features, code cleanup, or refactoring with obvious scope. | Agent completes the work efficiently without unnecessary back-and-forth. |
+
+---
+
+## Agent Mode Workflow
+
+<Steps>
+  <Step title="Submit Your Request">
+    Describe what you want done. Clear, specific instructions work best in Agent Mode.
+  </Step>
+  <Step title="Agent Takes Action">
+    Verdent begins implementation immediately. File edits, tool usage, and progress appear in real-time.
+  </Step>
+  <Step title="Permission Prompts">
+    Certain actions require approval. Review and approve to proceed.
+  </Step>
+  <Step title="See Results">
+    Work completes with full visibility into what changed and why.
+  </Step>
+</Steps>
+
+---
+
+## Key Characteristics
+
+| Characteristic | Description |
+|----------------|-------------|
+| **Default Mode** | New tasks start in Agent Mode unless you switch to Plan Mode |
+| **Direct Action** | Agent proceeds with implementation rather than extensive planning |
+| **Full Visibility** | File edits, tool usage, and progress are shown in real-time |
+| **Inline Clarification** | Questions appear naturally in the chat, not as structured questionnaires |
+
+---
+
+## Agent Mode vs Plan Mode
+
+Choose based on task clarity and complexity:
+
+<Tabs>
+  <Tab title="Use Agent Mode When">
+    Agent Mode is optimal for:
+
+    - Clear, well-defined requirements
+    - Straightforward implementation tasks
+    - Quick iterations and feedback loops
+    - Tasks where you're confident in the approach
+    - Bug fixes and small features
+  </Tab>
+  <Tab title="Use Plan Mode When">
+    Switch to Plan Mode for:
+
+    - Complex multi-step features
+    - Incomplete or evolving ideas
+    - Architectural decisions
+    - Tasks requiring exploration before implementation
+    - When you want structured requirement clarification
+  </Tab>
+</Tabs>
+
+---
+
+## Permissions in Agent Mode
+
+Agent Mode executes tasks directly, but certain actions still require explicit approval:
+
+- File modifications outside expected scope
+- Destructive operations
+- Certain tool executions
+- Actions with significant side effects
+
+<Note>
+Permission prompts protect against unintended changes while maintaining execution speed for routine operations.
+</Note>
+
+---
+
+## FAQs
+
+<Accordion title="Is Agent Mode the default?">
+Yes. New tasks start in Agent Mode. Switch to Plan Mode when you need structured planning.
+</Accordion>
+
+<Accordion title="Will the agent ask questions in Agent Mode?">
+Yes, when needed. Questions appear inline in the chat rather than as structured questionnaires. The agent may proceed without asking if the task is sufficiently clear.
+</Accordion>
+
+<Accordion title="How do I switch to Plan Mode?">
+Press `Shift+Tab` or `Cmd+.` to toggle modes. Mode switching is available at certain points, not during active execution.
+</Accordion>
+
+<Accordion title="Does Agent Mode skip all confirmation?">
+No. Certain actions still require approval. Agent Mode reduces friction for routine operations while maintaining safety for significant changes.
+</Accordion>
+
+<Accordion title="When should I use Plan Mode instead?">
+Use Plan Mode for complex features, architectural decisions, or when you want to explore and refine requirements before implementation begins.
+</Accordion>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Plan Mode" icon="clipboard-list" href="/verdent/core-features/plan-mode">
+    Structured planning for complex tasks
+  </Card>
+  <Card title="Execution Modes" icon="play" href="/verdent/execution-modes/overview">
+    Agent Mode vs Plan Mode comparison
+  </Card>
+  <Card title="Managing Tasks" icon="list-check" href="/verdent/task-based-guides/managing-tasks">
+    Working with tasks in Verdent
+  </Card>
+  <Card title="Settings" icon="gear" href="/verdent/configuration/settings">
+    Configure mode preferences
+  </Card>
+</CardGroup>

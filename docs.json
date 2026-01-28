@@ -29,13 +29,14 @@
             "group": "Core Features",
             "pages": [
               "verdent/core-features/overview",
-              "verdent/core-features/parallel-execution",
-              "verdent/core-features/workspace-isolation",
-              "verdent/core-features/multitasking",
-              "verdent/core-features/project-switching",
+              "verdent/core-features/agent-mode",
               "verdent/core-features/plan-mode",
               "verdent/core-features/code-review",
+              "verdent/core-features/multitasking",
+              "verdent/core-features/workspace-isolation",
               "verdent/core-features/context-awareness",
+              "verdent/core-features/agents",
+              "verdent/core-features/project-switching",
               "verdent/core-features/mcp-integration"
             ]
           },
@@ -85,14 +86,14 @@
             "group": "Best Practices",
             "pages": [
               "verdent/best-practices/prompts",
-              "verdent/best-practices/context"
+              "verdent/best-practices/context",
+              "verdent/best-practices/plan-workflows"
             ]
           },
           {
             "group": "Configuration",
             "pages": [
               "verdent/configuration/settings",
-              "verdent/configuration/plan-workflows",
               "verdent/configuration/tuning"
             ]
           },
@@ -108,8 +109,7 @@
             "pages": [
               "verdent/advanced-features/overview",
               "verdent/advanced-features/tool-reference",
-              "verdent/advanced-features/integrations",
-              "verdent/advanced-features/extensibility"
+              "verdent/advanced-features/integrations"
             ]
           },
           {
@@ -259,7 +259,7 @@
       "anchors": [
         {
           "anchor": "Website",
-          "href": "https://verdent.ai?ots=verdentdoc",
+          "href": "https://verdent.ai",
           "icon": "globe"
         },
         {
@@ -284,7 +284,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://verdent.ai/dashboard?ots=verdentdoc"
+      "href": "https://verdent.ai/dashboard"
     }
   },
   "contextual": {
@@ -305,5 +305,11 @@
       "github": "https://github.com/verdent",
       "linkedin": "https://linkedin.com/company/verdent"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/verdent/getting-started/overview"
+    }
+  ]
 }
