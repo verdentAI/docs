@@ -1,0 +1,24 @@
+docs.json
+  99ac9d4d6fe8518e 256-277,338-345
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "3e212f6c569e3eb475a52b7aa4007111533add51",
+  "prompts": {
+    "99ac9d4d6fe8518e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019cf637-c801-7a10-bc29-e8e080550085",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Verdent <hi@verdent.ai>",
+      "messages": [],
+      "total_additions": 101,
+      "total_deletions": 8,
+      "accepted_lines": 93,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/38f1b17b074eb64595747fe5ec1792e8651ce920fb161389ad1e0b9d95a575d3"
+    }
+  }
+}
