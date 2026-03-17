@@ -253,6 +253,31 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Account & Billing",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "account-billing/overview"
+            ]
+          },
+          {
+            "group": "Credits",
+            "pages": [
+              "account-billing/credits-and-plans",
+              "account-billing/run-out-of-credits"
+            ]
+          },
+          {
+            "group": "Subscriptions",
+            "pages": [
+              "account-billing/billing-cycle-and-rollover",
+              "account-billing/subscription-streak"
+            ]
+          }
+        ]
       }
     ],
     "global": {
@@ -310,6 +335,14 @@
     {
       "source": "/",
       "destination": "/verdent/getting-started/overview"
+    },
+    {
+      "source": "/verdent/pricing/subscription-streak",
+      "destination": "/account-billing/subscription-streak"
+    },
+    {
+      "source": "/verdent-for-vscode/pricing/subscription-streak",
+      "destination": "/account-billing/subscription-streak"
     }
   ]
 }
