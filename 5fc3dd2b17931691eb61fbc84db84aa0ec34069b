@@ -1,0 +1,38 @@
+verdent/help-support/common-issues.mdx
+  03e27a07a8809155 210-213
+account-billing/overview.mdx
+  03e27a07a8809155 17-20
+verdent-for-vscode/getting-started/quick-start.mdx
+  03e27a07a8809155 330,354
+docs.json
+  03e27a07a8809155 270-271
+account-billing/run-out-of-credits.mdx
+  03e27a07a8809155 7,10,14-16,24,40-41
+account-billing/eco-mode.mdx
+  03e27a07a8809155 1-79
+verdent/reference/resources.mdx
+  03e27a07a8809155 105,117-118
+verdent/error-handling/recovery.mdx
+  03e27a07a8809155 33-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "5fc3dd2b17931691eb61fbc84db84aa0ec34069b",
+  "prompts": {
+    "03e27a07a8809155": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d2a13-7c24-7261-bbb3-ef263c4e6567",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Verdent <hi@verdent.ai>",
+      "messages": [],
+      "total_additions": 151,
+      "total_deletions": 3711,
+      "accepted_lines": 143,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/5a6a3e49f0057b0d02890ef4b79ef176939a72409068da0475cade72f8ebe04e"
+    }
+  }
+}
