@@ -230,6 +230,7 @@
               "verdent-for-vscode/advanced-features/overview",
               "verdent-for-vscode/advanced-features/tool-reference",
               "verdent-for-vscode/advanced-features/integrations",
+              "verdent-for-vscode/advanced-features/mcp",
               "verdent-for-vscode/advanced-features/extensibility"
             ]
           },
