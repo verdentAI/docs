@@ -267,7 +267,8 @@
             "group": "Credits",
             "pages": [
               "account-billing/credits-and-plans",
-              "account-billing/run-out-of-credits"
+              "account-billing/run-out-of-credits",
+              "account-billing/eco-mode"
             ]
           },
           {
