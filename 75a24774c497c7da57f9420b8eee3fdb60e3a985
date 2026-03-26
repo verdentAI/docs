@@ -1,0 +1,28 @@
+verdent-for-vscode/core-features/professional-plan.mdx
+  03e27a07a8809155 2
+docs.json
+  03e27a07a8809155 233
+verdent-for-vscode/reference/shortcuts.mdx
+  03e27a07a8809155 1-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "75a24774c497c7da57f9420b8eee3fdb60e3a985",
+  "prompts": {
+    "03e27a07a8809155": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d2a13-7c24-7261-bbb3-ef263c4e6567",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Verdent <hi@verdent.ai>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 32,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/5a6a3e49f0057b0d02890ef4b79ef176939a72409068da0475cade72f8ebe04e"
+    }
+  }
+}
