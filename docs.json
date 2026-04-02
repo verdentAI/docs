@@ -61,7 +61,8 @@
           {
             "group": "Pricing",
             "pages": [
-              "verdent/pricing/overview"
+              "verdent/pricing/overview",
+              "account-billing/model-pricing"
             ]
           },
           {
@@ -181,7 +182,8 @@
           {
             "group": "Pricing",
             "pages": [
-              "verdent-for-vscode/pricing/overview"
+              "verdent-for-vscode/pricing/overview",
+              "account-billing/model-pricing"
             ]
           },
           {
@@ -268,6 +270,7 @@
             "group": "Credits",
             "pages": [
               "account-billing/credits-and-plans",
+              "account-billing/model-pricing",
               "account-billing/run-out-of-credits",
               "account-billing/eco-mode"
             ]
