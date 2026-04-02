@@ -1,0 +1,28 @@
+verdent/configuration/byok.mdx
+  a37caa61b63678ce 1-72
+docs.json
+  a37caa61b63678ce 98
+verdent/configuration/settings.mdx
+  a37caa61b63678ce 103-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "2f1cec882f55d16765ecaac9ee85de025f57a773",
+  "prompts": {
+    "a37caa61b63678ce": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d4e94-a303-7501-bccf-46db9dc1a621",
+        "model": "gpt-5.4"
+      },
+      "human_author": "Verdent",
+      "messages": [],
+      "total_additions": 75,
+      "total_deletions": 0,
+      "accepted_lines": 75,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/302b22e4455300e3892a0679763f971c81b1cab862f20ce48205d3ee232ff19e"
+    }
+  }
+}
