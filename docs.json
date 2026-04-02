@@ -95,6 +95,7 @@
             "group": "Configuration",
             "pages": [
               "verdent/configuration/settings",
+              "verdent/configuration/byok",
               "verdent/configuration/tuning"
             ]
           },

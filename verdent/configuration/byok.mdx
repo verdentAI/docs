@@ -1,0 +1,72 @@
+---
+title: Bring Your Own Key (BYOK)
+description: Use your own provider API keys in Verdent Desktop and understand where BYOK models are available
+---
+
+<Note>
+This page applies to Verdent Desktop.
+
+A paid Verdent subscription is required to use BYOK.
+</Note>
+
+## Overview
+
+BYOK lets you connect your own provider API keys and use those models directly inside Verdent.
+
+## Supported Providers
+
+- Anthropic
+- OpenAI
+- OpenRouter
+
+## Add an API Key
+
+<Steps>
+  <Step title="Open model configuration">
+    Go to **Settings → Models → Configure Models**.
+  </Step>
+  <Step title="Start adding a key">
+    Click **Add API Key +** in the top-right corner.
+  </Step>
+  <Step title="Choose provider and models">
+    Select a provider and choose the models you want to enable.
+  </Step>
+  <Step title="Enter credentials">
+    Add your API key.
+
+    For OpenAI, you can also choose the **Base URL**.
+  </Step>
+  <Step title="Save and validate">
+    Click **Save**. Verdent validates the key automatically.
+  </Step>
+</Steps>
+
+### Validation Results
+
+- If validation succeeds, the key is saved and the selected models become available.
+- If validation fails, Verdent shows an error so you can update the key and try again.
+
+## Manage Existing API Keys
+
+Under **Settings → Models → Configure Models**, you can:
+
+- Enable or disable all models for a provider
+- Enable or disable individual models
+- Edit an existing API key
+- Delete an API key
+
+## Where BYOK Models Appear
+
+After you add a valid key, BYOK models appear in:
+
+- The chat model selector
+- Preset model configuration
+- Subagent settings
+- Reviewer settings
+
+BYOK models behave like built-in models once they are enabled.
+
+## Limitations
+
+- Built-in features such as Smart Suggestions do not support BYOK API keys.
+- Automatic compression does not support BYOK API keys.
