@@ -1,0 +1,22 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "26fd2c9349ee59116f69e160f2c3c29857e5ac27",
+  "prompts": {
+    "258a8f20d2dc2be4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5d2d3415-6562-4149-9144-7943df8d9521",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Verdent",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 2,
+      "accepted_lines": 0,
+      "overriden_lines": 0,
+      "messages_url": "https://usegitai.com/cas/201121a9f5253fd09569976877fab6673f97be77b085e03faf90c6f51381f7bc"
+    }
+  }
+}
