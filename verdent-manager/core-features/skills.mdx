@@ -64,91 +64,21 @@ You can also type `@` in the input box to trigger autocomplete and quickly selec
 
 ## Built-in Skills
 
-Verdent ships with a set of built-in Skills covering common workflows. Here are the core built-in Skills organized by category:
+Verdent ships with a set of built-in Skills covering common workflows:
 
-### Development Workflows
+| Skill | Description |
+|-------|-------------|
+| **docx** | Read, create, or edit Word documents (`.docx`) with format-faithful visual checks |
+| **find-skills** | Discover and install Skills — use when asking "how do I do X?" or looking for new capabilities |
+| **frontend-design** | Create distinctive, production-grade frontend interfaces with high design quality |
+| **pdf** | Read, create, or review PDF files with visual rendering and content extraction |
+| **pptx** | Read, create, or edit PowerPoint presentations (`.pptx`) |
+| **skill-creator** | A guided workflow for creating and iterating on custom Skills |
+| **xlsx** | Read, analyze, visualize, and smart-edit Excel spreadsheets |
 
-<Accordion title="github — GitHub workflow guidance">
-Guides the Agent through GitHub repository, PR, and Issue operations. Use this Skill for GitHub best practices including PR triage, Issue management, and repository context gathering.
-</Accordion>
-
-<Accordion title="gh-fix-ci — Fix CI/CD failures">
-Dedicated to debugging and fixing failing GitHub Actions checks. The Agent inspects CI logs, identifies the root cause, and drafts a fix plan—implementing only after your approval.
-</Accordion>
-
-<Accordion title="yeet — Publish to GitHub quickly">
-Streamlines the flow from local changes to a GitHub PR. Confirms scope, commits intentionally, pushes the branch, and opens a draft PR—all in one step.
-</Accordion>
-
-<Accordion title="gh-address-comments — Address PR review feedback">
-Handles actionable review feedback on GitHub Pull Requests. The Agent inspects unresolved review threads, requested changes, and inline comments, then implements selected fixes.
-</Accordion>
-
-### Documentation & Knowledge Management
-
-<Accordion title="notion-meeting-intelligence — Meeting preparation assistant">
-Prepares meeting materials by combining Notion context with additional research. Use it for gathering context, drafting agendas/pre-reads, and tailoring materials to attendees.
-</Accordion>
-
-<Accordion title="notion-research-documentation — Research and documentation">
-Researches across Notion and synthesizes findings into structured documentation. Produces briefs, comparisons, or reports with citations from multiple Notion sources.
-</Accordion>
-
-<Accordion title="notion-knowledge-capture — Knowledge capture">
-Transforms conversations and decisions into structured Notion pages. Ideal for turning chat logs and notes into wiki entries, how-tos, decision records, or FAQs.
-</Accordion>
-
-<Accordion title="notion-spec-to-implementation — Spec to implementation">
-Converts Notion product specs into implementation plans, tasks, and progress tracking. Creates Notion plans and tasks from PRDs and feature specifications.
-</Accordion>
-
-### Data Processing
-
-<Accordion title="spreadsheet — Spreadsheet operations">
-Creates, edits, analyzes, or formats spreadsheets (`.xlsx`, `.csv`, `.tsv`). Uses Python tools (`openpyxl`, `pandas`) while preserving formulas and formatting.
-</Accordion>
-
-<Accordion title="xlsx — Spreadsheet analysis toolkit">
-A comprehensive toolkit for reading, analyzing, visualizing, and smart-editing spreadsheets. Supports structure inspection, data profiling, querying, chart generation, and formula verification.
-</Accordion>
-
-### File Operations
-
-<Accordion title="pdf — PDF file handling">
-Reads, creates, or reviews PDF files. Uses Poppler for visual rendering checks and Python tools (`reportlab`, `pdfplumber`, `pypdf`) for generation and extraction.
-</Accordion>
-
-<Accordion title="pptx — PowerPoint presentations">
-Reads, creates, or edits `.pptx` presentations. Uses `python-pptx` for programmatic access and LibreOffice for visual review.
-</Accordion>
-
-<Accordion title="docx — Word document handling">
-Reads, creates, or edits `.docx` documents. Uses `python-docx` with companion scripts for format- and layout-faithful visual checks.
-</Accordion>
-
-### Tools & Service Integration
-
-<Accordion title="openclaw-install — OpenClaw setup">
-Installs, sets up, and configures OpenClaw. Covers npm installation, onboarding wizard, AI model provider configuration, and IM channel connections.
-</Accordion>
-
-<Accordion title="find-skills — Skill discovery assistant">
-Helps you discover and install Agent Skills. Use when asking "how do I do X?" or "is there a Skill that can...?" to find matching capabilities.
-</Accordion>
-
-### Development Guidance
-
-<Accordion title="skill-creator — Skill creation guide">
-A comprehensive guide for creating effective Skills. Covers Skill structure, writing `SKILL.md`, bundling scripts and references, packaging, validation, and iterative improvement.
-</Accordion>
-
-<Accordion title="frontend-design — Frontend design assistant">
-Creates distinctive, production-grade frontend interfaces with high design quality. Use when building web components, pages, dashboards, React components, or any web UI.
-</Accordion>
-
-<Accordion title="vercel-react-best-practices — React/Next.js performance">
-React and Next.js performance optimization guidelines from Vercel Engineering. Use when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns.
-</Accordion>
+<Tip>
+More Skills are available in the **Skill Store**. Open **Settings → Skills → Store** to browse and install additional Skills.
+</Tip>
 
 ---
 
@@ -204,32 +134,6 @@ This is the detailed prompt content the Agent reads.
 - `description` (required): A short description, max 1024 characters.
 - `metadata` (optional): Version, author, license, and other meta information.
 
-### agents/verdent.yaml Configuration
-
-Add `agents/verdent.yaml` inside the Skill folder to customize the UI display:
-
-```yaml
-interface:
-  display_name: "My Custom Skill"
-  short_description: "A more detailed description"
-  icon_dark: "icons/dark.svg"
-  icon_light: "icons/light.svg"
-  default_prompt: "@my-custom-skill start working"
-  builtin: false
-  hidden: false
-  undeletable: false
-category: "Dev Tools"
-```
-
-| Field | Description |
-|-------|-------------|
-| `display_name` | Name shown in the UI |
-| `icon_dark` / `icon_light` | Relative paths to icon files within the Skill folder (SVG, PNG, etc.) |
-| `default_prompt` | Auto-filled prompt when the Skill is clicked |
-| `builtin` | Mark as built-in Skill (typically `false`) |
-| `undeletable` | Prevent deletion |
-| `category` | Category label for organizing Skills |
-
 ### Installing Custom Skills
 
 **Method 1: Import via Settings**
@@ -267,13 +171,11 @@ Verdent supports three levels of Skill scoping:
 |-------|----------|------------|
 | **Global** | `~/.verdent/skills/` | All projects and workspaces |
 | **Project** | `<project>/.verdent/skills/` | Current project's workspaces only |
-| **Manager** | Manager-specific project directory | Manager only (task orchestration, batch operations) |
 
 **Priority rules:**
 
 When Skills with the same name exist at multiple scopes:
 - Project overrides Global
-- Manager Skills are visible to Manager but not to regular Workers
 
 ---
 
@@ -310,7 +212,7 @@ Skills installed from the Store undergo SHA256 checksum verification to ensure f
 The Agent will:
 1. Read the `skill-creator` Skill content
 2. Guide you through filling in the Skill name, description, and core prompt
-3. Generate a standard `SKILL.md` and `agents/verdent.yaml`
+3. Generate a standard `SKILL.md`
 4. Suggest installation path and verification steps
 
 ### Example 2: Analyzing Data with `spreadsheet`
