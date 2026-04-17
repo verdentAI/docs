@@ -29,7 +29,8 @@
               "verdent-manager/core-features/pulse",
               "verdent-manager/core-features/automation",
               "verdent-manager/core-features/instant-messaging",
-              "verdent-manager/core-features/integration"
+              "verdent-manager/core-features/integration",
+              "verdent-manager/core-features/skills"
             ]
           },
           {

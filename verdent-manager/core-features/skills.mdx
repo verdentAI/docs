@@ -1,0 +1,444 @@
+---
+title: Skills
+description: "Extend Verdent's capabilities with reusable knowledge packs for specialized workflows and domain expertise"
+---
+
+Verdent **Skills** are reusable knowledge packs that extend the Agent's expertise. Each Skill contains domain-specific prompts, scripts, references, and best practices. Simply invoke a Skill by name, and the Agent loads the corresponding context and follows the predefined workflow.
+
+---
+
+## What Are Skills?
+
+### Core Concept
+
+A **Skill** is a structured knowledge pack stored in a folder. Every Skill contains a `SKILL.md` file that defines its name, description, and detailed prompt. When you invoke a Skill in conversation, Verdent reads this file and injects its content into the Agent's context.
+
+### How Skills Differ from Subagents and MCP
+
+| Dimension | Skills | Subagents | MCP |
+|-----------|--------|-----------|-----|
+| **Trigger** | Manual invocation via `@skill` or mention | Auto-spawned by the main Agent | Auto-invoked or explicitly called |
+| **Execution** | Expands the main conversation context | Runs as an independent sub-task with isolated context | Calls external tools via JSON-RPC 2.0 |
+| **Purpose** | Domain guidance (e.g., "how to write tests") | Independent operations (e.g., "run code review") | External data/tool access (e.g., database queries) |
+| **Lifecycle** | One-time context injection | Completes sub-task then returns results | Persistent server process during session |
+| **Implementation** | Markdown files + optional scripts | Built-in Agent logic | Executable server processes |
+
+In short: **Skills provide knowledge and workflow guidance**, **Subagents execute independent tasks**, and **MCP connects external tools and data sources**.
+
+---
+
+## How to Use Skills
+
+### Invoking a Skill
+
+You can invoke a Skill in two ways:
+
+**1. Mention the Skill name in conversation**
+
+```
+Use the skill-creator skill to help me create a new Skill
+```
+
+**2. Use the @ mention syntax**
+
+```
+@skill-creator help me create a Skill for API documentation generation
+```
+
+When a Skill is triggered:
+1. The Agent calls the `skill` tool to read the Skill's `SKILL.md` file
+2. The file content is injected into the current conversation context
+3. The Agent continues working according to the Skill's guidance
+
+### Browsing Available Skills
+
+Access the Skills panel through Settings:
+
+1. Open the **Settings** menu
+2. Select the **Skills** tab
+3. Browse installed Skills and available Skills in the Skill Store
+
+You can also type `@` in the input box to trigger autocomplete and quickly select an available Skill.
+
+---
+
+## Built-in Skills
+
+Verdent ships with a set of built-in Skills covering common workflows. Here are the core built-in Skills organized by category:
+
+### Development Workflows
+
+<Accordion title="github — GitHub workflow guidance">
+Guides the Agent through GitHub repository, PR, and Issue operations. Use this Skill for GitHub best practices including PR triage, Issue management, and repository context gathering.
+</Accordion>
+
+<Accordion title="gh-fix-ci — Fix CI/CD failures">
+Dedicated to debugging and fixing failing GitHub Actions checks. The Agent inspects CI logs, identifies the root cause, and drafts a fix plan—implementing only after your approval.
+</Accordion>
+
+<Accordion title="yeet — Publish to GitHub quickly">
+Streamlines the flow from local changes to a GitHub PR. Confirms scope, commits intentionally, pushes the branch, and opens a draft PR—all in one step.
+</Accordion>
+
+<Accordion title="gh-address-comments — Address PR review feedback">
+Handles actionable review feedback on GitHub Pull Requests. The Agent inspects unresolved review threads, requested changes, and inline comments, then implements selected fixes.
+</Accordion>
+
+### Documentation & Knowledge Management
+
+<Accordion title="notion-meeting-intelligence — Meeting preparation assistant">
+Prepares meeting materials by combining Notion context with additional research. Use it for gathering context, drafting agendas/pre-reads, and tailoring materials to attendees.
+</Accordion>
+
+<Accordion title="notion-research-documentation — Research and documentation">
+Researches across Notion and synthesizes findings into structured documentation. Produces briefs, comparisons, or reports with citations from multiple Notion sources.
+</Accordion>
+
+<Accordion title="notion-knowledge-capture — Knowledge capture">
+Transforms conversations and decisions into structured Notion pages. Ideal for turning chat logs and notes into wiki entries, how-tos, decision records, or FAQs.
+</Accordion>
+
+<Accordion title="notion-spec-to-implementation — Spec to implementation">
+Converts Notion product specs into implementation plans, tasks, and progress tracking. Creates Notion plans and tasks from PRDs and feature specifications.
+</Accordion>
+
+### Data Processing
+
+<Accordion title="spreadsheet — Spreadsheet operations">
+Creates, edits, analyzes, or formats spreadsheets (`.xlsx`, `.csv`, `.tsv`). Uses Python tools (`openpyxl`, `pandas`) while preserving formulas and formatting.
+</Accordion>
+
+<Accordion title="xlsx — Spreadsheet analysis toolkit">
+A comprehensive toolkit for reading, analyzing, visualizing, and smart-editing spreadsheets. Supports structure inspection, data profiling, querying, chart generation, and formula verification.
+</Accordion>
+
+### File Operations
+
+<Accordion title="pdf — PDF file handling">
+Reads, creates, or reviews PDF files. Uses Poppler for visual rendering checks and Python tools (`reportlab`, `pdfplumber`, `pypdf`) for generation and extraction.
+</Accordion>
+
+<Accordion title="pptx — PowerPoint presentations">
+Reads, creates, or edits `.pptx` presentations. Uses `python-pptx` for programmatic access and LibreOffice for visual review.
+</Accordion>
+
+<Accordion title="docx — Word document handling">
+Reads, creates, or edits `.docx` documents. Uses `python-docx` with companion scripts for format- and layout-faithful visual checks.
+</Accordion>
+
+### Tools & Service Integration
+
+<Accordion title="openclaw-install — OpenClaw setup">
+Installs, sets up, and configures OpenClaw. Covers npm installation, onboarding wizard, AI model provider configuration, and IM channel connections.
+</Accordion>
+
+<Accordion title="find-skills — Skill discovery assistant">
+Helps you discover and install Agent Skills. Use when asking "how do I do X?" or "is there a Skill that can...?" to find matching capabilities.
+</Accordion>
+
+### Development Guidance
+
+<Accordion title="skill-creator — Skill creation guide">
+A comprehensive guide for creating effective Skills. Covers Skill structure, writing `SKILL.md`, bundling scripts and references, packaging, validation, and iterative improvement.
+</Accordion>
+
+<Accordion title="frontend-design — Frontend design assistant">
+Creates distinctive, production-grade frontend interfaces with high design quality. Use when building web components, pages, dashboards, React components, or any web UI.
+</Accordion>
+
+<Accordion title="vercel-react-best-practices — React/Next.js performance">
+React and Next.js performance optimization guidelines from Vercel Engineering. Use when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns.
+</Accordion>
+
+---
+
+## Creating Custom Skills
+
+You can create custom Skills to encapsulate your team's domain expertise or project-specific workflows.
+
+### Skill Directory Structure
+
+A standard Skill folder looks like this:
+
+```
+my-custom-skill/
+├── SKILL.md              # Required: Skill definition file
+├── agents/
+│   └── verdent.yaml      # Optional: UI configuration (icons, display name)
+├── scripts/              # Optional: helper scripts
+└── references/           # Optional: reference docs or examples
+```
+
+### SKILL.md Format
+
+`SKILL.md` is the core Skill file, containing YAML frontmatter and a Markdown body:
+
+```markdown
+---
+name: my-custom-skill
+description: A concise description shown in the Skill list
+metadata:
+  version: "1.0.0"
+  author: "Your Name"
+  license: "MIT"
+---
+
+# Detailed Instructions
+
+This is the detailed prompt content the Agent reads.
+
+## Workflow
+
+1. Step one
+2. Step two
+3. ...
+
+## Best Practices
+
+- Practice suggestion 1
+- Practice suggestion 2
+```
+
+**Frontmatter field requirements:**
+- `name` (required): Must match the folder name. Only lowercase letters, numbers, and hyphens (`a-z0-9-`) allowed. Length: 1–64 characters. No consecutive hyphens or leading/trailing hyphens.
+- `description` (required): A short description, max 1024 characters.
+- `metadata` (optional): Version, author, license, and other meta information.
+
+### agents/verdent.yaml Configuration
+
+Add `agents/verdent.yaml` inside the Skill folder to customize the UI display:
+
+```yaml
+interface:
+  display_name: "My Custom Skill"
+  short_description: "A more detailed description"
+  icon_dark: "icons/dark.svg"
+  icon_light: "icons/light.svg"
+  default_prompt: "@my-custom-skill start working"
+  builtin: false
+  hidden: false
+  undeletable: false
+category: "Dev Tools"
+```
+
+| Field | Description |
+|-------|-------------|
+| `display_name` | Name shown in the UI |
+| `icon_dark` / `icon_light` | Relative paths to icon files within the Skill folder (SVG, PNG, etc.) |
+| `default_prompt` | Auto-filled prompt when the Skill is clicked |
+| `builtin` | Mark as built-in Skill (typically `false`) |
+| `undeletable` | Prevent deletion |
+| `category` | Category label for organizing Skills |
+
+### Installing Custom Skills
+
+**Method 1: Import via Settings**
+
+1. Open **Settings → Skills**
+2. Click **Import Skill**
+3. Select the Skill folder (or a `.zip` / `.skill` archive)
+4. Verdent validates `SKILL.md` and installs it to `~/.verdent/skills/`
+
+**Method 2: Manual copy**
+
+```bash
+cp -r my-custom-skill ~/.verdent/skills/
+```
+
+The Skill becomes available after restarting Verdent or refreshing the Skills list.
+
+**Method 3: Project-level Skill**
+
+Place the Skill inside your project directory:
+
+```bash
+cp -r my-custom-skill /path/to/your/project/.verdent/skills/
+```
+
+Project-level Skills are only visible within that project and take priority over global Skills with the same name.
+
+---
+
+## Skill Scopes
+
+Verdent supports three levels of Skill scoping:
+
+| Level | Location | Visibility |
+|-------|----------|------------|
+| **Global** | `~/.verdent/skills/` | All projects and workspaces |
+| **Project** | `<project>/.verdent/skills/` | Current project's workspaces only |
+| **Manager** | Manager-specific project directory | Manager only (task orchestration, batch operations) |
+
+**Priority rules:**
+
+When Skills with the same name exist at multiple scopes:
+- Project overrides Global
+- Manager Skills are visible to Manager but not to regular Workers
+
+---
+
+## Skill Store
+
+Verdent provides a **Skill Store** for browsing and installing community and official Skills.
+
+### Browsing the Skill Store
+
+1. Open **Settings → Skills**
+2. Switch to the **Store** tab
+3. Browse available Skills or use the search box
+
+### Installing from the Store
+
+1. Find the desired Skill in the Store
+2. Click **Install**
+3. The Skill is automatically downloaded and installed to `~/.verdent/skills/`
+
+**Security verification:**
+
+Skills installed from the Store undergo SHA256 checksum verification to ensure file integrity and security.
+
+---
+
+## Practical Examples
+
+### Example 1: Creating a New Skill with `skill-creator`
+
+```
+@skill-creator help me create a Skill for guiding the team on writing Go unit tests
+```
+
+The Agent will:
+1. Read the `skill-creator` Skill content
+2. Guide you through filling in the Skill name, description, and core prompt
+3. Generate a standard `SKILL.md` and `agents/verdent.yaml`
+4. Suggest installation path and verification steps
+
+### Example 2: Analyzing Data with `spreadsheet`
+
+```
+@spreadsheet read sales-2025.xlsx from the project root, analyze Q1 sales trends, and generate a chart
+```
+
+The Agent will:
+1. Load the `spreadsheet` Skill
+2. Use `pandas` and `openpyxl` to read the Excel file
+3. Analyze the data and generate visualizations
+4. Save results or display them in the conversation
+
+### Example 3: Fixing CI with `gh-fix-ci`
+
+```
+@gh-fix-ci my PR #123 GitHub Actions tests are failing, help me debug
+```
+
+The Agent will:
+1. Use `gh` CLI to retrieve CI logs for PR #123
+2. Analyze the failure (e.g., test case errors, dependency issues)
+3. Propose a fix
+4. With your approval, modify the code and push the fix
+
+---
+
+## FAQs
+
+<Accordion title="Do Skills consume credits?">
+When a Skill is invoked, the Agent reads the `SKILL.md` file, which counts toward token usage and therefore consumes credits. However, the Skill itself does not make additional API calls.
+</Accordion>
+
+<Accordion title="Can I share custom Skills across projects?">
+Yes. Install the Skill to `~/.verdent/skills/` (global scope) and it will be available in all projects.
+</Accordion>
+
+<Accordion title="How do I delete a Skill I no longer need?">
+In **Settings → Skills**, right-click the Skill and select **Delete**. Built-in Skills marked as `undeletable` cannot be deleted and will be reinstalled on next startup.
+</Accordion>
+
+<Accordion title="Can I import Skills from Cursor, Claude Desktop, or Codex?">
+Yes. Verdent automatically detects Skills in `~/.cursor/skills`, `~/.claude/skills`, and `~/.codex/skills`, and prompts you to import them. Click **Import from External Sources** in **Settings → Skills**.
+</Accordion>
+
+<Accordion title="What's the difference between a Skill and a Project Rule?">
+- **Project Rule**: Always-active instructions automatically injected into every conversation
+- **Skill**: On-demand knowledge packs injected only when invoked
+
+Use Rules for universal coding standards; use Skills for specific domain workflows.
+</Accordion>
+
+<Accordion title="How do I update an installed Skill?">
+Skills installed from the Skill Store are automatically checked for updates in the background. Manually installed Skills need to be re-imported (overwriting the old version) to update.
+</Accordion>
+
+---
+
+## Advanced Usage
+
+### Embedding Scripts in Skills
+
+Add a `scripts/` directory to your Skill and reference the scripts in `SKILL.md`:
+
+```markdown
+## Data Processing Script
+
+Run the following command to process data:
+
+\`\`\`bash
+python scripts/process_data.py --input data.csv --output results.json
+\`\`\`
+```
+
+The Agent reads this instruction and executes the script as needed.
+
+### Referencing Documentation
+
+Store API docs, specs, or sample code in a `references/` directory and link them in `SKILL.md`:
+
+```markdown
+## Reference Documentation
+
+See [references/api-spec.md](references/api-spec.md) for the detailed API specification.
+```
+
+The Agent can read these reference files based on the Skill's instructions.
+
+---
+
+## Best Practices
+
+<Tip>
+**Keep Skills focused.** Each Skill should target a single domain or workflow. Avoid creating "do-everything" Skills—split them into smaller, specialized ones instead.
+</Tip>
+
+<Tip>
+**Use clear naming.** Skill names should be concise and descriptive, e.g., `api-doc-generator` rather than `my-skill-1`.
+</Tip>
+
+<Tip>
+**Provide examples and references.** Include concrete examples and reference links in `SKILL.md` to help the Agent better understand the expected output.
+</Tip>
+
+<Tip>
+**Maintain version numbers.** Use the `metadata.version` field to track updates and compatibility.
+</Tip>
+
+<Tip>
+**Test before sharing.** Validate your Skill in a test project before rolling it out to the team or publishing to the Skill Store.
+</Tip>
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Subagent Management" icon="robot" href="/verdent-manager/configuration/subagents">
+    How subagents work and how to manage them
+  </Card>
+  <Card title="MCP Integration" icon="plug" href="/verdent-manager/configuration/mcp">
+    Connect external tools and services via MCP
+  </Card>
+  <Card title="Rules" icon="book" href="/verdent-manager/configuration/rules">
+    Configure always-active Project and User Rules
+  </Card>
+  <Card title="Code Review" icon="magnifying-glass" href="/verdent-manager/advanced-features/code-review">
+    Review code changes with the built-in Reviewer
+  </Card>
+</CardGroup>
