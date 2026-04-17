@@ -1,11 +1,11 @@
 ---
-title: Rule Systems
-description: Controlling Verdent's behavior through rule files
+title: Rules
+description: "Controlling Verdent's behavior through rule files"
 ---
 
 Rule files are Markdown documents that define how Verdent behaves during coding sessions. They guide the AI agent's behavior, output formatting, and adherence to project standards.
 
-### What You'll Learn
+## What You'll Learn
 
 - Understanding user rules and project rules
 - When to use each rule type
@@ -20,7 +20,9 @@ Rule files are Markdown documents that define how Verdent behaves during coding 
 | **User Rules** | VERDENT.md | Global (all projects) | Personal coding preferences |
 | **Project Rules** | AGENTS.md | Current project | Team conventions, project standards |
 
-**Location:** `~/.verdent/VERDENT.md` (User Rules) | `<project>/AGENTS.md` (Project Rules)
+**Location:**
+- User Rules: `~/.verdent/VERDENT.md`
+- Project Rules: `<project>/AGENTS.md`
 
 ---
 
@@ -122,6 +124,7 @@ Share AGENTS.md with your team via version control to ensure consistent AI behav
 
 ## FAQs
 
+<AccordionGroup>
 <Accordion title="How do I create rule files?">
 Navigate to Settings → User Rules to edit `VERDENT.md` for personal preferences. Create `AGENTS.md` in your project root for project-specific rules. Use plain Markdown with bullet points.
 </Accordion>
@@ -133,3 +136,4 @@ Rule changes apply immediately in new conversations and influence current conver
 <Accordion title="Can I override rules temporarily?">
 You can provide specific instructions in your prompt to override rules for a single request.
 </Accordion>
+</AccordionGroup>
