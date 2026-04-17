@@ -1,0 +1,272 @@
+---
+title: Bring Your Own Agent (BYOA)
+description: Run Manager's Worker tasks on your own Agent runtimes such as Codex or Claude Code
+---
+
+## What is BYOA?
+
+BYOA (Bring Your Own Agent) lets you choose which Agent runtime powers Manager's Workers. Instead of only using Verdent's default Agents, Worker tasks dispatched by Manager can run on an Agent you already use or are licensed for.
+
+<Note>
+Looking to use your own provider API key with Verdent's built-in agents instead? See [BYOK](/verdent-manager/configuration/byok).
+</Note>
+
+## Supported Agent Types
+
+| Agent | Description | Prerequisites |
+| --- | --- | --- |
+| Built-in Agent | Default Agent provided by Verdent | None |
+| Claude Code | Anthropic's Claude Code CLI | Node.js installed (for `npx`) |
+| Codex | OpenAI Codex CLI | Codex CLI installed and OpenAI environment configured |
+
+## Use Cases
+
+- **Access specific models** — Expose model versions not included in Verdent's default set through the model selector.
+- **Team standardization** — Use a shared enterprise license so team usage is billed centrally.
+- **Familiar workflow** — Keep your existing Claude Code or Codex experience while letting Manager dispatch Worker tasks to it.
+
+## Quick Access
+
+- BYOA settings: **Settings → Models → CLI Agents**
+- Model selection in Manager chat: turn off **Auto** mode in the input box to pick a Task Model
+- API keys configured in BYOA are stored locally only and are never uploaded to Verdent servers
+
+## Codex
+
+Codex is OpenAI's coding agent CLI. Unlike Claude Code, Codex does not require an API key inside Verdent — it uses the authentication already set up in your local Codex environment.
+
+### Prerequisites
+
+- Codex CLI installed (`codex` must be available on your `PATH`)
+- Codex CLI authenticated and usable in your terminal
+
+### Setup Steps
+
+<Steps>
+  <Step title="Open CLI Agents settings">
+    Go to **Settings → Models → CLI Agents**.
+  </Step>
+  <Step title="Add Codex if missing">
+    If the Codex card is not visible, click **Add CLI Agent**. Verdent scans your system `PATH` for the `codex` command.
+  </Step>
+  <Step title="Enable Codex">
+    Turn on the **Codex** toggle.
+  </Step>
+  <Step title="Select models">
+    Verdent automatically detects available models. Select the ones you want to use.
+  </Step>
+</Steps>
+
+### Model Discovery
+
+Codex models are dynamically discovered. After launching Codex, Verdent fetches available models via its `/models` API. If new models are added on the Codex side, click **Refresh Models** to update the list.
+
+### Authentication
+
+Verdent does not manage Codex authentication. Codex relies on your local shell environment (typically `OPENAI_API_KEY` or its built-in login flow). As long as `codex` works in your terminal, the integration works.
+
+## Claude Code
+
+Claude Code is the most feature-rich Agent in BYOA and supports multiple providers. You can connect Anthropic, OpenRouter, Zhipu GLM, and others, and switch between them in the model selector.
+
+### Prerequisites
+
+- Node.js installed (only `npx` is required)
+
+Verdent launches Claude Code via:
+
+```bash
+npx -y @agentclientprotocol/claude-agent-acp
+```
+
+No global installation is required.
+
+### Setup Steps
+
+<Steps>
+  <Step title="Open CLI Agents settings">
+    Go to **Settings → Models → CLI Agents**.
+  </Step>
+  <Step title="Add Claude Code if missing">
+    If the Claude Code card is not visible, click **Add CLI Agent**. Verdent detects `npx`.
+  </Step>
+  <Step title="Enable Claude Code">
+    Turn on the **Claude Code** toggle.
+  </Step>
+  <Step title="Add a provider">
+    Click **Add provider** and select a provider (for example, Anthropic).
+  </Step>
+  <Step title="Enter credentials">
+    Enter the API key. Default values are auto-filled.
+  </Step>
+  <Step title="Test and save">
+    Optionally click **Test Connection**, then click **Save**.
+  </Step>
+</Steps>
+
+After saving, models under the provider appear in the model list. Enabled models are selected by default but can be toggled manually.
+
+### Supported Providers
+
+Claude Code supports multiple providers. You can configure several at once, and all models appear in the selector.
+
+#### Anthropic
+
+Official Anthropic API for Claude models.
+
+- **Auth:** API Key
+- **Base URL:** `https://api.anthropic.com`
+- **Models:** Opus / Sonnet / Haiku
+- **Key:** [platform.claude.com/settings/keys](https://platform.claude.com/settings/keys)
+
+#### OpenRouter
+
+Unified API access to multiple model providers.
+
+- **Auth:** Token
+- **Base URL:** `https://openrouter.ai/api`
+- **Models:** Opus / Sonnet / Haiku
+- **Key:** [openrouter.ai/workspaces/default/keys](https://openrouter.ai/workspaces/default/keys)
+
+You can override Role Models to route to other OpenRouter models (for example, `google/gemini-2.5-pro`).
+
+#### Zhipu GLM (China)
+
+- **Base URL:** `https://open.bigmodel.cn/api/anthropic`
+- **Model:** GLM-5
+- **Key:** [bigmodel.cn/usercenter/proj-mgmt/apikeys](https://bigmodel.cn/usercenter/proj-mgmt/apikeys)
+- **Docs:** [docs.bigmodel.cn](https://docs.bigmodel.cn)
+
+#### Zhipu GLM (Global)
+
+- **Base URL:** `https://api.z.ai/api/anthropic`
+- **Model:** GLM-5
+- **Key:** [z.ai/manage-apikey/apikey-list](https://z.ai/manage-apikey/apikey-list)
+- **Docs:** [docs.z.ai](https://docs.z.ai)
+
+#### Kimi
+
+- **Base URL:** `https://api.kimi.com/coding/`
+- **Model:** Kimi K2.5
+- **Key:** [kimi.com/code/console](https://kimi.com/code/console)
+- **Docs:** [kimi.com/code/docs](https://kimi.com/code/docs)
+
+#### Moonshot
+
+- **Base URL:** `https://api.moonshot.cn/anthropic`
+- **Model:** Kimi K2.5
+- **Key:** [platform.moonshot.cn/console/api-keys](https://platform.moonshot.cn/console/api-keys)
+- **Docs:** [platform.moonshot.cn/docs](https://platform.moonshot.cn/docs)
+
+<Note>
+Kimi and Moonshot both provide Kimi K2.5 but use different endpoints and authentication. Choose based on where your key comes from.
+</Note>
+
+#### MiniMax (China)
+
+- **Base URL:** `https://api.minimaxi.com/anthropic`
+- **Model:** MiniMax-M2.7
+- **Key:** [platform.minimaxi.com](https://platform.minimaxi.com)
+- **Docs:** [platform.minimaxi.com/docs](https://platform.minimaxi.com/docs)
+
+#### MiniMax (Global)
+
+- **Base URL:** `https://api.minimax.io/anthropic`
+- **Model:** MiniMax-M2.7
+- **Key:** [platform.minimax.io](https://platform.minimax.io)
+- **Docs:** [platform.minimax.io/docs](https://platform.minimax.io/docs)
+
+#### Xiaomi MiMo
+
+- **Base URL:** `https://api.xiaomimimo.com/anthropic`
+- **Model:** MiMo V2 Pro
+- **Key:** [platform.xiaomimimo.com](https://platform.xiaomimimo.com)
+- **Docs:** [platform.xiaomimimo.com/docs](https://platform.xiaomimimo.com/docs)
+
+#### Xiaomi MiMo (Token Plan)
+
+- **Base URL:** `https://token-plan-cn.xiaomimimo.com/anthropic`
+- **Model:** MiMo V2 Pro
+- **Key:** [platform.xiaomimimo.com](https://platform.xiaomimimo.com)
+- **Docs:** [platform.xiaomimimo.com/docs](https://platform.xiaomimimo.com/docs)
+
+#### Anthropic-Compatible (Custom Endpoint)
+
+For any service compatible with the Anthropic API format.
+
+- **Auth:** API Key or Token (switchable)
+- **Base URL:** manually configured
+- **Models:** manually specified
+
+Use this if your provider is not listed but supports Anthropic-compatible APIs.
+
+### Advanced Options
+
+In the provider configuration panel, expand **Advanced Options** to access a JSON editor:
+
+- **Role Models mapping:**
+  - `ANTHROPIC_DEFAULT_OPUS_MODEL`
+  - `ANTHROPIC_DEFAULT_SONNET_MODEL`
+  - `ANTHROPIC_DEFAULT_HAIKU_MODEL`
+  - `CLAUDE_CODE_SUBAGENT_MODEL`
+- **Custom environment variables** (for example, `API_TIMEOUT_MS`)
+
+Most users don't need to modify these — defaults work well out of the box.
+
+## Using BYOA Models in Manager
+
+After configuration:
+
+<Steps>
+  <Step title="Disable Auto mode">
+    Turn off **Auto** mode in the chat input.
+  </Step>
+  <Step title="Open Task Model">
+    Open the **Task Model** dropdown.
+  </Step>
+  <Step title="Select a BYOA model">
+    Pick any enabled BYOA model. Worker tasks will run using that model.
+  </Step>
+</Steps>
+
+Models appear as:
+
+- `GPT-5.4 Codex-CLI` (from Codex)
+- `claude-opus-4.7 ClaudeCode-CLI` (from Claude Code)
+
+Hovering shows details such as CLI source, model name, and provider.
+
+## Security & Privacy
+
+- **Local storage only:** API keys are stored locally and never uploaded.
+- **Claude Code keys:** stored securely, not written to plain config files.
+- **Codex authentication:** fully managed by your local environment; Verdent does not access OpenAI keys.
+
+## FAQ
+
+### CLI Agent not detected?
+
+Ensure commands are available in `PATH`:
+
+- Claude Code requires `npx` (Node.js installed)
+- Codex requires the `codex` CLI installed
+
+Run:
+
+```bash
+which npx
+which codex
+```
+
+### Test Connection failed?
+
+- Verify API key
+- Check base URL
+- Ensure network access to the API endpoint
+- Check proxy configuration if used
+
+### Provider added but models not visible?
+
+- Ensure Claude Code is enabled
+- Ensure provider models are toggled on
+- Restart Verdent if needed

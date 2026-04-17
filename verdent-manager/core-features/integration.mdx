@@ -1,0 +1,133 @@
+---
+title: Integration
+description: "Browse, install, and manage Verdent extensions to connect third-party tools and services"
+---
+
+Tool Integration is Verdent's system for browsing, installing, and managing extensions. Instead of manually configuring complex API scripts, you can install a plugin with just a few clicks.
+
+When you add a plugin, Verdent downloads a secure package from the official marketplace, verifies its integrity, and automatically registers all components—whether it's new deployment commands, database management skills, or workflow automation tools.
+
+## Supported Integrations
+
+Popular plugins currently available in the marketplace:
+
+| Tool     | Typical Use Case                                                              |
+| -------- | ----------------------------------------------------------------------------- |
+| GitHub   | View PRs, manage issues, trigger Actions                                      |
+| Stripe   | Query payments, manage subscriptions, analyze revenue                         |
+| Supabase | Read/write databases, manage users, query tables                              |
+| Notion   | Query docs and databases, create pages, manage knowledge bases, sync project info |
+| Linear   | Manage issues and projects, track development progress, sync task status      |
+
+## Installing a Plugin
+
+<Steps>
+  <Step title="Open Settings">
+    Launch Verdent and go to **Settings**.
+  </Step>
+  <Step title="Open the Integrations tab">
+    You'll see plugins split into two sections:
+    - **Installed** — plugins you already have
+    - **Recommended** — plugins available in the marketplace
+  </Step>
+  <Step title="Pick a plugin">
+    Click any plugin card in the **Recommended** section to open its details.
+  </Step>
+  <Step title="Add to Verdent">
+    Review its features and components, then click **Add to Verdent**. The plugin is automatically downloaded, verified, and installed.
+  </Step>
+  <Step title="Connect the MCP">
+    Follow the prompt to connect the corresponding MCP so the plugin can access external services.
+  </Step>
+</Steps>
+
+## Authentication
+
+Different plugins use different secure authentication methods:
+
+- **OAuth** — Plugins such as GitHub, Notion, and Linear support seamless OAuth flows. Verdent handles client credentials automatically—you just log in and authorize in your browser, no copy-pasting required.
+
+<Note>
+  Any API keys or access tokens you provide are stored locally on your machine. Verdent never uploads your credentials to our servers.
+</Note>
+
+## Using Plugins
+
+Once installed, there are two main ways to start using a plugin:
+
+### Talk directly to Manager
+
+Ask Manager to use the integration naturally:
+
+- "Use the GitHub integration to summarize my latest PRs"
+- "Check the latest registered users in my Supabase user table"
+
+### Try in Chat
+
+If you're not sure where to start, go to **Settings → Integrations**, click an installed plugin, then click **Try in Chat**. Settings will close and the plugin's default prompt is inserted into the chat input box.
+
+## Managing Installed Plugins
+
+You always have full control over what tools Verdent can access:
+
+- **View details** — Click any installed plugin card to see its exact components (MCPs, Skills, Rules, etc.).
+- **Uninstall** — Open the plugin details and click **Uninstall**. After confirmation, Verdent fully removes runtime registration, deletes cached files, and cleans up state.
+- **Reinstall** — Find the plugin again in the **Recommended** section and reinstall it anytime.
+
+<Note>
+  Uninstalling removes all local files and functionality. You may still need to revoke OAuth access or delete API keys from the third-party service dashboard for full disconnection.
+</Note>
+
+## What's Inside a Plugin
+
+An integration may include several components:
+
+- **MCP Servers** — Standardized tools that allow Verdent to read and write data from external services
+- **Skills** — Task-specific AI capabilities or workflows (e.g. a GitHub "code review" skill)
+- **Subagents** — Focused, independent agents that Manager can delegate complex tasks to
+- **Rules** — Custom behavioral instructions that define how Verdent should act when using certain tools
+- **Commands** — Convenient slash commands (e.g. `/deploy`) you can run directly in chat
+
+## Use Cases
+
+### Code review & merge (GitHub)
+
+After finishing a feature, ask:
+
+> "Create a PR for my latest commit and summarize the changes."
+
+Verdent uses the GitHub plugin to draft the PR, add a summary, and check CI/CD status.
+
+### Subscription management (Stripe)
+
+A customer emails about billing issues:
+
+> "Find the Stripe subscription for user@example.com and check whether their last payment succeeded."
+
+Verdent retrieves the data securely—no need to open the Stripe dashboard.
+
+### Monitoring (Supabase)
+
+After connecting Supabase:
+
+> "Fetch customer records of financial-type users from the user table."
+
+Verdent retrieves and displays the data directly.
+
+### Project tracking (Linear)
+
+Before a meeting:
+
+> "Show me all unfinished issues in this sprint in Linear, sorted by priority."
+
+Verdent aggregates progress, and you can mark fixed bugs as Done directly.
+
+### Knowledge & docs (Notion)
+
+> "Find the latest version of the product requirements doc in Notion and turn key requirements into a task list."
+
+Verdent pulls the content and generates a structured task list automatically.
+
+<Note>
+  Always install plugins via the official Verdent marketplace to ensure SHA256-verified, secure packages.
+</Note>

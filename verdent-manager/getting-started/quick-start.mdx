@@ -1,0 +1,63 @@
+---
+title: Quick Start Guide
+description: "Add your first project and assign tasks to Manager"
+---
+
+This guide walks you through adding a project to Manager and understanding the basic Project and Task concepts.
+
+## Core Concepts
+
+<CardGroup cols={2}>
+  <Card title="Project" icon="folder">
+    A Project corresponds to either a local folder on your machine or a directory on a remote server. It can be a code repository, a design workspace, or any environment where you want Manager to participate.
+  </Card>
+  <Card title="Task (or Session)" icon="list-check">
+    Each time you assign work to Manager, a new task is created.
+  </Card>
+</CardGroup>
+
+### Task States
+
+A task has four possible states:
+
+| State | Description |
+|-------|-------------|
+| **Running** | The agent is actively executing the task |
+| **Pending** | The task is queued and has not started yet |
+| **Completed** | The task has finished execution |
+| **Error** | The task encountered an issue during execution |
+
+---
+
+## Add a Local Project
+
+<Steps>
+  <Step title="Open the Projects panel">
+    Open the Manager main interface and click the **Projects** icon in the top-right toolbar to open the project panel.
+  </Step>
+  <Step title="Open Project">
+    Click the **+** button in the top-right corner of the panel, then select **Open Project**.
+  </Step>
+  <Step title="Choose a folder">
+    In the file picker, choose your local folder and confirm.
+  </Step>
+  <Step title="Start working">
+    The project will appear in the list, and you can start assigning tasks immediately.
+  </Step>
+</Steps>
+
+---
+
+## Connect to a Remote Project (SSH)
+
+<Steps>
+  <Step title="Select Connect via SSH">
+    Click the **+** button and select **Connect via SSH**.
+  </Step>
+  <Step title="Configure the connection">
+    Enter the remote server address, username, and key path to configure the connection.
+  </Step>
+  <Step title="Assign tasks">
+    Once connected, the remote project will appear in the list just like a local project, and you can assign and track tasks normally.
+  </Step>
+</Steps>

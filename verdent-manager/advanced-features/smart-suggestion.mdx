@@ -1,0 +1,111 @@
+---
+title: Smart Suggestion
+description: "Context-aware next-step action buttons that appear after each completed task"
+---
+
+After finishing a task, you often stop to think "what next?"—do I review the diff, run a follow-up prompt, or trigger a skill? Smart Suggestions remove that friction. The moment a task completes, a row of quick-action buttons appears at the bottom of the message, predicting what you're most likely to do next. One click is enough—no need to craft a prompt or decide which Subagent to call.
+
+## What are Smart Suggestions?
+
+In one sentence: Smart Suggestions are context-aware "next step" action buttons that automatically appear after each completed task in Verdent.
+
+They are powered by the Claude Haiku 4.5 model.
+
+They may include:
+
+- Predicted follow-up questions you might want to ask
+- One-click code review actions
+- Triggering a Skill to complete a finishing step
+- Opening the Git panel to inspect all file changes
+
+These suggestions are not random—they are generated based on the current task context. Most of the time, one click is all it takes to continue your workflow seamlessly.
+
+## Four Types of Smart Suggestions
+
+| Type | What it looks like | What happens when clicked |
+| --- | --- | --- |
+| `next_prompts` | Suggested next question text | Sends the prompt as a new message |
+| `code_review` | "review code changes" | Triggers `@Reviewer` automatically to start a full review |
+| `skill` | "Use skill \{skill name\}" | Calls the corresponding Skill; installs it first if not available |
+| `task_changes` | "view all changes" | Opens the Git panel and expands the first modified file diff |
+
+## When Do They Appear?
+
+Smart Suggestions only appear after a task has been successfully completed.
+
+They will NOT appear if:
+
+- The task failed
+- The task was cancelled
+- Verdent is still executing
+
+## Click vs Edit Behavior
+
+Each suggestion supports two interaction modes:
+
+- **Click directly**: The entire button is clickable. It immediately executes the action (send message or open panel).
+- **Hover + pencil icon**: When you hover over a button, a small pencil icon appears. Clicking it inserts the suggestion into the input box instead of sending it—allowing you to edit before sending.
+
+If you want to use the suggestion as a starting point but adjust the wording, use the pencil icon.
+
+## Tooltips
+
+For `skill`, `task_changes`, and `code_review` types, hovering shows a tooltip explaining why Verdent suggests this action (i.e. its reasoning).
+
+## Real Use Cases
+
+**Post-task review**
+After finishing complex business logic, a "review code changes" button appears. One click triggers Reviewer, no need to manually type `@Reviewer`.
+
+**Follow-up exploration**
+After a technical research task, Verdent predicts what you might want to ask next. `next_prompts` lets you continue the conversation without breaking flow.
+
+**One-click commit flow**
+After coding, a "Use skill commit" button appears. Clicking it triggers the `/commit` Skill, completing the entire commit process without switching context.
+
+**Inspect changes instantly**
+After multiple files are modified, clicking "view all changes" opens the Git panel and expands the first diff automatically.
+
+**Edit before sending**
+If you don't like the suggested prompt, hover and use the pencil icon to refine it before sending.
+
+## Smart Suggestions Toggle
+
+Enable Smart Suggestions to allow Verdent to:
+
+- Predict your next action after each task
+- Suggest multi-model collaboration plans before sending messages
+
+If disabled, all of these suggestions are silently turned off.
+
+## Why It's Worth Keeping On
+
+- **Less cognitive load**: You don't need to think "what next?" after every step—Verdent handles the flow
+- **Faster execution**: Review, skills, and diff inspection become one-click actions
+- **Better context awareness**: Powered by Claude Haiku 4.5, suggestions adapt dynamically to your current task
+- **Low overhead**: Uses a lightweight model, fast and cost-efficient with minimal impact
+
+## How to Turn It Off
+
+Path:
+
+`Settings → General → Smart Suggestions → toggle off`
+
+When disabled:
+
+- Smart Suggestion buttons no longer appear
+- Multi-model pre-send planning suggestions are also disabled
+
+## When It's Automatically Disabled
+
+Smart Suggestions are automatically turned off in two cases:
+
+- **Using BYOK custom models**: Since external API usage may be cost-sensitive, Haiku 4.5 is not invoked
+- **Using Eco Mode models**: The system avoids additional prediction calls to keep costs minimal
+
+Once you switch back to standard mode, Smart Suggestions will resume automatically.
+
+## Notes
+
+- No suggestions appear on failed tasks—only successful completions generate next-step actions
+- Skills auto-install: if a selected Skill isn't installed yet, Verdent will install it automatically before execution

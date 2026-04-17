@@ -1,0 +1,77 @@
+---
+title: Configuration Optimization
+description: "Quick reference for picking the right model and execution mode for each task"
+---
+
+A concise cheat sheet for matching Verdent Manager's model and execution mode to the task at hand. For deeper configuration, see the dedicated pages for [Subagents](/verdent-manager/configuration/subagents), [BYOK](/verdent-manager/configuration/byok), and [BYOA](/verdent-manager/configuration/byoa).
+
+---
+
+## Model Selection
+
+| Task Type | Recommended Model | Why |
+|-----------|-------------------|-----|
+| Quick fixes, small edits | Claude Haiku 4.5 | Fastest, lowest credit cost |
+| General development | Claude Sonnet 4.6 | Best speed/quality tradeoff |
+| Complex architecture, deep reasoning | Claude Opus 4.6 | Strongest reasoning |
+| Parallel routine tasks | Claude Haiku 4.5 | Resource-efficient across many Workers |
+
+<Tip>
+Leave **Auto** mode on in the input box and Verdent picks the model for you based on task signals. Disable Auto only when you want to pin a specific model.
+</Tip>
+
+---
+
+## Execution Mode Selection
+
+| Scenario | Mode | Why |
+|----------|------|-----|
+| Clear, well-defined task | Agent Mode | Direct execution, no planning overhead |
+| Unfamiliar codebase, exploration | Plan Mode | Review approach before acting |
+| Production changes, architectural work | Plan Mode → Agent Mode | Validate plan, then execute |
+| Fast iteration loops | Agent Mode | Minimal friction |
+
+See [Agent Mode](/verdent-manager/advanced-features/agent-mode) and [Plan Mode](/verdent-manager/advanced-features/plan-mode) for full details.
+
+---
+
+## Context Management
+
+For large projects, keep the main context window lean:
+
+- **Delegate to subagents** — `@Verifier`, `@Fast Context`, and custom subagents run in their own context; only their results return to the main agent.
+- **Reference files explicitly** — Use `@filename` to pull only what's needed instead of loading whole directories.
+- **Chunk large tasks** — Start a new session at natural boundaries (per feature, per module).
+- **Plan Mode first** — Validate the approach before burning execution context on the wrong path.
+
+---
+
+## Configuration Priority
+
+When rules conflict, Verdent applies this priority order:
+
+1. **Project Rules** (`AGENTS.md` in project root) — highest priority
+2. **Workspace settings** — application workspace-level settings
+3. **User Rules** (`~/.verdent/VERDENT.md`) — global defaults
+4. **Verdent defaults** — lowest priority
+
+See [Rule Systems](/verdent-manager/configuration/rules) for writing effective rules.
+
+---
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="Subagents" icon="robot" href="/verdent-manager/configuration/subagents">
+    Delegate work with isolated context windows
+  </Card>
+  <Card title="BYOK" icon="key" href="/verdent-manager/configuration/byok">
+    Use your own provider API keys
+  </Card>
+  <Card title="BYOA" icon="plug" href="/verdent-manager/configuration/byoa">
+    Run Workers on external Agent runtimes
+  </Card>
+  <Card title="Rule Systems" icon="list-check" href="/verdent-manager/configuration/rules">
+    Project and user rule files
+  </Card>
+</CardGroup>

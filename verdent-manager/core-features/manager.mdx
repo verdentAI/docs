@@ -1,0 +1,127 @@
+---
+title: Manager
+description: "Organize projects, decompose goals into tasks, and run work in parallel with Manager"
+---
+
+Manager keeps everything in one place—projects, tasks, and progress—so nothing slips through the cracks. Give it a goal, and it turns it into clear steps, runs tasks in parallel, and keeps everything up to date. The more you use it, the better it adapts to how you work.
+
+## Project & Task Management
+
+Manager keeps your projects and tasks organized in one place, so work stays structured and nothing gets lost.
+
+The main interface provides a Kanban board that organizes all tasks across your projects by status:
+
+- **To Review** — Tasks that are completed and waiting for you to review the results
+- **In Progress** — Tasks currently being executed by agents
+- **Completed** — Tasks you've already reviewed
+
+Click any task card to view detailed execution steps and outputs in the right-hand panel.
+
+### Use cases
+
+- **Managing multiple projects** — Working on a frontend app, a backend API, and documentation at the same time? Add them all to Manager. Whenever you want to move something forward, just say it—Manager automatically links the request to the correct project.
+- **Tracking long-running tasks** — Assign a time-consuming task (like refactoring a module), then step away. When you come back, everything completed will be waiting in the **To Review** column.
+- **Parallel execution** — Manager can run multiple tasks at once. Assign Task A, then Task B—they'll run in parallel, and you can track progress in real time on the board.
+
+## Intelligent Task Decomposition
+
+You don't need to break things down yourself. Just describe the outcome you want, and Manager figures out the rest—planning phases, splitting tasks, coordinating multiple agents, and delivering a complete result.
+
+This is Manager's core capability: turning a single instruction into an executable plan.
+
+### How it works
+
+Task decomposition isn't triggered by a button—it happens automatically as Manager understands your goal:
+
+<Steps>
+  <Step title="Understand the goal">
+    Identify the desired outcome.
+  </Step>
+  <Step title="Plan the workflow">
+    Define clear stages (e.g., setup → core logic → UI → validation).
+  </Step>
+  <Step title="Break down tasks">
+    Convert stages into executable subtasks.
+  </Step>
+  <Step title="Dispatch workers">
+    Assign each task to a dedicated agent (Worker), running in parallel or sequence.
+  </Step>
+  <Step title="Track & integrate">
+    Monitor progress, adjust when needed, and combine results.
+  </Step>
+</Steps>
+
+In the main interface, both parent tasks and subtasks are shown as independent cards. Relationships are handled automatically—you don't need to manage them manually.
+
+### How to use
+
+- **Just describe the outcome.** In the Manager chat, simply tell it what you want:
+
+  > "Create a playable Snake game with scoring and restart functionality."
+
+  Manager will automatically choose the right tech stack, plan the project structure, break it into phases (setup, logic, rendering, interaction, validation), and run multiple workers in parallel.
+
+- **Reference a specific project.** If a task should run in a specific project, mention it with `@project-name`. Manager will link all subtasks to the correct directory.
+
+- **View task breakdown.** After assigning a task, switch to the Kanban view:
+  - The main task appears as a large card with overall status
+  - Subtasks (Worker tasks) appear as individual cards in their respective columns
+  - Parent-child relationships are handled automatically, so the board stays clean
+
+  You can also open the **Projects** panel (top right) to view all subtasks under a specific project.
+
+### Example scenarios
+
+- **Building a feature** — "Add user authentication to this API, including registration, login, and JWT verification." → Manager splits it into: database schema → registration → login → middleware → testing.
+- **Large refactoring** — "Migrate this module from JavaScript to TypeScript and ensure all tests pass." → Manager analyzes files, splits migration tasks, and validates everything at the end.
+- **Multi-phase delivery** — Describe a full project → Manager handles architecture, execution, and iteration, adjusting based on your feedback.
+
+### Tips
+
+- **Be outcome-focused.** Define what should be delivered, not just what to do.
+- **Add acceptance criteria.** For example, "game runs correctly and collision detection works."
+- **Don't overthink steps.** Manager handles planning for you.
+- **Intervene anytime.** If something looks off, just say it—Manager will adjust.
+
+## Memory
+
+Manager includes a **Memory Import** feature that analyzes your past conversations and extracts structured insights about how you work—your preferences, habits, and patterns.
+
+This allows Manager to improve over time instead of starting from scratch every time.
+
+### Why it matters
+
+Every builder has preferences—frameworks, coding style, problem-solving approaches. These are scattered across past interactions. Memory Import consolidates them into usable knowledge so Manager becomes increasingly aligned with you.
+
+### How to start
+
+Memory Import appears during your first use of Manager, or you can trigger it anytime.
+
+Configure the import range to choose how much history to include:
+
+- Last 7 days
+- Last 1 month
+- Last 3 months
+- Last 6 months
+
+More data means better context, but longer processing time.
+
+### After generation
+
+- Memory files are stored locally (path shown in the panel)
+- Manager automatically uses them as context for future tasks
+- Memory continues to evolve as you keep working
+- **Pause & resume** — You can pause anytime. If interrupted, click **Continue** to resume from where it left off.
+- **Delete memory** — Click **Delete Memory** to remove all stored memory and regenerate from scratch if needed.
+
+### Use cases
+
+- **Starting a similar project** — If you've built React apps before, Manager may automatically choose your preferred stack (e.g., TypeScript + Vite + Tailwind).
+- **Resuming old work** — After weeks away, Manager remembers architecture decisions, TODOs, and preferences—so you can pick up where you left off.
+- **Consistent coding style** — Manager learns your style (naming, patterns, etc.) and maintains consistency across tasks.
+
+<Note>
+  - Memory Import requires a Verdent account.
+  - Memory is stored locally and never uploaded.
+  - You can regenerate or delete memory anytime without affecting chat history.
+</Note>

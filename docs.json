@@ -11,7 +11,68 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Verdent",
+        "tab": "Verdent Manager",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "verdent-manager/getting-started/overview",
+              "verdent-manager/getting-started/installation",
+              "verdent-manager/getting-started/quick-start",
+              "verdent-manager/getting-started/supported-operating-systems"
+            ]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "verdent-manager/core-features/manager",
+              "verdent-manager/core-features/pulse",
+              "verdent-manager/core-features/automation",
+              "verdent-manager/core-features/instant-messaging",
+              "verdent-manager/core-features/integration"
+            ]
+          },
+          {
+            "group": "Advanced Features",
+            "pages": [
+              "verdent-manager/advanced-features/agent-mode",
+              "verdent-manager/advanced-features/plan-mode",
+              "verdent-manager/advanced-features/smart-suggestion",
+              "verdent-manager/advanced-features/code-review",
+              "verdent-manager/advanced-features/workspace-isolation"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "verdent-manager/configuration/byoa",
+              "verdent-manager/configuration/byok",
+              "verdent-manager/configuration/subagents",
+              "verdent-manager/configuration/rules",
+              "verdent-manager/configuration/mcp",
+              "verdent-manager/configuration/configuration-optimization"
+            ]
+          },
+          {
+            "group": "Pricing",
+            "pages": [
+              "verdent-manager/pricing/view-plans",
+              "account-billing/model-pricing"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "verdent-manager/reference/version-history",
+              "verdent-manager/reference/security-compliance",
+              "verdent-manager/reference/support-resources"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Verdent 1.0",
+        "hidden": true,
         "groups": [
           {
             "group": "Getting Started",
@@ -340,7 +401,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/verdent/getting-started/overview"
+      "destination": "/verdent-manager/getting-started/overview"
     },
     {
       "source": "/verdent/pricing/subscription-streak",

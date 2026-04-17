@@ -1,0 +1,242 @@
+---
+title: Instant Messaging
+description: "Assign work to Manager from Telegram, Slack, or Feishu"
+---
+
+You don't need to be at your computer to assign work to Manager. By connecting Telegram, Slack, or Feishu, you can send messages to Manager anytime, anywhere using familiar chat tools. Manager turns your messages into structured tasks and starts executing them—capture an idea while scrolling on your phone, and come back later to see the result.
+
+## Supported Instant Messaging Platforms
+
+| Platform         | Type          |
+|------------------|---------------|
+| Telegram         | Personal Bot  |
+| Slack            | Workspace Bot |
+| Feishu           | Enterprise Bot |
+
+Each platform requires creating a Bot in its developer console, then completing pairing in Verdent. Once connected, any message you send to the Bot is forwarded directly to Manager.
+
+---
+
+## Connection Flow
+
+The connection process has two stages:
+
+1. **Enter Token** — credentials setup
+2. **Send Message for Pairing** — link the Bot to Manager
+
+Everything is configured in the channel settings page in Manager's sidebar.
+
+### How to Access Setup
+
+<Steps>
+  <Step title="Open Add Channel">
+    In the left sidebar of Manager, click the **+** button at the top (Add Channel).
+  </Step>
+  <Step title="Select a platform">
+    Choose the platform you want to connect (Telegram, Slack, or Feishu).
+  </Step>
+  <Step title="Follow the guided steps">
+    Complete the two-stage setup in the side panel.
+  </Step>
+</Steps>
+
+---
+
+## Telegram Setup
+
+### Stage 1: Create Bot and Get Token
+
+<Steps>
+  <Step title="Message BotFather">
+    Find [@BotFather](https://t.me/BotFather) on Telegram and send `/newbot`.
+  </Step>
+  <Step title="Name your bot">
+    Follow the prompts to provide a display name and username.
+  </Step>
+  <Step title="Copy the token">
+    After creation, BotFather returns a token in the form `123456:ABC-DEF1234...`.
+  </Step>
+  <Step title="Paste into Verdent">
+    Paste the token into the **Bot Token** field in the Verdent setup panel and confirm.
+  </Step>
+</Steps>
+
+### Stage 2: Message Pairing
+
+<Steps>
+  <Step title="Send a message">
+    Open your new bot in Telegram and send any message (for example, `hello`).
+  </Step>
+  <Step title="Receive the pairing code">
+    The bot replies automatically with a pairing code.
+  </Step>
+  <Step title="Confirm in Verdent">
+    Enter the code in the Verdent panel and confirm. The connection is now complete.
+  </Step>
+</Steps>
+
+---
+
+## Slack Setup
+
+### Stage 1: Create Slack App and Get Tokens
+
+<Steps>
+  <Step title="Create a new app">
+    Go to [api.slack.com/apps](https://api.slack.com/apps) and click **Create New App**.
+  </Step>
+  <Step title="Use the provided manifest">
+    Choose **From an app manifest** and paste the JSON manifest provided by Verdent (a copy button is available in the UI).
+  </Step>
+  <Step title="Select a workspace">
+    Choose the Slack workspace and create the app.
+  </Step>
+  <Step title="Copy both tokens">
+    In the app settings, locate the **Bot Token** (`xoxb-`) and **App Token** (`xapp-`), then paste both into the Verdent setup panel.
+  </Step>
+</Steps>
+
+<Note>
+  **App name requirement:** the name must be under 80 characters and cannot contain Chinese, Japanese, or Korean characters.
+</Note>
+
+### Stage 2: Message Pairing
+
+Same as Telegram: send a message to the bot, receive the pairing code, then enter it in Verdent to complete the connection.
+
+---
+
+## Feishu Setup
+
+Feishu takes a few more steps than Telegram or Slack—permissions are configured separately, and events must be subscribed manually. It isn't complex, but every step has to be done correctly, or the connection will stall. Follow them in order.
+
+### Step 1: Create a Custom App
+
+<Steps>
+  <Step title="Open the developer console">
+    Go to the [Feishu Open Platform](https://open.feishu.cn/app) and sign in with your Feishu account.
+  </Step>
+  <Step title="Create a Custom App">
+    Click **Create Custom App** in the top-right corner.
+  </Step>
+  <Step title="Fill in basic info">
+    Enter the app name and description, then finish creation.
+  </Step>
+</Steps>
+
+### Step 2: Configure Permissions
+
+Open the new app and go to **Permissions & Scopes** in the left menu.
+
+Feishu supports bulk importing scopes, so you don't have to tick them one by one. Find the bulk import/export entry on the page and paste the following JSON in full:
+
+```json
+{
+  "scopes": {
+    "tenant": [
+      "im:message:send_as_bot",
+      "im:message",
+      "im:resource",
+      "im:chat",
+      "im:chat:readonly",
+      "im:message.p2p_msg:readonly",
+      "im:message.group_at_msg:readonly",
+      "contact:contact.base:readonly",
+      "contact:user.base:readonly",
+      "contact:user.employee_id:readonly",
+      "docs:document.content:read",
+      "wiki:wiki:readonly",
+      "application:application:self_manage"
+    ],
+    "user": []
+  }
+}
+```
+
+After confirming the import, all of the scopes above should appear as selected in the permission list.
+
+### Step 3: Get Credentials and Connect Verdent
+
+Open **Credentials & Basic Info** in the left menu:
+
+<Steps>
+  <Step title="Copy App ID and App Secret">
+    Copy the **App ID** (in the form `cli_xxx...`) and the **App Secret**.
+  </Step>
+  <Step title="Paste into Verdent">
+    Paste both values into the matching fields in the Verdent setup panel.
+  </Step>
+  <Step title="Connect">
+    Click **Connect** to complete the first stage.
+  </Step>
+</Steps>
+
+### Step 4: Enable Long Connection
+
+Once connected, return to the Feishu Open Platform and open **Events & Callbacks**.
+
+Turn on **Use Long Connection to Receive Events**. This switch controls how Feishu delivers messages to the bot—long connection doesn't require you to expose a public URL; it keeps a persistent connection instead, which is more reliable.
+
+### Step 5: Subscribe to Message Events and Publish
+
+Still on the **Events & Callbacks** page:
+
+<Steps>
+  <Step title="Add the message event">
+    Click **Add Event**, then search for and add `im.message.receive_v1` (Receive Message event).
+  </Step>
+  <Step title="Create and publish a version">
+    Click **Create and Publish Version** in the top-right corner, fill in the version notes, and confirm.
+  </Step>
+  <Step title="Pair with Verdent">
+    After publishing, go back to Verdent and send a message to your Feishu bot to complete pairing.
+  </Step>
+</Steps>
+
+### What Each Permission Does
+
+| Permission | Purpose |
+|------------|---------|
+| `im:message:*` family | Lets the bot read and send messages, including direct messages and group @ mentions |
+| `im:chat:*` | Reads the list of conversations the bot belongs to |
+| `im:resource` | Reads images, files, and other resources attached to messages |
+| `contact:*` | Reads basic contact info to identify who sent a message |
+| `docs:document.content:read` / `wiki:wiki:readonly` | Reads Feishu Docs and Wiki content, so document links can be passed to Manager as context |
+| `application:application:self_manage` | Manages the app's own configuration; required for the long connection capability |
+
+---
+
+## After Successful Connection
+
+Once paired, the channel appears in Manager's left sidebar channel list and shows:
+
+- Platform icon and channel name
+- Connection status (**Connected** / **Disconnected** / **Needs attention**)
+- Preview and timestamp of the latest message
+- Unread message indicator (green dot)
+
+From this point on, every message sent to the Bot is handled directly by Manager as an executable task.
+
+---
+
+## Managing Connected Channels
+
+- **View all channels** — all connected IM channels are listed in the sidebar.
+- **Delete a channel** — hover over a channel and click delete, then confirm. If it is the last channel of that type, the bot configuration is also cleared.
+- **Reconnect** — if a channel shows **Disconnected** or **Needs attention**, a repair prompt appears at the top for reconfiguration.
+
+---
+
+## Use Cases
+
+<CardGroup cols={3}>
+  <Card title="Mobile Command Center" icon="mobile">
+    While on the go, tell the bot in Telegram: "Deploy the latest changes on the main branch to staging." By the time you're back, the result is ready.
+  </Card>
+  <Card title="Team Collaboration" icon="users">
+    Mention your Manager bot in a Slack channel to summarize today's PR statuses—responses appear directly in the channel for the whole team to see.
+  </Card>
+  <Card title="Quick Idea Capture" icon="lightbulb">
+    Before bed, send an idea to the bot and ask Manager to turn it into a task for tomorrow's execution.
+  </Card>
+</CardGroup>

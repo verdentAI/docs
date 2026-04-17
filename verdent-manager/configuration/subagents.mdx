@@ -3,7 +3,7 @@ title: Subagents
 description: Specialized expert agents the main agent can call on demand
 ---
 
-A Subagent is a specialized "expert" that the main agent (Worker) can call on at any time during task execution. Each subagent has its own expertise, dedicated prompt, and can even run on a different model. In chat, simply type `@SubagentName` and it joins in to help—just like tagging a colleague in a group chat.
+A subagent is a specialized "expert" that the main agent (Worker) can call on at any time during task execution. Each subagent has its own expertise, dedicated prompt, and can even run on a different model. In chat, simply type `@SubagentName` and it joins in to help—just like tagging a colleague in a group chat.
 
 ---
 
@@ -13,7 +13,7 @@ Verdent ships with 6 subagents out of the box, covering the most common needs in
 
 | Name | Default Model | What it's good at |
 |------|---------------|-------------------|
-| **General** | Follows main Agent | A general-purpose research agent for complex problems, code search, and multi-step tasks—can help with almost anything |
+| **General** | Follows main agent | A general-purpose research agent for complex problems, code search, and multi-step tasks—can help with almost anything |
 | **Fast Context** | Gemini 3 Flash | Quickly locating code and gathering contextual evidence; specializes in codebase indexing and is extremely fast |
 | **Verifier** | Sonnet 4.6 | Fast code review—after you make changes, tag it to catch obvious issues |
 | **Verdent Helper** | Haiku 4.5 | A Verdent usage assistant; ask it anything about how Verdent works |
@@ -103,16 +103,20 @@ All subagent management happens in **Settings → Subagents**.
 
 ## Use Cases
 
-**Code Review**
+### Code review
+
 After implementing complex logic, tag `@Reviewer`. It checks correctness, edge cases, and potential bugs—saving you from manual line-by-line inspection.
 
-**Multi-perspective Architecture Design**
+### Multi-perspective architecture design
+
 For major decisions (e.g. microservices adoption, database choice), use `@Multi-Model Planner` to get independent proposals from multiple top models and reduce decision risk.
 
-**Fast Validation**
+### Fast validation
+
 After code changes, `@Verifier` quickly checks syntax, types, and basic issues—faster than full test suites, more reliable than no checks at all.
 
-**Custom Domain Experts**
+### Custom domain experts
+
 Create subagents tailored to your project:
 
 - SQL optimization expert aware of your schema and query patterns

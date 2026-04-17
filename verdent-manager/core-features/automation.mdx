@@ -1,0 +1,118 @@
+---
+title: Automation
+description: "Schedule recurring tasks and let Manager run them for you automatically"
+---
+
+Manager can handle the repetitive work you do "every day" or "every week." You describe it once, and Manager will execute it automatically on your schedule—no need to remember or trigger it manually. This is Manager's **Automations** feature.
+
+## Open the Automations Panel
+
+In the Manager's top toolbar, click the **clock icon** (Automations). The right-side panel will switch to your scheduled task list, where you can view and manage all automations.
+
+---
+
+## Create a Scheduled Task
+
+Creating a scheduled task is straightforward—just describe what you want in natural language, and Manager will turn it into a concrete automation.
+
+<Steps>
+  <Step title="Start a new automation">
+    Open the Automations panel and click **Create** in the top-right corner, or type `/schedule` directly in the Manager chat.
+  </Step>
+  <Step title="Insert the schedule prompt">
+    A `/schedule` prompt will be inserted automatically.
+  </Step>
+  <Step title="Describe your task">
+    Describe what you want in natural language. For example:
+
+    ```
+    /schedule Every day at 9 AM, check all open PRs on GitHub and send me a summary
+    ```
+
+    ```
+    /schedule Every Monday morning, organize last week's new issues into a prioritized TODO list
+    ```
+
+    ```
+    /schedule Every day at 11 PM, summarize today's commits and what was completed
+    ```
+  </Step>
+  <Step title="Let Manager handle the rest">
+    After sending, Manager will interpret your request, create the corresponding cron job, and start running it on schedule.
+  </Step>
+</Steps>
+
+---
+
+## View Scheduled Tasks
+
+The Automations panel displays all tasks in a list. Each item includes:
+
+| Field | Description |
+|-------|-------------|
+| **Task name / description** | A summary of your request |
+| **Schedule** | A human-readable frequency (e.g., "Weekdays", "Weekly") |
+| **Next run** | The next scheduled execution time |
+| **Last status** | The result of the most recent run (Done / Failed / Missed) |
+
+### Status Definitions
+
+| Status | Meaning |
+|--------|---------|
+| **Done** | Successfully executed as scheduled |
+| **Failed** | Encountered an error during execution |
+| **Missed** | Did not run at the scheduled time |
+
+---
+
+## Manage Scheduled Tasks
+
+### Manually Run Missed Tasks
+
+If a task was missed (e.g., your computer was off), it will be marked as **Missed**. Click **Run** to execute it immediately—no need to wait for the next scheduled time.
+
+### Delete Tasks
+
+To remove an automation, click **Delete** next to the task and confirm. It will no longer run automatically.
+
+### Refresh Status
+
+After each execution cycle, the panel updates automatically with the latest status—no manual refresh needed.
+
+---
+
+## Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Daily Standup Prep" icon="sun">
+    Automatically compile yesterday's commits and today's issues into a ready-to-use standup summary.
+  </Card>
+  <Card title="Code Quality Checks" icon="shield-check">
+    Run linting and tests every Friday afternoon, generating a health report before the weekend.
+  </Card>
+  <Card title="Automated Reporting" icon="chart-line">
+    Connect to your database and generate key metrics reports on a schedule—no manual work required.
+  </Card>
+  <Card title="Project Sync" icon="arrows-rotate">
+    Weekly summaries of project progress can be automatically pushed to Notion or other documentation tools.
+  </Card>
+  <Card title="Monitoring & Alerts" icon="bell">
+    Periodically check APIs or services and notify you if something goes wrong.
+  </Card>
+</CardGroup>
+
+---
+
+## Notes
+
+<Note>
+  Scheduled tasks only run while the Verdent app is active. If the app is closed, tasks will be marked as **Missed** and can be triggered manually.
+</Note>
+
+<Tip>
+  Be specific with time descriptions (e.g., "9 AM" is better than "morning").
+</Tip>
+
+<Info>
+  No need to learn cron syntax—natural language is enough; Manager handles the conversion automatically.
+</Info>

@@ -1,0 +1,135 @@
+---
+title: Rule Systems
+description: Controlling Verdent's behavior through rule files
+---
+
+Rule files are Markdown documents that define how Verdent behaves during coding sessions. They guide the AI agent's behavior, output formatting, and adherence to project standards.
+
+### What You'll Learn
+
+- Understanding user rules and project rules
+- When to use each rule type
+- Writing effective rules
+
+---
+
+## Rule Types
+
+| Rule Type | File | Scope | Purpose |
+|-----------|------|-------|---------|
+| **User Rules** | VERDENT.md | Global (all projects) | Personal coding preferences |
+| **Project Rules** | AGENTS.md | Current project | Team conventions, project standards |
+
+**Location:** `~/.verdent/VERDENT.md` (User Rules) | `<project>/AGENTS.md` (Project Rules)
+
+---
+
+## User Rules (VERDENT.md)
+
+User Rules let you customize how Verdent behaves across all projects.
+
+**Access:** Settings → User Rules
+
+**Auto-save:** Changes auto-save after 500ms
+
+<Tabs>
+  <Tab title="Purpose">
+    - **Coding style preferences:** Indentation, naming conventions
+    - **Framework conventions:** React, Vue, language standards
+    - **Response formatting:** Verbosity, explanation style
+    - **Personal workflow preferences:** Tone, communication style
+  </Tab>
+  <Tab title="Example">
+    ```markdown
+    # User Rules
+
+    ## Code Style
+    - Always use TypeScript with strict mode
+    - Prefer functional components over class components
+    - Use Tailwind CSS for styling
+    - Follow the project's existing naming conventions
+
+    ## Communication
+    - Provide brief explanations
+    - Show code first, explain after
+    - Write concise commit messages in conventional format
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Project Rules (AGENTS.md)
+
+Project rules define standards specific to the current project. Commit to version control for team-wide sharing.
+
+**Access:** Project Settings panel
+
+**Location:** Project root (`<project>/AGENTS.md`)
+
+<Tabs>
+  <Tab title="Use Cases">
+    - **Team conventions:** Shared coding standards
+    - **Architecture:** Design patterns, state management
+    - **Testing:** Coverage requirements, frameworks
+    - **Workflows:** Build commands, PR guidelines
+  </Tab>
+  <Tab title="Example">
+    ```markdown
+    # AGENTS.md
+
+    ## Dev Environment
+    - Run `pnpm install` to set up
+    - Use `pnpm dev` for local development
+
+    ## Testing
+    - Run `pnpm test` before committing
+    - Minimum 80% coverage required
+
+    ## PR Guidelines
+    - Use conventional commit format
+    - Include tests for new features
+    ```
+  </Tab>
+</Tabs>
+
+<Tip>
+Share AGENTS.md with your team via version control to ensure consistent AI behavior across all team members.
+</Tip>
+
+---
+
+## Writing Effective Rules
+
+**Be Specific:**
+```markdown
+# Good
+- Use async/await for asynchronous operations
+- Include JSDoc comments for exported functions
+
+# Avoid
+- Try to use modern JavaScript features
+- Add comments when necessary
+```
+
+**Best Practices:**
+- Use clear, directive language ("Always...", "Never...", "Prefer...")
+- Group related rules under section headers
+- Keep rules concise (one concept per bullet)
+- Review and update rules as project evolves
+
+---
+
+## FAQs
+
+<Accordion title="How do I create rule files?">
+Navigate to Settings → User Rules to edit `VERDENT.md` for personal preferences. Create `AGENTS.md` in your project root for project-specific rules. Use plain Markdown with bullet points.
+</Accordion>
+
+<Accordion title="When do rule changes take effect?">
+Rule changes apply immediately in new conversations and influence current conversation responses.
+</Accordion>
+
+<Accordion title="Can I override rules temporarily?">
+You can provide specific instructions in your prompt to override rules for a single request.
+</Accordion>

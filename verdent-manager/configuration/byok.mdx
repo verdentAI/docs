@@ -5,7 +5,20 @@ description: Use your own provider API keys in Verdent Desktop and understand wh
 
 ## Overview
 
-BYOK lets you connect your own provider API keys and use those models directly inside Verdent.
+BYOK (Bring Your Own Key) lets you connect your own provider API keys and use those models directly inside Verdent's built-in agents.
+
+### BYOK vs BYOA
+
+Verdent offers two "bring your own" paths—don't confuse them:
+
+| | BYOK | BYOA |
+|---|---|---|
+| **What you bring** | A provider API key | An Agent runtime (Codex / Claude Code) |
+| **What runs your task** | Verdent's built-in agent, using the provider behind your key | The external CLI agent on your machine |
+| **Typical use case** | Access a model under your own billing, or use a provider not bundled by default | Keep your existing Codex / Claude Code workflow while letting Manager dispatch Worker tasks to it |
+| **Configure at** | Settings → Models → Configure Models | Settings → Models → CLI Agents |
+
+See [BYOA](/verdent-manager/configuration/byoa) for running Worker tasks on an external Agent runtime.
 
 ## Supported Providers
 
