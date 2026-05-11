@@ -1,0 +1,19 @@
+account-billing/model-pricing.mdx
+  s_72b873a14fe4e3::t_e8ecf08de580b6 43,48-49,51-52,55,64,67-69,72,75,94,97-98,100-101,107,109-110,131-132,139-140
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "9fcff6323298a4c0fc917ff17820778eaa469ddb",
+  "prompts": {},
+  "sessions": {
+    "s_72b873a14fe4e3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e165e-7bab-7a50-b4fa-edb59f4e512f",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Verdent <hi@verdent.ai>"
+    }
+  }
+}
