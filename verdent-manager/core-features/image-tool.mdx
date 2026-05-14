@@ -1,0 +1,99 @@
+---
+title: Image Tool
+description: "Align on visuals with AI before you build, then generate and save product images straight into your codebase"
+---
+
+The **Image Tool** lets you bring images into the loop of building a product. Use it to align on a design direction with the AI before any code is written, fan out multiple variations and pick the one that fits, then generate the final product images and assets your project needs. Every image is saved back into your repository under a sensible category, so visuals live next to the code that uses them.
+
+## What the Image Tool helps with
+
+- **Align on design before building.** Co-create reference mockups with the AI so you and your team agree on the visual direction *before* implementation begins.
+- **Generate multiple versions, then choose.** Ask for several variations of the same prompt and compare them side by side instead of committing to the first result.
+- **Produce product images and assets.** Once the direction is locked, turn the same conversation into a source of icons, hero images, illustrations, OG cards, and marketing visuals.
+- **Save into your codebase, organized.** Verdent files every generated image into your repo under a categorized folder, so long-term management stays clean.
+
+---
+
+## How to use it
+
+<Steps>
+  <Step title="Describe what you want">
+    In chat, tell Verdent what image you need — for example *"Draft three hero illustration options for the pricing page, flat style, blue/violet palette."* You can attach reference images, screenshots, or an existing logo for the AI to build on.
+  </Step>
+  <Step title="Generate variations and align">
+    Verdent returns multiple versions side by side. Compare composition, palette, and tone. Iterate by asking for tweaks — *"keep #2 but make the background lighter"* — until you and the team are aligned on a direction.
+  </Step>
+  <Step title="Lock the direction, generate assets">
+    Once you've picked a winner, reuse it as a reference to generate the full set of product images: app icons, banners, in-app illustrations, OG images, social creatives. Style stays consistent across the set.
+  </Step>
+  <Step title="Save into the codebase">
+    Confirm or override the save location. Verdent writes the image into your repo under a categorized folder so it ships with your code and stays version-controlled.
+  </Step>
+</Steps>
+
+<Tip>
+You don't need to open a separate panel. Just ask for an image in chat — Verdent routes the request through the Image Tool automatically.
+</Tip>
+
+---
+
+## Saving & organization
+
+The Image Tool saves generated images **directly into your project**, not into a black-box gallery. Verdent infers the category from your prompt and picks a destination folder, so assets are easy to find and manage over time.
+
+**Default layout**
+
+```
+your-project/
+└── assets/
+    └── images/
+        ├── drafts/          # Early alignment drafts and explorations
+        ├── icons/           # Product icons and glyphs
+        ├── illustrations/   # In-app illustrations and empty states
+        ├── marketing/       # Social, ads, OG images
+        └── references/      # Uploaded reference images
+```
+
+- **Auto-categorization.** Verdent infers the category from your prompt — e.g., *"app icon for…"* → `icons/`, *"landing hero…"* → `marketing/`.
+- **Per-generation override.** Specify a path explicitly — *"save to `public/og/`"* — and Verdent honors it.
+- **Version-controlled.** Saved images are regular files in your repo: commit, diff, and review them like any other asset.
+- **Re-openable.** Every saved image keeps the prompt and settings used to create it, so you can resume the same direction later.
+
+<Tip>
+Want a different default folder for a project? Tell Verdent once — *"save all images under `src/assets/img/` from now on"* — and it remembers for future generations.
+</Tip>
+
+---
+
+## Tips
+
+<Tip>
+**Align before you generate at scale.** A short round of 3–4 drafts up front prevents a lot of rework once you start producing the full asset set.
+</Tip>
+
+<Tip>
+**Reuse the winner as a reference.** Feeding the approved draft back in as a reference keeps every new asset visually consistent with it.
+</Tip>
+
+<Tip>
+**Be specific about size and use case.** *"1024×1024 app icon, transparent background, flat style"* produces far better results than *"an icon"*.
+</Tip>
+
+---
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/verdent-manager/getting-started/quick-start">
+    Add a project and try your first image prompt
+  </Card>
+  <Card title="Memory" icon="brain" href="/verdent-manager/core-features/manager#memory">
+    Teach Verdent your brand style so generated images stay on-brand
+  </Card>
+  <Card title="Skills" icon="sparkles" href="/verdent-manager/core-features/skills">
+    Extend the Image Tool with custom image workflows
+  </Card>
+  <Card title="Tool Integrations" icon="plug" href="/verdent-manager/core-features/integration">
+    Connect the rest of your stack to Verdent
+  </Card>
+</CardGroup>

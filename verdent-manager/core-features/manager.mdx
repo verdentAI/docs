@@ -1,127 +1,117 @@
 ---
 title: Manager
-description: "Organize projects, decompose goals into tasks, and run work in parallel with Manager"
+description: "Built for everyone — tell Manager what you want, and watch it deliver"
 ---
 
-Manager keeps everything in one place—projects, tasks, and progress—so nothing slips through the cracks. Give it a goal, and it turns it into clear steps, runs tasks in parallel, and keeps everything up to date. The more you use it, the better it adapts to how you work.
+Built for everyone, not just engineers. Manage products, workflows, and AI agents in one place with almost zero setup. You don't need a master plan to start or learn how to use AI coding. Just tell Verdent what's on your mind, and watch Verdent magically turn them into a working app.
 
-## Project & Task Management
+---
 
-Manager keeps your projects and tasks organized in one place, so work stays structured and nothing gets lost.
+## You don't have to manage the work
 
-The main interface provides a Kanban board that organizes all tasks across your projects by status:
-
-- **To Review** — Tasks that are completed and waiting for you to review the results
-- **In Progress** — Tasks currently being executed by agents
-- **Completed** — Tasks you've already reviewed
-
-Click any task card to view detailed execution steps and outputs in the right-hand panel.
-
-### Use cases
-
-- **Managing multiple projects** — Working on a frontend app, a backend API, and documentation at the same time? Add them all to Manager. Whenever you want to move something forward, just say it—Manager automatically links the request to the correct project.
-- **Tracking long-running tasks** — Assign a time-consuming task (like refactoring a module), then step away. When you come back, everything completed will be waiting in the **To Review** column.
-- **Parallel execution** — Manager can run multiple tasks at once. Assign Task A, then Task B—they'll run in parallel, and you can track progress in real time on the board.
-
-## Intelligent Task Decomposition
-
-You don't need to break things down yourself. Just describe the outcome you want, and Manager figures out the rest—planning phases, splitting tasks, coordinating multiple agents, and delivering a complete result.
-
-This is Manager's core capability: turning a single instruction into an executable plan.
-
-### How it works
-
-Task decomposition isn't triggered by a button—it happens automatically as Manager understands your goal:
+You don't need to sit in front of the computer, break down tasks, set priorities, or babysit progress. Hand the goal to Manager — it understands what you want, drives execution end to end, and delivers the result directly back to you.
 
 <Steps>
-  <Step title="Understand the goal">
-    Identify the desired outcome.
+  <Step title="Tell Manager the outcome">
+    Describe what you want in plain language. No structure, no ticket template, no prompt engineering.
   </Step>
-  <Step title="Plan the workflow">
-    Define clear stages (e.g., setup → core logic → UI → validation).
+  <Step title="Manager takes over">
+    It plans the work, breaks it down, dispatches agents, and runs everything in parallel.
   </Step>
-  <Step title="Break down tasks">
-    Convert stages into executable subtasks.
-  </Step>
-  <Step title="Dispatch workers">
-    Assign each task to a dedicated agent (Worker), running in parallel or sequence.
-  </Step>
-  <Step title="Track & integrate">
-    Monitor progress, adjust when needed, and combine results.
+  <Step title="You get the result">
+    Come back to a finished deliverable, send feedback, or ask for the next thing.
   </Step>
 </Steps>
 
-In the main interface, both parent tasks and subtasks are shown as independent cards. Relationships are handled automatically—you don't need to manage them manually.
+---
 
-### How to use
+## What Manager can do for you
 
-- **Just describe the outcome.** In the Manager chat, simply tell it what you want:
+<CardGroup cols={2}>
+  <Card title="Task decomposition" icon="diagram-project">
+    Turns a single sentence into a structured plan — stages, subtasks, dependencies, and acceptance criteria — without you lifting a finger.
+  </Card>
+  <Card title="Parallel execution" icon="layer-group">
+    Runs multiple agents at the same time across stages and projects, so a half-day plan finishes in a fraction of the time.
+  </Card>
+  <Card title="Remote trigger" icon="signal-stream">
+    Kick off work from anywhere. Manager doesn't need your laptop in front of you to start, continue, or finish a task.
+  </Card>
+  <Card title="Result delivery" icon="inbox-full">
+    Finished work lands with the full plan, outputs, files, and a clear summary of what changed.
+  </Card>
+  <Card title="Reply in context" icon="reply">
+    When Manager needs a decision, it asks inline. You answer in a thread without stopping the run — and the conversation stays attached to that task.
+  </Card>
+  <Card title="Trigger from Slack & Telegram" icon="comments">
+    Connect Slack, Telegram, Feishu, or Discord. Send a message from your phone, and Manager picks it up, runs it, and replies where you asked.
+  </Card>
+  <Card title="Long-term memory" icon="brain">
+    Manager remembers your projects, stack choices, conventions, and past decisions — so the next task starts from what it already knows about you.
+  </Card>
+</CardGroup>
 
-  > "Create a playable Snake game with scoring and restart functionality."
+---
 
-  Manager will automatically choose the right tech stack, plan the project structure, break it into phases (setup, logic, rendering, interaction, validation), and run multiple workers in parallel.
+### Task decomposition
 
-- **Reference a specific project.** If a task should run in a specific project, mention it with `@project-name`. Manager will link all subtasks to the correct directory.
+You describe the outcome; Manager figures out the steps. It identifies the goal, defines the stages (e.g. setup → core logic → UI → validation), splits each stage into executable subtasks, and decides which can run in parallel. You never need to plan, prioritize, or write a spec.
 
-- **View task breakdown.** After assigning a task, switch to the Kanban view:
-  - The main task appears as a large card with overall status
-  - Subtasks (Worker tasks) appear as individual cards in their respective columns
-  - Parent-child relationships are handled automatically, so the board stays clean
+### Parallel execution
 
-  You can also open the **Projects** panel (top right) to view all subtasks under a specific project.
+Manager dispatches a dedicated worker per subtask and runs as many as possible at once. A multi-step build that would take a single agent hours often completes in minutes. Progress shows up live on the Kanban and in Pulse so you can watch — or just walk away.
 
-### Example scenarios
+### Remote trigger
 
-- **Building a feature** — "Add user authentication to this API, including registration, login, and JWT verification." → Manager splits it into: database schema → registration → login → middleware → testing.
-- **Large refactoring** — "Migrate this module from JavaScript to TypeScript and ensure all tests pass." → Manager analyzes files, splits migration tasks, and validates everything at the end.
-- **Multi-phase delivery** — Describe a full project → Manager handles architecture, execution, and iteration, adjusting based on your feedback.
+Manager keeps running whether you're watching or not. Start a task before bed, get coffee, hop on a flight — when you come back, completed work is waiting and anything that needed your input is queued up as a reply request.
 
-### Tips
+### Result delivery
 
-- **Be outcome-focused.** Define what should be delivered, not just what to do.
-- **Add acceptance criteria.** For example, "game runs correctly and collision detection works."
-- **Don't overthink steps.** Manager handles planning for you.
-- **Intervene anytime.** If something looks off, just say it—Manager will adjust.
+Every task ends with a clear handoff: the finished output, the files it touched, a summary of decisions, and a one-click path to the diffs or running app. Finished tasks gather in **To Review** so nothing slips past you.
 
-## Memory
+### Reply
 
-Manager includes a **Memory Import** feature that analyzes your past conversations and extracts structured insights about how you work—your preferences, habits, and patterns.
+When Manager hits a fork — a missing detail, a design choice, a permission — it asks you inline and keeps the rest of the work moving. Pending questions surface in a banner so you can clear them in one pass, and your reply is attached to the exact task that asked.
 
-This allows Manager to improve over time instead of starting from scratch every time.
+### Slack / Telegram message triggers
 
-### Why it matters
+Connect your messengers once and Manager treats them as inboxes:
 
-Every builder has preferences—frameworks, coding style, problem-solving approaches. These are scattered across past interactions. Memory Import consolidates them into usable knowledge so Manager becomes increasingly aligned with you.
+- Slack, Telegram, Feishu, Discord — pair with the built-in guided setup
+- A message from any connected channel becomes a tracked task
+- Replies and final results route back to the same channel and thread
 
-### How to start
+You can run an entire project from your phone without opening the app.
 
-Memory Import appears during your first use of Manager, or you can trigger it anytime.
+### Long-term memory
 
-Configure the import range to choose how much history to include:
+Manager learns from past conversations. Import the last 7 days to 6 months of history, and Manager keeps your preferences — frameworks, naming, architecture decisions, ways of working — in mind for every new task. The more you use it, the less you have to re-explain.
 
-- Last 7 days
-- Last 1 month
-- Last 3 months
-- Last 6 months
+---
 
-More data means better context, but longer processing time.
+## Tips to get the most out of Manager
 
-### After generation
+- **State the outcome, not the steps.** "Ship a working signup flow with email + Google" beats a checklist.
+- **Add acceptance criteria.** "Restart works on R key" is more useful than "make it good."
+- **Use `@project-name`** to drop work into a specific project; skip it to let Manager create a fresh one.
+- **Interrupt anytime.** "Actually, use TypeScript" mid-run is fine — Manager re-plans.
+- **Schedule the things you'll want again.** Ask Manager to put a task on repeat and it shows up in Automations.
 
-- Memory files are stored locally (path shown in the panel)
-- Manager automatically uses them as context for future tasks
-- Memory continues to evolve as you keep working
-- **Pause & resume** — You can pause anytime. If interrupted, click **Continue** to resume from where it left off.
-- **Delete memory** — Click **Delete Memory** to remove all stored memory and regenerate from scratch if needed.
+---
 
-### Use cases
+## Where to go next
 
-- **Starting a similar project** — If you've built React apps before, Manager may automatically choose your preferred stack (e.g., TypeScript + Vite + Tailwind).
-- **Resuming old work** — After weeks away, Manager remembers architecture decisions, TODOs, and preferences—so you can pick up where you left off.
-- **Consistent coding style** — Manager learns your style (naming, patterns, etc.) and maintains consistency across tasks.
-
-<Note>
-  - Memory Import requires a Verdent account.
-  - Memory is stored locally and never uploaded.
-  - You can regenerate or delete memory anytime without affecting chat history.
-</Note>
+<CardGroup cols={2}>
+  <Card title="Project & Task Management" icon="table-columns" href="/verdent-manager/core-features/project-task-management">
+    The Kanban, project list, and how parallel work stays organized.
+  </Card>
+  <Card title="Pulse" icon="chart-mixed" href="/verdent-manager/core-features/pulse">
+    The live dashboard for every running task.
+  </Card>
+  <Card title="Automations" icon="clock" href="/verdent-manager/core-features/automation">
+    Recurring and scheduled tasks in natural language.
+  </Card>
+  <Card title="Instant Messaging" icon="comments" href="/verdent-manager/core-features/instant-messaging">
+    Trigger Manager from Slack, Telegram, Feishu, and Discord.
+  </Card>
+</CardGroup>
