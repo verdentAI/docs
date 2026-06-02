@@ -1,0 +1,28 @@
+---
+title: Unpublish and Cancel Publishing
+description: Stop an in-progress publish or unpublish a live app.
+---
+
+Verdent Cloud supports two different stop actions:
+
+<CardGroup cols={2}>
+  <Card title="Cancel publishing">
+    Stop an active publish version while it is still building, scanning, bundling, or promoting.
+  </Card>
+  <Card title="Unpublish a live app">
+    Remove a live deployment from public access from the deployment management panel.
+  </Card>
+</CardGroup>
+
+## Unpublish a live app
+
+Open the deployment management panel for the app. If the deployment is live, the panel shows an `Unpublish` action.
+
+## Republish later
+
+<Warning>
+  To change the URL prefix or slug after an app is published, unpublish the live app first, then update the slug. You cannot change the slug while the app is live.
+</Warning>
+
+After changes, publish again from the same project. The deploy store refreshes deployment state and versions after publish/unpublish actions.
+

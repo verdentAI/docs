@@ -1,0 +1,26 @@
+---
+title: Parallel Work and Multitasking
+description: Run multiple Cloud tasks and iterate without waiting on a single thread.
+---
+
+Verdent Cloud supports a multitasking workflow: you can start separate tasks for different goals and let them progress independently in the same Cloud project context.
+
+<CardGroup cols={2}>
+  <Card title="Parallel execution">
+    Start more than one task when you want alternative implementations or independent fixes.
+  </Card>
+  <Card title="Multitasking">
+    Keep publishing, debugging, refactoring, and content changes in separate task threads.
+  </Card>
+</CardGroup>
+
+## When to use parallel work
+
+- Compare two approaches to a UI change.
+- Ask one task to debug while another improves copy or layout.
+- Keep a risky refactor separate from a safe publish fix.
+- Explore an idea without interrupting the main app build.
+
+<Note>
+  In Cloud, parallel work runs in Cloud workspaces and task sessions. It is not local machine worktree management.
+</Note>

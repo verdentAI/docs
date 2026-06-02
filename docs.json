@@ -11,7 +11,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Verdent",
+        "tab": "Verdent Desktop",
         "groups": [
           {
             "group": "Getting Started",
@@ -68,6 +68,95 @@
               "verdent-manager/reference/version-history",
               "verdent-manager/reference/security-compliance",
               "verdent-manager/reference/support-resources"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Verdent Cloud",
+        "groups": [
+          {
+            "group": "Start Here",
+            "pages": [
+              "verdent-cloud/getting-started/overview"
+            ]
+          },
+          {
+            "group": "Create",
+            "pages": [
+              "verdent-cloud/create/generate-project",
+              "verdent-cloud/create/template",
+              "verdent-cloud/create/taste-mode"
+            ]
+          },
+          {
+            "group": "Edit & Preview",
+            "pages": [
+              "verdent-cloud/edit/customize-with-ai",
+              "verdent-cloud/edit/live-preview"
+            ]
+          },
+          {
+            "group": "Publish & Share",
+            "pages": [
+              "verdent-cloud/publish/go-live",
+              "verdent-cloud/publish/unpublish",
+              "verdent-cloud/publish/share"
+            ]
+          },
+          {
+            "group": "Analytics & Logs",
+            "pages": [
+              "verdent-cloud/insights/analytics",
+              "verdent-cloud/insights/logs"
+            ]
+          },
+          {
+            "group": "Iterate & Manage",
+            "pages": [
+              "verdent-cloud/manage/iterate",
+              "verdent-cloud/manage/my-creations"
+            ]
+          },
+          {
+            "group": "Workspace and Tasks",
+            "pages": [
+              "verdent-cloud/workspace-and-tasks/overview",
+              "verdent-cloud/workspace-and-tasks/projects-and-workspaces",
+              "verdent-cloud/workspace-and-tasks/managing-tasks",
+              "verdent-cloud/workspace-and-tasks/parallel-work",
+              "verdent-cloud/workspace-and-tasks/differences-from-desktop"
+            ]
+          },
+          {
+            "group": "Coding Workflows",
+            "pages": [
+              "verdent-cloud/coding-workflows/plan-mode",
+              "verdent-cloud/coding-workflows/code-review",
+              "verdent-cloud/coding-workflows/context-awareness",
+              "verdent-cloud/coding-workflows/debugging",
+              "verdent-cloud/coding-workflows/refactoring",
+              "verdent-cloud/coding-workflows/version-control",
+              "verdent-cloud/coding-workflows/terminal-and-tools"
+            ]
+          },
+          {
+            "group": "Configure and Extend",
+            "pages": [
+              "verdent-cloud/configure-and-extend/settings",
+              "verdent-cloud/configure-and-extend/plan-workflows",
+              "verdent-cloud/configure-and-extend/configuration-optimization",
+              "verdent-cloud/configure-and-extend/rules",
+              "verdent-cloud/configure-and-extend/mcp-integrations",
+              "verdent-cloud/channels/overview",
+              "verdent-cloud/configure-and-extend/integrations",
+              "verdent-cloud/configure-and-extend/automations"
+            ]
+          },
+          {
+            "group": "Platform Overview",
+            "pages": [
+              "verdent-cloud/platform/non-core-features"
             ]
           }
         ]
@@ -383,21 +472,21 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/verdent",
-      "github": "https://github.com/verdent",
-      "linkedin": "https://linkedin.com/company/verdent"
+      "x": "https://x.com/verdent_ai",
+      "linkedin": "https://www.linkedin.com/company/verdent-ai/posts/",
+      "reddit": "https://www.reddit.com/r/Verdent/"
     }
   },
   "redirects": [

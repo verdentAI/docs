@@ -1,0 +1,81 @@
+---
+title: Configuration Optimization
+description: Tune Cloud settings, planning, rules, and integrations for efficient project work.
+---
+
+Use configuration optimization to keep Cloud work fast, predictable, and cost-aware. Start with durable preferences, then add planning, rules, subagents, and integrations only where they improve the task.
+
+<Tip>
+  Keep temporary instructions in the task prompt. Move only repeated expectations into settings or rules.
+</Tip>
+
+## Choose durable preferences carefully
+
+Use [Settings and Preferences](/verdent-cloud/configure-and-extend/settings) for project or workspace preferences that should apply across tasks. Good candidates include stable workflow expectations, validation preferences, and project-level behavior.
+
+Avoid turning one-off requests into permanent configuration. Short-lived instructions are easier to change when they stay in the current task.
+
+<CardGroup cols={2}>
+  <Card title="Use settings for repeated behavior">
+    Configure preferences that should guide many Cloud tasks in the same project or workspace.
+  </Card>
+  <Card title="Use prompts for temporary direction">
+    Put experiment-specific instructions, one-off copy direction, or narrow implementation requests in the task.
+  </Card>
+</CardGroup>
+
+## Match planning depth to task risk
+
+Use [Plan Workflows and Tuning](/verdent-cloud/configure-and-extend/plan-workflows) when the work needs structure before editing. Planning is most helpful for refactors, publish fixes, cross-file changes, unclear requirements, or tasks where validation matters.
+
+For small UI or copy changes, direct execution is usually faster. Ask Verdent to make the change and validate the result instead of spending time on a detailed plan.
+
+| Cloud task | Suggested approach | Why |
+| --- | --- | --- |
+| Small copy or UI adjustment | Direct execution | The scope is clear and easy to verify |
+| Refactor or cross-file update | Plan first | The plan exposes affected areas before edits begin |
+| Publish or production-facing fix | Plan, then validate | The risk is higher and the result should be checked |
+| Unclear request | Clarify or plan | A short plan reduces rework |
+
+## Control credit usage
+
+Verdent Cloud shares the same credits and billing system as Verdent Deck. Use the guidance in [Settings and Preferences](/verdent-cloud/configure-and-extend/settings) and [Plan Workflows and Tuning](/verdent-cloud/configure-and-extend/plan-workflows) to keep routine work efficient.
+
+Use Eco Mode when it is available for routine tasks that do not require the highest-cost model choice. Reserve higher-cost model choices for complex reasoning, production-critical changes, or work where extra analysis is worth the credits.
+
+<Note>
+  Cloud does not have a separate Cloud-only credit pool or subscription. Credits are shared across Verdent products.
+</Note>
+
+## Use rules and subagents for repeatable quality
+
+Use [Rules and Subagents](/verdent-cloud/configure-and-extend/rules) when Verdent should repeatedly follow project-specific expectations. Rules are useful for coding style, architecture constraints, testing expectations, and product language.
+
+Subagents are best when a task benefits from focused help, such as research, review, or a narrow implementation path. Keep rules concise so they are easier for Cloud Agents to apply consistently.
+
+<Tip>
+  If an instruction only applies to the current task, put it in the prompt. If it should guide future work in the project, make it a rule.
+</Tip>
+
+## Add integrations only when they support the workflow
+
+Use [MCP and Integrations](/verdent-cloud/configure-and-extend/mcp-integrations) when Cloud needs authorized access to external tools or services during tasks. Use [Automations](/verdent-cloud/configure-and-extend/automations) for recurring work such as reports, checks, reviews, and maintenance.
+
+Keep Cloud integrations workspace-oriented. Local Desktop configuration paths should not be treated as the primary setup path for Cloud work.
+
+## See also
+
+<CardGroup cols={2}>
+  <Card title="Settings and Preferences" icon="gear" href="/verdent-cloud/configure-and-extend/settings">
+    Configure project and Cloud workspace preferences.
+  </Card>
+  <Card title="Plan Workflows and Tuning" icon="diagram-project" href="/verdent-cloud/configure-and-extend/plan-workflows">
+    Decide when to plan, validate, and iterate.
+  </Card>
+  <Card title="Rules and Subagents" icon="list-check" href="/verdent-cloud/configure-and-extend/rules">
+    Add durable guidance and focused helper agents.
+  </Card>
+  <Card title="MCP and Integrations" icon="plug" href="/verdent-cloud/configure-and-extend/mcp-integrations">
+    Connect authorized external tools and Cloud integrations.
+  </Card>
+</CardGroup>
