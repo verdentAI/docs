@@ -26,7 +26,7 @@
             "group": "Core Features",
             "pages": [
               "verdent-manager/core-features/manager",
-              "verdent-manager/core-features/taste-mode",
+              "verdent-manager/core-features/design-mode",
               "verdent-manager/core-features/image-tool",
               "verdent-manager/core-features/instant-messaging",
               "verdent-manager/core-features/automation",
@@ -87,7 +87,7 @@
             "pages": [
               "verdent-cloud/create/generate-project",
               "verdent-cloud/create/template",
-              "verdent-cloud/create/taste-mode"
+              "verdent-cloud/create/design-mode"
             ]
           },
           {
@@ -491,6 +491,14 @@
     }
   },
   "redirects": [
+    {
+      "source": "/verdent-manager/core-features/taste-mode",
+      "destination": "/verdent-manager/core-features/design-mode"
+    },
+    {
+      "source": "/verdent-cloud/create/taste-mode",
+      "destination": "/verdent-cloud/create/design-mode"
+    },
     {
       "source": "/",
       "destination": "/verdent-manager/getting-started/overview"
