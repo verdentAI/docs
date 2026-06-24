@@ -9,9 +9,9 @@ This page applies to both Verdent Desktop and Verdent for VS Code.
 
 ## Overview
 
-Verdent integrates state-of-the-art large language models from the world's leading AI labs, including Anthropic (Claude), OpenAI (GPT), Google (Gemini), Moonshot (Kimi), Zhipu AI (GLM), and MiniMax. To help users understand the cost behind every AI interaction, we fully disclose the provider pricing for all available models in this document.
+Verdent integrates state-of-the-art large language models from the world's leading AI labs, including Anthropic (Claude), OpenAI (GPT), Google (Gemini), Moonshot (Kimi), MiniMax, Qwen, and Z.AI (GLM). To help users understand the cost behind every AI interaction, we disclose provider token pricing for Verdent's current built-in model lineup in this document.
 
-All prices listed are the official published prices from each model provider, denominated in US dollars (\$) per one million tokens (1M tokens).
+All prices listed are provider-side published prices in US dollars (\$) per one million tokens (1M tokens). The lineup below follows the currently enabled models from Verdent's model configuration.
 
 ## Key Concepts
 
@@ -40,13 +40,17 @@ Below are the provider prices for all models currently available on Verdent, org
 
 | **Model** | **Input (\$/1M)** | **Output (\$/1M)** | **Cache Write (\$/1M)** | **Cache Read (\$/1M)** |
 | --- | --- | --- | --- | --- |
+| Claude Opus 4.8 | \$5.00 | \$25.00 | \$6.25 | \$0.50 |
 | Claude Opus 4.7 | \$5.00 | \$25.00 | \$6.25 | \$0.50 |
 | Claude Opus 4.6 | \$5.00 | \$25.00 | \$6.25 | \$0.50 |
 | Claude Sonnet 4.6 | \$3.00 | \$15.00 | \$3.75 | \$0.30 |
 | Claude Haiku 4.5 | \$1.00 | \$5.00 | \$1.25 | \$0.10 |
 
+**Claude Opus 4.8** (claude-opus-4-8)
+Latest Opus model available on Verdent. It is designed for complex coding, agentic tasks, enterprise workflows, and deep multi-step reasoning.
+
 **Claude Opus 4.7** (claude-opus-4-7)
-The latest Opus model available on Verdent. It is designed for the most demanding reasoning, architecture, and deep analysis work, with the same provider pricing structure as Opus 4.6.
+High-capability Opus model for long-running agents, multi-step coding tasks, and complex knowledge work.
 
 **Claude Opus 4.6** (claude-opus-4-6)
 Flagship-tier Opus model for complex code architecture, deep analysis, and difficult problem-solving tasks.
@@ -55,15 +59,16 @@ Flagship-tier Opus model for complex code architecture, deep analysis, and diffi
 Balanced model with strong performance and competitive pricing; recommended for everyday development.
 
 **Claude Haiku 4.5** (claude-haiku-4-5@20251001)
-Fast and lightweight model with the quickest response times. Best for simple conversations, quick lookups, and low-latency scenarios.
+Fast and lightweight model with low latency. Best for simple conversations, quick lookups, and cost-sensitive tasks.
 
 ### OpenAI (GPT Series)
 
 | **Model** | **Input (\$/1M)** | **Output (\$/1M)** | **Cache Write (\$/1M)** | **Cache Read (\$/1M)** |
 | --- | --- | --- | --- | --- |
-| GPT-5.5 | \$5.00 | \$30.00 | Free | \$0.50 |
-| GPT-5.4 | \$2.50 | \$15.00 | Free | \$0.25 |
-| GPT-5.3 Codex | \$1.75 | \$14.00 | Free | \$0.17 |
+| GPT-5.5 | \$5.00 | \$30.00 | - | \$0.50 |
+| GPT-5.4 | \$2.50 | \$15.00 | - | \$0.25 |
+| GPT-5.3 Codex | \$1.75 | \$14.00 | - | \$0.175 |
+| GPT-5.4 mini | \$0.75 | \$4.50 | - | \$0.075 |
 
 **GPT-5.5** (gpt-5.5)
 The latest GPT model available on Verdent, suited to frontier reasoning, code generation, and multi-step analysis workloads.
@@ -74,12 +79,19 @@ Flagship GPT model with strong reasoning and code generation quality.
 **GPT-5.3 Codex** (gpt-5.3-codex)
 Code-specialized model optimized for programming tasks, including large-scale code generation and refactoring.
 
+**GPT-5.4 mini** (gpt-5.4-mini)
+Efficient GPT model for high-volume workloads, subagents, and cost-sensitive coding tasks.
+
 ### Google (Gemini Series)
 
 | **Model** | **Input (\$/1M)** | **Output (\$/1M)** | **Cache Write (\$/1M)** | **Cache Read (\$/1M)** |
 | --- | --- | --- | --- | --- |
+| Gemini 3.5 Flash | \$1.50 | \$9.00 | - | \$0.15 |
 | Gemini 3.1 Pro | \$2.00 | \$12.00 | - | \$0.20 |
 | Gemini 3 Flash | \$0.50 | \$3.00 | - | \$0.050 |
+
+**Gemini 3.5 Flash** (gemini-3.5-flash)
+Fast frontier Gemini model for agentic execution, coding, and long-horizon tasks at scale.
 
 **Gemini 3.1 Pro** (gemini-3.1-pro-preview)
 Professional-grade model with strong reasoning, suitable for complex analysis and deep thinking tasks.
@@ -91,54 +103,57 @@ Ultra-fast model with excellent cost efficiency. Ideal for high-volume batch pro
 
 | **Model** | **Input (\$/1M)** | **Output (\$/1M)** | **Cache Write (\$/1M)** | **Cache Read (\$/1M)** |
 | --- | --- | --- | --- | --- |
-| Kimi K2.6 | \$0.95 | \$4.00 | - | \$0.16 |
-| Kimi K2.5 | \$0.60 | \$3.00 | - | \$0.10 |
+| Kimi K2.7 Code | \$0.95 | \$4.00 | - | \$0.19 |
 
-**Kimi K2.6** (kimi-k2.6)
-The latest Kimi model available on Verdent, with stronger reasoning and bilingual coding performance than the previous K2.5 generation.
-
-**Kimi K2.5** (kimi-k2.5)
-Efficient Kimi model with strong bilingual capabilities and competitive pricing for everyday development tasks.
-
-### Zhipu AI (GLM Series)
-
-| **Model** | **Input (\$/1M)** | **Output (\$/1M)** | **Cache Write (\$/1M)** | **Cache Read (\$/1M)** |
-| --- | --- | --- | --- | --- |
-| GLM-5.1 | \$1.40 | \$4.40 | - | \$0.26 |
-
-**GLM-5.1** (glm-5.1)
-The latest GLM model available on Verdent, with upgraded general-purpose reasoning and strong Chinese-language performance.
+**Kimi K2.7 Code** (kimi-k2.7-code)
+Moonshot's current coding-focused Kimi model, built for long-context programming tasks and agentic code workflows.
 
 ### MiniMax
 
 | **Model** | **Input (\$/1M)** | **Output (\$/1M)** | **Cache Write (\$/1M)** | **Cache Read (\$/1M)** |
 | --- | --- | --- | --- | --- |
-| MiniMax M2.7 | \$0.30 | \$1.20 | \$0.38 | \$0.060 |
-| MiniMax M2.5 | \$0.30 | \$1.20 | \$0.38 | \$0.030 |
+| MiniMax M3 | \$0.60 | \$2.40 | \$0.00 | \$0.12 |
 
-**MiniMax M2.7** (MiniMax-M2.7)
-Latest version with comprehensive performance improvements, maintaining highly competitive pricing.
+**MiniMax M3** (MiniMax-M3)
+Cost-efficient long-context model for reliable multi-skill agent workflows, engineering tasks, and office automation.
 
-**MiniMax M2.5** (MiniMax-M2.5)
-High cost-efficiency model, ideal for cost-sensitive, high-volume processing scenarios.
+### Qwen
+
+| **Model** | **Input (\$/1M)** | **Output (\$/1M)** | **Cache Write (\$/1M)** | **Cache Read (\$/1M)** |
+| --- | --- | --- | --- | --- |
+| Qwen3.7-Plus | \$0.1794 | \$0.7157 | \$0.00 | \$0.0364 |
+
+**Qwen3.7-Plus** (qwen3.7-plus)
+Cost-effective multimodal model for text, image, and video inputs, with strong agentic and vision-language capabilities.
+
+### Z.AI (GLM Series)
+
+| **Model** | **Input (\$/1M)** | **Output (\$/1M)** | **Cache Write (\$/1M)** | **Cache Read (\$/1M)** |
+| --- | --- | --- | --- | --- |
+| GLM-5.2 | \$1.40 | \$4.40 | - | \$0.26 |
+
+**GLM-5.2** (glm-5.2)
+Long-context engineering model for project-scale code understanding, stable long-task execution, and standards-aware implementation work.
 
 ## Pricing Overview
 
-The table below summarizes the core pricing for all models, sorted by output price descending for easy comparison:
+The table below summarizes the core pricing for all currently enabled models, sorted by output price descending for easy comparison:
 
 | **Model** | **Provider** | **Input (\$/1M)** | **Output (\$/1M)** | **Cache Write (\$/1M)** | **Cache Read (\$/1M)** |
 | --- | --- | --- | --- | --- | --- |
 | GPT-5.5 | OpenAI | \$5.00 | \$30.00 | - | \$0.50 |
+| Opus 4.8 | Anthropic | \$5.00 | \$25.00 | \$6.25 | \$0.50 |
 | Opus 4.7 | Anthropic | \$5.00 | \$25.00 | \$6.25 | \$0.50 |
 | Opus 4.6 | Anthropic | \$5.00 | \$25.00 | \$6.25 | \$0.50 |
 | GPT-5.4 | OpenAI | \$2.50 | \$15.00 | - | \$0.25 |
 | Sonnet 4.6 | Anthropic | \$3.00 | \$15.00 | \$3.75 | \$0.30 |
-| GPT-5.3-Codex | OpenAI | \$1.75 | \$14.00 | - | \$0.17 |
+| GPT-5.3-Codex | OpenAI | \$1.75 | \$14.00 | - | \$0.175 |
 | Gemini 3.1 Pro | Google | \$2.00 | \$12.00 | - | \$0.20 |
+| Gemini 3.5 Flash | Google | \$1.50 | \$9.00 | - | \$0.15 |
 | Haiku 4.5 | Anthropic | \$1.00 | \$5.00 | \$1.25 | \$0.10 |
-| GLM-5.1 | Zhipu AI | \$1.40 | \$4.40 | - | \$0.26 |
-| Kimi K2.6 | Moonshot | \$0.95 | \$4.00 | - | \$0.16 |
+| GPT-5.4 mini | OpenAI | \$0.75 | \$4.50 | - | \$0.075 |
+| GLM-5.2 | Z.AI | \$1.40 | \$4.40 | - | \$0.26 |
+| Kimi K2.7 Code | Moonshot | \$0.95 | \$4.00 | - | \$0.19 |
 | Gemini 3 Flash | Google | \$0.50 | \$3.00 | - | \$0.050 |
-| Kimi K2.5 | Moonshot | \$0.60 | \$3.00 | - | \$0.10 |
-| MiniMax M2.5 | MiniMax | \$0.30 | \$1.20 | \$0.38 | \$0.030 |
-| MiniMax M2.7 | MiniMax | \$0.30 | \$1.20 | \$0.38 | \$0.060 |
+| MiniMax M3 | MiniMax | \$0.60 | \$2.40 | \$0.00 | \$0.12 |
+| Qwen3.7-Plus | Qwen | \$0.1794 | \$0.7157 | \$0.00 | \$0.0364 |
